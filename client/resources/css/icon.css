@@ -1,0 +1,132 @@
+
+/*Icon made by [https://www.flaticon.com/authors/chanut] from www.flaticon.com */
+.icon-user {
+    -webkit-mask-image: url('../icons/user.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/*Icon made by [https://www.flaticon.com/authors/google] from www.flaticon.com */
+.icon-down-arrow {
+    -webkit-mask-image: url('../icons/down-chevron.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/*Icon made by [https://www.flaticon.com/authors/freepik] from www.flaticon.com */
+.icon-home {
+    -webkit-mask-image: url('../icons/home.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/*Icon made by [https://www.flaticon.com/authors/freepik] from www.flaticon.com */
+.icon-license-plate {
+    -webkit-mask-image: url('../icons/license-plate.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+
+.icon-car {
+    -webkit-mask-image: url('../icons/car.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/*Icon made by [https://www.flaticon.com/authors/freepik] from www.flaticon.com */
+.icon-car-motor {
+    -webkit-mask-image: url('../icons/technics.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/*Icon made by [https://www.flaticon.com/authors/freepik] from www.flaticon.com */
+.icon-car-part {
+    -webkit-mask-image: url('../icons/car-parts.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+.icon-customer-card {
+    -webkit-mask-image: url('../icons/id-card.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+/* Icon Size */
+
+.icon-size-1 {
+    width: 70px;
+    height: 70px;
+}
+
+.icon-size-2 {
+    width: 60px;
+    height: 60px;
+}
+
+.icon-size-3 {
+    width: 50px;
+    height: 50px;
+}
+
+.icon-size-4 {
+    width: 40px;
+    height: 40px;
+}
+
+.icon-size-5 {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-size-6 {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-size-7 {
+    width: 10px;
+    height: 10px;
+}

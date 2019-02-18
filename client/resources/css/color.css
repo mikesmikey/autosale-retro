@@ -1,0 +1,50 @@
+.is-oros {
+    background-color: #09bcaa !important;
+    color: white !important;
+}
+
+.is-oros.button {
+    border-color: white !important;
+}
+
+.is-oros.button:hover {
+    background-color: white !important;
+    color: #09bcaa !important;
+    border-color: #09bcaa !important;
+}
+
+.is-yentafo {
+    background-color: #c92d39 !important;
+    color: white !important;
+}
+
+.is-yentafo.button {
+    border-color: white !important;
+}
+
+.is-yentafo.button:hover {
+    background-color: white !important;
+    color: #c92d39 !important;
+    border-color: #c92d39 !important;
+}
+
+.is-orange {
+    background-color: #ef8d22 !important;
+    color: white !important;
+}
+
+.is-orange.button {
+    border-color: white !important;
+}
+
+.is-orange.button:hover {
+    background-color: white !important;
+    color: #ef8d22 !important;
+    border-color: #ef8d22 !important;
+}
+
+.is-black-oros {
+    background-color: #05897c !important;
+    color: white !important;
+}
+

@@ -1,0 +1,16 @@
+/*===========[Subcontent Area]============*/
+
+.subcontent-area {
+    padding: 5.25rem 2rem 2rem 14.5rem;
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/*===========[Index]============*/
+
+.index {
+    width: 50%;
+}

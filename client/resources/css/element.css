@@ -1,0 +1,108 @@
+/*===============[box]===================*/
+
+.box {
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+
+    box-sizing: border-box;
+}
+
+.box.with-title {
+    padding: 0;
+}
+
+.box.is-round {
+    border-radius: 5px;
+}
+
+.box .box-title {
+    border-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 15px;
+
+    background-color: white;
+
+    font-size: 2rem;
+}
+
+.box .box-content {
+    padding: 20px;
+}
+
+/*===============[button]===================*/
+
+.button {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: .5rem;
+    margin: .3rem;
+    overflow: hidden;
+    cursor: pointer;
+
+    border: 1px solid gray;
+    background-color: white;
+    
+    font: 400 16px Arial;
+    text-align: center;
+    text-overflow: ellipsis;
+
+    width: 100px;
+}
+
+.button:hover {
+    background-color: #d8d8d8;
+}
+
+.button.is-round {
+    border-radius: 5px;
+}
+
+.button.is-1 {
+    padding: 1rem;
+    font: 400 20px Arial;
+}
+
+.button.is-2 {
+    padding: .7rem;
+    font: 400 18px Arial;
+}
+
+.button.is-3 {
+    padding: .5rem;
+    font: 400 16px Arial;
+}
+
+.button.is-free-size {
+    width: auto;
+}
+
+.button.is-full-width {
+    width: 100%;
+}
+
+/*===============[label]===================*/
+
+.label {
+    color: currentColor;
+    font-size: 16px;
+}
+
+.label.is-1 {
+    font-size: 24px;
+}
+
+.label.is-2 {
+    font-size: 20px;
+}
+
+.label.is-3 {
+    font-size: 16px;
+}
+
+.label.is-4 {
+    font-size: 14px;
+}
+
+/*===============[select]===================*/
