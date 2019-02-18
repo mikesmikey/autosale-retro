@@ -6,7 +6,7 @@
 }
 
 
-/*===============[space diviner]===================*/
+/*===============[column]===================*/
 
 .columns {
     display: flex;
@@ -55,4 +55,10 @@
 .column.is-8 {
     flex: none;
     width: 100%;
+}
+
+/*===============[text helper]===================*/
+
+.text-center {
+    text-align: center;
 }
