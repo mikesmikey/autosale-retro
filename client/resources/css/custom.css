@@ -12,5 +12,57 @@
 /*===========[Index]============*/
 
 .index {
-    width: 50%;
+    max-width: 80%;
+}
+
+.index .menu-box {
+    border: 5px solid #c4c4c4;
+    border-radius: 30px;
+    box-sizing: border-box;
+
+    width: 250px;
+    height: 200px;
+    margin: 20px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    color: currentColor;
+}
+
+.index .menu-box:hover {
+    border: 10px solid #09bcaa;
+
+    -webkit-box-shadow: inset 0px 10px 13px 0px rgba(0,0,0,0.47);
+    -moz-box-shadow: inset 0px 10px 13px 0px rgba(0,0,0,0.47);
+    box-shadow: inset 0px 10px 13px 0px rgba(0,0,0,0.47);
+}
+
+.index .menu-box-blank {
+    border: 5px solid #c4c4c4;
+    border-radius: 30px;
+    box-sizing: border-box;
+
+    width: 250px;
+    height: 200px;
+    margin: 20px;
+
+    background-color: #c4c4c4;
+}
+
+.index .menu-box img {
+    width: 150px;
+    height: 150px;   
+}
+
+.index .menu-box h3 {
+    margin: 0;
+    display: block;
+}
+
+.menu-box .custom {
+    margin-top: 20px;
+    width: 130px !important;
+    height: 130px !important;   
 }
