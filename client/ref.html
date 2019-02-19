@@ -130,16 +130,45 @@
             <div class="columns">
                 <div class="column is-3">
                     <div class="box text-center">
-                        1
+                        <input type="radio" checked="checked"> โญ่ว
+                        <input type="radio" checked="checked"> ว้าว
                     </div>
                 </div>
                 <div class="column">
                     <div class="box">
-                        <form>
-                            <input class="input" type="text">
+                        <form class="form">
+                            <input class="input" type="text" placeholder="sajdfklsdalj;f">
                             <input class="button is-oros" type="submit">
                         </form>
-
+                        <form class="form">
+                            <input class="input is-full-width" type="text" placeholder="sajdfklsdalj;f">
+                            <input class="button is-oros" type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="box text-center">
+                        <h2 class="label is-1">Modal</h2>
+                        <button class="button is-yentafo" onclick="launchModal()">ตู้ม</button>
+                        <div id="ref-modal" class="modal">
+                            <div class="box">
+                                <img src="http://www.fakingnews.com/wp-content/uploads/2015/01/Ghosts.jpg" alt="5555555555555">
+                                <button class="button is-full-width" onclick="closeModal()">ปิด</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h1 class="label is-2">ความกว้างขยาย 100% ใช้ดีๆคู่กับ column</h1>
+                        <select class="select is-full-width" multiple>
+                            <option>อะไร</option>
+                            <option>อะไร</option>
+                            <option>อะไร</option>
+                            <option>อะไร</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -151,6 +180,9 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
+
+    <!--Custom-->
+    <script src="./resources/js/refModal.js"></script>
 </footer>
 
 </html>
