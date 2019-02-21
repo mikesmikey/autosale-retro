@@ -67,19 +67,20 @@
     height: 130px !important;   
 }
 /*select*/
-.selectPatle{
+.selectPlate{
     font-size: 16px;
 }
 
-.selectPatle.width-25{
-    width: 25%
-}
 
 /* div*/
 div.border-gray{
     border: 3px solid gray;
 }
 
+
+.width25{
+    width: 25%
+}
 .width60{
     width: 60%
 }
@@ -94,4 +95,7 @@ div.border-gray{
 }
 .width80{
     width: 80%
+}
+.plate {
+    max-width: 100%;
 }
