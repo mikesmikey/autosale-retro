@@ -105,3 +105,25 @@ div.border-gray{
 .car-buy .address {
     padding: 5px;
 }
+
+.car-buy {
+    width: 100%;
+}
+
+.car-buy .main-column {
+    margin: 10px;
+}
+
+.car-buy-search {
+    height: 520px;
+}
+
+.car-buy-buttons {
+    justify-content: flex-end;
+}
+
+.car-buy-search-input {
+    box-sizing: border-box;
+    margin: 3px;
+    padding: 12px 20px 12px 40px !important;
+}

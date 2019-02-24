@@ -48,6 +48,8 @@
     text-align: center;
     text-overflow: ellipsis;
 
+    text-decoration: none;
+
     width: 100px;
 }
 
@@ -85,8 +87,6 @@
 .button.is-width80 {
     width: 80%;
 }
-
-
 
 
 /*===============[label]===================*/

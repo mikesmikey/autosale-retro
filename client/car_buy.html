@@ -126,84 +126,63 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-
-        <div class="box with-title is-round">
-            <div class="box-title is-oros">
-                จัดการซื้อรถ
-            </div>
-
-            <div class="box">
-                <div class="columns">
-                    <div class="column is-2">
-                        <div>
-                            <h2> เลขทะเบียนทั้งหมด <h2>
-                        </div>
-                        <div>
-                            <input class="input-icon-search width65" type="text" name="search"
-                                placeholder="ค้นหาทะเบียนรถ">
-                        </div>
-                        <div>
-                            <select multiple size="10" class="selectPlate width65">
-                                <option value="กข123">กข123</option>
-                                <option value="ฟห121">ฟห121</option>
-                                <option value="พก999">พก999</option>
-                            </select>
-                        </div>
-                        <div class="columns"><br></div>
-                        <div class="columns">
-                            <div class="column is-2">
-
+        <div class="car-buy subcontent-main-div">
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                    จัดการซื้อรถ
+                </div>
+                <div class="box">
+                    <div class="columns">
+                        <div class="main-column car-buy-search column is-2">
+                            <div>
+                                <h2> เลขทะเบียนทั้งหมด <h2>
                             </div>
-                            <div class="column is-1"></div>
-                            <div class="column is-2">
-
-
+                            <div>
+                                <input class="input input-icon-search is-full-width car-buy-search-input" type="text"
+                                    name="search" placeholder="ค้นหาทะเบียนรถ">
                             </div>
-
-
+                            <div>
+                                <select class="select is-fullwidth" multiple size="10">
+                                    <option value="กข123">กข123</option>
+                                    <option value="ฟห121">ฟห121</option>
+                                    <option value="พก999">พก999</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="column is-2">
-                        <img src="./resources/imgs/Car01.png" height="150" width="200">
-                    </div>
-                    <div class=" column is-4">
-                        <div><br><br>
-                            <div class="border-gray">
-                                <p>&nbsp;เลขออเดอร์ : 214321890427140721</p>
-                                <p>&nbsp;เลขทะเบียน : กข123</p>
-                                <p>&nbsp;ยี่ห้อ : susuki</p>
-                                <p>&nbsp;รุ่น : swift model-ab123</p>
-                                <p>&nbsp;เจ้าของ : James Goodman</p>
-                                <p>&nbsp;ราคา : 5,000,000 บาท</p>
-                            </div>
-                            <br>
+                        <div class="column is-6">
                             <div class="columns">
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
                                 <div class="column is-2">
+                                    <img src="./resources/imgs/Car01.png" height="150" width="200">
+                                </div>
+                                <div class=" column is-6">
+                                    <div><br><br>
+                                        <div class="border-gray">
+                                            <p>&nbsp;เลขออเดอร์ : 214321890427140721</p>
+                                            <p>&nbsp;เลขทะเบียน : กข123</p>
+                                            <p>&nbsp;ยี่ห้อ : susuki</p>
+                                            <p>&nbsp;รุ่น : swift model-ab123</p>
+                                            <p>&nbsp;เจ้าของ : James Goodman</p>
+                                            <p>&nbsp;ราคา : 5,000,000 บาท</p>
+                                        </div>
+                                        <br>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="width80 is-pulled-right">
-                    <div class="border-gray">
-                        <p>เครื่องยนต์ : 250cc</p>
-                        <p>สภาพ : 90%</p>
-                        <p>ประวัติการใช้งาน : ไม่เคยผ่านการชนมาก่อน</p>
-                    </div><br>
-                    <div class="columns">
-                        <div class="column is-2"></div>
-                        <div class="column is-2"></div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-yentafo is-pulled-right"
-                                onClick="mockCarbuy2()">ขายรถคันนี้</button>
-                        </div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-oros is-pulled-right">พิมพ์</button>
+                            <div class="border-gray">
+                                <p>เครื่องยนต์ : 250cc</p>
+                                <p>สภาพ : 90%</p>
+                                <p>ประวัติการใช้งาน : ไม่เคยผ่านการชนมาก่อน</p>
+                            </div><br>
+                            <div class="columns car-buy-buttons">
+                                <div class="column is-2">
+                                    <a type="button" class="button  is-round is-2 width65 is-yentafo is-pulled-right"
+                                        href="./car_buy2.html">ขายรถคันนี้</a>
+                                </div>
+                                <div class="column is-2">
+                                    <button type="button"
+                                        class="button  is-round is-2 width65 is-oros is-pulled-right">พิมพ์</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
