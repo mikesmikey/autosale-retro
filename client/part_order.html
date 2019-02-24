@@ -20,6 +20,10 @@
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
+
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
+
+
     <!--JS-->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
@@ -125,13 +129,105 @@
             </li>
         </ul>
     </nav>
+    
+    
+
     <div class="subcontent-area">
-        <div class="subcontent-main-div">
-            <div class="box">
+
+        <div class="box with-title is-round">
+            <div class="box-title is-oros">
                 จัดการใบสั่งซื้ออะไหล่
             </div>
+
+            <div class="box">
+                <div class="columns">
+                    <div class="column is-3 ">
+                        <div>
+                            <input class="input-icon-search width80" type="text" name="search"
+                                placeholder="เลขออเดอร์">
+                        </div>
+                        <div>
+                            <select multiple size="13" class="selectPlate width80">
+                                <option value="order #2137129421">order #2137129421</option>
+                                <option value="order #12421421421">order #12421421421</option>
+                                <option value="order #213213213">order #21321321</option>
+                            </select>
+                        </div>
+                        <div class="columns"><br></div>
+                        <div class="columns">
+                            <div class="column is-2">
+                                <center>
+                                        <a href="./add_company_and_order.html"><button type="button" class="button  is-round is-2 width80 is-oros" >เพิ่ม</button></a>
+                                </center>
+                            </div>
+                            <div class="column is-2"></div>
+                            <div class="column is-2">
+
+                                <button type="button" class="button margin-left-x is-round is-2 width80 is-yentafo">
+                                    ลบ
+                                </button>
+
+                            </div>
+
+                            <div class="column is-2"></div>
+                        </div>
+                    </div>
+                    <div class=" column is-5">                         
+                        <div id="bor01" >
+                            <p>&nbspเลขที่ออเดอร์ : 421048210421</p>
+                            <p>&nbspวันที่สั่ง : 17/11/2561</p>
+                            <p>&nbspสั่งบริษัท : ไทยรุ่ง จำกัด</p>                
+                        </div>
+                        <div id="bor01">
+                            <br>
+                            <center><table  >
+                                <tr id="tr01">
+                                  <th class="mixTop">รายการ</th>
+                                  <th class="mixTop">จำนวน</th>
+                                </tr>
+                                <tr>
+                                  <td class="mix">หลอดไฟ(กล่อง)</td>
+                                  <td class="mix">9000</td>       
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br/></td>
+                                    <td class="mix"><br/></td>
+                                </tr>
+                                <tr>
+                                        <td class="mix"><br/></td>
+                                        <td class="mix"><br/></td>
+                                </tr>
+                                <tr>
+                                        <td class="mix"><br/></td>
+                                        <td class="mix"><br/></td>
+                                </tr>
+                                <tr>
+                                        <td class="mixUnder"><br/></td>
+                                        <td class="mixUnder"><br/></td>
+                                </tr>
+                               
+                              </table></center> <br>     
+                        </div>
+                        <br>
+                        
+                        <div class="columns">
+                                <div class="column is-2"></div>
+                                <div class="column is-2"></div>
+                                <div class="column is-2"></div>
+                                <div class="column is-2">
+                                    <center>
+                                        <button type="button"
+                                            class="button margin-left-x is-round is-2 width80 is-oros">
+                                            พิมพ์</button>
+                                    </center>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
 </body>
 
 <footer>

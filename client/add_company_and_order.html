@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>โชคทวี - เพิ่มบริษัทและรายการสั่งซื้ออะไหล่</title>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+
+    <!-- Utilities CSS-->
+    <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+
+    <!--Commons CSS -->
+    <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
+
+
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
+
+
+    <!--JS-->
+    <script src="./resources/js/accController.js"></script>
+    <script src="./resources/js/index.js"></script>
+</head>
+
+<body>
+    <div class="navbar-div">
+        <nav class="navbar is-oros" aria-label="main navigation">
+            <a class="navbar-item banner">
+                <div>
+                    <img class="navbar-banner-logo" src="./resources/imgs/logo.png" alt="logo"></img>
+                    <span class="navbar-banner-text">โชคทวี</span>
+                </div>
+            </a>
+            <button id="navbar-user" class="navbar-item user" onclick="switchNavBarDropDown()">
+                <div class="user-container">
+                    <svg class="navbar-user-icon icon-user icon-size-5"></svg>
+                    <span class="navbar-user-text">inwza007</span>
+                    <svg class="navbar-user-icon icon-down-arrow icon-size-6"></svg>
+                </div>
+                <div id="navbar-dropdown" class="dropdown-items">
+                    <a href="./about.html">เกี่ยวกับ</a>
+                    <a onclick="mockLogout()">ออกจากระบบ</a>
+                    <a class="is-detail">เวอร์ชั่น 0.0.2</a>
+                </div>
+            </button>
+        </nav>
+    </div>
+    <nav class="menu main-menu">
+        <div class="menu-space"></div>
+        <ul class="menu-list">
+            <li>
+                <a class="is-active is-orange" href="./index.html">
+                    <svg class="menu-icon icon-home icon-size-6"></svg>
+                    หน้าแรก
+                </a>
+            </li>
+            <li>
+                <a href="./plate_license.html">
+                    <svg class="menu-icon icon-license-plate icon-size-6"></svg>
+                    จัดการต่อทะเบียน
+                </a>
+            </li>
+            <li>
+                <a id="car-manage-button" onclick="mainMenuCheck(event)">
+                    <svg class="menu-icon icon-car icon-size-6"></svg>
+                    จัดการซื้อ-ขายรถ
+                </a>
+                <ul id="car-manage-list">
+                    <li>
+                        <a href="./car_buy.html"> 
+                            จัดการซื้อรถ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./car_sell.html">
+                            จัดการขายรถ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                    <svg class="menu-icon icon-car-motor icon-size-6"></svg>
+                    จัดการซ่อมรถ
+                </a>
+                <ul id="fix-manage-list">
+                    <li>
+                        <a href="./car_fix.html">
+                            จัดการซ่อม
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./car_fix_part.html">
+                            จัดการอะไหล่ในส่วนการซ่อม
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                    <svg class="menu-icon icon-car-part icon-size-6"></svg>
+                    จัดการอะไหล่
+                </a>
+                <ul id="part-manage-list" class="is-active">
+                    <li>
+                        <a href="./part_company.html">
+                            จัดการบริษัทอะไหล่
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./part_order.html" class="is-black-oros">
+                            จัดการใบสั่งซื้ออะไหล่
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="./customer_manage.html">
+                    <svg class="menu-icon icon-customer-card icon-size-6"></svg>
+                    จัดการลูกค้า
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    
+
+    <div class="subcontent-area">
+
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                        เพิ่มบริษัทและรายการสั่งซื้ออะไหล่
+                </div>
+    
+                <div class="box">
+
+                        <div class="columns">
+
+                                <div class="column is-3" >
+                                    <h2> บริษัทเดิม <h2>
+                                </div>
+                                <div class="column is-5">
+                                    <h2> บริษัทใหม่ <h2>
+                                </div>
+                            </div>
+
+                    <div class="columns">
+                        <div class="column is-3 ">
+                            <div>
+                                <input class="input-icon-search width80" type="text" name="search"
+                                    placeholder="ชื่อบริษัท">
+                            </div>
+                            <div>
+                                <select multiple size="14" class="selectPlate width80">
+                                    <option value="ไทยรุ่ง จำกัด">ไทยรุ่ง จำกัด</option>
+                                    <option value="ซีพี">ซีพี</option>
+                                    <option value="ไทย เดนมาร์ค">ไทย เดนมาร์ค</option>
+                                </select>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        <div class=" column is-4">
+                                <div id="bor02">
+                                <div class="box">
+                                    <label class="label is-2">ชื่อบริษัท</label>
+                                    <input type="text" class="input  is-pulled-right width75"><br><br>
+                                    <label class="label is-2">ที่อยู่</label>
+                                    <textarea class="textarea is-pulled-right width75 address"
+                                        rows="6"></textarea><br><br><br><br><br><br>
+                                    <label class="label is-2">เบอร์โทรศัพท์</label>
+                                    <input type="text" class="input  is-pulled-right width75"><br><br><br><br>
+                                </div>
+                                <br>
+                                
+                            </div>
+                            </div>
+                            
+                            <br>   <br> <br>                      
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="box">
+
+                        <div class="columns">
+                                <div class="column is-3" >
+                                    <h2> เพิ่มรายการออเดอร์ <h2>
+                                </div>     
+                            </div> 
+                        <div id="bor01">
+                            <br>
+                                <center><table  >
+                                        <tr id="tr01">
+                                          <th class="mixTop">รายการ</th>
+                                          <th class="mixTop">จำนวน</th>
+                                        </tr>
+                                        <tr>
+                                          <td class="mix">หลอดไฟ(กล่อง)</td>
+                                          <td class="mix">9000</td>       
+                                        </tr>
+                                        <tr>
+                                            <td class="mix"><br/></td>
+                                            <td class="mix"><br/></td>
+                                        </tr>
+                                        <tr>
+                                                <td class="mix"><br/></td>
+                                                <td class="mix"><br/></td>
+                                        </tr>
+                                        <tr>
+                                                <td class="mix"><br/></td>
+                                                <td class="mix"><br/></td>
+                                        </tr>
+                                        <tr>
+                                                <td class="mixUnder"><br/></td>
+                                                <td class="mixUnder"><br/></td>
+                                        </tr>
+                                       
+                                      </table></center>
+                                    
+                                      <div class="columns">
+                                            <div class="column is-3" >
+                                                    <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspชื่อรายการ
+                                            
+                                                            <input type="text" class="input  width60">
+                                                        </h4>
+                                                    </div>
+                                            <div class="column is-5" >
+                                                    <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                        &nbsp&nbsp&nbsp&nbsp&nbsp
+                                                        จำนวน
+                                                        <input type="text" class="input width25">
+                                                        <button type="button" class="button  is-round is-2 width20  is-oros" >เพิ่ม</button>
+                                                        <h4>
+                                                 </div>
+
+                                        
+                                            </div>
+                                            
+                                            
+                                         </div>  
+                             </div> 
+                                       
+                             <div class="columns">
+                                    <div class="column is-2"><br></div>
+                                    <div class="column is-2">
+                                        <center>
+                                            <button  type="button" class="button  is-round is-2  is-oros" >ยืนยัน</button>
+                                        </center>
+                                    </div>
+                                    
+                                    <div class="column is-2">
+                                            <center>
+                                        <button type="button" class="button margin-left-x is-round is-2  is-yentafo">
+                                            ยกเลิก
+                                        </button></center>
+        
+                                    </div>
+                                    <div class="column is-2"><br></div>
+        
+                                    
+                                </div>
+                                        
+                                             
+                        </div>
+                    </div>
+
+            </div>
+
+            
+          
+</body>
+
+<footer>
+    <!-- Controller JS -->
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+</footer>
+
+</html>
