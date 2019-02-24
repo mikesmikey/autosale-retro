@@ -19,3 +19,9 @@ function mockLogout() {
     authStatus = false;
     window.location.href = './login.html';
 }
+function mockCarbuy2() {
+    window.location.replace('./car_buy2.html');
+}
+function refreshPage() {
+    window.location.reload();
+}

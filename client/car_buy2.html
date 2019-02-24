@@ -129,24 +129,23 @@
 
         <div class="box with-title is-round">
             <div class="box-title is-oros">
-                จัดการซื้อรถ
+                เพิ่มลูกค้าและการซื้อรถ
             </div>
 
-            <div class="box">
+            <div class="box car-buy">
                 <div class="columns">
-                    <div class="column is-2">
+                    <div class="column is-3">
                         <div>
-                            <h2> เลขทะเบียนทั้งหมด <h2>
+                            <h2>ลูกค้าเดิม <h2>
                         </div>
                         <div>
-                            <input class="input-icon-search width65" type="text" name="search"
-                                placeholder="ค้นหาทะเบียนรถ">
+                            <input class="input-icon-search width65" type="text" name="search" placeholder="ชื่อลูกค้า">
                         </div>
                         <div>
                             <select multiple size="10" class="selectPlate width65">
-                                <option value="กข123">กข123</option>
-                                <option value="ฟห121">ฟห121</option>
-                                <option value="พก999">พก999</option>
+                                <option value="JamesGoodman">James Goodman</option>
+                                <option value="MariaBrown">Maria Brown</option>
+                                <option value="SaulWalker">Saul Walker</option>
                             </select>
                         </div>
                         <div class="columns"><br></div>
@@ -156,60 +155,100 @@
                             </div>
                             <div class="column is-1"></div>
                             <div class="column is-2">
-
-
                             </div>
-
-
                         </div>
-                    </div>
-                    <div class="column is-2">
-                        <img src="./resources/imgs/Car01.png" height="150" width="200">
                     </div>
                     <div class=" column is-4">
-                        <div><br><br>
-                            <div class="border-gray">
-                                <p>&nbsp;เลขออเดอร์ : 214321890427140721</p>
-                                <p>&nbsp;เลขทะเบียน : กข123</p>
-                                <p>&nbsp;ยี่ห้อ : susuki</p>
-                                <p>&nbsp;รุ่น : swift model-ab123</p>
-                                <p>&nbsp;เจ้าของ : James Goodman</p>
-                                <p>&nbsp;ราคา : 5,000,000 บาท</p>
+                        <div>
+                            <h2>ลูกค้าใหม่ <h2>
+                        </div>
+                        <div class="box">
+                            <label class="label is-2">ชื่อ</label>
+                            <input type="text" class="input  is-pulled-right width60"><br><br>
+                            <label class="label is-2">ที่อยู่</label>
+                            <textarea class="textarea is-pulled-right width60 address"
+                                rows="6"></textarea><br><br><br><br><br><br><br>
+                            <label class="label is-2">เบอร์โทรศัพท์</label>
+                            <input type="text" class="input  is-pulled-right width60">
+                        </div>
+                        <br>
+                        <div class="columns">
+                            <div class="column is-2"></div>
+                            <div class="column is-2"></div>
+                            <div class="column is-2"></div>
+                            <div class="column is-2">
                             </div>
-                            <br>
-                            <div class="columns">
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-2">
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="width80 is-pulled-right">
-                    <div class="border-gray">
-                        <p>เครื่องยนต์ : 250cc</p>
-                        <p>สภาพ : 90%</p>
-                        <p>ประวัติการใช้งาน : ไม่เคยผ่านการชนมาก่อน</p>
-                    </div><br>
-                    <div class="columns">
-                        <div class="column is-2"></div>
-                        <div class="column is-2"></div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-yentafo is-pulled-right"
-                                onClick="mockCarbuy2()">ขายรถคันนี้</button>
-                        </div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-oros is-pulled-right">พิมพ์</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
+        </div><br>
+        <div class="box with-title is-round">
+            <div class="box">
+                <div class="columns">
+                    <div class="column is-3">
+                        <div>
+                            <h2>รายละเอียดรถที่ซื้อ <h2>
+                        </div>
+                        <div class="column is-2">
+                            <img src="./resources/imgs/Car01.png" height="250" width="300">
+                        </div><br>
+                    </div>
+
+                    <div class=" column is-2">
+                        <div class="box">
+                            <p class="label is-2">ยี่ห้อ</p>
+                            <p class="label is-2">รุ่น</p>
+                            <p class="label is-2">ทะเบียนรถ</p>
+                            <p class="label is-2">ราคา</p><br>
+                            <p class="label is-2">รายละเอียด</p>
+                        </div>
+                    </div>
+                    <div class=" column is-2">
+                        <div class="box">
+                            <p class="label is-2">susuki</p>
+                            <p class="label is-2">swift model-ab123</p>
+                            <p class="label is-2">กข123</p>
+                            <p class="label is-2">5,000,000 บาท</p>
+                        </div>&emsp;
+                        <textarea class="textarea width80" rows="3"
+                            readonly>เครื่องยนต์ 250cc สภาพ 90%   ไม่เคยผ่านการชนมาก่อน</textarea><br>&emsp;
+                        <input type="checkbox" name="fullTaxBill" value="Bike">รับใบกำกับภาษีแบบเต็ม
+                    </div>
+                </div><br>
+            </div>
         </div>
-    </div>
+        <div class="box with-title is-round">
+            <div class="box">
+                <div class="columns">
+                    <div class="column">
+                        <div>
+                            <h2>นายหน้า (ไม่จำเป็นต้องมี) <h2>
+                        </div>
+                        <div class="box">
+                            <label class="label is-2">ชื่อ</label>
+                            <input type="text" class="input is-pulled-right width60"><br><br>
+                            <label class="label is-2">เบอร์โทรศัพท์</label>
+                            <input type="text" class="input is-pulled-right width60">
+                        </div>
+
+                    </div>
+                    <div class="column is-2">
+                        <label class="label is-2"></label>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-2"></div>
+                    <div class="column is-2"> <button type="button"
+                            class="button margin-left-x is-round is-2 width65 is-yentafo ">ยืนยัน</button></div>
+                    <div class="column is-2"> <button type="button"
+                            class="button margin-left-x is-round is-2 width65 is-oros "
+                            onClick="refreshPage()">ยกเลิก</button></div>
+                    <div class="column is-2"> </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 <footer>
