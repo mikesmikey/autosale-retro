@@ -19,3 +19,7 @@ function mockLogout() {
     authStatus = false;
     window.location.href = './login.html';
 }
+function plate_license_add() {
+    authStatus = false;
+    window.location.href = './plate_license_add.html';
+}
