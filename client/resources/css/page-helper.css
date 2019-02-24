@@ -57,10 +57,19 @@
     width: 100%;
 }
 
-
-
+.two-tone-one{
+    height: 975px;
+    width: 45%; 
+}
+.two-tone-two{
+    height: 975px;
+    width: 55%; 
+}
 /*===============[text helper]===================*/
 
 .text-center {
     text-align: center;
+}
+.is-rounded{
+    border-radius: 25px;
 }

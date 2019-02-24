@@ -81,8 +81,9 @@ div.border-gray{
 .width25{
     width: 25%
 }
-.width60{
-    width: 60%
+
+.width30{
+    width: 30%
 }
 .width65{
     width: 65%
@@ -102,4 +103,18 @@ div.border-gray{
 }
 .margin-left150{
     margin-left: 150px;
+}
+.font-title{
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+.my-input{
+    padding: 13px;
+    display: block;
+    border-style: solid;
+    border-color: #ccc; 
+    width: 95%;
+    border-radius: 25px;
 }
