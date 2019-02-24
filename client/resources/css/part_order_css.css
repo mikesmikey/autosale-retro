@@ -1,0 +1,43 @@
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+  
+}
+
+th {
+  text-align: left;
+}
+tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+tr#tr01 {
+  background-color:gray;
+}
+div#bor01 {
+  border: 1px solid black;
+  width: 100%
+}
+div#bor02 {
+  border: 1px solid black;
+  width: 120%;
+}
+option:nth-child(odd){
+  background-color: #dddddd;
+}
+input#input01 {
+  line-height: 100px;
+}
+th.mixTop {border-style:solid solid hidden solid;}
+td.mix {border-style: hidden solid hidden solid;}
+td.mixUnder {border-style: hidden solid solid solid;}
+
+button#but01{
+  width: 50%;
+}
+.is-pulled-right {
+  float: right !important;
+}
