@@ -168,10 +168,8 @@ div.border-gray{
   }
   .partCompany{
     width: 40%;
+    padding: 30px;
   }
   .partCompany textarea{
     padding: 5px;
-  }
-  .textarea-plate.width70{
-      
   }
