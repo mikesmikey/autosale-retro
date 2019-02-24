@@ -86,6 +86,22 @@
     width: 80%;
 }
 
+/*จัดการลูกค้า*/
+.button.is-width70 {
+    width: 70%;
+}
+.button.is-width100 {
+    width: 100%;
+}
+.button.is-width90 {
+    width: 90%;
+}
+.button.is-width160 {
+    width: 160%;
+}
+.button.is-width150 {
+    width: 150%;
+}
 
 
 

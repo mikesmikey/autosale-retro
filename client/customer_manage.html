@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>โชคทวี - จัดการลูกค้า</title>
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
     <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
@@ -126,9 +126,96 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div">
-            <div class="box">
-                จัดการลูกค้า
+        <div class="subcontent-main-div plate">
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                    จัดการลูกค้า
+                </div>
+                <div class="box">
+                    <div class="columns">
+
+                        <div class="column is-3">
+                            <h2> รายชื่อลูกค้าทั้งหมด<h2>
+                        </div>
+
+                    </div>
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div>
+                                <div>
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        placeholder="ค้นหาชื่อลูกค้า">
+                                    <select multiple size="9" class="selectPlate width80">
+                                        <option value="James Goodman">James Goodman</option>
+                                        <option value="Maria Brown">Maria Brown</option>
+                                        <option value="Saul Walker">Saul Walker</option>
+                                    </select>
+                                </div>
+
+                                <br>
+                                <div class="columns">
+                                    <div class="column is-2">
+
+                                    </div>
+                                    <div class="column is-2">
+                                        <button type="button"
+                                            class="button is-width150 is-pulled-right is-round is-2 is-orange">แก้ไขข้อมูลลูกค้า</button>
+                                    </div>
+                                    <div class="column is-9">
+
+                                    </div>
+                                    <div class="column is-2 ">
+                                        <button type="button"
+                                            class="button is-width90 is-pulled-right is-round is-2  is-yentafo">ลบลูกค้า</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="column is-5">
+                            <div class="border-gray-2">
+                                <p>ชื่อ : James Goodman</p>
+                                <p>ที่อยู่ : New York USA</p>
+                                <p>โทรศัพท์ : 099999999</p>
+                                <p>ประเภท : ทั่วไป</p>
+
+                            </div>
+                            <br>
+                            <div class="columns">
+                                <div class="column is-1">
+
+                                </div>
+                                <div class="column is-4">
+                                    <button type="button"
+                                        class="button is-width90 is-pulled-right is-round is-2 is-oros "
+                                        onclick="launchCustomer()">พิมพ์รายการออเดอร์ของลูกค้าทั้งหมด</button>
+                                    <div id="order-customer" class="modal">
+                                        <div class="box">
+                                                <div class="column">
+                                                        <div class="box">
+                                                            <h1 class="label is-2">แก้ไขข้อมูลลูกค้า</h1>
+                                                            <input class="input" type="text" value="James Goodman"><br><br>
+                                                            <input class="input" type="text" placeholder="sajdfklsdalj;f"><br>
+                                                            <input class="input" type="text" placeholder="sajdfklsdalj;f">
+                                                        </div>
+                                                    </div>
+                                            <button class="button is-full-width" onclick="closeCustomer()">ปิด</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-3">
+                                    <button type="button"
+                                        class="button is-width80 is-pulled-right is-round is-2  is-oros">พิมพ์รายละเอียดลูกค้า</button>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -138,6 +225,7 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/customer_manage.js"></script>
 </footer>
 
 </html>

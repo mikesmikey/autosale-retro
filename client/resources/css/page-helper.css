@@ -57,8 +57,18 @@
     width: 100%;
 }
 
+.column.is-9 {
+    flex: none;
+    width: 6.25%;
+}
+
 /*===============[text helper]===================*/
 
 .text-center {
     text-align: center;
 }
+.is-pulled-right {
+    float: right !important;
+}
+
+
