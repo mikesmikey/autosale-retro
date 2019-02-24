@@ -74,7 +74,6 @@
 
 /* div*/
 div.border-gray{
-<<<<<<< HEAD
     border: 3px solid gray;
     
 }
@@ -82,9 +81,7 @@ div.border-gray-2{
     border: 3px solid gray;
     padding: 30px 10px;
     
-=======
     border: 1px solid gray;
->>>>>>> a938ab7f5ca7b3e8fd0df7d7afbd1a36dcc86bd6
 }
 
 
