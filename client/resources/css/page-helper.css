@@ -62,3 +62,6 @@
 .text-center {
     text-align: center;
 }
+.is-pulled-right {
+    float: right !important;
+  }
