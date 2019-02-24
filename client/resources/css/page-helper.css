@@ -56,6 +56,15 @@
     width: 100%;
 }
 
+.column.is-9 {
+    flex: none;
+    width: 6.25%;
+}
+
+.column.is-10{
+    flex: none;
+    width: 30%;
+}
 /*===============[text helper]===================*/
 
 .text-center {
@@ -63,4 +72,6 @@
 }
 .is-pulled-right {
     float: right !important;
-  }
+}
+
+

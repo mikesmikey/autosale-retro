@@ -74,7 +74,14 @@
 
 /* div*/
 div.border-gray{
-    border: 1px solid gray;
+    border: 3px solid gray;
+    
+}
+div.border-gray-2{
+    border: 3px solid gray;
+    padding: 42px 10px;
+    
+   
 }
 
 
@@ -102,12 +109,35 @@ div.border-gray{
 .width80{
     width: 80%
 }
+
+.width81{
+    width: 81%
+}
+.width82{
+    width: 81.5%
+}
+
+
+.height30{
+    height: 25px;
+}
+
 .plate {
     width: 80%;
 }
 .partCompany{
     width: 100%;
 }
+.partCustomer{
+    width: 40%;
+    padding: 30px;
+    
+}
+.partCustomerDelete{
+    width: 25%;
+    padding: 20px;
+}
+
 .margin-left150{
     margin-left: 150px;
 }
@@ -200,4 +230,3 @@ div.border-gray{
   .partCompany textarea{
     padding: 5px;
   }
-
