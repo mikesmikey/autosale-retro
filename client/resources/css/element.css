@@ -82,6 +82,13 @@
     width: 100%;
 }
 
+.button.is-width80 {
+    width: 80%;
+}
+
+
+
+
 /*===============[label]===================*/
 
 .label {
@@ -159,4 +166,14 @@
 
 .modal.is-active {
     display: flex;
+}
+.textarea {
+    background-color: white;
+    border-color: gray;
+    color: #363636;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    max-width: 100%;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
 }
