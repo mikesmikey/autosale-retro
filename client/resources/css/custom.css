@@ -81,6 +81,9 @@ div.border-gray{
 .width25{
     width: 25%
 }
+.width45{
+    width: 45%
+}
 .width50{
     width: 50%
 }
@@ -102,6 +105,9 @@ div.border-gray{
 
 .plate {
     width: 80%;
+}
+.partCompany{
+    width: 100%;
 }
 .margin-left150{
     margin-left: 150px;
@@ -126,7 +132,6 @@ div.border-gray{
     color: #363636;
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
     max-width: 100%;
-    width: 70%;
     font-size: 16px;
   }
   
@@ -135,4 +140,38 @@ div.border-gray{
   }
   option:nth-child(odd){
     background-color: #dddddd;
+  }
+  .bg-colormint{
+    background-color: rgb(153, 213, 202, 1); 
+   
+  }
+  
+  .boxplate table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .boxplate td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  .boxplate th{
+    background-color: #dddddd;
+  }
+  .boxplate tr {
+    background-color: #dddddd;
+  }
+  .boxplate tr:nth-child(even) {
+    background-color: white;
+  }
+  .partCompany{
+    width: 40%;
+  }
+  .partCompany textarea{
+    padding: 5px;
+  }
+  .textarea-plate.width70{
+      
   }

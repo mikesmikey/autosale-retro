@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>โชคทวี - จัดการบริษัทอะไหล่</title>
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
     <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
@@ -23,6 +23,8 @@
     <!--JS-->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/refModal.js"></script>
+    
 </head>
 
 <body>
@@ -70,7 +72,7 @@
                 </a>
                 <ul id="car-manage-list">
                     <li>
-                        <a href="./car_buy.html"> 
+                        <a href="./car_buy.html">
                             จัดการซื้อรถ
                         </a>
                     </li>
@@ -126,12 +128,97 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div">
-            <div class="box">
-                จัดการบริษัทอะไหล่
+        <div class="subcontent-main-div plate">
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                    จัดการบริษัทอะไหล่
+                </div>
+                <div class="box boxplate">
+                    <div class="columns">
+                    </div>
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div>
+                                <div>
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        placeholder="ชื่อบริษัท">
+                                    <select multiple size="12" class="selectPlate width80">
+                                        <option value="ไทยรุ่ง จำกัด">ไทยรุ่ง จำกัด</option>
+                                        <option value="ซีพี">ซีพี</option>
+                                        <option value="ไทย เดนมาร์ค">ไทย เดนมาร์ค</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-5">
+                            <div class="border-gray bg-colormint">
+                                <p>ชื่อบริษัท : ไทยรุ่ง จำกัด</p>
+                                <p>ที่อยู่ : บางกะปิ กรุงเทพ</p>
+                                <p>โทรศัพท์ : 02-9999999</p>
+                            </div>
+
+                            <div class="columns">
+                                <table>
+                                    <tr>
+                                        <th>รายการออเดอร์ที่เคยสั่ง</th>
+                                        <th>วันที่</th>
+                                    </tr>
+                                    <tr>
+                                        <td>order #13456461616</td>
+                                        <td>19/08/2560</td>
+                                    </tr>
+                                    <tr>
+                                        <td>order #12478219472</td>
+                                        <td>20/07/2561</td>
+                                    </tr>
+                                    <tr>
+                                        <td>order #42314791212</td>
+                                        <td>26/11/2561</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br>
+                            
+                            <div class="columns">
+                                <div class="column is-2"></div>
+                                <div class="column is-2"></div>
+                                <div class="column is-4">
+                                    <button type="button" onclick="launchModal()" class="button is-round is-2 width45 is-orange">แก้ไขบริษัทอะไหล่</button>
+                                    <button type="button" class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div id="ref-modal" class="modal">
+            <div class="box partCompany">
+                    <label class="label is-2">ชื่อบริษัท</label>
+                    <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br>
+                    <label class="label is-2">ที่อยู่</label>
+                    <textarea class="textarea-plate is-pulled-right width80 address"rows="6"></textarea><br><br><br><br><br><br><br>
+                    <label class="label is-2">เบอร์โทร</label>
+                    <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br><br>
+                    <div class="columns">
+                            <div class="column is-2">
+                            </div>
+                            <div class="column is-2">
+                                <center>
+                                <button type="button"  class="button is-width70  is-round is-2 is-oros">เพิ่ม</button>
+                                </center>
+                            </div>
+                            <div class="column is-2">
+                                    <center>
+                                    <button type="button" onclick="closeModal()" class="button  is-width70 is-round is-2  is-yentafo">ลบ</button>
+                                </center>
+                                </div>
+                                <div class="column is-2">
+                                    </div>
+                        </div>
+                </div>
+        </div>
 </body>
 
 <footer>
