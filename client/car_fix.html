@@ -6,23 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>โชคทวี - จัดการซ่อมรถ</title>
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
     <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/sub-table-custom.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/table-custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/refModal.js"></script>
 </head>
 
 <body>
@@ -70,7 +73,7 @@
                 </a>
                 <ul id="car-manage-list">
                     <li>
-                        <a href="./car_buy.html"> 
+                        <a href="./car_buy.html">
                             จัดการซื้อรถ
                         </a>
                     </li>
@@ -126,9 +129,316 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div">
-            <div class="box">
-                จัดการซ่อม
+        <div class="subcontent-main-div plate">
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                    จัดการซ่อม
+                </div>
+                <div class="box">
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div>
+                                <div>
+                                    <input class="input-icon-search width80" type="text" name="search" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <select size="15" class="selectPlate width80">
+                                        <option value="กข123">กข123</option>
+                                        <option value="ฟห121">ฟห121</option>
+                                        <option value="พก999">พก999</option>
+                                    </select>
+                                </div>
+                                <div class="columns">
+                                    <div class="column is-1">
+                                    </div>
+                                    <div class="column is-3">
+                                        <button type="button" class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                                    </div>
+                                    <div class="column is-3">
+                                        <button type="button" class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-5">
+                            <table border="1" style="width: 100%">
+                                <!--first row-->
+                                <tr>
+                                    <td colspan="2" style="background-color: white" ;>
+                                        <img src="./resources/imgs/egocar.jpg" alt="egocar" height="200" width="230">
+                                    </td>
+                                    <td style="background-color: white">
+                                        <div>
+                                            <p>เลขออเดอร์ : 214321890427140721n</p>
+                                            <p>เลขทะเบียน : กข123</p>
+                                            <p>ยี่ห้อ : susuki</p>
+                                            <p>รุ่น : swift model-ab123</p>
+                                            <p>เจ้าของ : James Goodman</p>
+                                            <p>วันที่นัดรับ : 19/11/2561</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:gray;">อะไหล่ที่ใช้ไปแล้ว</td>
+                                    <td style="background-color:gray;">จำนวน</td>
+                                    <td style="background-color:white;" rowspan="6">
+                                        <div>
+                                            <p>อาการ</p>
+                                            <p>-รถแรงเกินไป</p>
+                                            <p>-ถังน้ำมันรั่ว</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ชิ้นส่วนถังน้ำมัน</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>เครื่องยนต์โรตารี่</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="text-align: right;">
+                                <button onclick="launchModal()" type="button" class="button is-round is-2 width30 is-orange">
+                                    อัพเดท</button>
+                                <button type="button" class="button  is-round is-2 width30 is-oros">
+                                    พิมพ์</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ref-modal" class="modal">
+        <div class="box partUpdateUsedParts">
+            <div class="columns">
+                <div class="column is-3">
+                    <div>
+                        <div>
+                            <input class="input-icon-search width90" type="text" name="search" placeholder="ค้นหาอะไหล่">
+                            <table class="select-table">
+                                <tr id="tr01">
+                                    <th class="mixTop">อะไหล่ที่มีอยู่</th>
+                                    <th class="mixTop">จำนวน</th>
+                                </tr>
+                                <tr>
+                                    <td class="mix">สายพาน</td>
+                                    <td class="mix">18</td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        ยางในรถ 4 ล้อ
+                                    </td>
+                                    <td class="mix">
+                                        35
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                    <td class="mix">
+                                        <br/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="mixUnder">
+                                        <br/>
+                                    </td>
+                                    <td class="mixUnder">
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="columns">
+                            <div class="column is-1">
+                            </div>
+                            <div class="column is-3">
+                                <button type="button" class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                            </div>
+                            <div class="column is-3">
+                                <button type="button" onclick="closeModal()" class="button  is-width80 is-round is-2  is-yentafo">ยกเลิก</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="column is-5">
+                    <table style="width: 100%">
+                            <col width="250">
+                            <col width="80">
+                        <tr id="tr01">
+                            <th class="mixTop">อะไหล่ที่ใช้ไปแล้ว</th>
+                            <th class="mixTop">จำนวน</th>
+                        </tr>
+                        <tr>
+                            <td class="mix">ชิ้นส่วนถังน้ำมัน</td>
+                            <td class="mix">1</td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                เครื่องยนต์โรตารี่
+                            </td>
+                            <td class="mix">
+                                1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                            <td class="mix">
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mixUnder">
+                                <br/>
+                            </td>
+                            <td class="mixUnder">
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input type="text" size="46">
+                    <input type="text" size="5">
+                    <div style="text-align: right;">
+                        <button type="button" class="button is-round is-2 width30 is-yentafo">
+                            ลบ</button>
+                        <button type="button" class="button  is-round is-2 width30 is-orange">
+                            แก้ไข</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
