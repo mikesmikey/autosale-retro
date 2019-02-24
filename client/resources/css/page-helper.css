@@ -62,6 +62,10 @@
     width: 6.25%;
 }
 
+.column.is-10{
+    flex: none;
+    width: 30%;
+}
 /*===============[text helper]===================*/
 
 .text-center {
@@ -69,10 +73,6 @@
 }
 .is-pulled-right {
     float: right !important;
-<<<<<<< HEAD
 }
 
 
-=======
-  }
->>>>>>> a938ab7f5ca7b3e8fd0df7d7afbd1a36dcc86bd6
