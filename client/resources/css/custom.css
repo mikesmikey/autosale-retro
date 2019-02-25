@@ -88,6 +88,11 @@ div.border-gray-2{
 .width25{
     width: 25%
 }
+<<<<<<< HEAD
+
+.width30{
+    width: 30%
+=======
 .width45{
     width: 45%
 }
@@ -96,6 +101,7 @@ div.border-gray-2{
 }
 .width60{
     width: 60%
+>>>>>>> bd33b15dcc6a6a8cd083de55e096a3ce12da0442
 }
 .width65{
     width: 65%
@@ -141,6 +147,22 @@ div.border-gray-2{
 .margin-left150{
     margin-left: 150px;
 }
+<<<<<<< HEAD
+.font-title{
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+.my-input{
+    padding: 13px;
+    display: block;
+    border-style: solid;
+    border-color: #ccc; 
+    width: 95%;
+    border-radius: 25px;
+}
+=======
 
 .car-buy .address {
     padding: 5px;
@@ -230,3 +252,4 @@ div.border-gray-2{
   .partCompany textarea{
     padding: 5px;
   }
+>>>>>>> bd33b15dcc6a6a8cd083de55e096a3ce12da0442
