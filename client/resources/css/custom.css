@@ -77,6 +77,9 @@ div.border-gray{
     border: 3px solid gray;
     
 }
+div.border-print{
+    border: 1px solid rgb(0, 0, 0);
+}
 div.border-gray-2{
     border: 3px solid gray;
     padding: 42px 10px;
@@ -346,3 +349,6 @@ table.table-style-three td {
   color: #003299;
 }
 
+.paddingPart{
+    padding: 5px;
+}
