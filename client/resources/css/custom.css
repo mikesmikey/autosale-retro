@@ -245,3 +245,7 @@ div.border-gray-2{
   .partCompany textarea{
     padding: 5px;
   }
+
+#car_bill{
+display:none;
+  }
