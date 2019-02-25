@@ -33,3 +33,9 @@ function plate_license_add() {
     window.location.href = './plate_license_add.html';
 
 }
+
+function plate_license() {
+    authStatus = false;
+    window.location.href = './plate_license.html';
+
+}
