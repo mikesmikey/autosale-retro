@@ -83,8 +83,6 @@ div.border-gray-2{
     
    
 }
-
-
 .width25{
     width: 25%
 }
@@ -154,6 +152,14 @@ div.border-gray-2{
 }
 
 #formPartOrder{
+    display: none;
+}
+
+#formPartDetailCustomer{
+    display: none;
+}
+
+#formPartOrderCustomerAll{
     display: none;
 }
 
@@ -261,6 +267,11 @@ div.border-gray-2{
     padding: 5px;
   }
 
+
+#car_bill{
+display:none;
+}
+
 table.table-style-three {
     font-family: verdana, arial, sans-serif;
     font-size: 11px;
@@ -320,6 +331,7 @@ table.table-style-three td {
 .cursor-pointer{
   cursor:pointer;
 }
+
 .partCompany-table tr:hover 
 {background-color: #05897c;}
 
@@ -330,3 +342,4 @@ table.table-style-three td {
   font-size: 14px;
   color: #003299;
 }
+
