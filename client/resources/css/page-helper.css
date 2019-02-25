@@ -56,7 +56,6 @@
     width: 100%;
 }
 
-<<<<<<< HEAD
 .two-tone-one{
     height: 975px;
     width: 45%; 
@@ -76,20 +75,16 @@
     width: 30%;
 }
 
->>>>>>> bd33b15dcc6a6a8cd083de55e096a3ce12da0442
 /*===============[text helper]===================*/
 
 .text-center {
     text-align: center;
 }
-<<<<<<< HEAD
+
 .is-rounded{
     border-radius: 25px;
 }
-=======
+
 .is-pulled-right {
     float: right !important;
 }
-
-
->>>>>>> bd33b15dcc6a6a8cd083de55e096a3ce12da0442
