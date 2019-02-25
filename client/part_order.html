@@ -216,9 +216,14 @@
                                 <div class="column is-2"></div>
                                 <div class="column is-2">
                                     <center>
-                                        <button type="button"
-                                            class="button margin-left-x is-round is-2 width80 is-oros">
+                                            
+                                            <button type="button"
+                                            class="button margin-left-x is-round is-2 width80 is-oros"
+                                            onclick="printDiv('formPartOrder')"
+                                            >
                                             พิมพ์</button>
+                                            
+                                            
                                     </center>
                                 </div>
                             </div>
@@ -228,12 +233,67 @@
             </div>
         </div>
 
+
+        <div class="box" id="formPartOrder">  
+                <div class="columns">
+                        <div class="column is-9">
+                            <br>
+                            <center><font size = 6> พิมพ์ใบสั่งซื้ออะไหล่ </font></center>
+                            <br>
+                        </div>
+                </div>
+                <div class="columns">
+                        <div class=" column is-9">   
+                        <div id="bor04" >
+                                <p>&nbspเลขที่ออเดอร์ : 421048210421</p>
+                                <p>&nbspวันที่สั่ง : 17/11/2561</p>
+                                <p>&nbspสั่งบริษัท : ไทยรุ่ง จำกัด</p>  
+                                <br><br>              
+                        </div>
+                        <div id="bor04"> 
+                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp   
+                                    รายการ</p>
+                                <center><table id="table01">
+                                    <tr id="tr01">
+                                      <th class="mixTop">&nbspรายการ</th>
+                                      <th class="mixTop">&nbspจำนวน</th>
+                                    </tr>
+                                    <tr>
+                                      <td class="mix">&nbspหลอดไฟ(กล่อง)</td>
+                                      <td class="mix">&nbsp9000</td>       
+                                    </tr>
+                                    <tr>
+                                        <td class="mix"><br/></td>
+                                        <td class="mix"><br/></td>
+                                    </tr>
+                                    <tr>
+                                            <td class="mix"><br/></td>
+                                            <td class="mix"><br/></td>
+                                    </tr>
+                                    <tr>
+                                            <td class="mix"><br/></td>
+                                            <td class="mix"><br/></td>
+                                    </tr>
+                                    <tr>
+                                            <td class="mixUnder"><br/></td>
+                                            <td class="mixUnder"><br/></td>
+                                    </tr>
+                                   
+                                  </table></center> <br>     
+                        </div>
+                        </div>
+
+                </div>   
+        </div>
+
+
 </body>
 
 <footer>
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </footer>
 
 </html>

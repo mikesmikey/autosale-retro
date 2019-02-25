@@ -153,6 +153,10 @@ div.border-gray-2{
     margin-left: 150px;
 }
 
+#formPartOrder{
+    display: none;
+}
+
 .font-title{
     font-size: 60px;
     color: white;
@@ -256,3 +260,4 @@ div.border-gray-2{
   .partCompany textarea{
     padding: 5px;
   }
+
