@@ -103,3 +103,7 @@ div.border-gray{
 .margin-left150{
     margin-left: 150px;
 }
+
+#formPartOrder{
+    display: none;
+}
