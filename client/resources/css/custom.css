@@ -154,7 +154,7 @@ div.border-gray-2{
 }
 
 #formPartOrder{
-    display: none;
+    display: block;
 }
 
 .font-title{
