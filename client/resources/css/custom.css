@@ -68,18 +68,35 @@
 }
 /*select*/
 .selectPlate{
-    font-size: 16px;
+    font-size: 18px;
 }
 
 
 /* div*/
 div.border-gray{
     border: 3px solid gray;
+    
+}
+div.border-gray-2{
+    border: 3px solid gray;
+    padding: 42px 10px;
+    
+   
 }
 
 
 .width25{
     width: 25%
+}
+
+.width30{
+    width: 30%
+}
+.width45{
+    width: 45%
+}
+.width50{
+    width: 50%
 }
 .width60{
     width: 60%
@@ -97,9 +114,41 @@ div.border-gray{
     width: 80%
 }
 
+.width81{
+    width: 81%
+}
+.width82{
+    width: 81.5%
+}
+
+.width90 {
+    width: 90%  
+}
+
+.height30{
+    height: 25px;
+}
+
 .plate {
     width: 80%;
 }
+.partCompany{
+    width: 100%;
+}
+.partCustomer{
+    width: 40%;
+    padding: 30px;
+    
+}
+.partUpdateUsedParts {
+    width: 70%;
+}
+
+.partCustomerDelete{
+    width: 25%;
+    padding: 20px;
+}
+
 .margin-left150{
     margin-left: 150px;
 }
@@ -107,3 +156,108 @@ div.border-gray{
 #formPartOrder{
     display: none;
 }
+
+.font-title{
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+.my-input{
+    padding: 13px;
+    display: block;
+    border-style: solid;
+    border-color: #ccc; 
+    width: 95%;
+    border-radius: 25px;
+}
+
+.car-buy .address {
+    padding: 5px;
+}
+
+.car-buy {
+    width: 100%;
+}
+
+.car-buy .main-column {
+    margin: 10px;
+}
+
+.car-buy-search {
+    height: 520px;
+}
+
+.car-buy-buttons {
+    justify-content: flex-end;
+}
+
+.car-buy-search-input {
+    box-sizing: border-box;
+    margin: 3px;
+    padding: 12px 20px 12px 40px !important;
+}
+
+.input-plate{
+    box-sizing: border-box;
+    border: 1px solid gray;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    width: 50%;    
+  }
+  .input-plateAdd{
+    padding: 5px;
+
+    border: 1px solid gray;
+
+    font-size: 16px;
+  }
+  .textarea-plate{
+    background-color: white;
+    border-color: gray;
+    color: #363636;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    max-width: 100%;
+    font-size: 16px;
+  }
+  
+  .boxplate textarea{
+    padding: 5px;
+  }
+  option:nth-child(odd){
+    background-color: #dddddd;
+  }
+
+  .bg-colormint{
+    background-color: rgb(153, 213, 202, 1); 
+   
+  }
+  
+  .boxplate table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .boxplate td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  .boxplate th{
+    background-color: #dddddd;
+  }
+  .boxplate tr {
+    background-color: #dddddd;
+  }
+  .boxplate tr:nth-child(even) {
+    background-color: white;
+  }
+  .partCompany{
+    width: 40%;
+    padding: 30px;
+  }
+  .partCompany textarea{
+    padding: 5px;
+  }
+
