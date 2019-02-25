@@ -83,8 +83,6 @@ div.border-gray-2{
     
    
 }
-
-
 .width25{
     width: 25%
 }
@@ -164,6 +162,7 @@ div.border-gray-2{
 #formPartOrderCustomerAll{
     display: none;
 }
+
 .font-title{
     font-size: 60px;
     color: white;
@@ -268,6 +267,11 @@ div.border-gray-2{
     padding: 5px;
   }
 
+
+#car_bill{
+display:none;
+}
+
 table.table-style-three {
     font-family: verdana, arial, sans-serif;
     font-size: 11px;
@@ -327,5 +331,7 @@ table.table-style-three td {
 .cursor-pointer{
   cursor:pointer;
 }
+
 .partCompany-table tr:hover 
 {background-color: #05897c;}
+
