@@ -10,7 +10,10 @@ table {
 table#table01 {
   border-collapse: collapse;
   width: 95%;
-  
+}
+table#table02 {
+  border-collapse: collapse;
+  width: 100%;
 }
 th {
   text-align: left;
