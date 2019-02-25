@@ -29,7 +29,5 @@ function refreshPage() {
 }
 
 function plate_license_add() {
-    authStatus = false;
     window.location.href = './plate_license_add.html';
-
 }
