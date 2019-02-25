@@ -64,7 +64,7 @@
     height: 975px;
     width: 55%; 
 }
-=======
+
 .column.is-9 {
     flex: none;
     width: 6.25%;
@@ -74,6 +74,7 @@
     flex: none;
     width: 30%;
 }
+
 
 /*===============[text helper]===================*/
 
