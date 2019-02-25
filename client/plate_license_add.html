@@ -23,6 +23,7 @@
     <!--JS-->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </head>
 
 <body>
@@ -135,10 +136,10 @@
                     <div class="columns">
 
                         <div class="column is-3">
-                            <input type="checkbox" checked="checked"> ลูกค้าเดิม
+                            <input type="checkbox"> ลูกค้าเดิม
                         </div>
                         <div class="column is-5">
-                            <input type="checkbox" checked="checked"> ลูกค้าใหม่
+                            <input type="checkbox"> ลูกค้าใหม่
                         </div>
                     </div>
                     <br>
@@ -148,7 +149,7 @@
                                 <div>
                                     <input class="input-icon-search width80" type="text" name="search"
                                         placeholder="ค้นหาด้วยชื่อลูกค้า">
-                                    <select multiple size="15" class="selectPlate width80">
+                                    <select multiple size="15" class="selectPlate width80 cursor-pointer">
                                         <option value="James Goodman">James Goodman</option>
                                         <option value="Maria Brown">Maria Brown</option>
                                         <option value="Saul Walker">Saul Walker</option>
@@ -184,7 +185,7 @@
                              
               <label class="label is-3">เลขทะเบียน</label> <input type="text" class="input-plate"> 
                                 
-                             <input type="checkbox" checked="checked    "> <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>  
+                             <input type="checkbox" id="billsCheck"> <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>  
                                 </pre>
                         </div>
                         <div class="columns">
@@ -192,8 +193,10 @@
                             <div class="column is-4">
                                 <br>
                                 <center>
-                                    <button type="button" class="button is-round is-2 width25 is-oros">ยืนยัน</button>
-                                    <button type="button" class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
+                                    <button type="button" onclick="Bills_Print()"
+                                        class="button is-round is-2 width25 is-oros">ยืนยัน</button>
+                                    <button type="button"
+                                        class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
                                 </center>
                             </div>
                             <div class="column is-2"></div>
@@ -202,8 +205,287 @@
         </div>
 
     </div>
-</body>
 
+    <!--From print ใบเสร็จ-->
+    <div id="print_bill" class="select deplay-none">
+        <div class="select" align='left'>
+             เลขที่ออเดอร์ : 214321890427140721
+            <p> เลขที่บิล : sadf123214214214</p>
+            <p>  วันที่ออก : 17/11/2561</p>
+            <p>  ประเภทออเดอร์ : [ประเภท] </p>
+        </div>
+
+        <p align='center'>รายการ</p>
+
+        <div>
+            <hr>
+            <table class="table-style-three " align='center' width='600'>
+                <thead>
+                    <tr>
+                        <th>รายการ</th>
+                        <th>จำนวน</th>
+                        <th>ราคา</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br>
+
+        </div>
+    </div>
+
+
+    <!--From print ใบกำกับภาษี-->
+
+    <div  id="print_invoice" class="select deplay-none">
+        <br>
+        <div>
+            <div align='center'>พิมพ์ใบกำกับภาษี</div>
+            <table width=90%>
+                <tr>
+                    <td><img src="./resources/icons/VAT_icon.png" height="30" width="30"></td>
+
+                    <td> บริษัท โชคทวี ออโต้เซล จำกัด</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>มหาวิทยาลัยบูรพา อ.เมือง ต.แสนสุข</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>เลขประจำตัวผู้เสียภาษี 1246513546</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>จ.ชลบุรี 20000</td>
+                </tr>
+            </table>
+            <br>
+            <div class="select">
+                <table width=100%>
+                    <tr>
+                        <td> ผู้ซื้อ : นาย James Goodman</td>
+                        <td></td>
+                        <td>รหัสลูกค้า : 134651631</td>
+                    </tr>
+                    <tr>
+                        <td>ที่อยู่ : New York USA</td>
+                        <td></td>
+                        <td>เลขที่ผู้เสียภาษี : 12313547641</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="list-table" align='center'>
+                <table class="table-style-three " width='100%'>
+                    <thead>
+                        <tr>
+                            <th class="half-left">ลำดับ</th>
+                            <th class="half-left">รายการ</th>
+                            <th class="half-left">จำนวน</th>
+                            <th class="half-right">ราคาต่อหน่วย</th>
+                            <th class="half-right">จำนวนเงิน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table-style-three total-table" width='50%'>
+                    <tbody>
+                        <tr>
+                            <td class="half-table">รวมทั้งสิ้น</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>ส่วนลด</td>
+                            <td>54</td>
+                        </tr>
+                        <tr>
+                            <td>รวมมูลค่าสินค้า</td>
+                            <td>1200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; หมายเหตุ</div>
+            <br> <br> <br>
+            <div align='center'>
+                <table width='100%'>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>___________</td>
+                        <td>
+                        </td>
+                        <td></td>
+                        <td>___________</td>
+                        <td>___________</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>ผู้ส่งสินค้า</td>
+                        <td>
+                        </td>
+                        <td></td>
+                        <td>ผู้รับสินค้า</td>
+                        <td>ผู้รับเงิน</td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+
+    function Bills_Print() {
+        var check = document.getElementById('billsCheck').checked;
+        if (check) {
+            return printDiv('print_invoice');
+        }
+        else {
+            return printDiv('print_bill');
+        }
+    }
+</script>
 <footer>
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
