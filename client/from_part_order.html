@@ -5,44 +5,10 @@
     <title>โชคทวี - พิมพ์ใบสั่งซื้อที่เลือก</title> 
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>  
     
-    
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 </head>
 
-<style>
-table, td, th {
-  border: 1px solid black;
-}
 
-table {
-  border-collapse: collapse;
-  width: 95%;
-  
-}
-body{
-  -webkit-print-color-adjust:exact;
-}
-
-th {
-  text-align: left;
-}
-tr:nth-child(odd) {
-  background-color: #dddddd !important;
-}
-tr#tr01 {
-  background-color:gray !important;
-}
-div#bor01 {
-  border: 1px solid black;
-  width: 100%
-}
-div#bor02 {
-  border: 1px solid black;
-  width: 120%;
-}
-th.mixTop {border-style:solid solid hidden solid;}
-td.mix {border-style: hidden solid hidden solid;}
-td.mixUnder {border-style: hidden solid solid solid;}
-</style>
 
 <body>
         <div class="box">
@@ -64,7 +30,7 @@ td.mixUnder {border-style: hidden solid solid solid;}
                         <div id="bor01"> 
                                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp   
                                     รายการ</p>
-                                <center><table >
+                                <center><table id="table01">
                                     <tr id="tr01">
                                       <th class="mixTop">&nbspรายการ</th>
                                       <th class="mixTop">&nbspจำนวน</th>
