@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - เพิ่มลูกค้าต่อทะเบียน</title>
+    <title>โชคทวี - เพิ่มลูกค้าและรายการซ่อมรถ</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li>
-                <a href="./plate_license.html" class="is-black-oros">
+                <a href="./plate_license.html">
                     <svg class="menu-icon icon-license-plate icon-size-6"></svg>
                     จัดการต่อทะเบียน
                 </a>
@@ -83,7 +83,7 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a id="fix-manage-button" class="is-black-oros" onclick="mainMenuCheck(event)">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
@@ -130,7 +130,7 @@
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
                 <div class="box-title is-oros">
-                    เพิ่มลูกค้าต่อทะเบียน
+                    เพิ่มลูกค้าและรายการซ่อมรถ
                 </div>
                 <div class="box">
                     <div class="columns">
@@ -178,8 +178,6 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <label class="label is-3">เลขประจำตัวผู้เสียภาษี</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70">
                                 </div>
                             </div>
                         </div>
@@ -187,32 +185,61 @@
                 </div>
             </div>
             <div class="box">
-                <h2> รายละเอียดทะเบียน
+                <h2> รายละเอียดรถที่ซ่อม
                     <h2>
-                        <div class="columns border-gray">
-                            <pre>
+                        <div class="border-gray">
+                            <div class="box boxplate ">
+                                <div class="columns">
+                                    <div class="column is-4">
+                                        <div id="example1">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                        </div>
+                                        <div>
+                                            <button style="width: 75%" type="button" class="button is-round is-2 is-oros">อัพโหลดรูป</button>
+                                        </div>
+                                    </div>
+                                    <div class="column is-4">
+                                        <p>
+                                            <label class="label is-3">ชื่อ</label>
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                        </p>
+                                        <p>
+                                            <label class="label is-3">รุ่น</label>
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                        </p>
+                                        <p>
+                                            <label class="label is-3">เลขทะเบียน</label>
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                        </p>
+                                        <p>
+                                            <label class="label is-3">อาการ</label>
+                                            <textarea class="textarea-plate is-pulled-right width70 address" rows="6"></textarea>
+                                        </p>
+                                    </div>
 
-                         <label class="label is-3">ยี่ห้อรถ</label> <input type="text" class="input-plate">            <label class="label is-3">รุ่น</label> <input type="text" class="input-plate">
-                             
-                        <label class="label is-3">เลขทะเบียน</label> <input type="text" class="input-plate"> 
-                                
-                             <input type="checkbox" id="billsCheck"> <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>  
-                                </pre>
-                        </div>
-                        <div class="columns">
-                            <div class="column is-2"></div>
-                            <div class="column is-4">
-                                <br>
-                                <center>
-                                    <button type="button" onclick="Bills_Print()" class="button is-round is-2 width25 is-oros">ยืนยัน</button>
-                                    <button type="button" class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
-                                </center>
+                                </div>
+                                <div style="text-align: right;">
+                                    <input type="checkbox">
+                                    <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>
+                                </div>
                             </div>
-                            <div class="column is-2"></div>
+                        </div>
+                        <br>
+                        <div style="text-align: center;">
+                            <button type="button" onclick="Bills_Print()" class="button is-round is-2 width25 is-oros">ยืนยัน</button>
+                            <button type="button" class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
                         </div>
             </div>
         </div>
-
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 
     <!--From print ใบเสร็จ-->

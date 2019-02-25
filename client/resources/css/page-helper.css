@@ -56,6 +56,11 @@
     width: 100%;
 }
 
+.column.is-9 {
+    flex: none;
+    width: 110%;
+}
+
 .two-tone-one{
     height: 975px;
     width: 45%; 
@@ -89,3 +94,8 @@
 .is-pulled-right {
     float: right !important;
 }
+
+.is-pulled-left {
+    float: left !important;
+}
+
