@@ -24,6 +24,7 @@
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/refModal.js"></script>
+    <script src="./resources/js/utilities.js"></script>
     
 </head>
 
@@ -142,7 +143,7 @@
                                 <div>
                                     <input class="input-icon-search width80" type="text" name="search"
                                         placeholder="ชื่อบริษัท">
-                                    <select multiple size="12" class="selectPlate width80">
+                                    <select multiple size="12" class="selectPlate width80 cursor-pointer">
                                         <option value="ไทยรุ่ง จำกัด">ไทยรุ่ง จำกัด</option>
                                         <option value="ซีพี">ซีพี</option>
                                         <option value="ไทย เดนมาร์ค">ไทย เดนมาร์ค</option>
@@ -151,14 +152,14 @@
                             </div>
                         </div>
                         <div class="column is-5">
-                            <div class="border-gray bg-colormint">
+                            <div class="border-gray bg-colormint ">
                                 <p>ชื่อบริษัท : ไทยรุ่ง จำกัด</p>
                                 <p>ที่อยู่ : บางกะปิ กรุงเทพ</p>
                                 <p>โทรศัพท์ : 02-9999999</p>
                             </div>
 
                             <div class="columns">
-                                <table>
+                                <table class="partCompany-table cursor-pointer">
                                     <tr>
                                         <th>รายการออเดอร์ที่เคยสั่ง</th>
                                         <th>วันที่</th>
@@ -184,7 +185,7 @@
                                 <div class="column is-2"></div>
                                 <div class="column is-4">
                                     <button type="button" onclick="launchModal()" class="button is-round is-2 width45 is-orange">แก้ไขบริษัทอะไหล่</button>
-                                    <button type="button" class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
+                                    <button type="button" onclick="printDiv('order_bill')" class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
                                 </div>
                             </div>
                         </div>
@@ -219,6 +220,71 @@
                         </div>
                 </div>
         </div>
+
+<!---print order-->
+<div id="order_bill" class="select deplay-none">
+    <br>
+    <div>
+
+        <div align='center'>ใบสั่งซื้ออะไหล่</div>
+        <br>
+        <div class="border-gray">
+            
+            <table width=80%>
+
+                <tr>
+                    <td> เลขที่ออเดอร์ : 421048210421</td>
+                </tr>
+                <tr>
+                    <td>วันที่สั่ง : 17/11/2561</td>
+                </tr>
+                <tr>
+                    <td>สั่งบริษัท : ไทยรุ่ง จำกัด</td>
+                </tr>
+            </table>
+        </div>
+        <br><div>รายการ</div><br>
+        <div  align='center'>
+            <table class="table-style-three" style="width:99%">
+                    
+                <thead>
+                    <tr>
+                        <th class="half-left">รายการ</th>
+                        <th class="half-left">จำนวน</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="half-left">หลอดไฟ (กล่อง)</td>
+                        <td class="half-left">9000</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 <footer>
