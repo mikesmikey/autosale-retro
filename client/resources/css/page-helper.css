@@ -79,6 +79,7 @@
 .text-center {
     text-align: center;
 }
+<<<<<<< HEAD
 .is-rounded{
     border-radius: 25px;
 }
@@ -87,3 +88,13 @@
 }
 
 
+=======
+
+.is-rounded{
+    border-radius: 25px;
+}
+
+.is-pulled-right {
+    float: right !important;
+}
+>>>>>>> 4930b5e39a6a1d6dee9c8eede3e7b8f1d3a2985a
