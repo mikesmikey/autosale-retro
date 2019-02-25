@@ -335,3 +335,11 @@ table.table-style-three td {
 .partCompany-table tr:hover 
 {background-color: #05897c;}
 
+.clicked{
+  background-color: #FFF;
+  text-align: center;
+  font: "Palatino Linotype", "Book Antiqua", Palatino, Serif;
+  font-size: 14px;
+  color: #003299;
+}
+
