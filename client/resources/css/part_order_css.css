@@ -29,6 +29,10 @@ div#bor02 {
   border: 1px solid black;
   width: 120%;
 }
+div#bor03 {
+  border: 1px solid black;
+  width: 95%
+}
 option:nth-child(odd){
   background-color: #dddddd;
 }
