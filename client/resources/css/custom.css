@@ -102,7 +102,6 @@ div.border-gray{
 .width80{
     width: 80%
 }
-
 .plate {
     width: 80%;
 }
@@ -112,6 +111,33 @@ div.border-gray{
 .margin-left150{
     margin-left: 150px;
 }
+
+.car-buy .address {
+    padding: 5px;
+}
+
+.car-buy {
+    width: 100%;
+}
+
+.car-buy .main-column {
+    margin: 10px;
+}
+
+.car-buy-search {
+    height: 520px;
+}
+
+.car-buy-buttons {
+    justify-content: flex-end;
+}
+
+.car-buy-search-input {
+    box-sizing: border-box;
+    margin: 3px;
+    padding: 12px 20px 12px 40px !important;
+}
+
 .input-plate{
     box-sizing: border-box;
     border: 1px solid gray;
@@ -141,6 +167,7 @@ div.border-gray{
   option:nth-child(odd){
     background-color: #dddddd;
   }
+
   .bg-colormint{
     background-color: rgb(153, 213, 202, 1); 
    
@@ -174,6 +201,7 @@ div.border-gray{
     padding: 5px;
   }
 
+<<<<<<< HEAD
 table.table-style-three {
     font-family: verdana, arial, sans-serif;
     font-size: 11px;
@@ -235,3 +263,5 @@ table.table-style-three td {
 }
 .partCompany-table tr:hover 
 {background-color: #05897c;}
+=======
+>>>>>>> 7a2a4bf85531d4082416678cfd649eb96ea7fdc9
