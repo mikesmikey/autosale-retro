@@ -157,6 +157,13 @@ div.border-gray-2{
     display: none;
 }
 
+#formPartDetailCustomer{
+    display: none;
+}
+
+#formPartOrderCustomerAll{
+    display: none;
+}
 .font-title{
     font-size: 60px;
     color: white;
