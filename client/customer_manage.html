@@ -13,6 +13,7 @@
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
@@ -134,7 +135,7 @@
                 <div class="box">
                     <div class="columns">
 
-                        <div class="column is-3">
+                        <div class="column is-10">
                             <h2> รายชื่อลูกค้าทั้งหมด<h2>
                         </div>
 
@@ -154,7 +155,7 @@
 
                                 <br>
                                 <div class="columns">
-                                    <div class="column is-2">
+                                    <div class="column is-10">
 
                                     </div>
                                     <div class="column is-2">
@@ -169,13 +170,13 @@
                                                 </center>
                                                 <label class="label is-2">ชื่อ</label>
                                                 <input type="text" class="input-plateAdd  is-pulled-right width80"
-                                                    value=""><br><br>
+                                                    value="James Goodman"><br><br>
                                                 <label class="label is-2">ที่อยู่</label>
                                                 <textarea class="textarea-plate is-pulled-right width81 address"
-                                                    rows="6"></textarea><br><br><br><br><br><br><br>
+                                                    rows="6">New York USA</textarea><br><br><br><br><br><br><br>
                                                 <label class="label is-2">เบอร์โทร</label>
-                                                <input type="text"
-                                                    class="input-plateAdd  is-pulled-right width80"><br><br><br>
+                                                <input type="text" class="input-plateAdd  is-pulled-right width80"
+                                                    value="0999999999"><br><br><br>
                                                 <div class="columns"></div>
                                                 <label class="label is-2">ประเภท</label>
                                                 <select class="is-pulled-right width82 height30 ">
@@ -206,41 +207,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="column is-9">
 
-                                    </div>
                                     <div class="column is-2 ">
                                         <button type="button"
                                             class="button is-width90 is-pulled-right is-round is-2  is-yentafo"
                                             onclick="launchCustomerDelete()">ลบลูกค้า</button>
 
-                                            <div id="delete-customer" class="modal">
-                                                    <div class="box partCustomerDelete">
+                                        <div id="delete-customer" class="modal">
+                                            <div class="box partCustomerDelete">
+                                                <center>
+                                                    <h1 class="label is-3">คุณแน่ใจแล้วหรือว่าต้องการลบลูกค้าท่านนี้?
+                                                    </h1>
+                                                </center>
+
+                                                <br>
+                                                <div class="columns">
+                                                    <div class="column is-2">
+                                                    </div>
+                                                    <div class="column is-2">
                                                         <center>
-                                                            <h1 class="label is-3">คุณแน่ใจแล้วหรือว่าต้องการลบลูกค้าท่านนี้?</h1>
+                                                            <button type="button"
+                                                                class="button is-width70  is-round is-2 is-oros">ยืนยัน</button>
                                                         </center>
-                                                 
-                                                        <br>
-                                                        <div class="columns">
-                                                            <div class="column is-2">
-                                                            </div>
-                                                            <div class="column is-2">
-                                                                <center>
-                                                                    <button type="button"
-                                                                        class="button is-width70  is-round is-2 is-oros">ยืนยัน</button>
-                                                                </center>
-                                                            </div>
-                                                            <div class="column is-2">
-                                                                <center>
-                                                                    <button type="button" onclick="closeCustomerDelete()"
-                                                                        class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
-                                                                </center>
-                                                            </div>
-                                                            <div class="column is-2">
-                                                            </div>
-                                                        </div>
+                                                    </div>
+                                                    <div class="column is-2">
+                                                        <center>
+                                                            <button type="button" onclick="closeCustomerDelete()"
+                                                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                                                        </center>
+                                                    </div>
+                                                    <div class="column is-2">
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
 
                                     </div>
@@ -253,7 +253,7 @@
                                 <p>ชื่อ : James Goodman</p>
                                 <p>ที่อยู่ : New York USA</p>
                                 <p>โทรศัพท์ : 099999999</p>
-                                <p>ประเภท : ทั่วไป</p>
+                                <p>ประเภท : ลูกค้าซื้อ</p>
 
                             </div>
                             <br>
@@ -263,25 +263,127 @@
                                 </div>
                                 <div class="column is-4">
                                     <button type="button"
-                                        class="button is-width90 is-pulled-right is-round is-2 is-oros">พิมพ์รายการออเดอร์ของลูกค้าทั้งหมด</button>
+                                        class="button is-width90 is-pulled-right is-round is-2 is-oros"
+                                        onclick="printDiv('formPartOrderCustomerAll')">พิมพ์รายการออเดอร์ของลูกค้าทั้งหมด</button>
+
+                                    <div class="box" id="formPartOrderCustomerAll">
+                                        <div class="box">
+                                            <div class="columns">
+                                                <div class="column">
+                                                    <br>
+                                                    <center>
+                                                        <font size=6> พิมพ์รายการออเดอร์ของลูกค้าทั้งหมด </font>
+                                                    </center>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <div class="columns">
+                                                <div class=" column">
+                                                    <div id="bor01">
+                                                        <p>&nbspชื่อลูกค้า : James Goodman</p>
+                                                        <p>&nbspที่อยู่ : New York USA</p>
+                                                        <p>&nbspเบอร์โทรศัพท์ : 0999999999</p>
+
+                                                        <br>
+
+                                                        <center>
+                                                            <table id="table02">
+                                                                <tr id="tr01">
+                                                                    <th class="mixTop">&nbspรายการออเดอร์ที่เคยใช้บริการ
+                                                                    </th>
+                                                                    <th class="mixTop">&nbspวันที่</th>
+                                                                    <th class="mixTop">&nbspยอดรวม(บาท)</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix">&nbsporder #13456461616</td>
+                                                                    <td class="mix">&nbsp19/08/2560</td>
+                                                                    <td class="mix">&nbsp590000</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix">&nbsporder #12478219472</td>
+                                                                    <td class="mix">&nbsp20/07/2561</td>
+                                                                    <td class="mix">&nbsp5500</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix">&nbsporder #42314791212</td>
+                                                                    <td class="mix">&nbsp26/11/2561</td>
+                                                                    <td class="mix">&nbsp500</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                    <td class="mix"><br></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mix"><br /></td>
+                                                                    <td class="mix"><br /></td>
+                                                                    <td class="mix"><br /></td>
+                                                                </tr>
+
+
+                                                            </table>
+                                                        </center>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
 
                                 </div>
 
                                 <div class="column is-3">
                                     <button type="button"
-                                        class="button is-width80 is-pulled-right is-round is-2  is-oros">พิมพ์รายละเอียดลูกค้า</button>
+                                        class="button is-width80 is-pulled-right is-round is-2  is-oros"
+                                        onclick="printDiv('formPartDetailCustomer')">พิมพ์รายละเอียดลูกค้า</button>
+
+                                    <div class="box" id="formPartDetailCustomer">
+                                        <div class="select">
+                                            <br>
+                                            <div>
+                                                <div>
+                                                    <center>
+                                                        <font size=6> พิมพ์รายละเอียดลูกค้า </font>
+                                                    </center>
+                                                </div>
+
+                                                <br>
+                                                <div class="select">
+                                                    <p>ชื่อลูกค้า : James Goodman</p>
+                                                    <p> ที่อยู่ : New York USA</p>
+                                                    <p> เบอร์โทรศัพท์ : 099-9999999</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
 
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 <footer>
@@ -289,6 +391,7 @@
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
     <script src="./resources/js/customer_manage.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </footer>
 
 </html>

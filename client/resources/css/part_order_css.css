@@ -7,7 +7,14 @@ table {
   width: 90%;
   
 }
-
+table#table01 {
+  border-collapse: collapse;
+  width: 95%;
+}
+table#table02 {
+  border-collapse: collapse;
+  width: 100%;
+}
 th {
   text-align: left;
 }
@@ -25,6 +32,14 @@ div#bor02 {
   border: 1px solid black;
   width: 120%;
 }
+div#bor03 {
+  border: 1px solid black;
+  width: 95%
+}
+div#bor04 {
+  border: 1px solid black;
+  width: 99%
+}
 option:nth-child(odd){
   background-color: #dddddd;
 }
@@ -40,4 +55,7 @@ button#but01{
 }
 .is-pulled-right {
   float: right !important;
+}
+body{
+  -webkit-print-color-adjust:exact;
 }
