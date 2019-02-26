@@ -82,9 +82,7 @@ div.border-print{
 }
 div.border-gray-2{
     border: 3px solid gray;
-    padding: 42px 10px;
-    
-   
+    padding: 0 10px;
 }
 /*SIZE*/
 .total-table {
@@ -358,4 +356,8 @@ table.table-style-three td {
 }
 .button.is-width150 {
     width: 150%;
+}
+
+.customer-column-left {
+    margin-right: 20px;
 }
