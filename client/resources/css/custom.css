@@ -358,3 +358,25 @@ table.table-style-three td {
 .paddingPart{
     padding: 5px;
 }
+
+/*จัดการลูกค้า*/
+.button.is-width70 {
+    width: 70%;
+}
+.button.is-width100 {
+    width: 100%;
+}
+.button.is-width-customer-order {
+   width: 300px;
+   margin: 0;
+}
+.button.is-width-customer-detail {
+    width: 200px;
+    margin: 0;
+ }
+.button.is-width160 {
+    width: 160%;
+}
+.button.is-width150 {
+    width: 150%;
+}
