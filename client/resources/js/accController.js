@@ -39,3 +39,9 @@ function mockCarFixAdd() {
 function usedPartUpdate() {
     window.location.href = './used_part_update.html';
 }
+
+
+
+
+//initial method
+checkAuth();
