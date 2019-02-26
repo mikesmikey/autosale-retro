@@ -273,9 +273,8 @@ div.border-gray-2{
     padding: 5px;
   }
 
-
 #car_bill{
-display:none;
+    display:none;
 }
 
 table.table-style-three {
@@ -339,7 +338,9 @@ table.table-style-three td {
 }
 
 .partCompany-table tr:hover 
-{background-color: #05897c;}
+{
+    background-color: #05897c;
+}
 
 .clicked{
   background-color: #FFF;

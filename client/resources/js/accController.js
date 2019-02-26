@@ -31,3 +31,11 @@ function refreshPage() {
 function plate_license_add() {
     window.location.href = './plate_license_add.html';
 }
+
+function mockCarFixAdd() {
+    window.location.href = './car_fix_add.html';
+}
+
+function usedPartUpdate() {
+    window.location.href = './used_part_update.html';
+}
