@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>โชคทวี - จัดการต่อทะเบียน</title>
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
     <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
@@ -23,6 +23,7 @@
     <!--JS-->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </head>
 
 <body>
@@ -70,7 +71,7 @@
                 </a>
                 <ul id="car-manage-list">
                     <li>
-                        <a href="./car_buy.html"> 
+                        <a href="./car_buy.html">
                             จัดการซื้อรถ
                         </a>
                     </li>
@@ -134,7 +135,7 @@
                 <div class="box">
                     <div class="columns">
 
-                        <div class="column is-3" >
+                        <div class="column is-3">
                             <h2> เลขทะเบียนทั้งหมด <h2>
                         </div>
                         <div class="column is-5">
@@ -143,11 +144,11 @@
                     </div>
                     <div class="columns">
                         <div class="column is-3">
-                            <div >
+                            <div>
                                 <div>
                                     <input class="input-icon-search width80" type="text" name="search"
                                         placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select multiple size="9" class="selectPlate width80">
+                                    <select multiple size="9" class="selectPlate width80 cursor-pointer">
                                         <option value="กข123">กข123</option>
                                         <option value="ฟห121">ฟห121</option>
                                         <option value="พก999">พก999</option>
@@ -159,18 +160,20 @@
                                     <div class="column is-1">
                                     </div>
                                     <div class="column is-3">
-                                        <button type="button" onclick="plate_license_add()" class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                                        <button type="button" onclick="plate_license_add()"
+                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
                                     </div>
                                     <div class="column is-3">
-                                            <button type="button" class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
-                                        </div>
+                                        <button type="button"
+                                            class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="column is-5">
                             <div class="border-gray">
-                                <p>เลขออเดอร์ : 214321890427140721n</p>
+                                <p>เลขออเดอร์ : 214321890427140721</p>
                                 <p>เลขทะเบียน : กข123</p>
                                 <p>ยี่ห้อ : susuki</p>
                                 <p>รุ่น : swift model-ab123</p>
@@ -184,8 +187,7 @@
                                 <div class="column is-2"></div>
                                 <div class="column is-2">
                                     <center>
-                                        <button type="button"
-                                            class="button is-round is-2 width80 is-oros">
+                                        <button type="button" onclick="printDiv('bills')" class="button is-round is-2 width80 is-oros">
                                             พิมพ์</button>
                                     </center>
                                 </div>
@@ -196,6 +198,37 @@
             </div>
         </div>
     </div>
+    <div>
+        <div>
+            <div id="bills" class="box with-title is-round deplay-none">
+                <h2 align="center">พิมพ์รายละเอียดต่อทะเบียน</h2>
+                <div class="box">
+                    <br>
+                    <div class="columns">
+                        <div class="column border-gray " style="border: 1px solid gray;">
+                            <div class="columns ">
+                                <div class="column is-5  ">
+                                    <p>เลขทะเบียน : กข123</p>
+                                    <p>ยี่ห้อ : susuki</p>
+                                    <p>รุ่น : swift model-ab123</p>
+                                    <p>เจ้าของ : James Goodman</p>
+                                </div>
+                                <br>
+                            </div>
+                            <h3>รายละเอียด</h3>
+                            <div class="columns is-8 border-gray " style="border: 1px solid gray;">
+                                <div class="column">
+                                    <p>- ทะเบียนขาด 10 ปี</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 <footer>

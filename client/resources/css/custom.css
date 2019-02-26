@@ -77,14 +77,15 @@ div.border-gray{
     border: 3px solid gray;
     
 }
+div.border-print{
+    border: 1px solid rgb(0, 0, 0);
+}
 div.border-gray-2{
     border: 3px solid gray;
     padding: 42px 10px;
     
    
 }
-
-
 .width25{
     width: 25%
 }
@@ -97,6 +98,9 @@ div.border-gray-2{
 }
 .width50{
     width: 50%
+}
+.width52{
+    width: 52%
 }
 .width60{
     width: 60%
@@ -154,6 +158,14 @@ div.border-gray-2{
 }
 
 #formPartOrder{
+    display: none;
+}
+
+#formPartDetailCustomer{
+    display: none;
+}
+
+#formPartOrderCustomerAll{
     display: none;
 }
 
@@ -261,6 +273,10 @@ div.border-gray-2{
     padding: 5px;
   }
 
+#car_bill{
+    display:none;
+}
+
 table.table-style-three {
     font-family: verdana, arial, sans-serif;
     font-size: 11px;
@@ -320,8 +336,11 @@ table.table-style-three td {
 .cursor-pointer{
   cursor:pointer;
 }
+
 .partCompany-table tr:hover 
-{background-color: #05897c;}
+{
+    background-color: #05897c;
+}
 
 .clicked{
   background-color: #FFF;
@@ -331,10 +350,6 @@ table.table-style-three td {
   color: #003299;
 }
 
-#example1 {
-    box-sizing: content-box;  
-    width: 200px;
-    height: 100px;
-    padding: 30px;  
-    border: 10px solid blue;
-  }
+.paddingPart{
+    padding: 5px;
+}
