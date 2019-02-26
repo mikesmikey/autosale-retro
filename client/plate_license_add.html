@@ -22,6 +22,7 @@
     <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
@@ -176,28 +177,40 @@
             </div>
             <div class="box">
                 <h2> รายละเอียดทะเบียน <h2>
-                        <div class="columns border-gray">
-                            <div class="column is-1"></div>
-                            <div class="column is-2">
-                                <label class="label is-3">ยี่ห้อรถ </label> <input type="text" class="input-plate">
+                        <div class="border-gray">
+                            <div class="columns" style="margin-left:2%">
+                            <div class="column is-1" style="padding:40px">
+                                <label class="label is-3">ยี่ห้อรถ </label>
                                 <br>
-                                <label class="label is-3">เลขทะเบียน </label> <input type="text" class="input-plate">
+                                <br>
+                                <label class="label is-3">เลขทะเบียน </label>
+                                <br>
+                                <br>
                             </div>
-                            <div class="column is-4">
+                            <div class="column is-2" >
+                                <input type="text" class="input-plate" style="width: 95%">
+                                <br>
+                                <br>
+                                <input type="text" class="input-plate" style="width: 95%">
+                                <br>
+                                <input type="checkbox" id="billsCheck"> <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>
                             </div>
-
-
-
-
-                            <!--- <pre>
-                              
-
-                    <label class="label is-3">ยี่ห้อรถ</label> <input type="text" class="input-plate">            <label class="label is-3">รุ่น</label> <input type="text" class="input-plate">
-                             
-              <label class="label is-3">เลขทะเบียน</label> <input type="text" class="input-plate"> 
-                                
-                             <input type="checkbox" id="billsCheck"> <label class="label is-3">รับใบกำกับภาษีแบบเต็ม</label>  
-                                </pre> --->
+                           
+                            <div class="column is-1" style="margin-left:5%">
+                                <label class="label is-3">ยี่ห้อรถ </label>
+                                <br>  
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="column is-2">
+                                    <input type="text" class="input-plate" style="width: 100%">
+                                    <br>
+                                    <br>  
+                                    <br>
+                                    <br>
+                            </div>
+                        </div>
                         </div>
                         <div class="columns">
                             <div class="column is-2"></div>
@@ -205,9 +218,9 @@
                                 <br>
                                 <center>
                                     <button type="button" onclick="Bills_Print()"
-                                        class="button is-round is-2 width25 is-oros">ยืนยัน</button>
-                                    <button type="button"
-                                        class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
+                                        class="button is-round is-2  is-oros">ยืนยัน</button>
+                                    <button type="button" onclick="plate_license()"
+                                        class="button is-round is-2  is-yentafo">ยกเลิก</button>
                                 </center>
                             </div>
                             <div class="column is-2"></div>
