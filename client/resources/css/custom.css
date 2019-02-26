@@ -338,9 +338,7 @@ table.table-style-three td {
 }
 
 .partCompany-table tr:hover 
-{
-    background-color: #05897c;
-}
+{background-color: #05897c;}
 
 .clicked{
   background-color: #FFF;
@@ -350,6 +348,13 @@ table.table-style-three td {
   color: #003299;
 }
 
+#example1 {
+    box-sizing: content-box;  
+    width: 200px;
+    height: 100px;
+    padding: 30px;  
+    border: 10px solid blue;
+  }
 .paddingPart{
     padding: 5px;
 }
