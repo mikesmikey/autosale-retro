@@ -1,321 +1,321 @@
-<!DOCTYPE html>	
-<html lang="en">	
+<!DOCTYPE html>
+<html lang="en">
 
- <head>	
-    <meta charset="UTF-8">	
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">	
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">	
-    <title>โชคทวี - จัดการต่อทะเบียน - </title>	
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />	
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>โชคทวี - จัดการต่อทะเบียน - </title>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
-     <!-- Utilities CSS-->	
-    <link href="./resources/css/color.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/element.css" type="text/css" rel="stylesheet">	
+    <!-- Utilities CSS-->
+    <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
 
-     <!--Commons CSS -->	
-    <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">	
-    <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">	
+    <!--Commons CSS -->
+    <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
-     <!--JS-->	
-     <script src="./resources/js/Controller_page.js"></script>
-    <script src="./resources/js/accController.js"></script>	
-    <script src="./resources/js/index.js"></script>	
-</head>	
+    <!--JS-->
+    <script src="./resources/js/Controller_page.js"></script>
+    <script src="./resources/js/accController.js"></script>
+    <script src="./resources/js/index.js"></script>
+</head>
 
- <body>	
-    <div class="navbar-div">	
-        <nav class="navbar is-oros" aria-label="main navigation">	
-            <a class="navbar-item banner">	
-                <div>	
-                    <img class="navbar-banner-logo" src="./resources/imgs/logo.png" alt="logo"></img>	
-                    <span class="navbar-banner-text">โชคทวี</span>	
-                </div>	
-            </a>	
-            <button id="navbar-user" class="navbar-item user" onclick="switchNavBarDropDown()">	
-                <div class="user-container">	
-                    <svg class="navbar-user-icon icon-user icon-size-5"></svg>	
-                    <span class="navbar-user-text">inwza007</span>	
-                    <svg class="navbar-user-icon icon-down-arrow icon-size-6"></svg>	
-                </div>	
-                <div id="navbar-dropdown" class="dropdown-items">	
-                    <a href="./about.html">เกี่ยวกับ</a>	
-                    <a onclick="mockLogout()">ออกจากระบบ</a>	
-                    <a class="is-detail">เวอร์ชั่น 0.0.2</a>	
-                </div>	
-            </button>	
-        </nav>	
-    </div>	
-    <nav class="menu main-menu">	
-        <div class="menu-space"></div>	
-        <ul class="menu-list">	
-            <li>	
-                <a class="is-active is-orange" href="./index.html">	
-                    <svg class="menu-icon icon-home icon-size-6"></svg>	
-                    หน้าแรก	
-                </a>	
-            </li>	
-            <li>	
-                <a href="./plate_license.html">	
-                    <svg class="menu-icon icon-license-plate icon-size-6"></svg>	
-                    จัดการต่อทะเบียน	
-                </a>	
-            </li>	
-            <li>	
-                <a id="car-manage-button" onclick="mainMenuCheck(event)">	
-                    <svg class="menu-icon icon-car icon-size-6"></svg>	
-                    จัดการซื้อ-ขายรถ	
-                </a>	
-                <ul id="car-manage-list" class="is-active">	
-                    <li>	
-                        <a href="./car_buy.html" class="is-black-oros">	
-                            จัดการซื้อรถ	
-                        </a>	
-                    </li>	
-                    <li>	
-                        <a href="./car_sell.html">	
-                            จัดการขายรถ	
-                        </a>	
-                    </li>	
-                </ul>	
-            </li>	
-            <li>	
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">	
-                    <svg class="menu-icon icon-car-motor icon-size-6"></svg>	
-                    จัดการซ่อมรถ	
-                </a>	
-                <ul id="fix-manage-list">	
-                    <li>	
-                        <a href="./car_fix.html">	
-                            จัดการซ่อม	
-                        </a>	
-                    </li>	
-                    <li>	
-                        <a href="./car_fix_part.html">	
-                            จัดการอะไหล่ในส่วนการซ่อม	
-                        </a>	
-                    </li>	
-                </ul>	
-            </li>	
-            <li>	
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">	
-                    <svg class="menu-icon icon-car-part icon-size-6"></svg>	
-                    จัดการอะไหล่	
-                </a>	
-                <ul id="part-manage-list">	
-                    <li>	
-                        <a href="./part_company.html">	
-                            จัดการบริษัทอะไหล่	
-                        </a>	
-                    </li>	
-                    <li>	
-                        <a href="./part_order.html">	
-                            จัดการใบสั่งซื้ออะไหล่	
-                        </a>	
-                    </li>	
-                </ul>	
-            </li>	
-            <li>	
-                <a href="./customer_manage.html">	
-                    <svg class="menu-icon icon-customer-card icon-size-6"></svg>	
-                    จัดการลูกค้า	
-                </a>	
-            </li>	
-        </ul>	
-    </nav>	
-    <div class="subcontent-area">	
-        <div class="subcontent-main-div plate">	
-            <div class="box with-title is-round">	
-                <div class="box-title is-oros">	
-                    จัดการการขายรถ	
-                </div>	
-                <div class="box">	
-                    <div class="columns">	
+<body>
+    <div class="navbar-div">
+        <nav class="navbar is-oros" aria-label="main navigation">
+            <a class="navbar-item banner">
+                <div>
+                    <img class="navbar-banner-logo" src="./resources/imgs/logo.png" alt="logo"></img>
+                    <span class="navbar-banner-text">โชคทวี</span>
+                </div>
+            </a>
+            <button id="navbar-user" class="navbar-item user" onclick="switchNavBarDropDown()">
+                <div class="user-container">
+                    <svg class="navbar-user-icon icon-user icon-size-5"></svg>
+                    <span class="navbar-user-text">inwza007</span>
+                    <svg class="navbar-user-icon icon-down-arrow icon-size-6"></svg>
+                </div>
+                <div id="navbar-dropdown" class="dropdown-items">
+                    <a href="./about.html">เกี่ยวกับ</a>
+                    <a onclick="mockLogout()">ออกจากระบบ</a>
+                    <a class="is-detail">เวอร์ชั่น 0.0.2</a>
+                </div>
+            </button>
+        </nav>
+    </div>
+    <nav class="menu main-menu">
+        <div class="menu-space"></div>
+        <ul class="menu-list">
+            <li>
+                <a class="is-active is-orange" href="./index.html">
+                    <svg class="menu-icon icon-home icon-size-6"></svg>
+                    หน้าแรก
+                </a>
+            </li>
+            <li>
+                <a href="./plate_license.html">
+                    <svg class="menu-icon icon-license-plate icon-size-6"></svg>
+                    จัดการต่อทะเบียน
+                </a>
+            </li>
+            <li>
+                <a id="car-manage-button" onclick="mainMenuCheck(event)">
+                    <svg class="menu-icon icon-car icon-size-6"></svg>
+                    จัดการซื้อ-ขายรถ
+                </a>
+                <ul id="car-manage-list" class="is-active">
+                    <li>
+                        <a href="./car_buy.html" class="is-black-oros">
+                            จัดการซื้อรถ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./car_sell.html">
+                            จัดการขายรถ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                    <svg class="menu-icon icon-car-motor icon-size-6"></svg>
+                    จัดการซ่อมรถ
+                </a>
+                <ul id="fix-manage-list">
+                    <li>
+                        <a href="./car_fix.html">
+                            จัดการซ่อม
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./car_fix_part.html">
+                            จัดการอะไหล่ในส่วนการซ่อม
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="./part_manage.html">
+                    <svg class="menu-icon icon-car-part icon-size-6"></svg>
+                    จัดการอะไหล่
+                </a>
+            </li>
+            <li>
+                <a href="./customer_manage.html">
+                    <svg class="menu-icon icon-customer-card icon-size-6"></svg>
+                    จัดการลูกค้า
+                </a>
+            </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="subcontent-area">
+        <div class="subcontent-main-div plate">
+            <div class="box with-title is-round">
+                <div class="box-title is-oros">
+                    จัดการการขายรถ
+                </div>
+                <div class="box">
+                    <div class="columns">
 
-                         <div class="column is-3">	
-                            <h2> ลูกค้าเดิม <h2>	
-                        </div>	
-                        <div class="column is-5">	
-                            <h2> ลูกค้าใหม่ <h2>	
-                        </div>	
-                    </div>	
-                    <div class="columns">	
-                        <div class="column is-3">	
-                            <div>	
-                                <div>	
-                                    <input class="input-icon-search width80" type="text" name="search"	
-                                        placeholder="ค้นหาด้วยชื่อ">	
-                                    <select multiple size="12" class="selectPlate width80">	
-                                        <option value="กข123">James Goodman	
-                                        </option>	
-                                        <option value="ฟห121"> Maria Brown	
-                                        </option>	
-                                        <option value="พก999">Saul Walker</option>	
-                                    </select>	
-                                </div>	
+                        <div class="column is-3">
+                            <h2> ลูกค้าเดิม <h2>
+                        </div>
+                        <div class="column is-5">
+                            <h2> ลูกค้าใหม่ <h2>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div>
+                                <div>
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        placeholder="ค้นหาด้วยชื่อ">
+                                    <select multiple size="12" class="selectPlate width80">
+                                        <option value="กข123">James Goodman
+                                        </option>
+                                        <option value="ฟห121"> Maria Brown
+                                        </option>
+                                        <option value="พก999">Saul Walker</option>
+                                    </select>
+                                </div>
 
-                                 <br>	
+                                <br>
 
-                             </div>	
+                            </div>
 
-                         </div>	
-                        <div class="column is-5">	
-                            <div class="columns border-gray">	
-                                <div class="column is-1" style="padding:15px">	
-                                    <br>	
-                                    <br>	
-                                    <p align="right">ชื่อ</p>	
-                                    <br>	
-                                    <p align="right">ที่อยู่</p>	
-                                    <br>	
-                                    <p align="right">เบอร์โทร</p>	
-                                    <br>	
+                        </div>
+                        <div class="column is-5">
+                            <div class="columns border-gray">
+                                <div class="column is-1" style="padding:15px">
+                                    <br>
+                                    <br>
+                                    <p align="right">ชื่อ</p>
+                                    <br>
+                                    <p align="right">ที่อยู่</p>
+                                    <br>
+                                    <p align="right">เบอร์โทร</p>
+                                    <br>
 
-                                 </div>	
-                                <div class="column is-5">	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
+                                </div>
+                                <div class="column is-5">
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
 
-                                     <br>	
-                                    <textarea class="input-plateAdd" rows="3" cols="41">	
-                                        </textarea>	
-                                    <br>	
-                                    <br>	
+                                    <br>
+                                    <textarea class="input-plateAdd" rows="3" cols="41">
+                                        </textarea>
+                                    <br>
+                                    <br>
 
-                                     <br>	
-                                    <input type="text" name="email" size="40">	
+                                    <br>
+                                    <input type="text" name="email" size="40">
 
-                                 </div>	
-                            </div>	
-                            <br>	
+                                </div>
+                            </div>
+                            <br>
 
-                         </div>	
-                    </div>	
-                </div>	
-                <div class="box">	
-                    <div class="column">	
-                        <div class="column">	
-                            <h2> เลขทะเบียนทั้งหมด <h2>	
-                        </div>	
-                        <div class="columns is-9 border-gray">	
-                            <div class="columns">	
-                                <div class="column is-5" style="padding:15px">	
-                                    <center>	
-                                        <img src="./resources/icons/car.svg" alt="Smiley face" height="160" width="120">	
-                                    </center>	
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="column">
+                        <div class="column">
+                            <h2> เลขทะเบียนทั้งหมด <h2>
+                        </div>
+                        <div class="columns is-9 border-gray">
+                            <div class="columns">
+                                <div class="column is-5" style="padding:15px">
+                                    <center>
+                                        <img src="./resources/icons/car.svg" alt="Smiley face" height="160" width="120">
+                                    </center>
 
-                                     <center>	
-                                        <button type="button"	
-                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>	
-                                    </center>	
-
-
-
-                                 </div>	
-                                <div class="column is-3" style="padding:15px">	
-                                    <br>	
-                                    <p align="right">ยี่ห้อรถ</p>	
-                                    <br>	
-                                    <p align="right">รุ่น</p>	
-                                    <br>	
-                                    <p align="right">เลขทะเบี่ยน</p>	
-                                    <br>	
-                                    <p align="right">รายละเอียด</p>	
-                                    <br>	
-                                </div>	
-                                <div class="column" style="padding:15px">	
-                                    <br>	
-                                    <br>	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
-                                    <br>	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
-
-                                     <br>	
-                                    <textarea rows="3" cols="41">	
-                                    </textarea>	
-                                    <br>	
-                                    <br>	
-                                    <input type="checkbox" name="vehicle1" value="Bike"> &nbsp รับใบกำกับภาษีแบบเต็ม<br>	
-
-                                 </div>	
-                            </div>	
-                            <br>	
-                        </div>	
-                    </div>	
-                </div>	
-
-                 <div class="box">	
-                    <div class="column">	
-                        <div class="column is-3">	
-                            <h2> นายหน้า(ไม่จำเป็นต้องมี) <h2>	
-                        </div>	
-                        <div class="columns is-9 border-gray">	
-                            <div class="columns">	
-                                <div class="column is-6" style="padding:15px">	
-                                    <br>	
-                                    <p align="right">ชื่อ</p>	
-                                    <br>	
-                                    <p align="right">เบอร์โทร</p>	
-                                </div>	
-                                <div class="column" style="padding:15px">	
-                                    <br>	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
-                                    <br>	
-                                    <input type="text" name="email" size="40">	
-                                    <br>	
-                                    <br>	
-                                </div>	
-                            </div>	
-                            <br>	
-                        </div>	
-                    </div>	
-                    <div class="columns" style="text-align:right">	
-                        <div class="column is-4" style="text-align:right">	
-                        </div>	
-                        <div class="column is-2" style="text-align:right">	
-                            <a href="./car_sell.html"><button type="button"	
-                                    class="button is-width80  is-round is-2 is-oros">ยืนยัน</button></a>	
-                        </div>	
-                        <div class="column is-2">	
-                            <a href="./car_sell.html"><button type="button"	
-                                    class="button margin-left-x is-width80 is-round is-2  is-yentafo">ยกเลิก</button></a>	
-                        </div>	
-                    </div>	
-
-                 </div>	
+                                    <center>
+                                        <button type="button"
+                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                                    </center>
 
 
+
+                                </div>
+                                <div class="column is-3" style="padding:15px">
+                                    <br>
+                                    <p align="right">ยี่ห้อรถ</p>
+                                    <br>
+                                    <p align="right">รุ่น</p>
+                                    <br>
+                                    <p align="right">เลขทะเบี่ยน</p>
+                                    <br>
+                                    <p align="right">รายละเอียด</p>
+                                    <br>
+                                </div>
+                                <div class="column" style="padding:15px">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
+
+                                    <br>
+                                    <textarea rows="3" cols="41">
+                                    </textarea>
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" name="vehicle1" value="Bike"> &nbsp รับใบกำกับภาษีแบบเต็ม<br>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="column">
+                        <div class="column is-3">
+                            <h2> นายหน้า(ไม่จำเป็นต้องมี) <h2>
+                        </div>
+                        <div class="columns is-9 border-gray">
+                            <div class="columns">
+                                <div class="column is-6" style="padding:15px">
+                                    <br>
+                                    <p align="right">ชื่อ</p>
+                                    <br>
+                                    <p align="right">เบอร์โทร</p>
+                                </div>
+                                <div class="column" style="padding:15px">
+                                    <br>
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <input type="text" name="email" size="40">
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="columns" style="text-align:right">
+                        <div class="column is-4" style="text-align:right">
+                        </div>
+                        <div class="column is-2" style="text-align:right">
+                            <a href="./car_sell.html"><button type="button"
+                                    class="button is-width80  is-round is-2 is-oros">ยืนยัน</button></a>
+                        </div>
+                        <div class="column is-2">
+                            <a href="./car_sell.html"><button type="button"
+                                    class="button margin-left-x is-width80 is-round is-2  is-yentafo">ยกเลิก</button></a>
+                        </div>
+                    </div>
+
+                </div>
 
 
 
 
-             </div>	
-        </div>	
-    </div>	
-</body>	
 
- <footer>	
-    <!-- Controller JS -->	
-    <script src="./resources/js/menuController.js"></script>	
-    <script src="./resources/js/navbarController.js"></script>	
-</footer>	
 
- </html>
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <!-- Controller JS -->
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+</footer>
+
+</html>

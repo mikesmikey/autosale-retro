@@ -102,27 +102,27 @@
                 </ul>
             </li>
             <li>
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./part_manage.html">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list">
-                    <li>
-                        <a href="./part_company.html">
-                            จัดการบริษัทอะไหล่
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./part_order.html">
-                            จัดการใบสั่งซื้ออะไหล่
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
+                </a>
+            </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
                 </a>
             </li>
         </ul>
@@ -138,7 +138,8 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search" placeholder="ค้นหาด้วยชื่อลูกค้า">
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        placeholder="ค้นหาด้วยชื่อลูกค้า">
                                     <select multiple size="12" class="selectPlate width80 cursor-pointer">
                                         <option value="James Goodman">James Goodman</option>
                                         <option value="Maria Brown">Maria Brown</option>
@@ -156,7 +157,8 @@
                                     <br>
                                     <br>
                                     <label class="label is-3">ที่อยู่</label>
-                                    <textarea class="textarea-plate is-pulled-right width70 address" rows="6"></textarea>
+                                    <textarea class="textarea-plate is-pulled-right width70 address"
+                                        rows="6"></textarea>
                                     <br>
                                     <br>
                                     <br>
@@ -189,7 +191,8 @@
                                             <br>
                                         </div>
                                         <div>
-                                            <button style="width: 75%" type="button" class="button is-round is-2 is-oros">อัพโหลดรูป</button>
+                                            <button style="width: 75%" type="button"
+                                                class="button is-round is-2 is-oros">อัพโหลดรูป</button>
                                         </div>
                                     </div>
                                     <div class="column is-4">
@@ -207,7 +210,8 @@
                                         </p>
                                         <p>
                                             <label class="label is-3">อาการ</label>
-                                            <textarea class="textarea-plate is-pulled-right width70 address" rows="6"></textarea>
+                                            <textarea class="textarea-plate is-pulled-right width70 address"
+                                                rows="6"></textarea>
                                         </p>
                                     </div>
 
@@ -220,7 +224,8 @@
                         </div>
                         <br>
                         <div style="text-align: center;">
-                            <button type="button" onclick="Bills_Print()" class="button is-round is-2 width25 is-oros">ยืนยัน</button>
+                            <button type="button" onclick="Bills_Print()"
+                                class="button is-round is-2 width25 is-oros">ยืนยัน</button>
                             <button type="button" class="button is-round is-2 width25 is-yentafo">ยกเลิก</button>
                         </div>
             </div>

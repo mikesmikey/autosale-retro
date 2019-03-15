@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>โชคทวี - จัดการซ่อมรถ</title>
-    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png"/>
+    <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
     <link href="./resources/css/part_order_css.css	" type="text/css" rel="stylesheet">
@@ -72,7 +72,7 @@
                 </a>
                 <ul id="car-manage-list" class="is-active">
                     <li>
-                        <a href="./car_buy.html" class="is-black-oros"> 
+                        <a href="./car_buy.html" class="is-black-oros">
                             จัดการซื้อรถ
                         </a>
                     </li>
@@ -102,22 +102,10 @@
                 </ul>
             </li>
             <li>
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./part_manage.html">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list">
-                    <li>
-                        <a href="./part_company.html">
-                            จัดการบริษัทอะไหล่
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./part_order.html">
-                            จัดการใบสั่งซื้ออะไหล่
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
@@ -125,9 +113,21 @@
                     จัดการลูกค้า
                 </a>
             </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
+                </a>
+            </li>
         </ul>
     </nav>
-    
+
     <div class="subcontent-area">
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
@@ -161,7 +161,7 @@
                                 <div class="columns">
                                     <div class="column is-2">
                                         <a href="./car_buy_add.html"><button type="button"
-                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button></a>
+                                                class="button is-width80  is-round is-2 is-oros">เพิ่ม</button></a>
                                     </div>
                                     <div class="column is-2 margin-left150">
                                         <button type="button"
@@ -177,7 +177,7 @@
                                     <center>
                                         <img src="./resources/icons/car.svg" alt="Smiley face" height="160" width="120">
                                     </center>
-                                    </div>
+                                </div>
                                 <div class="column is-5 border-gray" style="padding:5px">
                                     <p>เลขออเดอร์ : 214321890427140721</p>
                                     <p>เลขทะเบียน : กข123</p>
@@ -199,75 +199,79 @@
                                 <br>
                             </div>
 
-                            <div class="columns is-9"  >
+                            <div class="columns is-9">
                                 <div class="column" style="text-align:right">
                                     <br>
-                                    <button type="button"
-                                        class="button is-width40  is-round is-2 is-oros" onClick="printDiv('car_bill')">พิมพ์</button>
+                                    <button type="button" class="button is-width40  is-round is-2 is-oros"
+                                        onClick="printDiv('car_bill')">พิมพ์</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-        
-    </div>
-    </div>
-    </div>
-    
-    <div class="box" id="car_bill">
-            <div class="columns">
-                    <div class="column">
-                        <br>
-                        <center><font size = 6> พิมพ์ใบเสร็จ </font></center>
-                        <br>
-                    </div>
-            </div>
-            <div class="columns">
-                    <div class=" column">   
-                    <div id="bor01" >
-                            <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
-                            <p>&nbspเลขที่บิล : sadf123214214214</p>
-                            <p>&nbspวันที่ออก : 17/11/2561</p>  
-                            <p>&nbspประเภทออเดอร์ : [ประเภท]</p> 
-                            <br><br>              
-                    </div>
-                    <div id="bor01"> 
-                            <p>&nbsp&nbsp&nbsp&nbsp&nbsp   
-                                รายการ</p>
-                            <center><table id="table01">
-                                <tr id="tr01">
-                                  <th class="mixTop">&nbspรายการ</th>
-                                  <th class="mixTop">&nbspจำนวน</th>
-                                  <th class="mixTop">&nbspราคา</th>
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>  
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>  
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>
-                                    <td class="mix"><br/></td>  
-                                </tr>
-                                <tr>
-                                    <td class="mixUnder"><br/></td>
-                                    <td class="mixUnder"><br/></td>
-                                    <td class="mixUnder"><br/></td>  
-                                </tr>
-                                
-                               
-                              </table></center> <br>     
-                    </div>
-                    </div>
 
-            </div>   
+            </div>
+        </div>
+    </div>
+
+    <div class="box" id="car_bill">
+        <div class="columns">
+            <div class="column">
+                <br>
+                <center>
+                    <font size=6> พิมพ์ใบเสร็จ </font>
+                </center>
+                <br>
+            </div>
+        </div>
+        <div class="columns">
+            <div class=" column">
+                <div id="bor01">
+                    <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                    <p>&nbspเลขที่บิล : sadf123214214214</p>
+                    <p>&nbspวันที่ออก : 17/11/2561</p>
+                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                    <br><br>
+                </div>
+                <div id="bor01">
+                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                        รายการ</p>
+                    <center>
+                        <table id="table01">
+                            <tr id="tr01">
+                                <th class="mixTop">&nbspรายการ</th>
+                                <th class="mixTop">&nbspจำนวน</th>
+                                <th class="mixTop">&nbspราคา</th>
+                            </tr>
+                            <tr>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                            </tr>
+                            <tr>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                            </tr>
+                            <tr>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                            </tr>
+                            <tr>
+                                <td class="mixUnder"><br /></td>
+                                <td class="mixUnder"><br /></td>
+                                <td class="mixUnder"><br /></td>
+                            </tr>
+
+
+                        </table>
+                    </center> <br>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 

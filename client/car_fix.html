@@ -104,27 +104,27 @@
                 </ul>
             </li>
             <li>
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./part_manage.html">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list">
-                    <li>
-                        <a href="./part_company.html">
-                            จัดการบริษัทอะไหล่
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./part_order.html">
-                            จัดการใบสั่งซื้ออะไหล่
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
+                </a>
+            </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
                 </a>
             </li>
         </ul>
@@ -140,7 +140,8 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        placeholder="ค้นหาด้วยเลขทะเบียน">
                                     <select size="15" class="selectPlate width80">
                                         <option value="กข123">กข123</option>
                                         <option value="ฟห121">ฟห121</option>
@@ -151,10 +152,12 @@
                                     <div class="column is-1">
                                     </div>
                                     <div class="column is-3">
-                                        <button type="button" onclick="mockCarFixAdd()" class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                                        <button type="button" onclick="mockCarFixAdd()"
+                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
                                     </div>
                                     <div class="column is-3">
-                                        <button type="button" class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
+                                        <button type="button"
+                                            class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
                                     </div>
                                 </div>
                             </div>
@@ -222,9 +225,11 @@
                                 </tr>
                             </table>
                             <div style="text-align: right;">
-                                <button onclick="usedPartUpdate()" type="button" class="button is-round is-2 width30 is-orange">
+                                <button onclick="usedPartUpdate()" type="button"
+                                    class="button is-round is-2 width30 is-orange">
                                     อัพเดท</button>
-                                <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width30 is-oros">
+                                <button onclick="printDiv('formCarFix')" type="button"
+                                    class="button  is-round is-2 width30 is-oros">
                                     พิมพ์</button>
                                 <div style="display: none;" class="box" id="formCarFix">
                                     <div class="box">
@@ -259,46 +264,46 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mix">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="mixUnder">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mixUnder">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                                 <td class="mixUnder">
-                                                                    <br/>
+                                                                    <br />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -348,7 +353,8 @@
                                                 <div id="bor01">
                                                     <div class="columns">
                                                         <div class="column is-2">
-                                                            <img src="./resources/imgs/taxCar..png" alt="taxCar" width="100" height="100" />
+                                                            <img src="./resources/imgs/taxCar..png" alt="taxCar"
+                                                                width="100" height="100" />
                                                         </div>
                                                         <div class="column is-3">
                                                             <label>บริษัท โชคทวี ออโต้เซล จำกัด</label>
@@ -402,58 +408,58 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mix">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mixUnder">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mixUnder">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mixUnder">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                         <td class="mixUnder">
-                                                            <br/>
+                                                            <br />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -516,7 +522,8 @@
                                         </div>
                                         <div style="float: left">&nbsp;&nbsp;&nbsp;ผู้ส่งสินค้า</div>
                                         <div style="float: right">ผู้รับสินค้า&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                        <div style="margin: 0 auto; width: 100px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้รับเงิน</div>
+                                        <div style="margin: 0 auto; width: 100px;">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้รับเงิน</div>
                                     </div>
                                     <br>
                                     <br>
@@ -630,13 +637,15 @@
                                                         </div>
                                                         <div class="column is-3">
 
-                                                            <img src="resources/imgs/Car01.png" height="150" width="200" align="right">
+                                                            <img src="resources/imgs/Car01.png" height="150" width="200"
+                                                                align="right">
                                                         </div>
 
                                                         <br>
                                                     </div>
                                                     <h2>อาการ</h2>
-                                                    <div class="columns is-8 border-gray " style="border: 1px solid gray;">
+                                                    <div class="columns is-8 border-gray "
+                                                        style="border: 1px solid gray;">
                                                         <div class="column">
                                                             <p>- รถแรงเกินไป</p>
                                                             <p>- ถังน้ำมันรั่ว</p>
@@ -646,7 +655,8 @@
                                                     </div>
                                                     <br>
                                                     <h2>ชิ้นส่วนที่ใช้</h2>
-                                                    <div class="columns is-8 border-gray " style="border: 1px solid gray;">
+                                                    <div class="columns is-8 border-gray "
+                                                        style="border: 1px solid gray;">
                                                         <div class="column">
                                                             <p>ชิ้นส่วนถังน้ำมัน 1 ชิ้น</p>
                                                             <p>เครื่องยนต์โรตารี่ 1 ชิ้น</p>

@@ -93,6 +93,28 @@
     background-color: currentColor;
 }
 
+.icon-partner {
+    -webkit-mask-image: url('../icons/partnership.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
+.icon-profit {
+    -webkit-mask-image: url('../icons/bars.svg');
+    mask-position: center center;
+    mask-repeat: no-repeat;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: currentColor;
+}
+
 /* Icon Size */
 
 .icon-size-1 {

@@ -26,7 +26,7 @@
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/refModal.js"></script>
     <script src="./resources/js/utilities.js"></script>
-    
+
 </head>
 
 <body>
@@ -104,27 +104,27 @@
                 </ul>
             </li>
             <li>
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./part_manage.html">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list" class="is-active">
-                    <li>
-                        <a href="./part_company.html" class="is-black-oros">
-                            จัดการบริษัทอะไหล่
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./part_order.html">
-                            จัดการใบสั่งซื้ออะไหล่
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
+                </a>
+            </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
                 </a>
             </li>
         </ul>
@@ -153,7 +153,7 @@
                             </div>
                         </div>
                         <div class="column is-5">
-                            <div class="border-gray paddingPart" >
+                            <div class="border-gray paddingPart">
                                 <p>ชื่อบริษัท : ไทยรุ่ง จำกัด</p>
                                 <p>ที่อยู่ : บางกะปิ กรุงเทพ</p>
                                 <p>โทรศัพท์ : 02-9999999</p>
@@ -165,28 +165,30 @@
                                         <th>รายการออเดอร์ที่เคยสั่ง</th>
                                         <th>วันที่</th>
                                     </tr>
-                                    <tr >
+                                    <tr>
                                         <td>order #13456461616</td>
                                         <td>19/08/2560</td>
                                     </tr>
-                                    <tr >
+                                    <tr>
                                         <td>order #12478219472</td>
                                         <td>20/07/2561</td>
                                     </tr>
-                                    <tr >
+                                    <tr>
                                         <td>order #42314791212</td>
                                         <td>26/11/2561</td>
                                     </tr>
                                 </table>
                             </div>
                             <br>
-                            
+
                             <div class="columns">
                                 <div class="column is-2"></div>
                                 <div class="column is-2"></div>
                                 <div class="column is-4">
-                                    <button type="button" onclick="launchModal()" class="button is-round is-2 width45 is-orange">แก้ไขบริษัทอะไหล่</button>
-                                    <button type="button" onclick="printDiv('order_bill')" class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
+                                    <button type="button" onclick="launchModal()"
+                                        class="button is-round is-2 width45 is-orange">แก้ไขบริษัทอะไหล่</button>
+                                    <button type="button" onclick="printDiv('order_bill')"
+                                        class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
                                 </div>
                             </div>
                         </div>
@@ -196,93 +198,96 @@
         </div>
     </div>
     <div id="ref-modal" class="modal">
-            <div class="box partCompany">
-                    <label class="label is-2">ชื่อบริษัท</label>
-                    <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br>
-                    <label class="label is-2">ที่อยู่</label>
-                    <textarea class="textarea-plate is-pulled-right width80 address"rows="6"></textarea><br><br><br><br><br><br><br>
-                    <label class="label is-2">เบอร์โทร</label>
-                    <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br><br>
-                    <div class="columns">
-                            <div class="column is-2">
-                            </div>
-                            <div class="column is-2">
-                                <center>
-                                <button type="button"  class="button is-width70  is-round is-2 is-oros">ตกลง</button>
-                                </center>
-                            </div>
-                            <div class="column is-2">
-                                    <center>
-                                    <button type="button" onclick="closeModal()" class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
-                                </center>
-                                </div>
-                                <div class="column is-2">
-                                    </div>
-                        </div>
+        <div class="box partCompany">
+            <label class="label is-2">ชื่อบริษัท</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br>
+            <label class="label is-2">ที่อยู่</label>
+            <textarea class="textarea-plate is-pulled-right width80 address"
+                rows="6"></textarea><br><br><br><br><br><br><br>
+            <label class="label is-2">เบอร์โทร</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br><br>
+            <div class="columns">
+                <div class="column is-2">
                 </div>
-        </div>
-
-<!---print order-->
-<div id="order_bill" class="select deplay-none">
-    <br>
-    <div>
-
-        <div align='center'>ใบสั่งซื้ออะไหล่</div>
-        <br>
-        <div class="border-gray">
-            
-            <table width=80%>
-
-                <tr>
-                    <td> เลขที่ออเดอร์ : 421048210421</td>
-                </tr>
-                <tr>
-                    <td>วันที่สั่ง : 17/11/2561</td>
-                </tr>
-                <tr>
-                    <td>สั่งบริษัท : ไทยรุ่ง จำกัด</td>
-                </tr>
-            </table>
-        </div>
-        <br><div>รายการ</div><br>
-        <div  align='center'>
-            <table  class="table-style-three" style="width:99%"> 
-                <thead>
-                    <tr>
-                        <th class="half-left">รายการ</th>
-                        <th class="half-left">จำนวน</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="half-left">หลอดไฟ (กล่อง)</td>
-                        <td class="half-left">9000</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closeModal()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+    <!---print order-->
+    <div id="order_bill" class="select deplay-none">
+        <br>
+        <div>
+
+            <div align='center'>ใบสั่งซื้ออะไหล่</div>
+            <br>
+            <div class="border-gray">
+
+                <table width=80%>
+
+                    <tr>
+                        <td> เลขที่ออเดอร์ : 421048210421</td>
+                    </tr>
+                    <tr>
+                        <td>วันที่สั่ง : 17/11/2561</td>
+                    </tr>
+                    <tr>
+                        <td>สั่งบริษัท : ไทยรุ่ง จำกัด</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div>รายการ</div><br>
+            <div align='center'>
+                <table class="table-style-three" style="width:99%">
+                    <thead>
+                        <tr>
+                            <th class="half-left">รายการ</th>
+                            <th class="half-left">จำนวน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="half-left">หลอดไฟ (กล่อง)</td>
+                            <td class="half-left">9000</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
 </body>

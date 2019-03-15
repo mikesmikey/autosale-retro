@@ -102,27 +102,27 @@
                 </ul>
             </li>
             <li>
-                <a id="part-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./part_manage.html">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list">
-                    <li>
-                        <a href="./part_company.html">
-                            จัดการบริษัทอะไหล่
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./part_order.html">
-                            จัดการใบสั่งซื้ออะไหล่
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
+                </a>
+            </li>
+            <li>
+                <a href="./partner_manage.html">
+                    <svg class="menu-icon icon-partner icon-size-6"></svg>
+                    จัดการคู่ค้า
+                </a>
+            </li>
+            <li>
+                <a href="./summary.html">
+                    <svg class="menu-icon icon-profit icon-size-6"></svg>
+                    สรุปผลกำไร
                 </a>
             </li>
         </ul>
@@ -169,17 +169,20 @@
                             </div>
                         </div>
                     </div>
-                    <br>    
+                    <br>
                     <div class="columns">
-                            <div class="column is-4" style="margin-left:12%">
-                                        <button type="button" onclick="plate_license_add()"class="button  is-round is-2 is-oros">เพิ่ม</button>
-                                        <button style="margin-left:1%" type="button"class="button   is-round is-2  is-yentafo">ลบ</button>
-                                </div>
-                                <div class="column is-4">
-                                        <div  style="margin-left:59%">
-                                            <button type="button" onclick="printDiv('bills')" class="button is-round is-2  is-oros" > พิมพ์</button>
-                                        </div>
-                                    </div>
+                        <div class="column is-4" style="margin-left:12%">
+                            <button type="button" onclick="plate_license_add()"
+                                class="button  is-round is-2 is-oros">เพิ่ม</button>
+                            <button style="margin-left:1%" type="button"
+                                class="button   is-round is-2  is-yentafo">ลบ</button>
+                        </div>
+                        <div class="column is-4">
+                            <div style="margin-left:59%">
+                                <button type="button" onclick="printDiv('bills')" class="button is-round is-2  is-oros">
+                                    พิมพ์</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
