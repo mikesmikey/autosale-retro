@@ -84,6 +84,9 @@
     width: 13%;
 }
 
+.columns.is-center {
+    justify-content: center;
+}
 
 /*===============[text helper]===================*/
 
