@@ -102,10 +102,22 @@
                 </ul>
             </li>
             <li>
-                <a href="./part_manage.html">
+                <a id="part-manage-button" onclick="mainMenuCheck(event)">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
+                <ul id="part-manage-list">
+                    <li>
+                        <a href="./part_manage.html">
+                            จัดการอะไหล่ส่วนกลาง
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./part_order_manage.html">
+                            จัดการใบสั่งซื้ออะไหล่
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="./customer_manage.html">
@@ -128,7 +140,6 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-
         <div class="box with-title is-round">
             <div class="box-title is-oros">
                 จัดการซื้อรถ

@@ -103,13 +103,25 @@
                 </ul>
             </li>
             <li>
-                <a href="./part_manage.html">
+                <a id="part-manage-button" onclick="mainMenuCheck(event)">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
+                <ul id="part-manage-list">
+                    <li>
+                        <a href="./part_manage.html">
+                            จัดการอะไหล่ส่วนกลาง
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./part_order_manage.html">
+                            จัดการใบสั่งซื้ออะไหล่
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
-                <a href="./customer_manage.html" >
+                <a href="./customer_manage.html">
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
                 </a>
@@ -156,8 +168,9 @@
                                 <p>ชื่อ : Italian Thai</p>
                                 <p>โทรศัพท์ : 000001110</p>
                                 <p>ประเภท : Agent</p>
-                                <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</p>
-                                
+                                <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400
+                                </p>
+
                             </div>
                             <br>
                         </div>
@@ -168,9 +181,8 @@
                                 <button type="button"
                                     class="button is-free-size is-pulled-right is-round is-2  is-yentafo"
                                     onclick="launchPartnerDelete()">ลบคู่ค้า</button>
-                                    
-                                <button type="button"
-                                    class="button is-free-size is-pulled-right is-round is-2 is-oros"
+
+                                <button type="button" class="button is-free-size is-pulled-right is-round is-2 is-oros"
                                     onclick="launchPartnerAdd()">เพิ่มคู่ค้า</button>
 
 
@@ -210,7 +222,7 @@
                         <p>โทรศัพท์ : 000001110</p>
                         <p>ประเภท : Agent</p>
                         <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</p>
-                        
+
                     </div>
                 </div>
             </div>
@@ -228,7 +240,7 @@
 
                 <label class="label is-2">ชื่อ</label>
                 <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
-                
+
                 <label class="label is-2">โทรศัพท์</label>
                 <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
                 <div class="columns"></div>
@@ -249,8 +261,7 @@
                     </div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" 
-                            class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                            <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
                         </center>
                     </div>
                     <div class="column is-2">
@@ -278,7 +289,7 @@
 
                 <label class="label is-2">ชื่อ</label>
                 <input type="text" class="input-plateAdd  is-pulled-right width80" value="Italian Thai"><br><br>
-                
+
                 <label class="label is-2">โทรศัพท์</label>
                 <input type="text" class="input-plateAdd  is-pulled-right width80" value="000001110"><br><br>
                 <div class="columns"></div>
@@ -299,8 +310,7 @@
                     </div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" 
-                            class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                            <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
                         </center>
                     </div>
                     <div class="column is-2">
@@ -328,7 +338,8 @@
                     </div>
                     <div class="column is-2">
                         <center>
-                            <button id="butt01" type="button" class="button is-width70  is-round  is-oros">ยืนยัน</button>
+                            <button id="butt01" type="button"
+                                class="button is-width70  is-round  is-oros">ยืนยัน</button>
                         </center>
                     </div>
                     <div class="column is-2">
