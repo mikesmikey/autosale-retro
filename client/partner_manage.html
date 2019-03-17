@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - จัดการบริษัทอะไหล่</title>
+    <title>โชคทวี - จัดการคู่ค้า</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -13,6 +13,8 @@
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/partner_css.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
@@ -24,9 +26,6 @@
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
-    <script src="./resources/js/refModal.js"></script>
-    <script src="./resources/js/utilities.js"></script>
-
 </head>
 
 <body>
@@ -110,7 +109,7 @@
                 </a>
             </li>
             <li>
-                <a href="./customer_manage.html">
+                <a href="./customer_manage.html" >
                     <svg class="menu-icon icon-customer-card icon-size-6"></svg>
                     จัดการลูกค้า
                 </a>
@@ -133,162 +132,216 @@
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
                 <div class="box-title is-oros">
-                    จัดการบริษัทอะไหล่
+                    จัดการคู่ค้า
                 </div>
-                <div class="box boxplate">
-                    <div class="columns">
+                <div class="box">
+                    <div>
+                        <h2> รายชื่อคู่ค้าทั้งหมด<h2>
                     </div>
                     <div class="columns">
-                        <div class="column is-3">
+                        <div class="column is-2 customer-column-left">
                             <div>
-                                <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
-                                        placeholder="ชื่อบริษัท">
-                                    <select multiple size="12" class="selectPlate width80 cursor-pointer">
-                                        <option value="ไทยรุ่ง จำกัด">ไทยรุ่ง จำกัด</option>
-                                        <option value="ซีพี">ซีพี</option>
-                                        <option value="ไทย เดนมาร์ค">ไทย เดนมาร์ค</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-5">
-                            <div class="border-gray paddingPart">
-                                <p>ชื่อบริษัท : ไทยรุ่ง จำกัด</p>
-                                <p>ที่อยู่ : บางกะปิ กรุงเทพ</p>
-                                <p>โทรศัพท์ : 02-9999999</p>
-                            </div>
-
-                            <div class="columns">
-                                <table table-item class="partCompany-table cursor-pointer">
-                                    <tr>
-                                        <th>รายการออเดอร์ที่เคยสั่ง</th>
-                                        <th>วันที่</th>
-                                    </tr>
-                                    <tr>
-                                        <td>order #13456461616</td>
-                                        <td>19/08/2560</td>
-                                    </tr>
-                                    <tr>
-                                        <td>order #12478219472</td>
-                                        <td>20/07/2561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>order #42314791212</td>
-                                        <td>26/11/2561</td>
-                                    </tr>
-                                </table>
+                                <input class="input-icon-search" type="text" name="search" style="width: 100%;"
+                                    placeholder="ค้นหาชื่อคู่ค้า">
+                                <select multiple size="9" class="select selectPlate">
+                                    <option value="ThaiSubmit">ThaiSubmit</option>
+                                    <option value="ItalianThai">ItalianThai</option>
+                                </select>
                             </div>
                             <br>
+                        </div>
+                        <div class="column">
+                            <div class="border-gray-2" style="height: 344px;">
+                                <p>ชื่อบริษัท : ItalianThai</p>
+                                <p>ชื่อ : Italian Thai</p>
+                                <p>โทรศัพท์ : 000001110</p>
+                                <p>ประเภท : Agent</p>
+                                <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</p>
+                                
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <div class="button-group">
+                                <button type="button"
+                                    class="button is-free-size is-pulled-right is-round is-2  is-yentafo"
+                                    onclick="launchPartnerDelete()">ลบคู่ค้า</button>
+                                    
+                                <button type="button"
+                                    class="button is-free-size is-pulled-right is-round is-2 is-oros"
+                                    onclick="launchPartnerAdd()">เพิ่มคู่ค้า</button>
 
-                            <div class="columns">
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-4">
-                                    <button type="button" onclick="launchModal()"
-                                        class="button is-round is-2 width45 is-orange">แก้ไขบริษัทอะไหล่</button>
-                                    <button type="button" onclick="printDiv('order_bill')"
-                                        class="button is-round is-2 width45 is-oros">พิมพ์สั่งซื้อที่เลือก</button>
-                                </div>
+
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="button-group">
+                                <button type="button" class="button is-free-size is-pulled-right is-round is-2  is-oros"
+                                    onclick="printDiv('formPartDetailCustomer')">พิมพ์รายละเอียดคู่ค้า
+                                </button>
+                                <button type="button"
+                                    class="button is-free-size is-pulled-right is-round is-2 is-orange"
+                                    onclick="launchPartnerEdit()">แก้ไขคู่ค้า</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="ref-modal" class="modal">
-        <div class="box partCompany">
-            <label class="label is-2">ชื่อบริษัท</label>
-            <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br>
-            <label class="label is-2">ที่อยู่</label>
-            <textarea class="textarea-plate is-pulled-right width80 address"
-                rows="6"></textarea><br><br><br><br><br><br><br>
-            <label class="label is-2">เบอร์โทร</label>
-            <input type="text" class="input-plateAdd  is-pulled-right width80"><br><br><br>
-            <div class="columns">
-                <div class="column is-2">
-                </div>
-                <div class="column is-2">
-                    <center>
-                        <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
-                    </center>
-                </div>
-                <div class="column is-2">
-                    <center>
-                        <button type="button" onclick="closeModal()"
-                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
-                    </center>
-                </div>
-                <div class="column is-2">
+
+
+
+        <div class="box" id="formPartDetailCustomer">
+            <div class="select" style="width:99%">
+                <br>
+                <div>
+                    <div>
+                        <center>
+                            <font size=6> พิมพ์รายละเอียดคู่ค้า </font>
+                        </center>
+                    </div>
+
+                    <br>
+                    <div class="select">
+                        <p>ชื่อบริษัท : ItalianThai</p>
+                        <p>ชื่อ : Italian Thai</p>
+                        <p>โทรศัพท์ : 000001110</p>
+                        <p>ประเภท : Agent</p>
+                        <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</p>
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!---print order-->
-    <div id="order_bill" class="select deplay-none">
-        <br>
-        <div>
 
-            <div align='center'>ใบสั่งซื้ออะไหล่</div>
-            <br>
-            <div class="border-gray">
+        <div id="add-Partner" class="modal">
+            <div class="box partCustomer">
+                <center>
+                    <h1 class="label is-2">เพิ่มข้อมูลคู่ค้า</h1>
+                </center>
 
-                <table width=80%>
+                <label class="label is-2">ชื่อบริษัท</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
 
-                    <tr>
-                        <td> เลขที่ออเดอร์ : 421048210421</td>
-                    </tr>
-                    <tr>
-                        <td>วันที่สั่ง : 17/11/2561</td>
-                    </tr>
-                    <tr>
-                        <td>สั่งบริษัท : ไทยรุ่ง จำกัด</td>
-                    </tr>
-                </table>
-            </div>
-            <br>
-            <div>รายการ</div><br>
-            <div align='center'>
-                <table class="table-style-three" style="width:99%">
-                    <thead>
-                        <tr>
-                            <th class="half-left">รายการ</th>
-                            <th class="half-left">จำนวน</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="half-left">หลอดไฟ (กล่อง)</td>
-                            <td class="half-left">9000</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <label class="label is-2">ชื่อ</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
+                
+                <label class="label is-2">โทรศัพท์</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
+                <div class="columns"></div>
+
+                <label class="label is-2">ประเภท</label>
+                <select class="is-pulled-right width82 height30 ">
+                    <option value="Agent">Agent</option>
+                    <option value="Company">Company</option>
+                </select><br><br>
+
+                <label class="label is-2">ที่อยู่</label>
+                <textarea class="textarea-plate is-pulled-right width81 address"
+                    rows="6"></textarea><br><br><br><br><br><br><br>
+
+                <br>
+                <div class="columns">
+                    <div class="column is-10">
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button type="button" 
+                            class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button type="button" onclick="closePartnerAdd()"
+                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
+
+
+        <div id="edit-Partner" class="modal">
+            <div class="box partCustomer">
+                <center>
+                    <h1 class="label is-2">แก้ไขข้อมูลคู่ค้า</h1>
+                </center>
+
+                <label class="label is-2">ชื่อบริษัท</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value="ItalianThai"><br><br>
+
+                <label class="label is-2">ชื่อ</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value="Italian Thai"><br><br>
+                
+                <label class="label is-2">โทรศัพท์</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" value="000001110"><br><br>
+                <div class="columns"></div>
+
+                <label class="label is-2">ประเภท</label>
+                <select class="is-pulled-right width82 height30 ">
+                    <option value="Agent">Agent</option>
+                    <option value="Company">Company</option>
+                </select><br><br>
+
+                <label class="label is-2">ที่อยู่</label>
+                <textarea class="textarea-plate is-pulled-right width81 address"
+                    rows="6">256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</textarea><br><br><br><br><br><br><br>
+
+                <br>
+                <div class="columns">
+                    <div class="column is-10">
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button type="button" 
+                            class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button type="button" onclick="closePartnerEdit()"
+                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="delete-Partner" class="modal">
+            <div class="box partCustomerDelete">
+                <center>
+                    <h1 class="label is-4">คุณแน่ใจแล้วหรือว่าต้องการลบคู่ค้าท่านนี้?
+                    </h1>
+                </center>
+                <br>
+                <div class="columns">
+                    <div class="column is-2">
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button id="butt01" type="button" class="button is-width70  is-round  is-oros">ยืนยัน</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                        <center>
+                            <button id="butt01" type="button" onclick="closePartnerDelete()"
+                                class="button  is-width70 is-round   is-yentafo">ยกเลิก</button>
+                        </center>
+                    </div>
+                    <div class="column is-2">
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </body>
 
@@ -296,6 +349,8 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/partner_manage.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </footer>
 
 </html>
