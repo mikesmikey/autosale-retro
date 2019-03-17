@@ -19,6 +19,7 @@
     <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
     <script src="./resources/js/Controller_page.js"></script>
@@ -183,16 +184,26 @@
                     </div>
                     <br>
                     <div class="columns">
-                        <div class="column is-4" style="margin-left:12%">
+                        <div class="column is-2" style="margin-left:12%">
                             <button type="button" onclick="plate_license_add()"
                                 class="button  is-round is-2 is-oros">เพิ่ม</button>
                             <button style="margin-left:1%" type="button"
                                 class="button   is-round is-2  is-yentafo">ลบ</button>
                         </div>
-                        <div class="column is-4">
-                            <div style="margin-left:59%">
-                                <button type="button" onclick="printDiv('bills')" class="button is-round is-2  is-oros">
-                                    พิมพ์</button>
+                        <div class="column is-6">
+                            <div>
+                                <button style="margin-left:60px" type="button" onclick="printDiv('print_invoice')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบกำกับภาษี</button>
+                                <button type="button" onclick="printDiv('print_bill')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบเสร็จ</button>
+                                <button type="button" onclick="printDiv('bills')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบรับเล่มทะเบียน </button>
+                                <button type="button" onclick="printDiv('bills')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์รายละเอียดต่อทะเบียน</button>
                             </div>
                         </div>
                     </div>
@@ -229,7 +240,204 @@
             </div>
         </div>
     </div>
+    <!--From print ใบเสร็จ-->
+    <div id="print_bill" class="deplay-none">
+            <div class="columns border-print">
+                <div class="column border-print">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns border-print ">
+                <div class=" column">
+                    <div id="bor01">
+                        <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p>&nbspเลขที่บิล : sadf123214214214</p>
+                        <p>&nbspวันที่ออก : 17/11/2561</p>
+                        <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br><br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mixUnder"><br /></td>
+                                    <td class="mixUnder"><br /></td>
+                                    <td class="mixUnder"><br /></td>
+                                </tr>
+    
+    
+                            </table>
+                        </center> <br>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+<!--From print ใบกำกับภาษี-->
+<div id="print_invoice" class="box deplay-none">
+        <div class="columns">
+            <div class="column">
+                <br>
+                <center>
+                    <font size=6> พิมพ์ใบกำกับภาษี </font>
+                </center>
+                <br>
+            </div>
+        </div>
+        <div>
+            <p> &nbsp;<img src="./resources/icons/VAT_icon.png" height="30" width="30">
+                บริษัท โชคทวี ออโต้เซล จำกัด
+            </p>
+            <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspมหาวิทยาลัยบูรพา อ.เมือง
+                ต.แสนสุข&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน
+            </p>
+            <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspเลขประจำตัวผู้เสียภาษี 1246513546
+                ต.แสนสุข&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspจ.ชลบุรี 20000
+            </p>
+            <br>
+            <div id="bor04">
+                <p> &nbspผู้ซื้อ : นาย James Goodman&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    รหัสลูกค้า : 134651631</p>
+                <p">&nbspที่อยู่ : New York
+                    USA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
+                    เลขที่ผู้เสียภาษี :
+                    12313547641</p>
+
+            </div>
+            <center>
+                <table id="table02">
+                    <tr id="tr01">
+                        <th class="mixTop">&nbspลำดับ</th>
+                        <th class="mixTop">&nbspรายการ</th>
+                        <th class="mixTop">&nbspจำนวน</th>
+                        <th class="mixTop">&nbspราคาต่อหน่วย</th>
+                        <th class="mixTop">&nbspรจำนวนเงิน</th>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                    </tr>
+
+                </table>
+                <table class=" width52 is-pulled-right">
+                    <tbody>
+                        <tr>
+                            <td class="half-table">รวมทั้งสิ้น</td>
+                            <td>1234</td>
+                        </tr>
+                        <tr>
+                            <td>ส่วนลด</td>
+                            <td>124</td>
+                        </tr>
+                        <tr>
+                            <td>ภาษีมูลค่าเพิ่ม</td>
+                            <td>54</td>
+                        </tr>
+                        <tr>
+                            <td>รวมมูลค่าสินค้า</td>
+                            <td>1200</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p Align="left">หมายเหตุ</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br><br><br><br>
+                <p>________________________&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    ________________________&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    ________________________
+                </p>
+                <p>ผู้ส่งสินค้า&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                    ผู้รับสินค้า&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                    ผู้รับเงิน
+                </p>
+        </div>
+    </div>
 
 </body>
 
