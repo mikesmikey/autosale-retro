@@ -1,3 +1,8 @@
 button#butt01{
     font: 400 12px Arial;
 }
+
+div#c01{
+        flex: none;
+        width: 15%;
+}
