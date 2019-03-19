@@ -34,7 +34,76 @@ class WebDAO {
     }
 
     getAllProduct() {
-        
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
+
+    getAllCustomer() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
+    getAllPart() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('PartsHub').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
+    getAllPartner() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Partner').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
+    getAllEmployee() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Employee').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
+    getAllInvoice() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').find({}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
     }
 
     insertUser(user) {
