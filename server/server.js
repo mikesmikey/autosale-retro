@@ -48,6 +48,18 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.get('/product', (req, res) => {
+    
+})
+
+app.get('/parts', (req, res) => {
+    
+})
+
+app.get('/partner', (req, res) => {
+    
+})
+
 
 app.listen(port, () => {
     console.log(`App listening on ${port}`);
