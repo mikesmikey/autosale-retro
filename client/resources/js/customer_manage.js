@@ -18,12 +18,11 @@ function closeCustomerDelete() {
 
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
-            axios.get('/customers').then((result) => {
+            axios.get('http://localhost:5000/customers').then((result) => {
                 resolve(result.data);
             })
 
     })
 }
-
-console.log(getAllCustomer())
+getAllCustomer().then((data) => {console.log(data)})
 
