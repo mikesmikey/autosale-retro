@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.get('/product', (req, res) => {
+app.get('/products', (req, res) => {
     
 })
 
@@ -56,7 +56,19 @@ app.get('/parts', (req, res) => {
     
 })
 
-app.get('/partner', (req, res) => {
+app.get('/partners', (req, res) => {
+    
+})
+
+app.get('/invoices', (req, res) => {
+    
+})
+
+app.get('/employes', (req, res) => {
+    
+})
+
+app.get('/customers', (req, res) => {
     
 })
 

@@ -33,12 +33,8 @@ class WebDAO {
         });
     }
 
-    getAllBuyProduct() {
-
-    }
-
-    getAllSellProduct() {
-
+    getAllProduct() {
+        
     }
 
     insertUser(user) {
