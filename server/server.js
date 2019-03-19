@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
-//const cors= require('cors')
+const cors= require('cors')
 app.use(bodyParser.json());
-//app.use(cors())
+app.use(cors())
 
 //disable cors due to the server will not using cross origin feature.
 
