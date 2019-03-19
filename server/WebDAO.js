@@ -1,7 +1,7 @@
 const mongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const url = 'mongodb://hanami:hanami02@ds163164.mlab.com:63164/choketawee';
-const dbName = 'ooad_kob';
+const dbName = 'choketawee';
 
 const User = require('./User');
 
