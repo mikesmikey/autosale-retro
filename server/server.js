@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
-const User = require("./User");
 
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
