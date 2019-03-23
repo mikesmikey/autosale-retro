@@ -21,3 +21,26 @@ function launchPartnerDelete() {
 function closePartnerDelete() {
     document.getElementById('delete-Partner').classList.remove('is-active');
 }
+function handleInputChange(e) {
+    const name = target.name;
+    const value = target.value;
+
+    this.setState({
+        [name]: value
+    })
+}
+function addButtonHandle(companyName,partnerName,partnerPhone,partnerType,partnerAddr) {
+    var newData = {};
+    newData.companyName = companyName;
+    newData.partnerName = partnerName;
+    newData.partnerPhone = partnerPhone;
+    newData.partnerType = partnerType;
+    newData.partnerAddr = partnerAddr;
+
+    console.log(companyName);
+    console.log(partnerName);
+    console.log(partnerPhone);
+    console.log(partnerType);
+    console.log(partnerAddr);
+    //CServiceObj.addUser(newData)
+}
