@@ -187,15 +187,16 @@
                     </div>
                     <br>
                     <div class="columns">
-                        <div class="column is-2" style="margin-left:12%">
+                        <div class="column is-3" >
+                            <button style="margin-left:9%" type="button" onclick="plate_recording_cost()"class="button  is-round is-free-size  is-2 is-oros">บันทึกราคา</button>
                             <button type="button" onclick="plate_license_add()"
                                 class="button  is-round is-2 is-oros">เพิ่ม</button>
                             <button style="margin-left:1%" type="button"
                                 class="button   is-round is-2  is-yentafo">ลบ</button>
                         </div>
-                        <div class="column is-6">
+                        <div class="column is-5">
                             <div>
-                                <button style="margin-left:60px" type="button" onclick="printDiv('print_invoice')"
+                                <button style="margin-left:1%" type="button" onclick="printDiv('print_invoice')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์ใบกำกับภาษี</button>
                                 <button type="button" onclick="printDiv('print_bill')"
@@ -206,7 +207,7 @@
                                     พิมพ์ใบรับเล่มทะเบียน </button>
                                 <button type="button" onclick=""
                                     class="button is-round is-2 is-free-size   is-oros">
-                                    พิมพ์รายละเอียดต่อทะเบียน</button>
+                                    พิมพ์รายละเอียดตการต่อทะเบียน</button>
                             </div>
                         </div>
                     </div>
@@ -495,9 +496,7 @@
     </div>
 
 </body>
-<script>
-    console.log(window.getAllCustomer())
-</script>
+
 <footer>
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
