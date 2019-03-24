@@ -29,6 +29,15 @@ app.get("/products", (req, res) => {
     }
   });
 });
+app.get("/products/AllProductRegisterLicense", (req, res) => {
+  WebDAOObj.getAllProductByRegisterLicense().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
 
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {

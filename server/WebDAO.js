@@ -45,6 +45,17 @@ class WebDAO {
         });
     }
 
+    getAllProductByRegisterLicense() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({"prod_type": "RegisterLicense"}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     getAllCustomer() {
         return new Promise((resolve, reject) => {
