@@ -205,7 +205,7 @@
                                 <button type="button" onclick="printDiv('print_appiontment')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์ใบรับเล่มทะเบียน </button>
-                                <button type="button" onclick=""
+                                <button type="button" onclick="printDiv('print_detail')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์รายละเอียดตการต่อทะเบียน</button>
                             </div>
@@ -244,13 +244,13 @@
             </div>
         </div>
     </div>
-       <!---ใบรับรถ-->
-       <div id="print_appiontment" class="deplay-none">
+    <!--From print ใบรับรถ-->
+    <div id="print_appiontment" class="deplay-none">
         <div style=" border-style: solid; border-width: 1px;">
             <br>
             <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
             <br>
-            <div id="apporintmentCoumnsNo1" style="margin-left:1%">
+            <div id="appiontmentCoumnsNo1" style="margin-left:1%">
                 <label class="label is-4">วันที่ 22/3/2562</label>
                 <br>
                 <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
@@ -268,7 +268,7 @@
         <br>
         <div class="columns" style=" border-style:solid ; border-width: 1px;">
             <br>
-            <div id="apporintmentCoumnsNo2" style="margin-left:1%">
+            <div id="appiontmentCoumnsNo2" style="margin-left:1%">
                 <label class="label is-4">ชื่อลูกค้า : Samuel L. Jackson</label>
                 <br>
                 <label class="label is-4">เบอร์โทรศัทพ์ : 0616577011</label>
@@ -355,8 +355,8 @@
     
             </div>
         </div>
-<!--From print ใบกำกับภาษี-->
-<div id="print_invoice" class="box deplay-none">
+    <!--From print ใบกำกับภาษี-->
+    <div id="print_invoice" class="box deplay-none">
         <div class="columns">
             <div class="column">
                 <br>
@@ -494,7 +494,47 @@
                 </p>
         </div>
     </div>
-
+    <!--From print ใบรายละเอียดการต่อทะเบียน-->
+    <div id="print_detail" class="deplay-none">
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center><label class="label is-4">รายละเอียดการต่อทะเบียน</label></center>
+            <br>
+            <div id="detailCoumnsNo1" style="margin-left:1%">
+                <label class="label is-4">วันที่ 22/3/2562</label>
+                <br>
+                <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
+                <br>
+                <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
+                <br>
+                <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
+                <br>
+                <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">ข้อมูลการต่อทะเบียน</label>
+        <br>
+        <br>
+        <div class="columns" style=" border-style:solid ; border-width: 1px;">
+            <br>
+            <div id="detailCoumnsNo2" style="margin-left:1%">
+                <label class="label is-4">ชื่อลูกค้า : Samuel L. Jackson</label>
+                <br>
+                <label class="label is-4">เบอร์โทรศัทพ์ : 0616577011</label>
+                <br>
+                <label class="label is-4">ที่อยู่ : 10/10 หมู่บ้านสินชัย ถนนหนองมน อำเภอเมือง จังหวัดชลบุรี</label>
+                <br>
+                <label class="label is-4">ยี่ห้อรถ : MISUBISHI</label>
+                <br>
+                <label class="label is-4">รุ่น : TITAN</label>
+                <br>
+                <label class="label is-4">เลขทะเบียน : 1กข 999</label>
+                <br>
+            </div>
+        </div>
+    </div>
 </body>
 
 <footer>
