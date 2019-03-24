@@ -36,9 +36,3 @@ getAllProductByRegisterLicense().then((data) => {
     }
 })
 
-
-class car_act {
-    constructor(){
-
-    }
-}
