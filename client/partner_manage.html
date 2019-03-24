@@ -140,6 +140,10 @@
             </li>
         </ul>
     </nav>
+
+    
+
+    
     <div class="subcontent-area">
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
@@ -229,52 +233,84 @@
         </div>
 
 
-        <div id="add-Partner" class="modal">
+        <form id="add-Partner" class="modal">
             <div class="box partCustomer">
                 <center>
                     <h1 class="label is-2">เพิ่มข้อมูลคู่ค้า</h1>
                 </center>
 
                 <label class="label is-2">ชื่อบริษัท</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
+                <input 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    type="text" 
+                    name="companyNameInput"
+                    value=""
+                >
+                    
+                    <br><br>
 
                 <label class="label is-2">ชื่อ</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
+                <input 
+                    type="text" 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    name="partnerNameInput"
+                    value=""
+                >
+                    <br><br>
 
                 <label class="label is-2">โทรศัพท์</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value=""><br><br>
+                <input 
+                    type="text" 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    name="partnerPhoneInput"
+                    value=""
+                >
+                
+                <br><br>
+                
                 <div class="columns"></div>
 
                 <label class="label is-2">ประเภท</label>
-                <select class="is-pulled-right width82 height30 ">
-                    <option value="Agent">Agent</option>
+                <select class="is-pulled-right width82 height30 "
+                        name="partnerTypeInput"
+                >
+                    <option value="Agent" >Agent</option>
                     <option value="Company">Company</option>
                 </select><br><br>
 
                 <label class="label is-2">ที่อยู่</label>
-                <textarea class="textarea-plate is-pulled-right width81 address"
-                    rows="6"></textarea><br><br><br><br><br><br><br>
+                <textarea 
+                        class="textarea-plate is-pulled-right width81 address"
+                        rows="6"
+                        name="partnerAddrInput"
+                >
+                </textarea>
+                <br><br><br><br><br><br><br>
 
                 <br>
                 <div class="columns">
                     <div class="column is-10">
                     </div>
+                    <div class="column is-1"></div>
+                    <div class="column is-2"></div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                            <button type="button" 
+                            onclick="addButtonHandle(companyNameInput.value,partnerNameInput.value,partnerPhoneInput.value,partnerTypeInput.value,partnerAddrInput.value)"
+                            class="button is-width70  is-round is-pulled-right is-2 is-oros">ตกลง</button>
                         </center>
                     </div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" onclick="closePartnerAdd()"
-                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                            <button type="button reset" onclick="closePartnerAdd()"
+                                class="button  is-width70 is-round is-pulled-right is-2  is-yentafo">ยกเลิก</button>
                         </center>
                     </div>
                     <div class="column is-2">
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 
 
@@ -308,6 +344,8 @@
                 <div class="columns">
                     <div class="column is-10">
                     </div>
+                    <div class="column " id="c01"></div>
+                    <div class="column is-2"></div>
                     <div class="column is-2">
                         <center>
                             <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
@@ -333,22 +371,18 @@
                     </h1>
                 </center>
                 <br>
-                <div class="columns">
-                    <div class="column is-2">
-                    </div>
-                    <div class="column is-2">
+                <div class="columns is-center">
+                    <div class="column">
                         <center>
-                            <button id="butt01" type="button"
-                                class="button is-width70  is-round  is-oros">ยืนยัน</button>
+                            <button type="button" 
+                                class="button is-width70 is-2 is-round  is-oros">ยืนยัน</button>
                         </center>
                     </div>
-                    <div class="column is-2">
+                    <div class="column">
                         <center>
-                            <button id="butt01" type="button" onclick="closePartnerDelete()"
-                                class="button  is-width70 is-round   is-yentafo">ยกเลิก</button>
+                            <button type="button" onclick="closePartnerDelete()"
+                                class="button  is-width70 is-2 is-round   is-yentafo">ยกเลิก</button>
                         </center>
-                    </div>
-                    <div class="column is-2">
                     </div>
                 </div>
             </div>
@@ -362,6 +396,7 @@
     <script src="./resources/js/navbarController.js"></script>
     <script src="./resources/js/partner_manage.js"></script>
     <script src="./resources/js/utilities.js"></script>
+   
 </footer>
 
 </html>

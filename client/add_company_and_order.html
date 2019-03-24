@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - เพิ่มบริษัทและรายการสั่งซื้ออะไหล่</title>
+    <title>โชคทวี - สั่งซื้ออะไหล่</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -143,157 +143,94 @@
         </ul>
     </nav>
 
-
-
     <div class="subcontent-area">
-
-        <div class="box with-title is-round">
-            <div class="box-title is-oros">
-                เพิ่มบริษัทและรายการสั่งซื้ออะไหล่
-            </div>
-
-            <div class="box">
-
-                <div class="columns">
-
-                    <div class="column is-3">
-                        <h2> บริษัทเดิม <h2>
+            <div class="subcontent-main-div plate">
+                <div class="box with-title is-round">
+                    <div class="box-title is-oros">
+                        สั่งซื้ออะไหล่
                     </div>
-                    <div class="column is-5">
-                        <h2> บริษัทใหม่ <h2>
-                    </div>
-                </div>
-
-                <div class="columns">
-                    <div class="column is-3 ">
+                    <div class="box">
                         <div>
-                            <input class="input-icon-search width80" type="text" name="search" placeholder="ชื่อบริษัท">
+                            <h2><h2>
                         </div>
-                        <div>
-                            <select multiple size="14" class="selectPlate width80">
-                                <option value="ไทยรุ่ง จำกัด">ไทยรุ่ง จำกัด</option>
-                                <option value="ซีพี">ซีพี</option>
-                                <option value="ไทย เดนมาร์ค">ไทย เดนมาร์ค</option>
-                            </select>
+                        <div class="columns">
+                            <div class="column">
+                                <div class="border-gray-2" style="height: 344px;">
+                                    <p>&nbspชื่อบริษัท :  <input type="text" class="input  width60"></p>
+                                    <br>
+                                    <center>
+                                            <table>
+                                                <tr id="tr01">
+                                                    <th class="mixTop">รายการ</th>
+                                                    <th class="mixTop">จำนวน</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">หลอดไฟ(กล่อง)</td>
+                                                    <td class="mix">9000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mix">
+                                                        <br />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mixUnder">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mixUnder">
+                                                        <br />
+                                                    </td>
+                                                </tr>
+            
+                                            </table>
+                                        </center>
+                                    <br>
+                                    <p>&nbspชื่อรายการ :  <input type="text" class="input  width30">
+                                        &nbsp&nbsp&nbsp
+                                        จำนวน : <input type="text" class="input half-left">
+                                        &nbsp&nbsp
+                                        <button type="button" class="button is-free-size is-round is-3  is-oros">เพิ่ม</button>
+                                    </p>
+                                </div>
+    
+                                <br>
+                                <center>
+                            <button type="button" class="button is-free-size  is-round is-2  is-oros"
+                                onclick="printDiv('formPartOrder')">&nbspยืนยัน&nbsp
+                            </button>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            <a href="./part_order_manage.html"><button type="button"
+                                class="button is-free-size  is-round is-2 is-yentafo"
+                                >ยกเลิก</button></a>
+                            </center>
 
-                        </div>
-
-                    </div>
-
-                    <div class=" column is-4">
-                        <div id="bor02">
-                            <div class="box">
-                                <label class="label is-2">ชื่อบริษัท</label>
-                                <input type="text" class="input  is-pulled-right width75"><br><br>
-                                <label class="label is-2">ที่อยู่</label>
-                                <textarea class="textarea is-pulled-right width75 address"
-                                    rows="6"></textarea><br><br><br><br><br><br>
-                                <label class="label is-2">เบอร์โทรศัพท์</label>
-                                <input type="text" class="input  is-pulled-right width75"><br><br><br><br>
                             </div>
-                            <br>
-
                         </div>
+             
                     </div>
-
-                    <br> <br> <br>
                 </div>
             </div>
-        </div>
 
-
-        <div class="box">
-
-            <div class="columns">
-                <div class="column is-3">
-                    <h2> เพิ่มรายการออเดอร์ <h2>
-                </div>
-            </div>
-            <div id="bor01">
-                <br>
-                <center>
-                    <table>
-                        <tr id="tr01">
-                            <th class="mixTop">รายการ</th>
-                            <th class="mixTop">จำนวน</th>
-                        </tr>
-                        <tr>
-                            <td class="mix">หลอดไฟ(กล่อง)</td>
-                            <td class="mix">9000</td>
-                        </tr>
-                        <tr>
-                            <td class="mix"><br /></td>
-                            <td class="mix"><br /></td>
-                        </tr>
-                        <tr>
-                            <td class="mix"><br /></td>
-                            <td class="mix"><br /></td>
-                        </tr>
-                        <tr>
-                            <td class="mix"><br /></td>
-                            <td class="mix"><br /></td>
-                        </tr>
-                        <tr>
-                            <td class="mixUnder"><br /></td>
-                            <td class="mixUnder"><br /></td>
-                        </tr>
-
-                    </table>
-                </center>
-
-                <div class="columns">
-                    <div class="column is-3">
-                        <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspชื่อรายการ
-
-                            <input type="text" class="input  width60">
-                        </h4>
-                    </div>
-                    <div class="column is-5">
-                        <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            &nbsp&nbsp&nbsp&nbsp&nbsp
-                            จำนวน
-                            <input type="text" class="input width25">
-                            <button type="button" class="button  is-round is-2 width20  is-oros">เพิ่ม</button>
-                            <h4>
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-            <br>
-            <div class="columns">
-                <div class="column is-2"><br></div>
-                <div class="column is-2">
-                    <center>
-                        <button type="button" class="button  is-round is-2  is-oros">ยืนยัน</button>
-                    </center>
-                </div>
-
-                <div class="column is-2">
-                    <center>
-                        <button type="button" class="button margin-left-x is-round is-2  is-yentafo">
-                            ยกเลิก
-                        </button></center>
-                </div>
-
-                <div class="column is-2"><br></div>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-    </div>
-
-    </div>
+    
 
 
 
