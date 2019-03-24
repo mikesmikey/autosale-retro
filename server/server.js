@@ -10,7 +10,6 @@ app.use(cors())
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
-
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
 

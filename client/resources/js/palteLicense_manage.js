@@ -1,11 +1,20 @@
+var product = [];
+var customer ;
+function getAllCustomer() {
+    return new Promise((resolve, reject) => {
+            axios.get('http://localhost:5000/customers').then((result) => {
+                resolve(result.data);
+            })
 
-var ojectData = []
+    })
+}
 function getAllProductByRegisterLicense() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/products/AllProductRegisterLicense').then((result) => {
-
             resolve(result.data);
-            ojectData = result.data
+            for(let i = 0 ; i < result.data.length ; i++){
+                product.push(result.data[i])
+            }
         })
 
     })
@@ -22,17 +31,37 @@ function countObject (obj) {
     return count;
 }
 
-getAllProductByRegisterLicense().then((data) => {
-    console.log(ojectData)
-    console.log(ojectData.length) 
-    for (let i = 0; i < ojectData.length; i++) {
-        let objTest = ojectData[i]
-        var objCount = countObject(objTest);
-        console.log("data["+i+"] = "+objTest)
-        console.log(objCount)
-        for (let j = 0; j < objTest.length; j++) {
-            console.log(objTest["prod_type"])
+function search(nameKey, myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].type_desc.car_license === nameKey) {
+            return myArray[i];
         }
     }
-})
+}
+
+function ShowDetail(value){
+    var resultObject = search(value, data);
+    var divDetail = document.getElementById("detailCarAct");
+    var p1 = document.createElement("p");
+    p.text = resultObject;
+    
+}
+function createselect(data){
+    for(let i = 0 ; i < data.length ; i++){
+        var select = document.getElementById("selectNumber");
+        var option = document.createElement("option");
+        option.text = data[i].trn_car.car_license;
+        option.value = data[i].trn_car.car_license;
+        option.onclick = function() { alert(this.value); };
+        select.add(option);
+        }
+}
+function startForm(){
+    getAllProductByRegisterLicense().then((data) => {
+        createselect(data);
+    })
+}
+
+startForm();
+
 
