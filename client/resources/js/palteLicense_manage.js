@@ -1,5 +1,17 @@
 let product = [];
 let customer = [];
+let invoice = [];
+
+function getAllInvoiceByAppointment() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/invoices/getAllInvoiceByAppointment').then((result) => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                invoice.push(result.data[i])
+            }
+        })
+    })
+}
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {
@@ -33,7 +45,7 @@ function countObject(obj) {
     return count;
 }
 
-function searchProduct(nameKey, myArray) {
+function searchProductByCarLicense(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].type_desc.car_license === nameKey) {
             return myArray[i];
@@ -41,18 +53,31 @@ function searchProduct(nameKey, myArray) {
     }
     return null;
 }
-function searchCustomerName(nameKey, myArray) {
+
+function searchProduct(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].prod_id === nameKey) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
+function searchCustomer(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_id === nameKey) {
-            return myArray[i].cust_name;
+            return myArray[i];
+        }
+    }
+}
+function searchInvice(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].prod_id === nameKey) {
+            return myArray[i];
         }
     }
 }
 function ShowDetail(value) {
-    console.log(value)
-    console.log(product)
-    let resultObject = searchProduct(value, product);
-    console.log(resultObject)
+    let resultObject = searchProductByCarLicense(value, product);
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
     document.getElementById("dca_car_license").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
@@ -61,7 +86,8 @@ function ShowDetail(value) {
     //รุ่น
     document.getElementById("dca_car_model").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
     //เจ้าของ
-    document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomerName(resultObject.cust_id, customer);
+    document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
+    setAttributePrint(value)
 }
 function createselect(data) {
     for (let i = 0; i < data.length; i++) {
@@ -69,17 +95,11 @@ function createselect(data) {
         var option = document.createElement("option");
         option.text = data[i].trn_car.car_license;
         option.value = data[i].trn_car.car_license;
-        console.log(data[i].trn_car.car_license)
         option.onclick = function () { ShowDetail(this.value); };
         select.add(option);
     }
 }
-function startForm() {
-    getAllProductByRegisterLicense().then((data) => {
-        createselect(data);
-    });
-    getAllCustomer();
-}
+
 
 function runScript(e) {
     if (e.keyCode == 13) {
@@ -88,8 +108,8 @@ function runScript(e) {
             removeAlloption();
             createselect(product);
         } else {
-            let resultObject = searchProduct(txt, product);
-            if(resultObject !== null){
+            let resultObject = searchProductByCarLicense(txt, product);
+            if (resultObject !== null) {
                 removeAlloption();
                 var select = document.getElementById("selectNumber");
                 var option = document.createElement("option");
@@ -98,7 +118,7 @@ function runScript(e) {
                 option.onclick = function () { ShowDetail(this.value); };
                 ShowDetail(resultObject.trn_car.car_license)
                 select.add(option);
-            }else{
+            } else {
                 removeAlloption();
             }
         }
@@ -108,25 +128,97 @@ function runScript(e) {
 function removeAlloption() {
     var select = document.getElementById("selectNumber");
     var length = select.options.length;
-    for (i = 0,c=0 ; i < length; i++) {
+    for (i = 0, c = 0; i < length; i++) {
         select.options[c] = null;
     }
 }
-/*
-document.getElementById("input_car_license").addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-       var txt = document.getElementById("input_car_license").value
-        if(txt === ""){
-            createselect(product);
-        }else{
-            let resultObject = searchProduct(value, product);
-            createselect(resultObject)
-        }
-     //event.preventDefault();
-    
-    }
-  });*/
+function setAttributePrint(value) {
+    let productObj = searchProductByCarLicense(value, product);
+    let customerObj = searchCustomer(productObj.cust_id, customer);
+    let invoiceObj = searchInvice(productObj.prod_id, invoice);
 
+    //from รายละเอียดลูกค้า
+    let invoiceDate = document.getElementById('print_detail_date')
+    invoiceDate.innerHTML = "วันที่ " + getCurrentDate();
+    let customerName = document.getElementById('print_detail_customer_name')
+    customerName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    let cutomerPhone = document.getElementById('print_detail_phone')
+    cutomerPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
+    let cutomerAddress = document.getElementById('print_detail_address')
+    cutomerAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
+    let cutomerBrand = document.getElementById('print_detail_car_brand')
+    cutomerBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
+    let cutomerModel = document.getElementById('print_detail_car_model')
+    cutomerModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
+    let cutomerLicense = document.getElementById('print_detail_car_license')
+    cutomerLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
+
+    //from ใบรับเล่มทะเบียน print_appiontment_appt_date
+    let appiontmentApptDate = document.getElementById('print_appiontment_appt_date')
+    appiontmentApptDate.innerHTML = "วันนัดรับเล่มทะเบียน : " + formatStringDate(invoiceObj.trn_desc.appt_date);
+    let appiontmentDate = document.getElementById('print_appiontment_date')
+    appiontmentDate.innerHTML = "วันที่ " + formatStringDate(invoiceObj.issue_date);
+    let appiontmentName = document.getElementById('print_appiontment_customer_name')
+    appiontmentName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    let appiontmentPhone = document.getElementById('print_appiontment_phone')
+    appiontmentPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
+    let appiontmentAddress = document.getElementById('print_appiontment_address')
+    appiontmentAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
+    let appiontmentBrand = document.getElementById('print_appiontment_brand')
+    appiontmentBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
+    let appiontmentModel = document.getElementById('print_appiontment_model')
+    appiontmentModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
+    let appiontmentLicense = document.getElementById('print_appiontment_license')
+    appiontmentLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
+
+    //print_appiontment_
+
+}
+function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    yyyy = yyyy+543 
+    today = dd + '/' + mm + '/' + yyyy;
+
+    return today
+}
+function formatStringDate(value){
+    var str = value.split(" ");
+    var date = str[2] + '/' +str[1] + '/'+str[0]
+    return date
+}
+function startForm() {
+    getAllProductByRegisterLicense().then((data) => {
+        createselect(data);
+    });
+    getAllCustomer();
+    getAllInvoiceByAppointment();
+}
+function printDiv(printDivName) {
+    const currentPage = document.body.innerHTML
+
+    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+
+    window.print();
+
+    document.body.innerHTML = currentPage;
+    startFromBeforePrint();
+}
+function startFromBeforePrint() {
+    removeAlloption();
+    document.getElementById("dca_prod_id").innerHTML = "กรุณาเลือกหมายเลขทะเบียนทางด้านซ้าย"
+    document.getElementById("dca_car_license").innerHTML = "เพือแสดงข้อความรายละเอียด"
+    document.getElementById("dca_car_brand").innerHTML = "การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย"
+    document.getElementById("dca_car_model").innerHTML = "1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ "
+    document.getElementById("dca_customer_name").innerHTML = "4.รุ่นรถ 5.เจ้าของรถ"
+    getAllProductByRegisterLicense().then((data) => {
+        createselect(data);
+    });
+    getAllCustomer();
+    getAllInvoiceByAppointment();
+}
 startForm();
 
 

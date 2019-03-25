@@ -67,6 +67,15 @@ app.get("/invoices", (req, res) => {
     }
   });
 });
+app.get("/invoices/getAllInvoiceByAppointment", (req, res) => {
+  WebDAOObj.getAllInvoiceByAppointment().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
 
 app.get("/employees", (req, res) => {
   WebDAOObj.getAllEmployee().then(data => {

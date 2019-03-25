@@ -21,8 +21,9 @@ function getAllCustomer() {
             axios.get('http://localhost:5000/customers').then((result) => {
                 resolve(result.data);
             })
-
+            
     })
 }
+
 getAllCustomer().then((data) => {console.log(data)})
 

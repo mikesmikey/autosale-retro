@@ -26,7 +26,6 @@
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
-    <script src="./resources/js/utilities.js"></script>
     <script src="./resources/js/palteLicense_manage.js"></script>
     
 </head>
@@ -248,8 +247,8 @@
             <br>
             <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
             <br>
-            <div id="appiontmentCoumnsNo1" style="margin-left:1%">
-                <label class="label is-4">วันที่ 22/3/2562</label>
+            <div  style="margin-left:1% ;padding: 5px">
+                <label id="print_appiontment_date"  class="label is-4">วันที่ </label>
                 <br>
                 <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
                 <br>
@@ -266,25 +265,27 @@
         <br>
         <div class="columns" style=" border-style:solid ; border-width: 1px;">
             <br>
-            <div id="appiontmentCoumnsNo2" style="margin-left:1%">
-                <label class="label is-4">ชื่อลูกค้า : Samuel L. Jackson</label>
+            <div  style="margin-left:1%; padding: 5px">
+                <label id="print_appiontment_appt_date" class="label is-4">วันนัดรับเล่มทะเบียน : </label>
                 <br>
-                <label class="label is-4">เบอร์โทรศัทพ์ : 0616577011</label>
+                <label id="print_appiontment_customer_name" class="label is-4">ชื่อลูกค้า : </label>
                 <br>
-                <label class="label is-4">ที่อยู่ : 10/10 หมู่บ้านสินชัย ถนนหนองมน อำเภอเมือง จังหวัดชลบุรี</label>
+                <label id="print_appiontment_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
                 <br>
-                <label class="label is-4">ยี่ห้อรถ : MISUBISHI</label>
+                <label id="print_appiontment_address" class="label is-4">ที่อยู่ : </label>
                 <br>
-                <label class="label is-4">รุ่น : TITAN</label>
+                <label id="print_appiontment_brand" class="label is-4">ยี่ห้อรถ : </label>
                 <br>
-                <label class="label is-4">เลขทะเบียน : 1กข 999</label>
+                <label id="print_appiontment_model" class="label is-4">รุ่น : </label>
+                <br>
+                <label id="print_appiontment_license" class="label is-4">เลขทะเบียน : </label>
                 <br>
             </div>
         </div>
         <br>
         <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
         <br>
-        <div class="columns" style=" border-style: solid; border-width: 1px;">
+        <div style=" border-style: solid; border-width: 1px;">
             <br>
             <center>
             <label class="label is-4">ลงชื่อ  ................................................ ( ลูกค้า )</label>
@@ -498,16 +499,17 @@
             <br>
             <center><label class="label is-4">รายละเอียดการต่อทะเบียน</label></center>
             <br>
-            <div id="detailCoumnsNo1" style="margin-left:1%">
-                <label class="label is-4">วันที่ 22/3/2562</label>
+            <div  style="margin-left:1%">
+                <label id="print_detail_date" class="label is-4">วันที่ 22/3/2562</label>
                 <br>
-                <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
+                <label lass="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
                 <br>
                 <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
                 <br>
                 <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
                 <br>
                 <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
+                <br>
                 <br>
             </div>
         </div>
@@ -516,19 +518,20 @@
         <br>
         <br>
         <div class="columns" style=" border-style:solid ; border-width: 1px;">
-            <br>
-            <div id="detailCoumnsNo2" style="margin-left:1%">
-                <label class="label is-4">ชื่อลูกค้า : Samuel L. Jackson</label>
+            <div  style="margin-left:1%">
                 <br>
-                <label class="label is-4">เบอร์โทรศัทพ์ : 0616577011</label>
+                <label id="print_detail_customer_name"  class="label is-4">ชื่อลูกค้า : </label>
                 <br>
-                <label class="label is-4">ที่อยู่ : 10/10 หมู่บ้านสินชัย ถนนหนองมน อำเภอเมือง จังหวัดชลบุรี</label>
+                <label id="print_detail_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
                 <br>
-                <label class="label is-4">ยี่ห้อรถ : MISUBISHI</label>
+                <label id="print_detail_address" class="label is-4">ที่อยู่ : </label>
                 <br>
-                <label class="label is-4">รุ่น : TITAN</label>
+                <label id="print_detail_car_brand" class="label is-4">ยี่ห้อรถ : </label>
                 <br>
-                <label class="label is-4">เลขทะเบียน : 1กข 999</label>
+                <label id="print_detail_car_model" class="label is-4">รุ่น : </label>
+                <br>
+                <label id="print_detail_car_license" class="label is-4">เลขทะเบียน : </label>
+                <br>
                 <br>
             </div>
         </div>

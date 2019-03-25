@@ -116,6 +116,17 @@ class WebDAO {
             });
         });
     }
+    getAllInvoiceByAppointment() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').find({"invo_type": "Appointment"}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     insertUser(user) {
         return new Promise((resolve, reject) => {
