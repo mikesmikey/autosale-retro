@@ -106,6 +106,7 @@ function deleteCustomerByName() {
             window.location.reload(true);
         } else {
             alert("ลบไม่สำเร็จ!")
+            window.location.reload(true);
         }
     })
     custName = "";
@@ -127,6 +128,7 @@ function editButtonHandle() {
             window.location.reload(true);
         } else {
             alert("แก้ไขไม่สำเร็จ!")
+            window.location.reload(true);
         }
     })
     cust_name = "";
