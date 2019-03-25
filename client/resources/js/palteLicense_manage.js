@@ -33,6 +33,12 @@ function getAllProductByRegisterLicense() {
 
     })
 }
+function launchLicenseDelete() {
+    document.getElementById('delete-license').classList.add('is-active');
+}
+function closeLicenseDelete() {
+    document.getElementById('delete-license').classList.remove('is-active');
+}
 function countObject(obj) {
     var count = 0;
 
@@ -171,6 +177,8 @@ function setAttributePrint(value) {
     let appiontmentLicense = document.getElementById('print_appiontment_license')
     appiontmentLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
 
+    //Text in Alert
+    document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : " + value
     //print_appiontment_
 
 }
@@ -219,6 +227,7 @@ function startFromBeforePrint() {
     getAllCustomer();
     getAllInvoiceByAppointment();
 }
+
 startForm();
 
 
