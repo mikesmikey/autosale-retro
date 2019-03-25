@@ -163,7 +163,7 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input id="input_car_license" class="input-icon-search width80" type="text" name="search" onkeypress="runScript(event)"
                                         placeholder="ค้นหาด้วยเลขทะเบียน">
                                     <select id="selectNumber"multiple size="9" class="selectPlate width80 cursor-pointer">
                                             
@@ -173,12 +173,13 @@
 
                         </div>
                         <div class="column is-5">
-                            <div  class="border-gray" style="padding:10px">
+                            <div  class="border-gray" style="padding:3%">
                                 <p id="dca_prod_id">กรุณาเลือกหมายเลขทะเบียนทางด้านซ้าย</p>
                                 <p id="dca_car_license">เพือแสดงข้อความรายละเอียด</p>
                                 <p id="dca_car_brand">การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย</p>
                                 <p id="dca_car_model">1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ </p>
                                 <p id="dca_customer_name">4.รุ่นรถ 5.เจ้าของรถ </p>
+                                
                             </div>
                         </div>
                     </div>
