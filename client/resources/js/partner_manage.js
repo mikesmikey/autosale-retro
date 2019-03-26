@@ -5,7 +5,7 @@ let numberStatr = 0;
 let companyname = "";
 
 function launchPartnerEdit() {
-    if(document.getElementById("PartnerSelect").value != ""){
+    if(document.getElementById("PartnerSelect").value != "" || document.getElementById("companyNameInput").value != ""){
         console.log(document.getElementById("PartnerSelect").value)
         document.getElementById('edit-Partner').classList.add('is-active');
         loadDetailPartner();
@@ -30,7 +30,7 @@ function closePartnerAdd()  {
 }
 
 function launchPartnerDelete() {
-    if(document.getElementById("PartnerSelect").value != ""){
+    if(document.getElementById("PartnerSelect").value != "" || document.getElementById("companyNameInput").value != ""){
         document.getElementById('delete-Partner').classList.add('is-active');
     }else{
         alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
