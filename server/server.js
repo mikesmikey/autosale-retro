@@ -11,8 +11,12 @@ app.use(cors())
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer= require('./Customer');
+const Partner = require('./Partner');
+
+
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
+
 
 app.post("/login", (req, res) => {
   WebServiceObj.loginAuth(req.body.loginInfo).then(pass => {
@@ -39,6 +43,7 @@ app.get("/products/AllProductRegisterLicense", (req, res) => {
   });
 });
 
+
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
     if (data != null) {
@@ -57,6 +62,12 @@ app.get("/partners", (req, res) => {
       res.sendStatus(404);
     }
   });
+});
+
+app.post("/partners/add", (req, res) => {
+  WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
+      res.json(data);
+  })
 });
 
 app.get("/invoices", (req, res) => {

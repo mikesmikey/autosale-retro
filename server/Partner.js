@@ -1,10 +1,11 @@
 class Partner {
     constructor(form) {
-        this.companyName = form.companyName;
-        this.partnerName = form.partnerName;
-        this.partnerPhone = form.partnerPhone;
-        this.partnerType = form.partnerType;
-        this.partnerAddr = form.partnerAddr;
+        this.partner_id = form.partner_id;
+        this.company_name = form.company_name;
+        this.partner_name = form.partner_name;
+        this.partner_phone = form.partner_phone;
+        this.partner_type = form.partner_type;
+        this.partner_addr = form.partner_addr;
     }
 
     getPartnerObjectData() {
