@@ -83,22 +83,10 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list" class="is-active">
-                    <li>
-                        <a href="./car_fix.html">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html" class="is-black-oros">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
@@ -149,8 +137,8 @@
                         <div class="column is-3">
                             <input class="input-icon-search width90" type="text" name="search"
                                 placeholder="ค้นหาอะไหล่">
-                            <table class="select-table">
-                                <tr id="tr01">
+                            <table class="select-table cursor-pointer">
+                                <tr id="tr01" style="cursor:default">
                                     <th class="mixTop">อะไหล่จากส่วนกลาง</th>
                                     <th class="mixTop">จำนวน</th>
                                 </tr>
