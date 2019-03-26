@@ -1,4 +1,3 @@
-
 function launchCustomerOrder() {
     document.getElementById('order-customer').classList.add('is-active');
 }
@@ -14,15 +13,3 @@ function launchCustomerDelete() {
 function closeCustomerDelete() {
     document.getElementById('delete-customer').classList.remove('is-active');
 }
-
-
-function getAllCustomer() {
-    return new Promise((resolve, reject) => {
-            axios.get('http://localhost:5000/customers').then((result) => {
-                resolve(result.data);
-            })
-
-    })
-}
-getAllCustomer().then((data) => {console.log(data)})
-
