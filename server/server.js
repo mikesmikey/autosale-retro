@@ -10,6 +10,7 @@ app.use(cors())
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
+const Customer= require('./Customer');
 const Partner = require('./Partner');
 
 
@@ -32,8 +33,8 @@ app.get("/products", (req, res) => {
     }
   });
 });
-app.get("/products/AllProductRegisterLicense", (req, res) => {
-  WebDAOObj.getAllProductByRegisterLicense().then(data => {
+app.get("/products/:type", (req, res) => {
+  WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);
     } else {
@@ -117,8 +118,30 @@ app.get("/customers", (req, res) => {
     } else {
       res.sendStatus(404);
     }
+  })
+})
+
+app.post('/customer/remove/:name', (req, res) => {
+  WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
+      res.send(pass);
   });
 });
+
+app.post('/customer/edit', (req, res) => {
+  WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
+      res.send(pass);
+  })
+})
+
+app.get("/products", (req, res) => {
+  WebDAOObj.getAllProduct().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
