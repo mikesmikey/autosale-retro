@@ -17,38 +17,21 @@ function startForm() {
     });
 }
 
-function addRow(tableID, data) {
-    /*// Get a reference to the table
-   
-    let tableRef = document.getElementById(tableID);
-    // Insert a row at the end of the table
-    
-  
-    // Insert a cell in the row at index 0
-   
-  
-    // Append a text node to the cell
- 
-    for (let i = 0; i < data.length; i++) {
-        
-        let newRow = tableRef.insertRow(-1);
-        let newCell = newRow.insertCell(i);
-        let productID = data[i].prod_id
-        let  newText = document.createTextNode(productID);
-        newCell.appendChild(newText);
-    }*/
-
-   
+function addRow(tableID, data) {   
     for (i = 0; i < data.length; i++) {
         var tr = document.createElement('tr'); // create a td node
         var td = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
         td.innerHTML = data[i].prod_id;
+        td2.innerHTML = data[i].prod_type;
+        td3.innerHTML = data[i].prod_order_date;
         tr.appendChild(td);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
         document.getElementById(tableID).appendChild(tr);
     }
 }
-
-
 
 startForm()
 

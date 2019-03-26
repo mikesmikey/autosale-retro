@@ -385,11 +385,18 @@ table.table-style-three td {
     width: 25%;
     margin-left: 28%;
 }
+.select.setHeight{
+   height: 305px;
+}
+/*สรุปผลกำไร*/
+.box-set-width{
+    width: 100%;
+}
+.box-set-center{
+    margin-left: 8%;
+}
 
 
-
-<<<<<<< HEAD
-=======
 .width11{
     width: 11%
 }
@@ -429,4 +436,3 @@ table.table-style-three td {
 #formCarFix{
     display: none;
 }
->>>>>>> 55b091a445536ec5616b347de5455463e812dd9c
