@@ -317,31 +317,64 @@
 
 
 
-        <div id="edit-Partner" class="modal">
+        <form id="edit-Partner" class="modal">
             <div class="box partCustomer">
                 <center>
                     <h1 class="label is-2">แก้ไขข้อมูลคู่ค้า</h1>
                 </center>
 
                 <label class="label is-2">ชื่อบริษัท</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value="ItalianThai"><br><br>
+                <input 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    type="text" 
+                    id="companyNameInput"
+                    name="companyNameInput"
+                    value=""
+                >
+                    
+                    <br><br>
 
                 <label class="label is-2">ชื่อ</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value="Italian Thai"><br><br>
+                <input 
+                    type="text" 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    id="partnerNameInput"
+                    name="partnerNameInput"
+                    value=""
+                >
+                    <br><br>
 
                 <label class="label is-2">โทรศัพท์</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value="000001110"><br><br>
+                <input 
+                    type="text" 
+                    class="input-plateAdd  is-pulled-right width80" 
+                    id="partnerPhoneInput"
+                    name="partnerPhoneInput"
+                    value=""
+                >
+                
+                <br><br>
+                
                 <div class="columns"></div>
 
                 <label class="label is-2">ประเภท</label>
-                <select class="is-pulled-right width82 height30 ">
-                    <option value="Agent">Agent</option>
+                <select class="is-pulled-right width82 height30 "
+                        id="partnerTypeInput"
+                        name="partnerTypeInput"
+                >
+                    <option value="Agent" >Agent</option>
                     <option value="Company">Company</option>
                 </select><br><br>
 
                 <label class="label is-2">ที่อยู่</label>
-                <textarea class="textarea-plate is-pulled-right width81 address"
-                    rows="6">256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</textarea><br><br><br><br><br><br><br>
+                <textarea 
+                        class="textarea-plate is-pulled-right width81 address"
+                        rows="6"
+                        id="partnerAddrInput"
+                        name="partnerAddrInput"
+                >
+                </textarea>
+                <br><br><br><br><br><br><br>
 
                 <br>
                 <div class="columns">
@@ -364,7 +397,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 
         <div id="delete-Partner" class="modal">

@@ -4,10 +4,12 @@ let max = 0;
 
 function launchPartnerEdit() {
     document.getElementById('edit-Partner').classList.add('is-active');
+    loadDetailPartner();
 }
 
 function closePartnerEdit() {
     document.getElementById('edit-Partner').classList.remove('is-active');
+    //document.getElementById('edit-Partner').reset();
 }
 
 function launchPartnerAdd() {
@@ -37,6 +39,21 @@ function clearInput(companyName,partnerName,partnerPhone,partnerType,partnerAddr
     return(companyName,partnerName,partnerPhone,partnerType,partnerAddr);
 }
 
+function setSelectedStart(first) {
+    document.getElementById("companyName").innerHTML = partner[first].company_name;
+    document.getElementById("partnerName").innerHTML = partner[first].partner_name;
+    document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
+    document.getElementById("partnerType").innerHTML = partner[first].partner_type;
+    document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
+
+    document.getElementById("companyNameInput").value = partner[first].company_name;
+    document.getElementById("partnerNameInput").value = partner[first].partner_name;
+    document.getElementById("partnerPhoneInput").value = partner[first].partner_phone;
+    document.getElementById("partnerTypeInput").value = partner[first].partner_type;
+    document.getElementById("partnerAddrInput").value = partner[first].partner_addr;
+}
+
+
 function setSelected(data) {
     let min = data[0].partner_id;
     let first = 0;
@@ -56,11 +73,7 @@ function setSelected(data) {
         partner.push(data[i]);
        // console.log(partner[i])
     }
-    document.getElementById("companyName").innerHTML = partner[first].company_name;
-    document.getElementById("partnerName").innerHTML = partner[first].partner_name;
-    document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
-    document.getElementById("partnerType").innerHTML = partner[first].partner_type;
-    document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
+    setSelectedStart(first);
 }
 
 
@@ -121,12 +134,20 @@ function loadDetailPartner() {
             document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
             document.getElementById("partnerType").innerHTML = partner[i].partner_type;
             document.getElementById("partnerAddr").innerHTML = partner[i].partner_addr;
+
+            document.getElementById("companyNameInput").value = partner[i].company_name;
+            document.getElementById("partnerNameInput").value = partner[i].partner_name;
+            document.getElementById("partnerPhoneInput").value = partner[i].partner_phone;
+            document.getElementById("partnerTypeInput").value = partner[i].partner_type;
+            document.getElementById("partnerAddrInput").value = partner[i].partner_addr;
             break;
         }
         //console.log(partner[i])
     }
     //document.getElementById("label").innerHTML=document.getElementById("PartnerSearch").value;
 }
+
+
 
 
 
