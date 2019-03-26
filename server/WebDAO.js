@@ -119,11 +119,11 @@ class WebDAO {
             });
         });
     }
-    getAllInvoiceByAppointment() {
+    getAllInvoiceByType(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Invoice').find({"invo_type": "Appointment"}).toArray((err, data) => {
+                db.collection('Invoice').find({"invo_type": type}).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -147,7 +147,7 @@ class WebDAO {
             });
         });
     }
-
+    
     insertPartner(partner) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -161,6 +161,7 @@ class WebDAO {
                             return resolve(true);
                         });
                     } else { return resolve(false) }
+
                 });
             });
         });
@@ -197,6 +198,21 @@ class WebDAO {
         });
     }
 
+
+     /*===========[Car Fix DAO]===================*/
+
+     getCarByPlateLicense(lplate) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne(
+                    {"type_desc.car_license":lplate}, (err, data) => {
+                        if (err) { throw err }
+                        return resolve(data);
+                });
+            });
+        });
+    }
 }
 
 

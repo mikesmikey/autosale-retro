@@ -90,8 +90,8 @@ app.get("/invoices", (req, res) => {
     }
   });
 });
-app.get("/invoices/getAllInvoiceByAppointment", (req, res) => {
-  WebDAOObj.getAllInvoiceByAppointment().then(data => {
+app.get("/invoices/type/:type", (req, res) => {
+  WebDAOObj.getAllInvoiceByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);
     } else {
