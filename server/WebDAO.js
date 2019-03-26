@@ -159,7 +159,6 @@ class WebDAO {
             });
         });
     }
-<<<<<<< HEAD
 
     deleteCustomerByName(name) {
         return new Promise((resolve, reject) => {
@@ -178,9 +177,6 @@ class WebDAO {
         });
     }
 
-=======
-    
->>>>>>> d161fc274d39b7aa31181699dee2a2d9ee435f73
     insertPartner(partner) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
