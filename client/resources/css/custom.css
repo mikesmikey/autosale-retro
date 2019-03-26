@@ -107,6 +107,15 @@ div.border-gray-2{
 .paddingPart{
     padding: 5px;
 }
+.width10{
+    width: 10%
+}
+.width15{
+    width: 15%
+}
+.width20{
+    width: 20%
+}
 .width25{
     width: 25%
 }
@@ -379,3 +388,45 @@ table.table-style-three td {
 
 
 
+<<<<<<< HEAD
+=======
+.width11{
+    width: 11%
+}
+
+.width12{
+    width: 12%
+}
+
+.width13{
+    width: 13%
+}
+
+.width14{
+    width: 14%
+}
+
+.width9{
+    width: 9%
+}
+
+.width8{
+    width: 8%
+}
+
+.width7{
+    width: 7%
+}
+
+.width6{
+    width: 6%
+}
+
+.width73{
+    width: 73%
+}
+
+#formCarFix{
+    display: none;
+}
+>>>>>>> 55b091a445536ec5616b347de5455463e812dd9c
