@@ -141,6 +141,39 @@ function showDetailCustomerPopUp() {
     document.getElementById("edit_cust_addr").value = custAddr;
 }
 
+function removeAlloption() {
+    var select = document.getElementById("selectCustomer");
+    var length = select.options.length;
+    for (i = 0, c = 0; i < length; i++) {
+        select.options[c] = null;
+    }
+}
+
+function runScript(e) {
+    if (e.keyCode == 13) {
+        var txt = document.getElementById("input_customer_name").value
+        if (txt === "") {
+            removeAlloption();
+            createSelect(customer);
+        } else {
+            let resultObject = getCustomerDetailByName(txt, customer);
+            if (resultObject !== null) {
+                removeAlloption();
+                var select = document.getElementById("selectCustomer");
+                var option = document.createElement("option");
+                option.text = resultObject.cust_name;
+                option.value = resultObject.cust_name;
+                option.onclick = function () { showDetailCustomer(this.value); };
+                showDetailCustomer(resultObject.cust_name)
+                select.add(option);
+            } else {
+                removeAlloption();
+            }
+        }
+    }
+    return false;
+}
+
 
 startForm();
 /*getAllCustomer().then((data) => { console.log(data) })*/

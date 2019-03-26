@@ -21,9 +21,14 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/summary.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </head>
 
 <body>
@@ -145,7 +150,20 @@
                     สรุปผลกำไร
                 </div>
                 <div class="box-content">
-                    บลาๆ
+                   
+                      <table class='tbl-qa'>
+                            <thead>
+                              <tr>
+                                <th class='table-header' width='20%'>Title</th>
+                                <th class='table-header' width='40%'>Description</th>
+                                <th class='table-header' width='20%'>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody id='table-body'>
+                              <tr class='table-row' id = 'table-row'></tr>   
+                            </tbody>
+                          </table>
+
                 </div>
             </div>
         </div>

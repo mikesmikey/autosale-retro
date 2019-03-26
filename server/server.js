@@ -121,6 +121,16 @@ app.post('/customer/edit', (req, res) => {
   })
 })
 
+app.get("/products", (req, res) => {
+  WebDAOObj.getAllProduct().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
+
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
 });
