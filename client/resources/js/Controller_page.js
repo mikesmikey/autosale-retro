@@ -2,6 +2,9 @@
 function plate_license_add() {
     window.location.href = './plate_license_add.html';
 }
+function plate_recording_cost() {
+    window.location.href = './plate_recording_cost.html';
+}
 function plate_license() {
     window.location.href = './plate_license.html';
 }

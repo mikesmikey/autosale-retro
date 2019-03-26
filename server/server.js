@@ -10,9 +10,13 @@ app.use(cors())
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
+const Customer= require('./Customer');
+const Partner = require('./Partner');
+
 
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
+
 
 app.post("/login", (req, res) => {
   WebServiceObj.loginAuth(req.body.loginInfo).then(pass => {
@@ -29,6 +33,16 @@ app.get("/products", (req, res) => {
     }
   });
 });
+app.get("/products/:type", (req, res) => {
+  WebDAOObj.getAllProductByType(req.params.type).then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
 
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
@@ -50,8 +64,35 @@ app.get("/partners", (req, res) => {
   });
 });
 
+app.post("/partners/add", (req, res) => {
+  WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
+      res.json(data);
+  })
+});
+
+app.post("/partners/edit", (req, res) => {
+  WebDAOObj.editPartner(new Partner(req.body.partnerData)).then(data => {
+      res.json(data);
+  })
+});
+
+app.post('/partners/remove/:CompanyName', (req, res) => {
+  WebDAOObj.deletePartner(req.params.CompanyName).then((pass)=> {
+      res.send(pass);
+  });
+});
+
 app.get("/invoices", (req, res) => {
   WebDAOObj.getAllInvoice().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+app.get("/invoices/type/:type", (req, res) => {
+  WebDAOObj.getAllInvoiceByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);
     } else {
@@ -77,8 +118,30 @@ app.get("/customers", (req, res) => {
     } else {
       res.sendStatus(404);
     }
+  })
+})
+
+app.post('/customer/remove/:name', (req, res) => {
+  WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
+      res.send(pass);
   });
 });
+
+app.post('/customer/edit', (req, res) => {
+  WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
+      res.send(pass);
+  })
+})
+
+app.get("/products", (req, res) => {
+  WebDAOObj.getAllProduct().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
