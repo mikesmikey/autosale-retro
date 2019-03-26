@@ -200,7 +200,7 @@
 
 
 
-        <div class="box" id="formPartDetailCustomer">
+        <form class="box" id="formPartDetailCustomer">
             <div class="select" style="width:99%">
                 <br>
                 <div>
@@ -212,16 +212,16 @@
 
                     <br>
                     <div class="select">
-                        <p>ชื่อบริษัท : ItalianThai</p>
-                        <p>ชื่อ : Italian Thai</p>
-                        <p>โทรศัพท์ : 000001110</p>
-                        <p>ประเภท : Agent</p>
-                        <p>ที่อยู่ : 256/344 หมู่ 4 ถนนรามคำแหง ตำบลคลองกุ่ม อำเภอบึงกุ่ม กรุงเทพมหานคร 12400</p>
+                        <p>ชื่อบริษัท : <span id="companyNamePrint"></span></p>
+                        <p>ชื่อ : <span id="partnerNamePrint"></span></p>
+                        <p>โทรศัพท์ : <span id="partnerPhonePrint"></span></p>
+                        <p>ประเภท : <span id="partnerTypePrint"></span></p>
+                        <p>ที่อยู่ : <span id="partnerAddrPrint"></span></p>
 
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 
         <form id="add-Partner" class="modal">
@@ -372,7 +372,8 @@
                     <div class="column is-2"></div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                            <button type="button" onclick="editButtonHandle(companyNameInput.value,partnerNameInput.value,partnerPhoneInput.value,partnerTypeInput.value,partnerAddrInput.value)"
+                                    class="button is-width70  is-round is-2 is-oros">ตกลง</button>
                         </center>
                     </div>
                     <div class="column is-2">
@@ -388,7 +389,7 @@
         </form>
 
 
-        <div id="delete-Partner" class="modal">
+        <form id="delete-Partner" class="modal">
             <div class="box partCustomerDelete">
                 <center>
                     <h1 class="label is-4">คุณแน่ใจแล้วหรือว่าต้องการลบคู่ค้าท่านนี้?
@@ -398,7 +399,7 @@
                 <div class="columns is-center">
                     <div class="column">
                         <center>
-                            <button type="button" 
+                            <button type="button" onclick="deleteButtonHandle()"
                                 class="button is-width70 is-2 is-round  is-oros">ยืนยัน</button>
                         </center>
                     </div>
@@ -410,7 +411,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 </body>
 

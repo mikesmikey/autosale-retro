@@ -70,6 +70,18 @@ app.post("/partners/add", (req, res) => {
   })
 });
 
+app.post("/partners/edit", (req, res) => {
+  WebDAOObj.editPartner(new Partner(req.body.partnerData)).then(data => {
+      res.json(data);
+  })
+});
+
+app.post('/partners/remove/:CompanyName', (req, res) => {
+  WebDAOObj.deletePartner(req.params.CompanyName).then((pass)=> {
+      res.send(pass);
+  });
+});
+
 app.get("/invoices", (req, res) => {
   WebDAOObj.getAllInvoice().then(data => {
     if (data != null) {
@@ -79,9 +91,8 @@ app.get("/invoices", (req, res) => {
     }
   });
 });
-app.get("/invoices/:type", (req, res) => {
+app.get("/invoices/type/:type", (req, res) => {
   WebDAOObj.getAllInvoiceByType(req.params.type).then(data => {
-    console.log(req.params.type)
     if (data != null) {
       res.json(data);
     } else {
