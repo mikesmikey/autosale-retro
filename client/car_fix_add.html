@@ -153,12 +153,12 @@
                             <div class="border-gray">
                                 <div class="box boxplate ">
                                     <label class="label is-3">ชื่อ</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="name_text">
                                     <br>
                                     <br>
                                     <label class="label is-3">ที่อยู่</label>
                                     <textarea class="textarea-plate is-pulled-right width70 address"
-                                        rows="6"></textarea>
+                                        rows="6" id="addr_text"></textarea>
                                     <br>
                                     <br>
                                     <br>
@@ -167,11 +167,11 @@
                                     <br>
                                     <br>
                                     <label class="label is-3">เบอร์โทรศัพท์</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="phone_text">
                                     <br>
                                     <br>
                                     <label class="label is-3">เลขที่ผู้เสียภาษี</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="tax_no_text">
                                     <br>
                                 </div>
                             </div>
@@ -200,24 +200,24 @@
                                     <div class="column is-4">
                                         <p>
                                             <label class="label is-3">ชื่อ</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="cname_text">
                                         </p>
                                         <p>
                                             <label class="label is-3">ยี่ห้อ</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="cbrand_text">
                                         </p>
                                         <p>
                                             <label class="label is-3">รุ่น</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="cmodel_text">
                                         </p>
                                         <p>
                                             <label class="label is-3">เลขทะเบียน</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="c_plicense_text">
                                         </p>
                                         <p>
                                             <label class="label is-3">อาการ</label>
                                             <textarea class="textarea-plate is-pulled-right width70 address"
-                                                rows="6"></textarea>
+                                                rows="6" id="cs_text"></textarea>
                                         </p>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                         </div>
                         <br>
                         <div style="text-align: center;">
-                            <button type="button" onclick="mockCarFix()"
+                            <button type="button" onclick="ReceiveCarFixAddContent()"
                                 class="button is-round is-2 width13 is-oros">ยืนยัน</button>
                             <button type="button" onclick="mockCarFix()"
                                 class="button is-round is-2 width13 is-yentafo">ยกเลิก</button>
