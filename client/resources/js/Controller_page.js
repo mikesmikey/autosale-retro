@@ -11,9 +11,15 @@ function plate_license() {
 function mockCarFixAdd() {
     window.location.href = './car_fix_add.html';
 }
-function usedPartUpdate() {
-    window.location.href = './used_part_update.html';
+
+function mockCarFix() {
+    window.location.href = './car_fix.html';
 }
+
+function mockUsedPartUpdate() {
+    window.location.href = "./used_part_update.html";
+}
+
 function mockCarSell() {
     window.location.replace('./car_sell_add.html');
 }
