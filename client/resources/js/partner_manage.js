@@ -1,5 +1,5 @@
 var partner = [];
-var select = document.getElementById("PartnerSearch");
+var select = document.getElementById("PartnerSelect");
 let max = 0;
 let numberStatr = 0;
 let companyname = "";
@@ -168,7 +168,7 @@ function editPartner(partnerData) {
 function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partnerAddr) {
     var partnerData = {};
     for(let i = 0;i<partner.length;i++){
-        if(partner[i].company_name == document.getElementById("PartnerSearch").value){
+        if(partner[i].company_name == document.getElementById("PartnerSelect").value){
             partnerData.partner_id = partner[i].partner_id;
             break;
         }
@@ -223,7 +223,7 @@ function deleteButtonHandle(){
 
 function loadDetailPartner() {
     for(let i = 0;i<partner.length;i++){
-        if(partner[i].company_name == document.getElementById("PartnerSearch").value){
+        if(partner[i].company_name == document.getElementById("PartnerSelect").value){
             document.getElementById("companyName").innerHTML = partner[i].company_name;
             document.getElementById("partnerName").innerHTML = partner[i].partner_name;
             document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
