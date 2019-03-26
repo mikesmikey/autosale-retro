@@ -46,11 +46,11 @@ class WebDAO {
         });
     }
 
-    getAllProductByRegisterLicense() {
+    getAllProductByType(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find({"prod_type": "RegisterLicense"}).toArray((err, data) => {
+                db.collection('Product').find({"prod_type": type}).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -119,11 +119,11 @@ class WebDAO {
             });
         });
     }
-    getAllInvoiceByAppointment() {
+    getAllInvoiceByType(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Invoice').find({"invo_type": "Appointment"}).toArray((err, data) => {
+                db.collection('Invoice').find({"invo_type": type}).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });

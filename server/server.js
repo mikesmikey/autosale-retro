@@ -32,8 +32,8 @@ app.get("/products", (req, res) => {
     }
   });
 });
-app.get("/products/AllProductRegisterLicense", (req, res) => {
-  WebDAOObj.getAllProductByRegisterLicense().then(data => {
+app.get("/products/:type", (req, res) => {
+  WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);
     } else {
@@ -78,8 +78,9 @@ app.get("/invoices", (req, res) => {
     }
   });
 });
-app.get("/invoices/getAllInvoiceByAppointment", (req, res) => {
-  WebDAOObj.getAllInvoiceByAppointment().then(data => {
+app.get("/invoices/:type", (req, res) => {
+  WebDAOObj.getAllInvoiceByType(req.params.type).then(data => {
+    console.log(req.params.type)
     if (data != null) {
       res.json(data);
     } else {

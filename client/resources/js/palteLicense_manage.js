@@ -1,10 +1,19 @@
+//RegisterLicense
 let product = [];
 let customer = [];
 let invoice = [];
 let select = "none"
-function getAllInvoiceByAppointment() {
+function startForm() {
+    getAllProductByType("RegisterLicense").then((data) => {
+        createselect(data);
+    });
+    getAllCustomer();
+    getAllInvoiceByType("Appointment");
+}
+function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/getAllInvoiceByAppointment').then((result) => {
+        axios.get('http://localhost:5000/invoices/'+type).then((result) => { 
+            console.log(result.data) 
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 invoice.push(result.data[i])
@@ -22,9 +31,9 @@ function getAllCustomer() {
         })
     })
 }
-function getAllProductByRegisterLicense() {
+function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/AllProductRegisterLicense').then((result) => {
+        axios.get('http://localhost:5000/products/'+type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
@@ -50,7 +59,6 @@ function countObject(obj) {
 
     return count;
 }
-
 function searchProductByCarLicense(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].type_desc.car_license === nameKey) {
@@ -59,7 +67,6 @@ function searchProductByCarLicense(nameKey, myArray) {
     }
     return null;
 }
-
 function searchProduct(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].prod_id === nameKey) {
@@ -106,8 +113,6 @@ function createselect(data) {
         select.add(option);
     }
 }
-
-
 function runScript(e) {
     if (e.keyCode == 13) {
         var txt = document.getElementById("input_car_license").value
@@ -198,13 +203,6 @@ function formatStringDate(value){
     var date = str[2] + '/' +str[1] + '/'+str[0]
     return date
 }
-function startForm() {
-    getAllProductByRegisterLicense().then((data) => {
-        createselect(data);
-    });
-    getAllCustomer();
-    getAllInvoiceByAppointment();
-}
 function printDiv(printDivName) {
     const currentPage = document.body.innerHTML
 
@@ -222,11 +220,11 @@ function startFromBeforePrint() {
     document.getElementById("dca_car_brand").innerHTML = "การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย"
     document.getElementById("dca_car_model").innerHTML = "1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ "
     document.getElementById("dca_customer_name").innerHTML = "4.รุ่นรถ 5.เจ้าของรถ"
-    getAllProductByRegisterLicense().then((data) => {
+    getAllProductByType("RegisterLicense").then((data) => {
         createselect(data);
     });
     getAllCustomer();
-    getAllInvoiceByAppointment();
+    getAllInvoiceByType("Appointment");
 }
 function checInvioce(){
     let checkObj = searchProductByCarLicense(select,product)
