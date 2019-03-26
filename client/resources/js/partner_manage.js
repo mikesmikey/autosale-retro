@@ -65,13 +65,6 @@ function  setDetailZero() {
     document.getElementById("partnerAddr").innerHTML = "";
 }
 
-function  setDetailBySearch() {
-    document.getElementById("companyName").innerHTML = "";
-    document.getElementById("partnerName").innerHTML = "";
-    document.getElementById("partnerPhone").innerHTML = "";
-    document.getElementById("partnerType").innerHTML = "";
-    document.getElementById("partnerAddr").innerHTML = "";
-}
 
 function removeSelected() {
     var length = select.options.length;
