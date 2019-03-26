@@ -32,6 +32,15 @@ app.get("/products", (req, res) => {
     }
   });
 });
+app.get("/products/AllProductRegisterLicense", (req, res) => {
+  WebDAOObj.getAllProductByRegisterLicense().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
 
 
 app.get("/parts", (req, res) => {
@@ -62,6 +71,15 @@ app.post("/partners/add", (req, res) => {
 
 app.get("/invoices", (req, res) => {
   WebDAOObj.getAllInvoice().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+app.get("/invoices/getAllInvoiceByAppointment", (req, res) => {
+  WebDAOObj.getAllInvoiceByAppointment().then(data => {
     if (data != null) {
       res.json(data);
     } else {
