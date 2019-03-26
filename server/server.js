@@ -60,6 +60,18 @@ app.post("/partners/add", (req, res) => {
   })
 });
 
+app.post("/partners/edit", (req, res) => {
+  WebDAOObj.editPartner(new Partner(req.body.partnerData)).then(data => {
+      res.json(data);
+  })
+});
+
+app.post('/partners/remove/:CompanyName', (req, res) => {
+  WebDAOObj.deletePartner(req.params.CompanyName).then((pass)=> {
+      res.send(pass);
+  });
+});
+
 app.get("/invoices", (req, res) => {
   WebDAOObj.getAllInvoice().then(data => {
     if (data != null) {
