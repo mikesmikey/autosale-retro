@@ -122,6 +122,22 @@ class WebDAO {
             });
         });
     }
+
+
+    /*===========[Car Fix DAO]===================*/
+
+    getCarByPlateLicense(lplate) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne(
+                    {"type_desc.car_license":lplate}, (err, data) => {
+                        if (err) { throw err }
+                        return resolve(data);
+                });
+            });
+        });
+    }
 }
 
 module.exports = WebDAO;
