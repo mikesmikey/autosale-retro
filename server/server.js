@@ -10,10 +10,7 @@ app.use(cors())
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
-<<<<<<< HEAD
-=======
 const Customer= require('./Customer');
->>>>>>> 49f1e9631772c1d69b52007bdb90405f4a3077af
 const Partner = require('./Partner');
 
 
