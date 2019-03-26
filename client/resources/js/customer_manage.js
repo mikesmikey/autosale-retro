@@ -12,9 +12,7 @@ function launchCustomerDelete() {
 
 function closeCustomerDelete() {
     document.getElementById('delete-customer').classList.remove('is-active');
-<<<<<<< HEAD
 }
-
 
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
@@ -26,7 +24,3 @@ function getAllCustomer() {
 }
 
 getAllCustomer().then((data) => {console.log(data)})
-
-=======
-}
->>>>>>> 55b091a445536ec5616b347de5455463e812dd9c
