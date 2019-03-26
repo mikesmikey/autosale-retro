@@ -84,6 +84,7 @@ function searchInvice(nameKey, myArray) {
 }
 function ShowDetail(value) {
     let resultObject = searchProductByCarLicense(value, product);
+    select = value ;
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
     document.getElementById("dca_car_license").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
@@ -227,16 +228,15 @@ function startFromBeforePrint() {
     getAllCustomer();
     getAllInvoiceByAppointment();
 }
-5<2 ? B=5 : alert("B")
 function checInvioce(){
-    let checkObj = searchProduct(select,product)
+    let checkObj = searchProductByCarLicense(select,product)
     if(select === "none"){
         alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
     }
     else if(checkObj.type_desc.licenae_status){
         //function setAttributePrintFormBills
         //printDiv('print_bill')
-        //printDiv('print_appiontment')
+        //printDiv('print_invoice')
     }else{
         alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีราคา")
     }
