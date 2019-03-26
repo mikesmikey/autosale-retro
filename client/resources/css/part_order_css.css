@@ -15,6 +15,10 @@ table#table02 {
   border-collapse: collapse;
   width: 100%;
 }
+table.recordingCost {
+  border-collapse: collapse;
+  width: 100%;
+}
 th {
   text-align: left;
 }

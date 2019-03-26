@@ -5,6 +5,7 @@ const dbName = 'choketawee';
 
 const User = require('./User');
 
+
 class WebDAO {
     
     /*===========[User DAO]===================*/
@@ -45,6 +46,17 @@ class WebDAO {
         });
     }
 
+    getAllProductByRegisterLicense() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({"prod_type": "RegisterLicense"}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     getAllCustomer() {
         return new Promise((resolve, reject) => {
@@ -82,6 +94,8 @@ class WebDAO {
         });
     }
 
+    
+
     getAllEmployee() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -105,6 +119,17 @@ class WebDAO {
             });
         });
     }
+    getAllInvoiceByType(type) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').find({"invo_type": type}).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     insertUser(user) {
         return new Promise((resolve, reject) => {
@@ -122,11 +147,31 @@ class WebDAO {
             });
         });
     }
+    
+    insertPartner(partner) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Partner').findOne({ "company_name": partner.company_name }, (err, data) => {
+                    //console.log(partner.company_name)
+                    if (err) { throw err }
+                    if (!data) {
+                        db.collection('Partner').insertOne(partner.getPartnerObjectData(), (err, result) => {
+                            if (err) { throw err }
+                            return resolve(true);
+                        });
+                    } else { return resolve(false) }
+
+                });
+            });
+        });
+    }
 
 
-    /*===========[Car Fix DAO]===================*/
 
-    getCarByPlateLicense(lplate) {
+     /*===========[Car Fix DAO]===================*/
+
+     getCarByPlateLicense(lplate) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
@@ -139,5 +184,10 @@ class WebDAO {
         });
     }
 }
+
+
+
+
+
 
 module.exports = WebDAO;
