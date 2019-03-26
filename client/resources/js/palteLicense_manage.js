@@ -1,7 +1,7 @@
 let product = [];
 let customer = [];
 let invoice = [];
-
+let select = "none"
 function getAllInvoiceByAppointment() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/invoices/getAllInvoiceByAppointment').then((result) => {
@@ -227,7 +227,20 @@ function startFromBeforePrint() {
     getAllCustomer();
     getAllInvoiceByAppointment();
 }
-
+5<2 ? B=5 : alert("B")
+function checInvioce(){
+    let checkObj = searchProduct(select,product)
+    if(select === "none"){
+        alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
+    }
+    else if(checkObj.type_desc.licenae_status){
+        //function setAttributePrintFormBills
+        //printDiv('print_bill')
+        //printDiv('print_appiontment')
+    }else{
+        alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีราคา")
+    }
+}
 startForm();
 
 
