@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - สรุปผลกำไร</title>
+    <title>โชคทวี - จัดการอะไหล่ส่วนกลาง</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -19,7 +19,7 @@
     <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
-
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
     <!--JS-->
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
@@ -107,7 +107,7 @@
                 </a>
                 <ul id="part-manage-list" class="is-active">
                     <li>
-                        <a href="./part_manage.html" class="is-black-oros">
+                        <a href="./part_manage.html" class="is-black-oros is-active">
                             จัดการอะไหล่ส่วนกลาง
                         </a>
                     </li>
@@ -144,8 +144,148 @@
                 <div class="box-title is-oros">
                     จัดการอะไหล่ส่วนกลาง
                 </div>
+
                 <div class="box-content">
-                    บลาๆ
+                    <div class="columns" style="width: 1000px">
+                        <div class="column is-6">
+                            <h2>ค้นหาอะไหล่</h2>
+                        </div>
+                        <div class="column is-2">
+                            <div >
+                                <input class="input-icon-search width100" type="text" name="search" placeholder="Search" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                            <div class="column is-8">
+                                <div>
+                                        <table style="width: 1010px;">
+                                                <tr id="tr01">
+                                                    <th class="mixTop">รายการ</th>
+                                                    <th class="mixTop" style="width: 100px;">จำนวน</th>
+                                                    <th class="mixTop" style="width: 200px;">ราคาต่อหน่วย(บาท)</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">หลอดไฟ(กล่อง)</td>
+                                                    <td class="mix">30</td>
+                                                    <td class="mix">30</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        ล้อ
+                                                    </td>
+                                                    <td class="mix">
+                                                        8
+                                                    </td>
+                                                    <td class="mix">
+                                                            1000
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        ยาง
+                                                    </td>
+                                                    <td class="mix">
+                                                        12
+                                                    </td>
+                                                    <td class="mix">
+                                                            2000
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mix">
+                                                        พวงมาลัย
+                                                    </td>
+                                                    <td class="mix">
+                                                        6
+                                                    </td>
+                                                    <td class="mix">
+                                                            2500
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td class="mix">
+                                                            เพลา
+                                                        </td>
+                                                        <td class="mix">
+                                                            7
+                                                        </td>
+                                                        <td class="mix">
+                                                                3000
+                                                            </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                            <td class="mix">
+                                                                <br />
+                                                            </td>
+                                                            <td class="mix">
+                                                                <br />
+                                                            </td>
+                                                            <td class="mix">
+                                                                    <br />
+                                                                </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td class="mix">
+                                                                    <br />
+                                                                </td>
+                                                                <td class="mix">
+                                                                    <br />
+                                                                </td>
+                                                                <td class="mix">
+                                                                        <br />
+                                                                    </td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td class="mix">
+                                                                        <br />
+                                                                    </td>
+                                                                    <td class="mix">
+                                                                        <br />
+                                                                    </td>
+                                                                    <td class="mix">
+                                                                            <br />
+                                                                        </td>
+                                                                </tr>
+                                                <tr>
+                                                    <td class="mixUnder">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mixUnder">
+                                                        <br />
+                                                    </td>
+                                                    <td class="mixUnder">
+                                                            <br />
+                                                        </td>
+                                                </tr>
+                    
+                                            </table>
+
+
+                                </div>
+                                    
+
+                            </div>
+                                    
+                        
+                        
+                    </div>
+                    <div class="columns">
+                            
+                            <div class="column is-6"></div>
+                            <div class="column is-2">
+                                <center>
+                                    &nbsp; &nbsp; <button type="button" class="button margin-left-x is-round is-2 width90 is-oros">
+                                        พิมพ์</button>
+                                    </center>
+
+                                    
+
+
+                             
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
