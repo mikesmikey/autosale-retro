@@ -10,6 +10,10 @@ app.use(cors())
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
+<<<<<<< HEAD
+=======
+const Customer= require('./Customer');
+>>>>>>> 49f1e9631772c1d69b52007bdb90405f4a3077af
 const Partner = require('./Partner');
 
 
@@ -106,8 +110,30 @@ app.get("/customers", (req, res) => {
     } else {
       res.sendStatus(404);
     }
+  })
+})
+
+app.post('/customer/remove/:name', (req, res) => {
+  WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
+      res.send(pass);
   });
 });
+
+app.post('/customer/edit', (req, res) => {
+  WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
+      res.send(pass);
+  })
+})
+
+app.get("/products", (req, res) => {
+  WebDAOObj.getAllProduct().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
