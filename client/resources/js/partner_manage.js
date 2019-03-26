@@ -5,8 +5,13 @@ let numberStatr = 0;
 let companyname = "";
 
 function launchPartnerEdit() {
-    document.getElementById('edit-Partner').classList.add('is-active');
-    loadDetailPartner();
+    if(document.getElementById("PartnerSelect").value != ""){
+        console.log(document.getElementById("PartnerSelect").value)
+        document.getElementById('edit-Partner').classList.add('is-active');
+        loadDetailPartner();
+    }else{
+        alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
+    }
 }
 
 function closePartnerEdit() {
@@ -25,21 +30,17 @@ function closePartnerAdd()  {
 }
 
 function launchPartnerDelete() {
-    document.getElementById('delete-Partner').classList.add('is-active');
+    if(document.getElementById("PartnerSelect").value != ""){
+        document.getElementById('delete-Partner').classList.add('is-active');
+    }else{
+        alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
+    }
 }
 
 function closePartnerDelete() {
     document.getElementById('delete-Partner').classList.remove('is-active');
 }
 
-function clearInput(companyName,partnerName,partnerPhone,partnerType,partnerAddr) {
-    companyName = "";
-    partnerName = "";
-    partnerPhone = "";
-    partnerType = "";
-    partnerAddr = "";
-    return(companyName,partnerName,partnerPhone,partnerType,partnerAddr);
-}
 
 function setSelectedStart(first) {
     document.getElementById("companyName").innerHTML = partner[first].company_name;
@@ -48,11 +49,6 @@ function setSelectedStart(first) {
     document.getElementById("partnerType").innerHTML = partner[first].partner_type;
     document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
 
-    document.getElementById("companyNameInput").value = partner[first].company_name;
-    document.getElementById("partnerNameInput").value = partner[first].partner_name;
-    document.getElementById("partnerPhoneInput").value = partner[first].partner_phone;
-    document.getElementById("partnerTypeInput").value = partner[first].partner_type;
-    document.getElementById("partnerAddrInput").value = partner[first].partner_addr;
 
     document.getElementById("companyNamePrint").innerHTML = partner[first].company_name;
     document.getElementById("partnerNamePrint").innerHTML = partner[first].partner_name;
@@ -61,6 +57,21 @@ function setSelectedStart(first) {
     document.getElementById("partnerAddrPrint").innerHTML = partner[first].partner_addr;
 }
 
+function  setDetailZero() {
+    document.getElementById("companyName").innerHTML = "";
+    document.getElementById("partnerName").innerHTML = "";
+    document.getElementById("partnerPhone").innerHTML = "";
+    document.getElementById("partnerType").innerHTML = "";
+    document.getElementById("partnerAddr").innerHTML = "";
+}
+
+function  setDetailBySearch() {
+    document.getElementById("companyName").innerHTML = "";
+    document.getElementById("partnerName").innerHTML = "";
+    document.getElementById("partnerPhone").innerHTML = "";
+    document.getElementById("partnerType").innerHTML = "";
+    document.getElementById("partnerAddr").innerHTML = "";
+}
 
 function removeSelected() {
     var length = select.options.length;
@@ -167,6 +178,7 @@ function editPartner(partnerData) {
 
 function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partnerAddr) {
     var partnerData = {};
+    
     for(let i = 0;i<partner.length;i++){
         if(partner[i].company_name == document.getElementById("PartnerSelect").value){
             partnerData.partner_id = partner[i].partner_id;
@@ -179,7 +191,7 @@ function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partn
     partnerData.partner_type = partnerType;
     partnerData.partner_addr = partnerAddr;
 
-    console.log(partnerData);
+    //console.log(partnerData);
     editPartner(partnerData).then((data) => {
         if (data) { 
             removeSelected();
@@ -193,6 +205,7 @@ function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partn
             closePartnerEdit();
         }
     })
+    
 }
 
 function deletePartner(CompanyName) {
@@ -220,10 +233,14 @@ function deleteButtonHandle(){
     })
 }
 
+function loadCompanyNameInSelect() {
+    var Cname = document.getElementById("PartnerSelect").value;
+    loadDetailPartner(Cname);
+}
 
-function loadDetailPartner() {
+function loadDetailPartner(CompanyNameS) {
     for(let i = 0;i<partner.length;i++){
-        if(partner[i].company_name == document.getElementById("PartnerSelect").value){
+        if(partner[i].company_name == CompanyNameS){
             document.getElementById("companyName").innerHTML = partner[i].company_name;
             document.getElementById("partnerName").innerHTML = partner[i].partner_name;
             document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
@@ -249,7 +266,41 @@ function loadDetailPartner() {
     //document.getElementById("label").innerHTML=document.getElementById("PartnerSearch").value;
 }
 
+function getPartnerDetailByCompany(companyName, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].company_name === companyName) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
 
+
+function runScript(e) {
+    if (e.keyCode == 13) {
+        var txt = document.getElementById("input_partner_name").value
+        if (txt === "") {
+            removeSelected();
+            setSelectedEdit(partner);
+            setSelectedStart(numberStatr);
+        } else {
+            let resultObject = getPartnerDetailByCompany(txt, partner);
+            console.log(resultObject)
+            if (resultObject !== null) {
+                removeSelected();
+                var option = document.createElement("option");
+                option.text = resultObject.company_name;
+                option.value = resultObject.company_name;
+                loadDetailPartner(resultObject.company_name);
+                select.appendChild(option);
+            } else {
+                removeSelected();
+                setDetailZero();
+            }
+        }
+    }
+    return false;
+}
 
 
 
