@@ -6,7 +6,7 @@ let product = [];
 let customer = [];
 let invoice = [];
 let select = "none";
-
+let partshub = [];
 
 
 function whenFormOpenUp() {
@@ -15,9 +15,21 @@ function whenFormOpenUp() {
     });
     getAllCustomer();
     getAllInvoiceByType("Appointment");
+    getAllPart();
 }
 
 ////////////////////////////////////////////////////////////////////
+function getAllPart() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/parts/').then((result) => {
+
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                partshub.push(result.data[i])
+            }
+        })
+    })
+}
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
@@ -52,15 +64,6 @@ function getAllProductByType(type) {
     })
 }
 ////////////////////////////////////////////////////////////////////
-
-function searchCarLcByProduct(nameKey, myArray) {
-    for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].trn_car.car_license === nameKey) {
-            return myArray[i];
-        }
-    }
-    return null;
-}
 function ShowDetail(value) {
     let resultObject = searchProductByCarFix(value, product);
     select = value;
@@ -74,6 +77,7 @@ function ShowDetail(value) {
     var thisList = searchCarLcByProduct(resultObject.trn_car.car_license, product).type_desc.repair_detail;
 
     var list = document.getElementById("repairingLists");
+
     while (list.firstChild) {
         list.removeChild(list.firstChild)
     }
@@ -89,9 +93,35 @@ function ShowDetail(value) {
         list.appendChild(node);
     }
 
-    // repairingOfPartsLists
+    var thisPartsList = searchCarLcByProduct(resultObject.trn_car.car_license, product).type_desc.trn_parts_repair;
+    var listParts = document.getElementById("repairingtable");
 
+    var packListParts = [];
+    for (var i in thisPartsList) {
+        var partsName = searchParts(thisPartsList[i].parts_id, partshub);
+        packListParts.push(`${partsName},${thisPartsList[i].parts_num}`);
+    }
+    //    console.log(packListParts)
 
+    for (var i = 0; i < listParts.rows.length; i++) {
+        if (i > 1) {
+            listParts.deleteRow(i);
+        }
+    }
+
+    if (listParts.rows.length > 2)
+        listParts.deleteRow(listParts.rows.length - 1)
+
+    for (var i = 0; i < packListParts.length; i++) {
+        var j = i + 2;
+        var NewRow = listParts.insertRow(j);
+        var Newcell1 = NewRow.insertCell(0);
+        var Newcell2 = NewRow.insertCell(1);
+
+        var spliter = packListParts[i].split(',');
+        Newcell1.innerHTML = spliter[0];
+        Newcell2.innerHTML = spliter[1];
+    }
     //setAttributePrint(value)
 }
 
@@ -139,6 +169,23 @@ function removeAlloption() {
     }
 }
 ////////////////////////////////////////////////////////////////////
+
+function searchCarLcByProduct(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].trn_car.car_license === nameKey) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
+function searchParts(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].parts_id === nameKey) {
+            return myArray[i].parts_name;
+        }
+    }
+    return null;
+}
 function searchProductByCarFix(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].trn_car.car_license === nameKey) {
