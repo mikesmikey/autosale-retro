@@ -22,9 +22,14 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/customer_manage.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 </head>
 
 <body>
@@ -84,22 +89,10 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list">
-                    <li>
-                        <a href="./car_fix.html">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
@@ -152,22 +145,20 @@
                     <div class="columns">
                         <div class="column is-2 customer-column-left">
                             <div>
-                                <input class="input-icon-search" type="text" name="search" style="width: 100%;"
-                                    placeholder="ค้นหาชื่อลูกค้า">
-                                <select multiple size="9" class="select selectPlate">
-                                    <option value="James Goodman">James Goodman</option>
-                                    <option value="Maria Brown">Maria Brown</option>
-                                    <option value="Saul Walker">Saul Walker</option>
+                                <input class="input-icon-search" id="input_customer_name" type="text" name="search" style="width: 100%;"
+                                    placeholder="ค้นหาชื่อลูกค้า" onkeypress="runScript(event)">
+                                <select id="selectCustomer" multiple size="9" class="select selectPlate">
+                                    
                                 </select>
                             </div>
                             <br>
                         </div>
                         <div class="column">
-                            <div class="border-gray-2" style="height: 344px;">
-                                <p>ชื่อ : James Goodman</p>
-                                <p>ที่อยู่ : New York USA</p>
-                                <p>โทรศัพท์ : 099999999</p>
-                                <p>ประเภท : ลูกค้าซื้อ</p>
+                            <div class="border-gray-2" style="height: 344px;">                               
+                                <p id="cust_name"></p>                              
+                                <p id="cust_phone"></p>   
+                                <p id="cust_tax_no"></p>                             
+                                <p id="cust_addr"></p>
 
                             </div>
                             <br>
@@ -181,7 +172,7 @@
                                     onclick="launchCustomerDelete()">ลบลูกค้า</button>
                                 <button type="button"
                                     class="button is-free-size is-pulled-right is-round is-2 is-orange"
-                                    onclick="launchCustomerOrder()">แก้ไขข้อมูลลูกค้า</button>
+                                    onclick="launchCustomerEditPopUp()">แก้ไขข้อมูลลูกค้า</button>
                             </div>
                         </div>
                         <div class="column">
@@ -295,46 +286,37 @@
                 </div>
             </div>
         </div>
+        <!--From Alert แก้ไขข้อมูลลูกค้า-->
         <div id="order-customer" class="modal">
             <div class="box partCustomer">
                 <center>
                     <h1 class="label is-2">แก้ไขข้อมูลลูกค้า</h1>
                 </center>
                 <label class="label is-2">ชื่อ</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value="James Goodman"><br><br>
+                <input  class="input-plateAdd  is-pulled-right width80" id="edit_cust_name"><br><br>
+                <label class="label is-2">โทรศัพท์</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" id="edit_cust_phone"><br><br>
+                <label class="label is-2">เลขที่ผู้เสียภาษี</label>
+                <input type="text" class="input-plateAdd  is-pulled-right width80" id="edit_cust_tax_no"><br><br>
+                <div class="columns"></div>
                 <label class="label is-2">ที่อยู่</label>
                 <textarea class="textarea-plate is-pulled-right width81 address"
-                    rows="6">New York USA</textarea><br><br><br><br><br><br><br>
-                <label class="label is-2">เบอร์โทร</label>
-                <input type="text" class="input-plateAdd  is-pulled-right width80" value="0999999999"><br><br><br>
-                <div class="columns"></div>
-                <label class="label is-2">ประเภท</label>
-                <select class="is-pulled-right width82 height30 ">
-                    <option value="volvo">ลูกค้าซื้อ</option>
-                    <option value="saab">ลูกค้าขาย</option>
-                    <option value="vw">ลูกค้าซ่อม</option>
-
-                </select><br>
+                rows="6" id="edit_cust_addr"></textarea><br><br><br><br><br>
+                <br>
                 <br>
                 <div class="columns">
-                    <div class="column is-10">
+                    <div class="column is-cust-1 ">                    
+                        <button type="button" class="button is-width70  is-round is-2 is-oros" onclick="editButtonHandle()">ตกลง</button>
                     </div>
                     <div class="column is-2">
-                        <center>
-                            <button type="button" class="button is-width70  is-round is-2 is-oros">ตกลง</button>
-                        </center>
-                    </div>
-                    <div class="column is-2">
-                        <center>
-                            <button type="button" onclick="closeCustomerOrder()"
-                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
-                        </center>
+                            <button type="button" onclick="closeCustomerEditPopUp()" class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
                     </div>
                     <div class="column is-2">
                     </div>
                 </div>
             </div>
         </div>
+         <!--From Alert ลบลูกค้า-->
         <div id="delete-customer" class="modal">
             <div class="box partCustomerDelete">
                 <center>
@@ -348,7 +330,7 @@
                     </div>
                     <div class="column is-2">
                         <center>
-                            <button type="button" class="button is-width70  is-round is-2 is-oros">ยืนยัน</button>
+                            <button type="button"  class="button is-width70  is-round is-2 is-oros" onclick="deleteCustomerByName()">ยืนยัน</button>
                         </center>
                     </div>
                     <div class="column is-2">
@@ -364,13 +346,5 @@
         </div>
 
 </body>
-
-<footer>
-    <!-- Controller JS -->
-    <script src="./resources/js/menuController.js"></script>
-    <script src="./resources/js/navbarController.js"></script>
-    <script src="./resources/js/customer_manage.js"></script>
-    <script src="./resources/js/utilities.js"></script>
-</footer>
 
 </html>

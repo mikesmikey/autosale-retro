@@ -19,12 +19,15 @@
     <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
-    <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/palteLicense_manage.js"></script>
+    
 </head>
 
 <body>
@@ -84,22 +87,10 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list">
-                    <li>
-                        <a href="./car_fix.html">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
@@ -159,40 +150,49 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input id="input_car_license" class="input-icon-search width80" type="text" name="search" onkeypress="runScript(event)"
                                         placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select multiple size="9" class="selectPlate width80 cursor-pointer">
-                                        <option value="กข123">กข123</option>
-                                        <option value="ฟห121">ฟห121</option>
-                                        <option value="พก999">พก999</option>
+                                    <select id="selectNumber"multiple size="9" class="selectPlate width80 cursor-pointer">
+                                            
                                     </select>
                                 </div>
                             </div>
 
                         </div>
                         <div class="column is-5">
-                            <div class="border-gray" style="padding:10px">
-                                <p>เลขออเดอร์ : 214321890427140721</p>
-                                <p>เลขทะเบียน : กข123</p>
-                                <p>ยี่ห้อ : susuki</p>
-                                <p>รุ่น : swift model-ab123</p>
-                                <p>เจ้าของ : James Goodman</p>
-                                <p>รายละเอียด : ทะเบียนขาด 10 ปี</p>
+                            <div  class="border-gray" style="padding:3%">
+                                <p id="dca_prod_id">กรุณาเลือกหมายเลขทะเบียนทางด้านซ้าย</p>
+                                <p id="dca_car_license">เพือแสดงข้อความรายละเอียด</p>
+                                <p id="dca_car_brand">การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย</p>
+                                <p id="dca_car_model">1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ </p>
+                                <p id="dca_customer_name">4.รุ่นรถ 5.เจ้าของรถ </p>
+                                
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="columns">
-                        <div class="column is-4" style="margin-left:12%">
+                        <div class="column is-3" >
+                            <button style="margin-left:9%" type="button" onclick="plate_recording_cost()"class="button  is-round is-free-size  is-2 is-oros">บันทึกราคา</button>
                             <button type="button" onclick="plate_license_add()"
                                 class="button  is-round is-2 is-oros">เพิ่ม</button>
                             <button style="margin-left:1%" type="button"
-                                class="button   is-round is-2  is-yentafo">ลบ</button>
+                                class="button   is-round is-2  is-yentafo" onclick="launchLicenseDelete()">ลบ</button>
                         </div>
-                        <div class="column is-4">
-                            <div style="margin-left:59%">
-                                <button type="button" onclick="printDiv('bills')" class="button is-round is-2  is-oros">
-                                    พิมพ์</button>
+                        <div class="column is-5">
+                            <div>
+                                <button style="margin-left:1%" type="button" onclick="checInvioce()"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบกำกับภาษี</button>
+                                <button type="button" onclick="checInvioce()"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบเสร็จ</button>
+                                <button type="button" onclick="printDiv('print_appiontment')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์ใบรับเล่มทะเบียน </button>
+                                <button type="button" onclick="printDiv('print_detail')"
+                                    class="button is-round is-2 is-free-size   is-oros">
+                                    พิมพ์รายละเอียดตการต่อทะเบียน</button>
                             </div>
                         </div>
                     </div>
@@ -229,8 +229,329 @@
             </div>
         </div>
     </div>
+    <!--From Alert-->
+    <div id="delete-license" class="modal">
+        <div class="box partCustomerDelete">
+            <center>
+                <h1 id="alert-license-no" class="label is-3">หมายเลขทะเบียน : </h1>
+                <h1 class="label is-3">คุณแน่ใจแล้วหรือว่าต้องการลบเลขทะเบียนเลขนี้?</h1>
+            </center>
 
+            <br>
+            <div class="columns">
+                <div class="column is-2">
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros">ยืนยัน</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closeLicenseDelete()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--From print ใบรับรถ-->
+    <div id="print_appiontment" class="deplay-none">
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
+            <br>
+            <div  style="margin-left:1% ;padding: 5px">
+                <label id="print_appiontment_date"  class="label is-4">วันที่ </label>
+                <br>
+                <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
+                <br>
+                <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
+                <br>
+                <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
+                <br>
+                <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">ข้อมูลบริการ</label>
+        <br>
+        <div class="columns" style=" border-style:solid ; border-width: 1px;">
+            <br>
+            <div  style="margin-left:1%; padding: 5px">
+                <label id="print_appiontment_appt_date" class="label is-4">วันนัดรับเล่มทะเบียน : </label>
+                <br>
+                <label id="print_appiontment_customer_name" class="label is-4">ชื่อลูกค้า : </label>
+                <br>
+                <label id="print_appiontment_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
+                <br>
+                <label id="print_appiontment_address" class="label is-4">ที่อยู่ : </label>
+                <br>
+                <label id="print_appiontment_brand" class="label is-4">ยี่ห้อรถ : </label>
+                <br>
+                <label id="print_appiontment_model" class="label is-4">รุ่น : </label>
+                <br>
+                <label id="print_appiontment_license" class="label is-4">เลขทะเบียน : </label>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
+        <br>
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center>
+            <label class="label is-4">ลงชื่อ  ................................................ ( ลูกค้า )</label>
+            <br>
+            <label class="label is-4">ลงชื่อ  ................................................ ( พนักงาน )</label>
+            </center>
+            <br>
+        </div>
+    </div>
+    <!--From print ใบเสร็จ-->
+    <div id="print_bill" class="deplay-none">
+            <div class="columns border-print">
+                <div class="column border-print">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns border-print ">
+                <div class=" column">
+                    <div id="bor01">
+                        <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p>&nbspเลขที่บิล : sadf123214214214</p>
+                        <p>&nbspวันที่ออก : 17/11/2561</p>
+                        <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br><br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                    <td class="mix"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td class="mixUnder"><br /></td>
+                                    <td class="mixUnder"><br /></td>
+                                    <td class="mixUnder"><br /></td>
+                                </tr>
+    
+    
+                            </table>
+                        </center> <br>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    <!--From print ใบกำกับภาษี-->
+    <div id="print_invoice" class="box deplay-none">
+        <div class="columns">
+            <div class="column">
+                <br>
+                <center>
+                    <font size=6> พิมพ์ใบกำกับภาษี </font>
+                </center>
+                <br>
+            </div>
+        </div>
+        <div>
+            <p> &nbsp;<img src="./resources/icons/VAT_icon.png" height="30" width="30">
+                บริษัท โชคทวี ออโต้เซล จำกัด
+            </p>
+            <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspมหาวิทยาลัยบูรพา อ.เมือง
+                ต.แสนสุข&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน
+            </p>
+            <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspเลขประจำตัวผู้เสียภาษี 1246513546
+                ต.แสนสุข&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspจ.ชลบุรี 20000
+            </p>
+            <br>
+            <div id="bor04">
+                <p> &nbspผู้ซื้อ : นาย James Goodman&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    รหัสลูกค้า : 134651631</p>
+                <p">&nbspที่อยู่ : New York
+                    USA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
+                    เลขที่ผู้เสียภาษี :
+                    12313547641</p>
+
+            </div>
+            <center>
+                <table id="table02">
+                    <tr id="tr01">
+                        <th class="mixTop">&nbspลำดับ</th>
+                        <th class="mixTop">&nbspรายการ</th>
+                        <th class="mixTop">&nbspจำนวน</th>
+                        <th class="mixTop">&nbspราคาต่อหน่วย</th>
+                        <th class="mixTop">&nbspรจำนวนเงิน</th>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                        <td class="mix"><br /></td>
+                    </tr>
+                    <tr>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                        <td class="mixUnder"><br /></td>
+                    </tr>
+
+                </table>
+                <table class=" width52 is-pulled-right">
+                    <tbody>
+                        <tr>
+                            <td class="half-table">รวมทั้งสิ้น</td>
+                            <td>1234</td>
+                        </tr>
+                        <tr>
+                            <td>ส่วนลด</td>
+                            <td>124</td>
+                        </tr>
+                        <tr>
+                            <td>ภาษีมูลค่าเพิ่ม</td>
+                            <td>54</td>
+                        </tr>
+                        <tr>
+                            <td>รวมมูลค่าสินค้า</td>
+                            <td>1200</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p Align="left">หมายเหตุ</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br><br><br><br>
+                <p>________________________&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    ________________________&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    ________________________
+                </p>
+                <p>ผู้ส่งสินค้า&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                    ผู้รับสินค้า&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp
+                    ผู้รับเงิน
+                </p>
+        </div>
+    </div>
+    <!--From print ใบรายละเอียดการต่อทะเบียน-->
+    <div id="print_detail" class="deplay-none">
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center><label class="label is-4">รายละเอียดการต่อทะเบียน</label></center>
+            <br>
+            <div  style="margin-left:1%">
+                <label id="print_detail_date" class="label is-4">วันที่ 22/3/2562</label>
+                <br>
+                <label lass="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
+                <br>
+                <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
+                <br>
+                <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
+                <br>
+                <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
+                <br>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">ข้อมูลการต่อทะเบียน</label>
+        <br>
+        <br>
+        <div class="columns" style=" border-style:solid ; border-width: 1px;">
+            <div  style="margin-left:1%">
+                <br>
+                <label id="print_detail_customer_name"  class="label is-4">ชื่อลูกค้า : </label>
+                <br>
+                <label id="print_detail_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
+                <br>
+                <label id="print_detail_address" class="label is-4">ที่อยู่ : </label>
+                <br>
+                <label id="print_detail_car_brand" class="label is-4">ยี่ห้อรถ : </label>
+                <br>
+                <label id="print_detail_car_model" class="label is-4">รุ่น : </label>
+                <br>
+                <label id="print_detail_car_license" class="label is-4">เลขทะเบียน : </label>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
 </body>
 
 <footer>

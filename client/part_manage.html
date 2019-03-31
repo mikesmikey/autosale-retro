@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - สรุปผลกำไร</title>
+    <title>โชคทวี - จัดการอะไหล่ส่วนกลาง</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -83,22 +83,10 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list">
-                    <li>
-                        <a href="./car_fix.html">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
@@ -146,11 +134,11 @@
                 </div>
 
                 <div class="box-content">
-                    <div class="columns">
-                        <div class="column is-5">
+                    <div class="columns" style="width: 1000px">
+                        <div class="column is-6">
                             <h2>ค้นหาอะไหล่</h2>
                         </div>
-                        <div class="column is-3">
+                        <div class="column is-2">
                             <div>
                                 <input class="input-icon-search width100" type="text" name="search"
                                     placeholder="Search">
@@ -160,7 +148,7 @@
                     <div class="columns">
                         <div class="column is-8">
                             <div>
-                                <table style="width: 700px;">
+                                <table style="width: 1010px;">
                                     <tr id="tr01">
                                         <th class="mixTop">รายการ</th>
                                         <th class="mixTop" style="width: 100px;">จำนวน</th>
@@ -273,20 +261,25 @@
 
                     </div>
                     <div class="columns">
-                        <div class="column is-2"></div>
-                        <div class="column is-2"></div>
-                        <div class="column is-2"></div>
+
+                        <div class="column is-6"></div>
                         <div class="column is-2">
                             <center>
-                                <button type="button" class="button margin-left-x is-round is-2 width80 is-oros">
-                                    พิมพ์
-                                </button>
+                                &nbsp; &nbsp; <button type="button"
+                                    class="button margin-left-x is-round is-2 width90 is-oros">
+                                    พิมพ์</button>
                             </center>
+
+
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </body>
 

@@ -107,6 +107,15 @@ div.border-gray-2{
 .paddingPart{
     padding: 5px;
 }
+.width10{
+    width: 10%
+}
+.width15{
+    width: 15%
+}
+.width20{
+    width: 20%
+}
 .width25{
     width: 25%
 }
@@ -145,6 +154,9 @@ div.border-gray-2{
 }
 .width90 {
     width: 90%  
+}
+.width100 {
+    width: 100%  
 }
 .height30{
     height: 25px;
@@ -282,6 +294,13 @@ div.border-gray-2{
     background-color: white;
   }
 
+  /*RecordingCost Page*/
+  .input-search-recordingCost {
+    box-sizing: border-box;
+    border: 2px solid gray;
+    font-size: 16px;
+    padding: 12px 20px 12px ;
+  }
 /* Table */
 table.table-style-three {
     font-family: verdana, arial, sans-serif;
@@ -360,4 +379,51 @@ table.table-style-three td {
 
 .customer-column-left {
     margin-right: 20px;
+}
+.column.is-cust-1 {
+    flex: none;
+    width: 25%;
+    margin-left: 28%;
+}
+
+
+
+.width11{
+    width: 11%
+}
+
+.width12{
+    width: 12%
+}
+
+.width13{
+    width: 13%
+}
+
+.width14{
+    width: 14%
+}
+
+.width9{
+    width: 9%
+}
+
+.width8{
+    width: 8%
+}
+
+.width7{
+    width: 7%
+}
+
+.width6{
+    width: 6%
+}
+
+.width73{
+    width: 73%
+}
+
+#formCarFix{
+    display: none;
 }

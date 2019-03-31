@@ -26,6 +26,7 @@
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/utilities.js"></script>
 
 </head>
 
@@ -86,22 +87,10 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html" class="is-black-oros">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list" class="is-active">
-                    <li>
-                        <a href="./car_fix.html" class="is-black-oros">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
@@ -142,108 +131,101 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div plate">
-            <div class="box with-title is-round">
-                <div class="box-title is-oros">
-                    จัดการซ่อม
-                </div>
-                <div class="box">
+        <div class="box with-title is-round">
+            <div class="box-title is-oros">
+                จัดการซ่อม
+            </div>
+            <div class="box">
+                <div>
                     <div class="columns">
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
-                                        placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select size="15" class="selectPlate width80">
+                                    <input class="input-icon-search width80" type="text" name="search" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <select id="lplate_selected" size="15" class="selectPlate width80 cursor-pointer" onchange="getPlate_License()">
                                         <option value="กข123">กข123</option>
                                         <option value="ฟห121">ฟห121</option>
                                         <option value="พก999">พก999</option>
                                     </select>
                                 </div>
-                                <div class="columns">
+                                <!-- <div class="columns">
                                     <div class="column is-1">
                                     </div>
                                     <div class="column is-3">
-                                        <button type="button" onclick="mockCarFixAdd()"
-                                            class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
+                                        <button type="button" onclick="mockCarFixAdd()" class="button is-width80  is-round is-2 is-oros">เพิ่ม</button>
                                     </div>
                                     <div class="column is-3">
-                                        <button type="button"
-                                            class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
+                                        <button type="button" class="button  is-width80 is-round is-2  is-yentafo">ลบ</button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="column is-5">
-                            <table border="1" style="width: 100%">
-                                <!--first row-->
-                                <tr>
-                                    <td colspan="2" style="background-color: white" ;>
-                                        <img src="./resources/imgs/egocar.jpg" alt="egocar" height="200" width="230">
-                                    </td>
-                                    <td style="background-color: white">
-                                        <div>
-                                            <p>เลขออเดอร์ : 214321890427140721n</p>
-                                            <p>เลขทะเบียน : กข123</p>
-                                            <p>ยี่ห้อ : susuki</p>
-                                            <p>รุ่น : swift model-ab123</p>
-                                            <p>เจ้าของ : James Goodman</p>
-                                            <p>วันที่นัดรับ : 19/11/2561</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color:gray;">อะไหล่ที่ใช้ไปแล้ว</td>
-                                    <td style="background-color:gray;">จำนวน</td>
-                                    <td style="background-color:white;" rowspan="6">
-                                        <div>
-                                            <p>อาการ</p>
-                                            <p>-รถแรงเกินไป</p>
-                                            <p>-ถังน้ำมันรั่ว</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ชิ้นส่วนถังน้ำมัน</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>เครื่องยนต์โรตารี่</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <br>
-                                    </td>
-                                    <td>
-                                        <br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <br>
-                                    </td>
-                                    <td>
-                                        <br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <br>
-                                    </td>
-                                    <td>
-                                        <br>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div>
+                                <table border="1" style="width: 100%">
+                                    <!--first row-->
+                                    <tr>
+                                        <td colspan="2" style="background-color: white" ;>
+                                            <img src="./resources/imgs/egocar.jpg" alt="egocar" height="200" width="230">
+                                        </td>
+                                        <td style="background-color: white">
+                                            <div>
+                                                <p>เลขออเดอร์ : 214321890427140721n</p>
+                                                <p>เลขทะเบียน : กข123</p>
+                                                <p>ยี่ห้อ : susuki</p>
+                                                <p>รุ่น : swift model-ab123</p>
+                                                <p>เจ้าของ : James Goodman</p>
+                                                <p>วันที่นัดรับ : 19/11/2561</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:gray;">อะไหล่ที่ใช้</td>
+                                        <td style="background-color:gray;">จำนวน</td>
+                                        <td style="background-color:white;" rowspan="6">
+                                            <div>
+                                                <p>อาการ</p>
+                                                <p>-รถแรงเกินไป</p>
+                                                <p>-ถังน้ำมันรั่ว</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ชิ้นส่วนถังน้ำมัน</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>เครื่องยนต์โรตารี่</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br>
+                                        </td>
+                                        <td>
+                                            <br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br>
+                                        </td>
+                                        <td>
+                                            <br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br>
+                                        </td>
+                                        <td>
+                                            <br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div style="text-align: right;">
-                                <button onclick="usedPartUpdate()" type="button"
-                                    class="button is-round is-2 width30 is-orange">
-                                    อัพเดท</button>
-                                <button onclick="printDiv('formCarFix')" type="button"
-                                    class="button  is-round is-2 width30 is-oros">
-                                    พิมพ์</button>
-                                <div style="display: none;" class="box" id="formCarFix">
+                                <div class="box" id="formCarFix">
                                     <div class="box">
                                         <div class="columns">
                                             <div class="column is-5">
@@ -365,8 +347,7 @@
                                                 <div id="bor01">
                                                     <div class="columns">
                                                         <div class="column is-2">
-                                                            <img src="./resources/imgs/taxCar..png" alt="taxCar"
-                                                                width="100" height="100" />
+                                                            <img src="./resources/imgs/taxCar..png" alt="taxCar" width="100" height="100" />
                                                         </div>
                                                         <div class="column is-3">
                                                             <label>บริษัท โชคทวี ออโต้เซล จำกัด</label>
@@ -641,39 +622,27 @@
                                                             <p>ยี่ห้อ : susuki</p>
                                                             <p>รุ่น : swift model-ab123</p>
                                                             <p>เจ้าของ : James Goodman</p>
-
-
-
-
-
                                                         </div>
                                                         <div class="column is-3">
 
-                                                            <img src="resources/imgs/Car01.png" height="150" width="200"
-                                                                align="right">
+                                                            <img src="resources/imgs/Car01.png" height="150" width="200" align="right">
                                                         </div>
 
                                                         <br>
                                                     </div>
                                                     <h2>อาการ</h2>
-                                                    <div class="columns is-8 border-gray "
-                                                        style="border: 1px solid gray;">
+                                                    <div class="columns is-8 border-gray " style="border: 1px solid gray;">
                                                         <div class="column">
                                                             <p>- รถแรงเกินไป</p>
                                                             <p>- ถังน้ำมันรั่ว</p>
-
-
                                                         </div>
                                                     </div>
                                                     <br>
                                                     <h2>ชิ้นส่วนที่ใช้</h2>
-                                                    <div class="columns is-8 border-gray "
-                                                        style="border: 1px solid gray;">
+                                                    <div class="columns is-8 border-gray " style="border: 1px solid gray;">
                                                         <div class="column">
                                                             <p>ชิ้นส่วนถังน้ำมัน 1 ชิ้น</p>
                                                             <p>เครื่องยนต์โรตารี่ 1 ชิ้น</p>
-
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -684,6 +653,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="columns">
+                    <button style="margin-left: 9%" type="button" onclick="mockCarFixAdd()" class="button width10  is-round is-2 is-oros">เพิ่ม</button>
+                    <button type="button" class="button width10 is-round is-2  is-yentafo">ลบ</button>
+                    <button  style="margin-left: 41%" onclick="mockUsedPartUpdate()" type="button" class="button is-round is-2 width20 is-orange">
+                        อัพเดทอะไหล่ที่ใช้</button>
+                    <button onclick="printDiv('formCarFix')" type="button" class="button is-round is-2 width10 is-oros">
+                        พิมพ์</button>
+                    <!-- <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
+                        พิมพ์ใบเสร็จ</button>
+                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width20 is-oros">
+                        พิมพ์ใบกำกับภาษี</button>
+                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
+                        พิมพ์ใบรับรถ</button> -->
+                        
                 </div>
             </div>
         </div>
@@ -696,7 +681,16 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
-    <script src="./resources/js/utilities.js"></script>
+    <script scr="../server/WebDAO.js"></script>
+    <script scr="../server/WebService.js"></script>
+    <script>
+        function getPlate_License() {
+            var pointer = document.getElementById("lplate_selected");
+            var getPlateL = pointer.options[pointer.selectedIndex].value;
+            alert(getPlateL)
+          
+        }   
+    </script>
 </footer>
 
 </html>
