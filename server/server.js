@@ -81,7 +81,6 @@ app.get("/invoices", (req, res) => {
 });
 app.get("/invoices/:type", (req, res) => {
   WebDAOObj.getAllInvoiceByType(req.params.type).then(data => {
-    console.log(req.params.type)
     if (data != null) {
       res.json(data);
     } else {

@@ -251,7 +251,7 @@ div.border-gray-2{
     font-size: 16px;
 }
 
-/*font - Edut*/
+/*font - Edit*/
 .font-title{
     font-size: 60px;
     color: white;
@@ -269,6 +269,7 @@ div.border-gray-2{
 .boxplate textarea{
     padding: 5px;
 }
+
   /*gobal*/
   option:nth-child(odd){
     background-color: #dddddd;
