@@ -1,10 +1,12 @@
 const express = require("express");
+const pretty = require("express-prettify");
 const bodyParser = require("body-parser");
 const app = express();
 const port = 5000;
 const cors= require('cors')
 app.use(bodyParser.json());
 app.use(cors())
+app.use(pretty({ query: 'pretty' }));
 
 //disable cors due to the server will not using cross origin feature.
 
@@ -33,7 +35,7 @@ app.get("/products", (req, res) => {
     }
   });
 });
-app.get("/products/:type", (req, res) => {
+app.get("/products/type/:type", (req, res) => {
   WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);

@@ -12,7 +12,7 @@ function startForm() {
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/'+type).then((result) => { 
+        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
             console.log(result.data) 
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
@@ -33,7 +33,7 @@ function getAllCustomer() {
 }
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/'+type).then((result) => {
+        axios.get('http://localhost:5000/products/type/'+type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
