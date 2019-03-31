@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - เพิ่มลูกค้าและรายการซ่อมรถ</title>
+    <title>โชคทวี - อัพเดทอะไหล่ที่ใช้</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -26,7 +26,11 @@
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
-
+    <script>
+        function changeColor(o) {
+            o.style.backgroundColor = "red"
+        }
+    </script>
 
 </head>
 
@@ -142,13 +146,14 @@
                             <div class="column is-3">
                                 <div>
                                     <div>
-                                        <input class="input-icon-search width90" type="text" name="search" placeholder="ค้นหาอะไหล่">
+                                        <input class="input-icon-search width90" type="text" name="search"
+                                            placeholder="ค้นหาอะไหล่">
                                         <table class="select-table cursor-pointer">
                                             <tr style="cursor:default" id="tr01">
                                                 <th class="mixTop">อะไหล่ที่มีอยู่</th>
                                                 <th class="mixTop">จำนวน</th>
                                             </tr>
-                                            <tr>
+                                            <tr onclick="changeColor(this)">
                                                 <td class="mix">สายพาน</td>
                                                 <td class="mix">18</td>
                                             </tr>
@@ -238,10 +243,10 @@
                                 </div>
                             </div>
                             <div class="column is-5">
-                                <table style="width: 100%;">
+                                <table class="select-table cursor-pointer" style="width: 100%;">
                                     <col width="250">
                                     <col width="80">
-                                    <tr id="tr01">
+                                    <tr style="cursor:default" id="tr01">
                                         <th class="mixTop">อะไหล่ที่ใช้ไปแล้ว</th>
                                         <th class="mixTop">จำนวน</th>
                                     </tr>
@@ -328,8 +333,10 @@
                             </div>
                         </div>
                         <div class="columns">
-                            <button style="margin-left: 13%" type="button" class="button width20  is-round is-2 is-oros">เพิ่ม</button>
-                            <button style="margin-left: 52%" type="button" class="button width20 is-round is-2  is-yentafo">ลบ</button>
+                            <button style="margin-left: 13%" type="button"
+                                class="button width20  is-round is-2 is-oros">เพิ่ม</button>
+                            <button style="margin-left: 52%" type="button"
+                                class="button width20 is-round is-2  is-yentafo">ลบ</button>
                             <button type="button" class="button is-round is-2 width25 is-orange">
                                 แก้ไข</button>
                         </div>

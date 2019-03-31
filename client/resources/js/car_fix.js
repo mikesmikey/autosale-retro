@@ -8,7 +8,6 @@ let invoice = [];
 let select = "none";
 let partshub = [];
 
-
 function whenFormOpenUp() {
     getAllProductByType("Repair").then((data) => {
         createselect(data);
