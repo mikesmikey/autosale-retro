@@ -32,7 +32,6 @@ function closeCustomerDelete() {
     document.getElementById('delete-customer').classList.remove('is-active');
 }
 
-
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {
@@ -60,6 +59,7 @@ function editCustomer(newCustomerData) {
     })
 }
 
+<<<<<<< HEAD
 function getCustomerDetailByName(name, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_name === name) {
@@ -179,3 +179,6 @@ startForm();
 /*getAllCustomer().then((data) => { console.log(data) })*/
 
 
+=======
+getAllCustomer().then((data) => {console.log(data)})
+>>>>>>> 49e13cd5c469bb5ca1a89cca5cf0fb2b7fe5bd89
