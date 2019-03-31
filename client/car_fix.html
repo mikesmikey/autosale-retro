@@ -142,7 +142,7 @@
                             <div>
                                 <div>
                                     <input class="input-icon-search width80" type="text" name="search" placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select size="15" class="selectPlate width80 cursor-pointer">
+                                    <select id="lplate_selected" size="15" class="selectPlate width80 cursor-pointer" onchange="getPlate_License()">
                                         <option value="กข123">กข123</option>
                                         <option value="ฟห121">ฟห121</option>
                                         <option value="พก999">พก999</option>
@@ -681,6 +681,16 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
+    <script scr="../server/WebDAO.js"></script>
+    <script scr="../server/WebService.js"></script>
+    <script>
+        function getPlate_License() {
+            var pointer = document.getElementById("lplate_selected");
+            var getPlateL = pointer.options[pointer.selectedIndex].value;
+            alert(getPlateL)
+          
+        }   
+    </script>
 </footer>
 
 </html>
