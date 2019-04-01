@@ -12,7 +12,7 @@ function startForm() {
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/'+type).then((result) => { 
+        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
             console.log(result.data) 
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
@@ -78,6 +78,8 @@ function searchProduct(nameKey, myArray) {
 function searchCustomer(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_id === nameKey) {
+            console.log('dis')
+            console.log(myArray[i])
             return myArray[i];
         }
     }
@@ -90,6 +92,8 @@ function searchInvice(nameKey, myArray) {
     }
 }
 function ShowDetail(value) {
+    console.log(product)
+    console.log(customer)
     let resultObject = searchProductByCarLicense(value, product);
     select = value ;
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
@@ -100,7 +104,11 @@ function ShowDetail(value) {
     //รุ่น
     document.getElementById("dca_car_model").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
     //เจ้าของ
-    document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
+    var assda = []
+    assda = searchCustomer(resultObject.cust_id, customer)
+    console.log(resultObject.cust_id)
+    console.log(assda)
+    //document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + customerObj.cust_name;
     setAttributePrint(value)
 }
 function createselect(data) {
@@ -153,7 +161,7 @@ function setAttributePrint(value) {
     let invoiceDate = document.getElementById('print_detail_date')
     invoiceDate.innerHTML = "วันที่ " + getCurrentDate();
     let customerName = document.getElementById('print_detail_customer_name')
-    customerName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    //customerName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
     let cutomerPhone = document.getElementById('print_detail_phone')
     cutomerPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
     let cutomerAddress = document.getElementById('print_detail_address')
@@ -171,7 +179,7 @@ function setAttributePrint(value) {
     let appiontmentDate = document.getElementById('print_appiontment_date')
     appiontmentDate.innerHTML = "วันที่ " + formatStringDate(invoiceObj.issue_date);
     let appiontmentName = document.getElementById('print_appiontment_customer_name')
-    appiontmentName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    //appiontmentName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
     let appiontmentPhone = document.getElementById('print_appiontment_phone')
     appiontmentPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
     let appiontmentAddress = document.getElementById('print_appiontment_address')
