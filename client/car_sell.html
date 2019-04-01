@@ -13,6 +13,7 @@
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
@@ -21,9 +22,13 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/car_sell.js"></script>
     <script src="./resources/js/utilities.js"></script>
 </head>
 
@@ -144,10 +149,7 @@
                                 placeholder="ค้นหาทะเบียนรถ">
                         </div>
                         <div>
-                            <select multiple size="10" class="selectPlate width65">
-                                <option value="กข123">กข123</option>
-                                <option value="ฟห121">ฟห121</option>
-                                <option value="พก999">พก999</option>
+                            <select multiple size="10" class="selectPlate width65" id="selectLicense">
                             </select>
                         </div>
                         <div class="columns"><br></div>
@@ -170,7 +172,7 @@
                     <div class=" column is-4">
                         <div><br><br>
                             <div class="border-gray">
-                                <p>&nbsp;เลขออเดอร์ : 214321890427140721</p>
+                                <p id="car_lice">&nbsp;เลขออเดอร์ : </p>
                                 <p>&nbsp;เลขทะเบียน : กข123</p>
                                 <p>&nbsp;ยี่ห้อ : susuki</p>
                                 <p>&nbsp;รุ่น : swift model-ab123</p>
