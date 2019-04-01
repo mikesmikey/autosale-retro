@@ -33,6 +33,13 @@ function whenFormOpenUp() {
     getAllPart();
 }
 
+function launchFixPrintsHubDelete() {
+    document.getElementById('printshub-fix').classList.add('is-active');
+}
+function closeFixPrintsHubDelete() {
+    document.getElementById('printshub-fix').classList.remove('is-active');
+}
+
 function launchFixDelete() {
     if (carLicense != "") {
         document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : '"+carLicense+"'";

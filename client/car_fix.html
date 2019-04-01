@@ -624,11 +624,13 @@
                 <div class="columns">
                     <button style="margin-left: 9%" type="button" onclick="mockCarFixAdd()"
                         class="button width10  is-round is-2 is-oros">เพิ่ม</button>
-                    <button type="button" class="button width10 is-round is-2  is-yentafo" onclick="launchFixDelete()">ลบ</button>
+                    <button type="button" class="button width10 is-round is-2  is-yentafo"
+                        onclick="launchFixDelete()">ลบ</button>
                     <button style="margin-left: 41%" onclick="mockUsedPartUpdate()" type="button"
                         class="button is-round is-2 width20 is-orange">
                         อัพเดทอะไหล่ที่ใช้</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button is-round is-2 width10 is-oros">
+                    <button onclick="launchFixPrintsHubDelete()" type="button"
+                        class="button is-round is-2 width10 is-oros">
                         พิมพ์</button>
                     <!-- <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
                         พิมพ์ใบเสร็จ</button>
@@ -656,9 +658,8 @@
                 </div>
                 <div class="column is-2">
                     <center>
-                        <button type="button" class="button is-width70  is-round is-2 is-oros" 
-                            onclick="deleteCarFixProduct()"
-                        >
+                        <button type="button" class="button is-width70  is-round is-2 is-oros"
+                            onclick="deleteCarFixProduct()">
                             ยืนยัน
                         </button>
                     </center>
@@ -674,16 +675,45 @@
             </div>
         </div>
     </div>
+    <div id="printshub-fix" class="modal">
+        <div class="box partCarFixPrintsHubDelete">
+            <div class="columns">
+                <div>
+                    <button type="button" class="button is-width100  is-round is-2 is-oros"
+                        onclick="printDiv(repairingBill)">
+                        พิมพ์ใบรายละเอียดซ่อม
+                    </button>
+
+                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv(bill)">
+                        พิมพ์ใบกำกับภาษี
+                    </button>
+                </div>
+                <div >
+                    <button type="button" class="button is-width100  is-round is-2 is-oros"
+                        onclick="printDiv(appointment)">
+                        พิมพ์ใบนัดรับ
+                    </button>
+
+                    <button type="button" class="button is-width100 is-round is-2 is-oros" onclick="printDiv(receipt)">
+                        พิมพ์ใบเสร็จ
+                    </button>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="button is-width100  is-round is-2 is-yentafo"
+                    onclick="closeFixPrintsHubDelete()">
+                    ยกเลิก
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
 
 <footer>
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
-    <<<<<<< HEAD=======<script scr="../server/WebDAO.js">
-    </script>
-    <script scr="../server/WebService.js"></script>
-    >>>>>>> be1e6a029fc143463d3d2936578c779fe6bff714
 </footer>
 
 </html>

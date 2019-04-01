@@ -228,6 +228,10 @@ div.border-gray-2{
     width: 40%;
 }
 
+.partCarFixPrintsHubDelete {
+    width: 50%;
+}
+
 /*Input - Edit*/
 .my-input{
     padding: 13px;
