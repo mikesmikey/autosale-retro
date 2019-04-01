@@ -28,7 +28,6 @@
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
     <script src="./resources/js/car_fix.js"></script>
-
 </head>
 
 <body>
@@ -188,7 +187,7 @@
                             </div>
                             <div style="text-align: right;">
                                 <div class="box" id="formCarFix">
-                                    <div class="box">
+                                    <div id="receipt" class="box">
                                         <div class="columns">
                                             <div class="column is-5">
                                                 <br>
@@ -293,7 +292,7 @@
                                     <br>
                                     <br>
 
-                                    <div class="box">
+                                    <div id="bill" class="box">
                                         <div class="columns">
                                             <div class="column is-6">
                                                 <br>
@@ -502,7 +501,7 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <div class="box">
+                                    <div id="appointment" class="box">
                                         <div class="columns">
                                             <div class="column is-5">
                                                 <br>
@@ -567,8 +566,7 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <div class="box">
-
+                                    <div id="repairingBill" class="box">
                                         <center>
                                             <font size=6> พิมพ์รายละเอียดการซ่อม </font>
                                         </center>
@@ -623,28 +621,28 @@
 
                 <div class="columns">
                     <button style="margin-left: 9%" type="button" onclick="mockCarFixAdd()"
-                        class="button width10  is-round is-2 is-oros">เพิ่ม</button>
-                    <button type="button" class="button width10 is-round is-2  is-yentafo"
-                        onclick="launchFixDelete()">ลบ</button>
-                    <button style="margin-left: 41%" onclick="mockUsedPartUpdate()" type="button"
+                        class="button width10  is-round is-2 is-oros">
+                        เพิ่ม
+                    </button>
+                    <button type="button" class="button width10 is-round is-2  is-yentafo" onclick="launchFixDelete()">
+                        ลบ
+                    </button>
+                    <button style="margin-left: 41%" type="button" onclick="mockUsedPartUpdate()"
                         class="button is-round is-2 width20 is-orange">
-                        อัพเดทอะไหล่ที่ใช้</button>
+                        อัพเดทอะไหล่ที่ใช้
+                    </button>
                     <button onclick="launchFixPrintsHubDelete()" type="button"
                         class="button is-round is-2 width10 is-oros">
-                        พิมพ์</button>
-                    <!-- <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
-                        พิมพ์ใบเสร็จ</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width20 is-oros">
-                        พิมพ์ใบกำกับภาษี</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
-                        พิมพ์ใบรับรถ</button> -->
-
+                        พิมพ์
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     </div>
     </div>
+
+    <!-- modal delete car fix product -->
     <div id="delete-fix" class="modal">
         <div class="box partCarFixDelete">
             <center>
@@ -675,26 +673,29 @@
             </div>
         </div>
     </div>
+
+    <!-- modal print choosing -->
     <div id="printshub-fix" class="modal">
         <div class="box partCarFixPrintsHubDelete">
             <div class="columns">
                 <div>
                     <button type="button" class="button is-width100  is-round is-2 is-oros"
-                        onclick="printDiv(repairingBill)">
+                        onclick="printDiv('repairingBill')">
                         พิมพ์ใบรายละเอียดซ่อม
                     </button>
 
-                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv(bill)">
+                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv('bill')">
                         พิมพ์ใบกำกับภาษี
                     </button>
                 </div>
-                <div >
+                <div>
                     <button type="button" class="button is-width100  is-round is-2 is-oros"
-                        onclick="printDiv(appointment)">
+                        onclick="printDiv('appointment')">
                         พิมพ์ใบนัดรับ
                     </button>
 
-                    <button type="button" class="button is-width100 is-round is-2 is-oros" onclick="printDiv(receipt)">
+                    <button type="button" class="button is-width100 is-round is-2 is-oros"
+                        onclick="printDiv('receipt')">
                         พิมพ์ใบเสร็จ
                     </button>
                 </div>

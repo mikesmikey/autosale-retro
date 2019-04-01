@@ -19,7 +19,7 @@ function insertCustomerByCarFix() {
     CarFixAdds.push(document.getElementById('car-license').value);
     CarFixAdds.push(document.getElementById('repair-detail').value);
 
-    for(var i in CarFixAdds) {
+    for (var i in CarFixAdds) {
         console.log(CarFixAdds[i])
     }
     //window.location.href = './car_fix.html';
@@ -33,8 +33,38 @@ function whenFormOpenUp() {
     getAllPart();
 }
 
+function printDiv(printDivName) {
+
+    const currentPage = document.body.innerHTML
+    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+    if(printDivName === 'repairingBill') {
+
+    }
+    else if(printDivName === 'bill') {
+        
+    }
+    else if(printDivName === 'receipt') {
+        
+    }
+    else if(printDivName === 'appointment') {
+        
+    }
+    
+    window.print();
+    document.body.innerHTML = currentPage;
+}
+
 function launchFixPrintsHubDelete() {
-    document.getElementById('printshub-fix').classList.add('is-active');
+    if (carLicense != "") {
+        document.getElementById('printshub-fix').classList.add('is-active');
+
+
+
+
+    }
+    else {
+        alert("กรุณาเลือกทะเบียนรถก่อน")
+    }
 }
 function closeFixPrintsHubDelete() {
     document.getElementById('printshub-fix').classList.remove('is-active');
@@ -42,7 +72,7 @@ function closeFixPrintsHubDelete() {
 
 function launchFixDelete() {
     if (carLicense != "") {
-        document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : '"+carLicense+"'";
+        document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : '" + carLicense + "'";
         document.getElementById('delete-fix').classList.add('is-active');
     } else {
         alert("กรุณาเลือกทะเบียนรถก่อน")
@@ -192,7 +222,7 @@ function createselect(data) {
             option.onclick = function () { ShowDetailCatFix(this.value); };
             select.add(option);
         }
-        catch(error) {}
+        catch (error) { }
     }
 }
 function removeAlloption() {
