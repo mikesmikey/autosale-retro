@@ -26,7 +26,7 @@
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
-    <script src="./resources/js/palteLicense_manage.js"></script>
+    <script src="./resources/js/Plate License/plate_manage.js"></script>
     
 </head>
 
@@ -313,63 +313,58 @@
     </div>
     <!--From print ใบเสร็จ-->
     <div id="print_bill" class="deplay-none">
-            <div class="columns border-print">
-                <div class="column border-print">
-                    <br>
-                    <center>
-                        <font size=6> พิมพ์ใบเสร็จ </font>
-                    </center>
-                    <br>
-                </div>
-            </div>
-            <div class="columns border-print ">
-                <div class=" column">
-                    <div id="bor01">
-                        <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
-                        <p>&nbspเลขที่บิล : sadf123214214214</p>
-                        <p>&nbspวันที่ออก : 17/11/2561</p>
-                        <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
-                        <br><br>
-                    </div>
-                    <div id="bor01">
-                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
-                            รายการ</p>
-                        <center>
-                            <table id="table01">
-                                <tr id="tr01">
-                                    <th class="mixTop">&nbspรายการ</th>
-                                    <th class="mixTop">&nbspจำนวน</th>
-                                    <th class="mixTop">&nbspราคา</th>
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                </tr>
-                                <tr>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                    <td class="mix"><br /></td>
-                                </tr>
-                                <tr>
-                                    <td class="mixUnder"><br /></td>
-                                    <td class="mixUnder"><br /></td>
-                                    <td class="mixUnder"><br /></td>
-                                </tr>
-    
-    
-                            </table>
-                        </center> <br>
-                    </div>
-                </div>
-    
+        <div class="columns border-print">
+            <div class="column border-print">
+                <br>
+                <center>
+                    <font size=6> ใบเสร็จ </font>
+                </center>
+                <br>
             </div>
         </div>
+        <div class="columns border-print ">
+            <div class=" column">
+                <div style="padding:10px">
+                    <p>เลขประจำตัวผู้เสียภาษี : 0123456789123</p>
+                    <p>บริษัท : โชคทวีออโต้เซล</p>
+                    <p>ที่อยู่ : มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</p>
+                    <p>โทรศัทพ์ : 0-3810-2222</p>
+                    <p>&nbspวันที่ออกใบ : 17/11/2561</p>
+                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                    <p id = 'printBillCustomerName'>ชื่อลูกค้า :</p>
+                    <p id = 'printBillCustomerAddress'>ที่อยู่ :</p>
+                    <p id = 'printBillCustomerPhone'>เบอร์โทรศัทพ์ :</p>
+                </div>
+                <div class='border-print'>
+                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                        รายการ</p>
+                    <center>
+                        <table id="printBillTable" style="width:95%">
+                            <tr id="tr01">
+                                <th class="mixTop">&nbspรายการ</th>
+                                <th class="mixTop">&nbspจำนวน</th>
+                                <th class="mixTop">&nbspราคา</th>
+                            </tr>
+                            <tr>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                            </tr>
+                        </table>
+                    </center> <br>
+                </div>
+                <div>
+                    <div style="margin-left:75%">
+                        <div>
+                            <p id = 'printBillCostAll'>ราคารวม : </p>
+                            <p id = 'printBillVat'>ภาษี VAT 7 % : </p>
+                            <p id = 'printBillPriceAll'>ราคาสุทธิ : </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--From print ใบกำกับภาษี-->
     <div id="print_invoice" class="box deplay-none">
         <div class="columns">

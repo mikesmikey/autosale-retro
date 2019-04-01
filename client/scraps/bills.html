@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Utilities CSS-->
+    <link href="../resources/css/color.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/icon.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/page-helper.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/element.css" type="text/css" rel="stylesheet">
+
+    <!--Commons CSS -->
+    <link href="../resources/css/initial.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/navbar.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/main-menu.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/custom.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/part_order_css.css" type="text/css" rel="stylesheet">
+
+    <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./resources/js/Controller_page.js"></script>
+    <script src="./resources/js/accController.js"></script>
+    <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/palteLicense_manage.js"></script>
+
+</head>
+
+<body>
+    <div id="print_bill">
+        <div class="columns border-print">
+            <div class="column border-print">
+                <br>
+                <center>
+                    <font size=6> ใบเสร็จ </font>
+                </center>
+                <br>
+            </div>
+        </div>
+        <div class="columns border-print ">
+            <div class=" column">
+                <div style="padding:10px">
+                    <p>เลขประจำตัวผู้เสียภาษี : 0123456789123</p>
+                    <p>บริษัท : โชคทวีออโต้เซล</p>
+                    <p>ที่อยู่ : มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</p>
+                    <p>โทรศัทพ์ : 0-3810-2222</p>
+                    <p>&nbspวันที่ออกใบ : 17/11/2561</p>
+                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                    <p>ชื่อลูกค้า :</p>
+                    <p>ที่อยู่ :</p>
+                    <p>เบอร์โทรศัทพ์ :</p>
+                </div>
+                <div class='border-print'>
+                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                        รายการ</p>
+                    <center>
+                        <table id="print_bills_table" style="width:95%">
+                            <tr id="tr01">
+                                <th class="mixTop">&nbspรายการ</th>
+                                <th class="mixTop">&nbspจำนวน</th>
+                                <th class="mixTop">&nbspราคา</th>
+                            </tr>
+                            <tr>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                                <td class="mix"><br /></td>
+                            </tr>
+                        </table>
+                    </center> <br>
+                </div>
+                <div>
+                    <div style="margin-left:75%">
+                        <div>
+                            <p>ราคารวม : </p>
+                            <p>ภาษี VAT 7 % : </p>
+                            <p>ราคาสุทธิ : </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
