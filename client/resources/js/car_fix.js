@@ -123,7 +123,6 @@ function deleteCarFixProduct() {
     closeFixDelete();
 }
 ////////////////////////////////////////////////////////////////////
-
 function deleteCarFixProductByThisLicense(car_license) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/product/remove/' + car_license).then((result) => {
@@ -290,13 +289,6 @@ function runScript(e) {
         }
     }
     return false;
-}
-function removeAlloption() {
-    var select = document.getElementById("lplate_selected");
-    var length = select.options.length;
-    for (i = 0, c = 0; i < length; i++) {
-        select.options[c] = null;
-    }
 }
 ////////////////////////////////////////////////////////////////////
 
