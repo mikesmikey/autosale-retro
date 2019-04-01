@@ -123,6 +123,12 @@ app.get("/customers", (req, res) => {
   })
 })
 
+app.post('/product/remove/:car_license', (req, res) => {
+  WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
+      res.send(pass);
+  });
+});
+
 app.post('/customer/remove/:name', (req, res) => {
   WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
       res.send(pass);

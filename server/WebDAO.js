@@ -240,6 +240,42 @@ class WebDAO {
             });
         });
     }
+
+    deleteCarFixProductByThisLicense(car_license) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne({ "prod_type": "Repair"}, (err, data) => {
+                    if (err) { throw err }
+                    if (data) {
+                        db.collection('Product').deleteOne({"trn_car.car_license": car_license}, (err, result) => {
+                            if (err) { throw err }
+                            return resolve(true);
+                        });
+                    } else { return resolve(false) }
+                });
+            });
+        });
+    }
+
+    // insertProductCarFix(product_fix) {
+    //     return new Promise((resolve, reject) => {
+    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    //             const db = client.db(dbName)
+    //             db.collection('Partner').findOne({ "company_name": product_fix.company_name }, (err, data) => {
+    //                 //console.log(partner.company_name)
+    //                 if (err) { throw err }
+    //                 if (!data) {
+    //                     db.collection('Partner').insertOne(product_fix.getPartnerObjectData(), (err, result) => {
+    //                         if (err) { throw err }
+    //                         return resolve(true);
+    //                     });
+    //                 } else { return resolve(false) }
+
+    //             });
+    //         });
+    //     });
+    // }
 }
 
 

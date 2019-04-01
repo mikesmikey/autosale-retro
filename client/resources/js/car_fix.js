@@ -2,11 +2,16 @@
 
 
 whenFormOpenUp();
+let resultObject;
+let partshub = [];
 let product = [];
 let customer = [];
 let invoice = [];
-let select = "none";
-let partshub = [];
+let thisCarLicense = "";
+let thisCarFixProduct = [];
+let packReairingDetail = [];
+
+
 
 function whenFormOpenUp() {
     getAllProductByType("Repair").then((data) => {
@@ -17,7 +22,117 @@ function whenFormOpenUp() {
     getAllPart();
 }
 
+
+function printDiv(printDivName) {
+    let resPrintRepairDetail = resultObject.type_desc.repair_detail;
+    let resPrintReparingParts_Name = [];
+    let resPrintReparingParts_Num = [];
+    const currentPage = document.body.innerHTML
+    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+    if (printDivName === 'repairingBill') {
+
+        document.getElementById('repairingBill_car_license').innerHTML = '&nbsp;&nbsp;เลขทะเบียน : ' + thisCarFixProduct[0];
+        document.getElementById('repairingBill_car_brand').innerHTML = '&nbsp;&nbsp;ยี่ห้อ : ' + thisCarFixProduct[1];
+        document.getElementById('repairingBill_car_model').innerHTML = '&nbsp;&nbsp;รุ่น : ' + thisCarFixProduct[2];
+        document.getElementById('repairingBill_car_owner').innerHTML = '&nbsp;&nbsp;เจ้าของ : ' + thisCarFixProduct[3];
+
+        for (var i in resultObject.type_desc.trn_parts_repair) {
+            resPrintReparingParts_Name[i] = searchParts(resultObject.type_desc.trn_parts_repair[i].parts_id, partshub);
+            resPrintReparingParts_Num[i] = resultObject.type_desc.trn_parts_repair[i].parts_num;
+        }
+
+        for (var i in resultObject.type_desc.trn_parts_repair) {
+            console.log(resPrintReparingParts_Name[i], ", ", resPrintReparingParts_Num[i])
+        }
+
+
+        for (var i in resPrintRepairDetail) {
+            var node = document.createElement("p");
+            var textnode = document.createTextNode('- ' + resPrintRepairDetail[i]);
+            node.appendChild(textnode);
+            document.getElementById('repairingBill_repairing_detail').appendChild(node);
+        }
+
+        for (var i in resultObject.type_desc.trn_parts_repair) {
+            var node = document.createElement("p");
+            var textnode = document.createTextNode(resPrintReparingParts_Name[i] + ' ' + resPrintReparingParts_Num[i] + ' ชิ้น');
+            node.appendChild(textnode);
+            document.getElementById('repairingBill_parts_repair').appendChild(node);
+        }
+    }
+    else if (printDivName === 'bill') {
+
+    }
+    else if (printDivName === 'receipt') {
+
+    }
+    else if (printDivName === 'appointment') {
+        document.getElementById('appointment_car_license').innerHTML = '&nbsp;&nbsp;เลขทะเบียน : ' + thisCarFixProduct[0];
+        document.getElementById('appointment_car_brand').innerHTML = '&nbsp;&nbsp;ยี่ห้อ : ' + thisCarFixProduct[1];
+        document.getElementById('appointment_car_model').innerHTML = '&nbsp;&nbsp;รุ่น : ' + thisCarFixProduct[2];
+        document.getElementById('appointment_car_owner').innerHTML = '&nbsp;&nbsp;เจ้าของ : ' + thisCarFixProduct[3];
+        document.getElementById('appointment_car_appt_date').innerHTML = '&nbsp;&nbsp;วันที่นัดรับ : ' + thisCarFixProduct[4];
+
+        for (var i in resPrintRepairDetail) {
+            var node = document.createElement("p");
+            var textnode = document.createTextNode('- ' + resPrintRepairDetail[i]);
+            node.appendChild(textnode);
+
+            document.getElementById('appointment_repairing_detail').appendChild(node);
+        }
+
+    }
+
+    window.print();
+    document.body.innerHTML = currentPage;
+}
+function launchFixPrintsHubDelete() {
+    if (thisCarLicense != "") {
+        document.getElementById('printshub-fix').classList.add('is-active');
+    }
+    else {
+        alert("กรุณาเลือกทะเบียนรถก่อน")
+    }
+}
+function closeFixPrintsHubDelete() {
+    document.getElementById('printshub-fix').classList.remove('is-active');
+}
+
+function launchFixDelete() {
+    if (thisCarLicense != "") {
+        document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : '" + thisCarLicense + "'";
+        document.getElementById('delete-fix').classList.add('is-active');
+    } else {
+        alert("กรุณาเลือกทะเบียนรถก่อน")
+    }
+}
+function closeFixDelete() {
+    document.getElementById('delete-fix').classList.remove('is-active');
+}
+
+function deleteCarFixProduct() {
+    deleteCarFixProductByThisLicense(thisCarLicense).then((result) => {
+        // console.log('this car license => ', thisCarLicense)
+        if (result) {
+            alert("ลบสำเร็จ")
+            window.location.reload(true);
+        } else {
+            alert("ลบไม่สำเร็จ!")
+            window.location.reload(true);
+        }
+    })
+    thisCarLicense = "";
+    closeFixDelete();
+}
 ////////////////////////////////////////////////////////////////////
+
+function deleteCarFixProductByThisLicense(car_license) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/product/remove/' + car_license).then((result) => {
+            resolve(result.data);
+        })
+    });
+}
 function getAllPart() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/parts/').then((result) => {
@@ -54,7 +169,6 @@ function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/products/type/' + type).then((result) => {
             resolve(result.data);
-            console.log(result.data)
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
             }
@@ -64,14 +178,23 @@ function getAllProductByType(type) {
 }
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
-    let resultObject = searchProductByCarFix(value, product);
-    select = value;
+    resultObject = searchProductByCarFix(value, product);
+    console.log('result => ', resultObject)
+    let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
+    let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
+    thisCarLicense = value;
     document.getElementById("productID").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     document.getElementById("carLicense").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
     document.getElementById("carBrand").innerHTML = "ยี่ห้อ : " + resultObject.trn_car.car_brand;
     document.getElementById("carModel").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
-    document.getElementById("carOwner").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
-    document.getElementById("IssueDate").innerHTML = "วันที่นัดรับ : " + searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
+    document.getElementById("carOwner").innerHTML = "เจ้าของ : " + carOwner;
+    document.getElementById("ApptDate").innerHTML = "วันที่นัดรับ : " + ApptDate;
+
+    thisCarFixProduct.push(resultObject.trn_car.car_license)
+    thisCarFixProduct.push(resultObject.trn_car.car_brand)
+    thisCarFixProduct.push(resultObject.trn_car.car_model)
+    thisCarFixProduct.push(carOwner)
+    thisCarFixProduct.push(ApptDate)
 
     var thisList = searchCarLcByProduct(resultObject.trn_car.car_license, product).type_desc.repair_detail;
 
@@ -95,7 +218,7 @@ function ShowDetail(value) {
     var thisPartsList = searchCarLcByProduct(resultObject.trn_car.car_license, product).type_desc.trn_parts_repair;
     var listParts = document.getElementById("repairingtable");
 
-    var packListParts = [];
+    let packListParts = [];
     for (var i in thisPartsList) {
         var partsName = searchParts(thisPartsList[i].parts_id, partshub);
         packListParts.push(`${partsName},${thisPartsList[i].parts_num}`);
@@ -204,6 +327,13 @@ function searchProduct(nameKey, myArray) {
 function searchCustomer(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_id === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+function searchCustomerByName(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].cust_name === nameKey) {
             return myArray[i];
         }
     }

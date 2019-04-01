@@ -28,7 +28,6 @@
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
     <script src="./resources/js/car_fix.js"></script>
-
 </head>
 
 <body>
@@ -158,8 +157,8 @@
                                     <tr>
                                         <td colspan="2" style="background-color: white" ;>
                                             <!-- //////////  Backend has not loaded  ////////////// -->
-                                            <img src="./resources/imgs/egocar.jpg" alt="egocar" height="200"
-                                                width="230">
+                                            <img id="carUpload" src="./resources/imgs/egocar.jpg" alt="egocar"
+                                                height="200" width="230">
                                         </td>
                                         <td style="background-color: white">
                                             <div>
@@ -169,7 +168,7 @@
                                                 <p id="carBrand"><br></p>
                                                 <p id="carModel"><br></p>
                                                 <p id="carOwner"><br></p>
-                                                <p id="IssueDate"><br></p>
+                                                <p id="ApptDate"><br></p>
                                             </div>
                                         </td>
                                     </tr>
@@ -188,7 +187,7 @@
                             </div>
                             <div style="text-align: right;">
                                 <div class="box" id="formCarFix">
-                                    <div class="box">
+                                    <div id="receipt" class="box">
                                         <div class="columns">
                                             <div class="column is-5">
                                                 <br>
@@ -293,7 +292,7 @@
                                     <br>
                                     <br>
 
-                                    <div class="box">
+                                    <div id="bill" class="box">
                                         <div class="columns">
                                             <div class="column is-6">
                                                 <br>
@@ -303,7 +302,6 @@
                                                 <br>
                                             </div>
                                         </div>
-                                        <p align="right">ตัวอย่างก่อนพิมพ์</p>
                                         <div class="columns">
                                             <div class="column is-8">
                                                 <div id="bor01">
@@ -502,7 +500,7 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <div class="box">
+                                    <div id="appointment" class="box">
                                         <div class="columns">
                                             <div class="column is-5">
                                                 <br>
@@ -515,23 +513,20 @@
                                         <div class="columns">
                                             <div class=" column is-5">
                                                 <div id="bor01">
-                                                    <p>&nbspเลขทะเบียน : กข123</p>
-                                                    <p>&nbspยี่ห้อ : susuki</p>
-                                                    <p>&nbspรุ่น : swift model-ab123</p>
-                                                    <p>&nbspเจ้าของ : James Goodman</p>
-                                                    <p>&nbspวันที่ต้องมารับ : 19/11/2561</p>
+                                                    <p id="appointment_car_license">เลขทะเบียน :</p>
+                                                    <p id="appointment_car_brand">ยี่ห้อ :</p>
+                                                    <p id="appointment_car_model">รุ่น :</p>
+                                                    <p id="appointment_car_owner">เจ้าของ :</p>
+                                                    <p id="appointment_car_appt_date">วันที่ต้องมารับ :</p>
                                                     <br>
                                                     <br>
 
 
-                                                    <p>&nbsp&nbsp&nbsp&nbsp&nbspอาการ</p>
+                                                    <p>&nbsp;&nbsp;อาการ</p>
                                                     <center>
-                                                        <div id="bor03">
-                                                            <p Align="left">&nbsp-รถแรงเกินไป</p>
-                                                            <p Align="left">&nbsp-ถังน้ำมันรั่ว</p>
-                                                            <p Align="left">
-                                                                <br>
-                                                            </p>
+                                                        <div id="appointment_repairing_detail" style="text-align: left">
+
+
                                                         </div>
                                                     </center>
 
@@ -567,8 +562,7 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <div class="box">
-
+                                    <div id="repairingBill" class="box">
                                         <center>
                                             <font size=6> พิมพ์รายละเอียดการซ่อม </font>
                                         </center>
@@ -580,35 +574,36 @@
                                                 <div class="column border-gray " style="border: 1px solid gray;">
                                                     <div class="columns ">
                                                         <div class="column is-5  ">
-
-                                                            <p>เลขทะเบียน : กข123</p>
-                                                            <p>ยี่ห้อ : susuki</p>
-                                                            <p>รุ่น : swift model-ab123</p>
-                                                            <p>เจ้าของ : James Goodman</p>
+                                                            <p id="repairingBill_car_license">เลขทะเบียน : กข123</p>
+                                                            <p id="repairingBill_car_brand">ยี่ห้อ : susuki</p>
+                                                            <p id="repairingBill_car_model">รุ่น : swift model-ab123</p>
+                                                            <p id="repairingBill_car_owner">เจ้าของ : James Goodman</p>
                                                         </div>
                                                         <div class="column is-3">
 
-                                                            <img src="resources/imgs/Car01.png" height="150" width="200"
-                                                                align="right">
+                                                            <img id="repairingBill_car_upload"
+                                                                src="./resources/imgs/egocar.jpg" height="150"
+                                                                width="200" align="right">
                                                         </div>
 
                                                         <br>
                                                     </div>
+
                                                     <h2>อาการ</h2>
                                                     <div class="columns is-8 border-gray "
                                                         style="border: 1px solid gray;">
-                                                        <div class="column">
-                                                            <p>- รถแรงเกินไป</p>
-                                                            <p>- ถังน้ำมันรั่ว</p>
+                                                        <div id="repairingBill_repairing_detail" class="column">
+
+
                                                         </div>
                                                     </div>
                                                     <br>
                                                     <h2>ชิ้นส่วนที่ใช้</h2>
                                                     <div class="columns is-8 border-gray "
                                                         style="border: 1px solid gray;">
-                                                        <div class="column">
-                                                            <p>ชิ้นส่วนถังน้ำมัน 1 ชิ้น</p>
-                                                            <p>เครื่องยนต์โรตารี่ 1 ชิ้น</p>
+                                                        <div id="repairingBill_parts_repair" class="column">
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -623,24 +618,92 @@
 
                 <div class="columns">
                     <button style="margin-left: 9%" type="button" onclick="mockCarFixAdd()"
-                        class="button width10  is-round is-2 is-oros">เพิ่ม</button>
-                    <button type="button" class="button width10 is-round is-2  is-yentafo">ลบ</button>
-                    <button style="margin-left: 41%" onclick="mockUsedPartUpdate()" type="button"
+                        class="button width10  is-round is-2 is-oros">
+                        เพิ่ม
+                    </button>
+                    <button type="button" class="button width10 is-round is-2  is-yentafo" onclick="launchFixDelete()">
+                        ลบ
+                    </button>
+                    <button style="margin-left: 41%" type="button" onclick="mockUsedPartUpdate()"
                         class="button is-round is-2 width20 is-orange">
-                        อัพเดทอะไหล่ที่ใช้</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button is-round is-2 width10 is-oros">
-                        พิมพ์</button>
-                    <!-- <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
-                        พิมพ์ใบเสร็จ</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width20 is-oros">
-                        พิมพ์ใบกำกับภาษี</button>
-                    <button onclick="printDiv('formCarFix')" type="button" class="button  is-round is-2 width12 is-oros">
-                        พิมพ์ใบรับรถ</button> -->
-
+                        อัพเดทอะไหล่ที่ใช้
+                    </button>
+                    <button onclick="launchFixPrintsHubDelete()" type="button"
+                        class="button is-round is-2 width10 is-oros">
+                        พิมพ์
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+
+    <!-- modal delete car fix product -->
+    <div id="delete-fix" class="modal">
+        <div class="box partCarFixDelete">
+            <center>
+                <h1 id="alert-license-no" class="label is-3">หมายเลขทะเบียน : </h1>
+                <h1 class="label is-3">คุณแน่ใจแล้วหรือว่าต้องการลบเลขทะเบียนเลขนี้?</h1>
+            </center>
+
+            <br>
+            <div class="columns">
+                <div class="column is-2">
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros"
+                            onclick="deleteCarFixProduct()">
+                            ยืนยัน
+                        </button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closeFixDelete()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal print choosing -->
+    <div id="printshub-fix" class="modal">
+        <div class="box partCarFixPrintsHubDelete">
+            <div class="columns">
+                <div>
+                    <button type="button" class="button is-width100  is-round is-2 is-oros"
+                        onclick="printDiv('repairingBill')">
+                        พิมพ์ใบรายละเอียดซ่อม
+                    </button>
+
+                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv('bill')">
+                        พิมพ์ใบกำกับภาษี
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="button is-width100  is-round is-2 is-oros"
+                        onclick="printDiv('appointment')">
+                        พิมพ์ใบนัดรับ
+                    </button>
+
+                    <button type="button" class="button is-width100 is-round is-2 is-oros"
+                        onclick="printDiv('receipt')">
+                        พิมพ์ใบเสร็จ
+                    </button>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="button is-width100  is-round is-2 is-yentafo"
+                    onclick="closeFixPrintsHubDelete()">
+                    ยกเลิก
+                </button>
+            </div>
+        </div>
     </div>
     </div>
 </body>
@@ -649,10 +712,6 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
-    <<<<<<< HEAD=======<script scr="../server/WebDAO.js">
-    </script>
-    <script scr="../server/WebService.js"></script>
-    >>>>>>> be1e6a029fc143463d3d2936578c779fe6bff714
 </footer>
 
 </html>
