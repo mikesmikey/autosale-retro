@@ -11,8 +11,6 @@ let thisCarLicense = "";
 let thisCarFixProduct = [];
 let packReairingDetail = [];
 
-
-
 function whenFormOpenUp() {
     getAllProductByType("Repair").then((data) => {
         createselect(data);
@@ -249,16 +247,26 @@ function ShowDetail(value) {
 
 function createselect(data) {
     for (let i = 0; i < data.length; i++) {
-        var select = document.getElementById("lplate_selected");
-        var option = document.createElement("option");
-        option.text = data[i].trn_car.car_license;
-        option.value = data[i].trn_car.car_license;
-        option.onclick = function () {
-            ShowDetail(this.value);
-        };
-        select.add(option);
+        try {
+            var select = document.getElementById("lplate_selected");
+            var option = document.createElement("option");
+            option.text = data[i].trn_car.car_license;
+            option.value = data[i].trn_car.car_license;
+            option.onclick = function () { ShowDetail(this.value); };
+            select.add(option);
+        }
+        catch (error) { }
     }
 }
+function removeAlloption() {
+    var select = document.getElementById("lplate_selected");
+    var length = select.options.length;
+    //console.log('length => ', length)
+    for (i = 0, c = 0; i < length; i++) {
+        select.options[c] = null;
+    }
+}
+
 function runScript(e) {
     if (e.keyCode == 13) {
         var txt = document.getElementById("input_car_fix").value

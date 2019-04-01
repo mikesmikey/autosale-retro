@@ -135,6 +135,13 @@ app.post('/customer/remove/:name', (req, res) => {
   });
 });
 
+app.post('/product/remove/:car_license', (req, res) => {
+  WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
+    console.log('what the helo')
+      res.send(pass);
+  });
+});
+
 app.post('/customer/edit', (req, res) => {
   WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
       res.send(pass);

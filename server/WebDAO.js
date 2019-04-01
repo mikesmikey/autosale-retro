@@ -7,7 +7,7 @@ const User = require('./User');
 
 
 class WebDAO {
-    
+
     /*===========[User DAO]===================*/
 
     getAllUser() {
@@ -50,7 +50,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find({"prod_type": type}).toArray((err, data) => {
+                db.collection('Product').find({ "prod_type": type }).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -106,7 +106,7 @@ class WebDAO {
         });
     }
 
-    
+
 
     getAllEmployee() {
         return new Promise((resolve, reject) => {
@@ -135,7 +135,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Invoice').find({"invo_type": type}).toArray((err, data) => {
+                db.collection('Invoice').find({ "invo_type": type }).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -164,10 +164,10 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').findOne({ "cust_name" : name }, (err, data) => {
+                db.collection('Customer').findOne({ "cust_name": name }, (err, data) => {
                     if (err) { throw err }
                     if (data) {
-                        db.collection('Customer').deleteOne({"cust_name" : name}, (err, result) => {
+                        db.collection('Customer').deleteOne({ "cust_name": name }, (err, result) => {
                             if (err) { throw err }
                             return resolve(true);
                         });
@@ -176,7 +176,7 @@ class WebDAO {
             });
         });
     }
-    
+
     insertPartner(partner) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -200,7 +200,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Partner').findOneAndUpdate({ "partner_id": partner.partner_id }, {"$set" : partner.getPartnerObjectData()}, (err, result) => {
+                db.collection('Partner').findOneAndUpdate({ "partner_id": partner.partner_id }, { "$set": partner.getPartnerObjectData() }, (err, result) => {
                     if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
@@ -214,10 +214,10 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Partner').findOne({ "company_name" : companyName}, (err, data) => {
+                db.collection('Partner').findOne({ "company_name": companyName }, (err, data) => {
                     if (err) { throw err }
                     if (data) {
-                        db.collection('Partner').deleteOne({"company_name" : companyName}, (err, result) => {
+                        db.collection('Partner').deleteOne({ "company_name": companyName }, (err, result) => {
                             if (err) { throw err }
                             return resolve(true);
                         });
@@ -231,7 +231,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').findOneAndUpdate({ "cust_id": newCustomerData.cust_id }, {"$set" : newCustomerData.getCustomerObjectData()}, (err, result) => {
+                db.collection('Customer').findOneAndUpdate({ "cust_id": newCustomerData.cust_id }, { "$set": newCustomerData.getCustomerObjectData() }, (err, result) => {
                     if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
@@ -277,8 +277,6 @@ class WebDAO {
     //     });
     // }
 }
-
-
 
 
 
