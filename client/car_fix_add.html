@@ -21,10 +21,12 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/car_fix.js"></script>
 </head>
 
 <body>
@@ -153,12 +155,13 @@
                             <div class="border-gray">
                                 <div class="box boxplate ">
                                     <label class="label is-3">ชื่อ</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="name_text">
+                                     
+                                    <input id="cust-name" type="text" class="input-plateAdd  is-pulled-right width70">
                                     <br>
                                     <br>
                                     <label class="label is-3">ที่อยู่</label>
-                                    <textarea class="textarea-plate is-pulled-right width70 address"
-                                        rows="6" id="addr_text"></textarea>
+                                    <textarea id="cust-addr" class="textarea-plate is-pulled-right width70 address" rows="6"
+                                        ></textarea>
                                     <br>
                                     <br>
                                     <br>
@@ -166,12 +169,12 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <label class="label is-3">เบอร์โทรศัพท์</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="phone_text">
+                                    <label  class="label is-3">เบอร์โทรศัพท์</label>
+                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="cust-phone">
                                     <br>
                                     <br>
                                     <label class="label is-3">เลขที่ผู้เสียภาษี</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="tax_no_text">
+                                    <input type="text" class="input-plateAdd  is-pulled-right width70" id="cust-tax_no">
                                     <br>
                                 </div>
                             </div>
@@ -193,31 +196,36 @@
                                             <br>
                                         </div>
                                         <div>
-                                            <button type="button"
-                                                class="button is-round is-2 width45 is-oros">อัพโหลดรูป</button>
+                                            <!-- button is-round is-2 width75 is-oros -->
+                                            <label class="label-faker">
+                                                <input style="display: none;" id="image-upload" type="file">อัพโหลดรูป</input>
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="column is-4">
-                                        <p>
+                                        <!-- <p>
                                             <label class="label is-3">ชื่อ</label>
                                             <input type="text" class="input-plateAdd  is-pulled-right width70" id="cname_text">
-                                        </p>
+                                        </p> -->
                                         <p>
                                             <label class="label is-3">ยี่ห้อ</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="cbrand_text">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                                id="car-brand">
                                         </p>
                                         <p>
                                             <label class="label is-3">รุ่น</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="cmodel_text">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                                id="car-model">
                                         </p>
                                         <p>
                                             <label class="label is-3">เลขทะเบียน</label>
-                                            <input type="text" class="input-plateAdd  is-pulled-right width70" id="c_plicense_text">
+                                            <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                            id="car-license">
                                         </p>
                                         <p>
                                             <label class="label is-3">อาการ</label>
-                                            <textarea class="textarea-plate is-pulled-right width70 address"
-                                                rows="6" id="cs_text"></textarea>
+                                            <textarea class="textarea-plate is-pulled-right width70 address" rows="6"
+                                                id="repair-detail"></textarea>
                                         </p>
                                     </div>
                                 </div>
@@ -225,7 +233,7 @@
                         </div>
                         <br>
                         <div style="text-align: center;">
-                            <button type="button" onclick="ReceiveCarFixAddContent()"
+                            <button type="button" onclick="insertCustomerByCarFix()"
                                 class="button is-round is-2 width13 is-oros">ยืนยัน</button>
                             <button type="button" onclick="mockCarFix()"
                                 class="button is-round is-2 width13 is-yentafo">ยกเลิก</button>

@@ -1,13 +1,29 @@
 
 
-
-whenFormOpenUp();
 let product = [];
 let customer = [];
 let invoice = [];
-let select = "none";
+let carLicense = "";
 let partshub = [];
+let maxCustomerID;
+let CarFixAdds = [];
 
+function insertCustomerByCarFix() {
+    CarFixAdds.push(document.getElementById('cust-name').value);
+    CarFixAdds.push(document.getElementById('cust-addr').value);
+    CarFixAdds.push(document.getElementById('cust-phone').value);
+    CarFixAdds.push(document.getElementById('cust-tax_no').value);
+
+    CarFixAdds.push(document.getElementById('car-brand').value);
+    CarFixAdds.push(document.getElementById('car-model').value);
+    CarFixAdds.push(document.getElementById('car-license').value);
+    CarFixAdds.push(document.getElementById('repair-detail').value);
+
+    for(var i in CarFixAdds) {
+        console.log(CarFixAdds[i])
+    }
+    //window.location.href = './car_fix.html';
+}
 function whenFormOpenUp() {
     getAllProductByType("Repair").then((data) => {
         createselect(data);
@@ -17,7 +33,42 @@ function whenFormOpenUp() {
     getAllPart();
 }
 
+function launchFixDelete() {
+    if (carLicense != "") {
+        document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : '"+carLicense+"'";
+        document.getElementById('delete-fix').classList.add('is-active');
+    } else {
+        alert("กรุณาเลือกทะเบียนรถก่อน")
+    }
+}
+function closeFixDelete() {
+    document.getElementById('delete-fix').classList.remove('is-active');
+}
+
+function deleteCarFixProduct() {
+    // console.log('this car license => ',carLicense)
+    deleteCarFixProductByThisLicense(carLicense).then((result) => {
+        console.log('this car license => ', carLicense)
+        if (result) {
+            alert("ลบสำเร็จ")
+            window.location.reload(true);
+        } else {
+            alert("ลบไม่สำเร็จ!")
+            window.location.reload(true);
+        }
+    })
+    carLicense = "";
+    closeFixDelete();
+}
 ////////////////////////////////////////////////////////////////////
+
+function deleteCarFixProductByThisLicense(car_license) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/product/remove/' + car_license).then((result) => {
+            resolve(result.data);
+        })
+    });
+}
 function getAllPart() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/parts/').then((result) => {
@@ -54,7 +105,7 @@ function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/products/type/' + type).then((result) => {
             resolve(result.data);
-            console.log(result.data)
+            // console.log(result.data)
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
             }
@@ -63,9 +114,9 @@ function getAllProductByType(type) {
     })
 }
 ////////////////////////////////////////////////////////////////////
-function ShowDetail(value) {
+function ShowDetailCatFix(value) {
     let resultObject = searchProductByCarFix(value, product);
-    select = value;
+    carLicense = value;
     document.getElementById("productID").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     document.getElementById("carLicense").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
     document.getElementById("carBrand").innerHTML = "ยี่ห้อ : " + resultObject.trn_car.car_brand;
@@ -126,16 +177,26 @@ function ShowDetail(value) {
 
 function createselect(data) {
     for (let i = 0; i < data.length; i++) {
-        var select = document.getElementById("lplate_selected");
-        var option = document.createElement("option");
-        option.text = data[i].trn_car.car_license;
-        option.value = data[i].trn_car.car_license;
-        option.onclick = function () {
-            ShowDetail(this.value);
-        };
-        select.add(option);
+        try {
+            var select = document.getElementById("lplate_selected");
+            var option = document.createElement("option");
+            option.text = data[i].trn_car.car_license;
+            option.value = data[i].trn_car.car_license;
+            option.onclick = function () { ShowDetailCatFix(this.value); };
+            select.add(option);
+        }
+        catch(error) {}
     }
 }
+function removeAlloption() {
+    var select = document.getElementById("lplate_selected");
+    var length = select.options.length;
+    //console.log('length => ', length)
+    for (i = 0, c = 0; i < length; i++) {
+        select.options[c] = null;
+    }
+}
+
 function runScript(e) {
     if (e.keyCode == 13) {
         var txt = document.getElementById("input_car_fix").value
@@ -150,8 +211,8 @@ function runScript(e) {
                 var option = document.createElement("option");
                 option.text = resultObject.trn_car.car_license;
                 option.value = resultObject.trn_car.car_license;
-                option.onclick = function () { ShowDetail(this.value); };
-                ShowDetail(resultObject.trn_car.car_license)
+                option.onclick = function () { ShowDetailCatFix(this.value); };
+                ShowDetailCatFix(resultObject.trn_car.car_license)
                 select.add(option);
             } else {
                 removeAlloption();
@@ -216,3 +277,4 @@ function searchInvoice(nameKey, myArray) {
     }
 }
 ////////////////////////////////////////////////////////////////////
+whenFormOpenUp();

@@ -224,6 +224,10 @@ div.border-gray-2{
     padding: 5px;
 }
 
+.partCarFixDelete {
+    width: 40%;
+}
+
 /*Input - Edit*/
 .my-input{
     padding: 13px;

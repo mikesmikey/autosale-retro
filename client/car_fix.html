@@ -624,7 +624,7 @@
                 <div class="columns">
                     <button style="margin-left: 9%" type="button" onclick="mockCarFixAdd()"
                         class="button width10  is-round is-2 is-oros">เพิ่ม</button>
-                    <button type="button" class="button width10 is-round is-2  is-yentafo">ลบ</button>
+                    <button type="button" class="button width10 is-round is-2  is-yentafo" onclick="launchFixDelete()">ลบ</button>
                     <button style="margin-left: 41%" onclick="mockUsedPartUpdate()" type="button"
                         class="button is-round is-2 width20 is-orange">
                         อัพเดทอะไหล่ที่ใช้</button>
@@ -642,6 +642,37 @@
         </div>
     </div>
     </div>
+    </div>
+    <div id="delete-fix" class="modal">
+        <div class="box partCarFixDelete">
+            <center>
+                <h1 id="alert-license-no" class="label is-3">หมายเลขทะเบียน : </h1>
+                <h1 class="label is-3">คุณแน่ใจแล้วหรือว่าต้องการลบเลขทะเบียนเลขนี้?</h1>
+            </center>
+
+            <br>
+            <div class="columns">
+                <div class="column is-2">
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros" 
+                            onclick="deleteCarFixProduct()"
+                        >
+                            ยืนยัน
+                        </button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closeFixDelete()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
