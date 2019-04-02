@@ -22,9 +22,12 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/carbuy_manage.js"></script>
+
 </head>
 
 <body>
@@ -148,12 +151,10 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input class="input-icon-search width80" type="text" name="search" onkeypress="runScript(event)"
                                         placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select multiple size="19" class="selectPlate width80">
-                                        <option value="กข123">กข123</option>
-                                        <option value="ฟห121">ฟห121</option>
-                                        <option value="พก999">พก999</option>
+                                    <select id="selectNumber" multiple size="16" class="selectPlate width80 cursor-pointer">
+                                        
                                     </select>
                                 </div>
 
@@ -179,12 +180,11 @@
                                     </center>
                                 </div>
                                 <div class="column is-5 border-gray" style="padding:5px">
-                                    <p>เลขออเดอร์ : 214321890427140721</p>
-                                    <p>เลขทะเบียน : กข123</p>
-                                    <p>ยี่ห้อ : susuki</p>
-                                    <p>รุ่น : swift model-ab123</p>
-                                    <p>เจ้าของ : James Goodman</p>
-                                    <p>ราคา : 5,000,000 บาท</p>
+                                    <p id="dca_prod_id">เลขออเดอร์ :</p>
+                                    <p id="dca_car_license">เลขทะเบียน :</p>
+                                    <p id="dca_car_brand">ยี่ห้อ : susuki</p>
+                                    <p id="dca_car_model">รุ่น :</p>
+                                    <p id="dca_customer_name">เจ้าของ :</p>
                                 </div>
                             </div>
                             <br>
