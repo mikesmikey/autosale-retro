@@ -13,6 +13,7 @@
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/table-custom.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
@@ -132,26 +133,41 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div index">
+        <div class="subcontent-main-div index box-set-width">
             <div class="box with-title is-round">
                 <div class="box-title is-oros">
                     สรุปผลกำไร
                 </div>
                 <div class="box-content">
-                   
-                      <table class='tbl-qa'>
-                            <thead>
-                              <tr>
-                                <th class='table-header' width='20%'>id</th>
-                                <th class='table-header' width='40%'>Description</th>
-                                <th class='table-header' width='20%'>Date</th>
-                              </tr>
-                            </thead>
-                            <tbody id='table-body'>
-                              <tr class='table-row' id = 'table-row'></tr>   
-                            </tbody>
-                          </table>
-
+                    <div class="columns">
+                        <div class="column box-set-center">
+                            <table class='tbl-qa'>
+                                <thead>
+                                    <tr>
+                                        <th class='table-header'>id</th>
+                                        <th class='table-header'>ประเภทการทำรายการ</th>
+                                        <th class='table-header'>วันที่ทำรายการ</th>
+                                        <th class='table-header'>รายจ่าย(บาท)</th>
+                                        <th class='table-header'>รายรับ(บาท)</th>
+                                        <th class='table-header'>กำไร(บาท)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='table-body'>
+                                    <tr class='table-row' id='table-row'></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <p id="totalExpenses" class="font-total-price"></p>                              
+                            <p id="totalIncome" class="font-total-price"></p>   
+                            <p id="totalProfit" class="font-total-profit"></p>                             
+                        </div>
+                        <div class="column is-profit-1">
+                                                   
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
