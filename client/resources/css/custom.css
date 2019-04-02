@@ -251,7 +251,7 @@ div.border-gray-2{
     font-size: 16px;
 }
 
-/*font - Edut*/
+/*font - Edit*/
 .font-title{
     font-size: 60px;
     color: white;
@@ -269,6 +269,7 @@ div.border-gray-2{
 .boxplate textarea{
     padding: 5px;
 }
+
   /*gobal*/
   option:nth-child(odd){
     background-color: #dddddd;
@@ -385,7 +386,28 @@ table.table-style-three td {
     width: 25%;
     margin-left: 28%;
 }
+.select.setHeight{
+   height: 305px;
+}
+/*สรุปผลกำไร*/
+.box-set-width{
+    width: 100%;
+}
+.box-set-center{
+    margin-left: 8%;
+}
+.font-total-profit{
+    font-weight: bold;
+    text-align: right;
+}
 
+.font-total-price{
+    text-align: right;
+}
+
+.column.is-profit-1{
+    width:10%
+}
 
 
 .width11{
