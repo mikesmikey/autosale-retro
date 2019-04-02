@@ -121,6 +121,18 @@ app.get("/customers", (req, res) => {
   })
 })
 
+app.get("/customer/:custId", (req, res) => {
+  WebDAOObj.getCustomer(req.params.custId).then(data => {
+    console.log(data)
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
+
+
 app.post('/customer/remove/:name', (req, res) => {
   WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
       res.send(pass);
@@ -142,6 +154,7 @@ app.get("/products", (req, res) => {
     }
   })
 })
+
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);

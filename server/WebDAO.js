@@ -69,6 +69,17 @@ class WebDAO {
             });
         });
     }
+    getCustomer(custId) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').findOne({'cust_id': Number.parseInt(custId)}, (err, result) => {
+                    if (err) throw err;
+                    resolve(result);
+                })
+            })
+        })
+    }
 
     getAllProduct() {
         return new Promise((resolve, reject) => {
