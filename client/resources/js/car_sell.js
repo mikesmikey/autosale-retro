@@ -9,9 +9,9 @@ let custAddr = "";
 
 
 
-function getAllCars(type) {
+function getAllCarsByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/'+type).then((result) => {
+        axios.get('http://localhost:5000/products/' + type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
@@ -22,7 +22,7 @@ function getAllCars(type) {
 
 function getCustomer(custId) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/customer/'+custId).then((result) => {
+        axios.get('http://localhost:5000/customer/' + custId).then((result) => {
             resolve(result.data);
         })
     })
@@ -38,21 +38,38 @@ function getCarsDetailByName(name, myArray) {
 }
 
 function startForm() {
-    getAllCars("Buy").then((data) => {
+    getAllCarsByType("Buy").then((data) => {
         createSelect(data);
     });
 }
 
 function showDetailCars(value) {
     let resultObject = getCarsDetailByName(value, product);
-    document.getElementById("car_lice").innerHTML = "เลขออเดอร์ : " + resultObject.trn_car.car_license;
-    document.getElementById("car_lice").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
-    document.getElementById("car_bra").innerHTML = "ยี่ห้อ : " + resultObject.trn_car.car_brand;
-    document.getElementById("car_mod").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
-    document.getElementById("car_own").innerHTML = "เจ้าของ : " + resultObject.cust_id;
-    document.getElementById("car_pri").innerHTML = "ราคา : " + resultObject.trn_car.car_license;
-    
-    
+    getCustomer(resultObject.cust_id).then((result) => {
+        //document.getElementById("").innerHTML = " เลขออเดอร์ : " + resultObject.trn_car.car_license;
+        //document.getElementById("car_lice").innerHTML = " เลขทะเบียน : " + resultObject.trn_car.car_license;
+        //document.getElementById("car_bra").innerHTML = " ยี่ห้อ : " + resultObject.trn_car.car_brand;
+        //document.getElementById("car_mod").innerHTML = " รุ่น : " + resultObject.trn_car.car_model;
+        //document.getElementById("car_own").innerHTML = " เจ้าของ : " + result.cust_name;
+        //document.getElementById("car_pri").innerHTML = " ราคา : " + resultObject.type_desc.price_sell +" บาท";
+
+        document.querySelectorAll(".Cbrand").forEach((element)=> {
+            element.innerHTML = " ยี่ห้อ : " + resultObject.trn_car.car_brand;
+        })
+        document.querySelectorAll(".Clicense").forEach((element)=> {
+            element.innerHTML = " เลขทะเบียน : " + resultObject.trn_car.car_license;
+        })
+        document.querySelectorAll(".Cmodel").forEach((element)=> {
+            element.innerHTML = " รุ่น : " + resultObject.trn_car.car_model;
+        })
+        document.querySelectorAll(".Cowner").forEach((element)=> {
+            element.innerHTML = " เจ้าของ : " + result.cust_name;
+        })
+        document.querySelectorAll(".Cprice").forEach((element)=> {
+            element.innerHTML = " ราคา : " + Number.parseInt(resultObject.type_desc.price_sell).toLocaleString('en-US') +" บาท";
+        })
+
+    })
 }
 
 function createSelect(data) {
