@@ -51,7 +51,7 @@ function addRow(tableID, data) {
             var priceSell = 0
             for (j = 0; j < 2; j++){
                     if(idBuy == arrSell[j].prod_id){
-                        priceSell = arrSell[j].type_desc.price_sell
+                        priceSell = arrSell[j].type_desc.price_sell - data[i].type_desc.commission
                         break 
                     } 
             }
