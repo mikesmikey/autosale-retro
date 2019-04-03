@@ -350,14 +350,8 @@ function loadDetailPartner(CompanyNameS) {
                 document.getElementById("partnerAddrPrint").innerHTML = partner[i].partner_addr;
             }
 
-
-            console.log(partner[i].company_name.length);
-            console.log(partner[i].partner_name.length);
-            console.log(partner[i].partner_phone.length);
-            console.log(partner[i].partner_addr.length);
             
-            document.getElementById("partnerType").innerHTML = partner[i].partner_type;
-            
+            document.getElementById("partnerType").innerHTML = partner[i].partner_type;            
 
             document.getElementById("companyNameInput").value = partner[i].company_name;
             document.getElementById("partnerNameInput").value = partner[i].partner_name;
@@ -365,7 +359,6 @@ function loadDetailPartner(CompanyNameS) {
             document.getElementById("partnerTypeInput").value = partner[i].partner_type;
             document.getElementById("partnerAddrInput").value = partner[i].partner_addr;
 
-           
             document.getElementById("partnerTypePrint").innerHTML = partner[i].partner_type;
             
             companyname = partner[i].company_name;
