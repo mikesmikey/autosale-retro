@@ -159,7 +159,6 @@ class WebDAO {
             });
         });
     }
-
     deleteCustomerByName(name) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {

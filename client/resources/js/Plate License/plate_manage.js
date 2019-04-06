@@ -227,6 +227,7 @@ function startFromBeforePrint() {
     getAllInvoiceByType("Appointment");
 }
 function checInvioce(){
+    
     let checkObj = searchProductByCarLicense(select,product)
     if(select === "none"){
         alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
@@ -239,6 +240,5 @@ function checInvioce(){
         alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีราคา")
     }
 }
+
 startForm();
-
-
