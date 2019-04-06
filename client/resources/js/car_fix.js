@@ -22,11 +22,11 @@ function whenFormOpenUp() {
 
 
 function printDiv(printDivName) {
-    let resPrintRepairDetail = resultObject.type_desc.repair_detail;
-    let resPrintReparingParts_Name = [];
-    let resPrintReparingParts_Num = [];
+    let resPrintRepairDetail = resultObject.type_desc.repair_detail
+    let resPrintReparingParts_Name = []
+    let resPrintReparingParts_Num = []
     const currentPage = document.body.innerHTML
-    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+    document.body.innerHTML = document.getElementById(printDivName).innerHTML
     if (printDivName === 'repairingBill') {
 
         document.getElementById('repairingBill_car_license').innerHTML = '&nbsp;&nbsp;เลขทะเบียน : ' + thisCarFixProduct[0];
@@ -42,7 +42,6 @@ function printDiv(printDivName) {
         for (var i in resultObject.type_desc.trn_parts_repair) {
             console.log(resPrintReparingParts_Name[i], ", ", resPrintReparingParts_Num[i])
         }
-
 
         for (var i in resPrintRepairDetail) {
             var node = document.createElement("p");
