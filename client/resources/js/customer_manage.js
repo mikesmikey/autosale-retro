@@ -77,10 +77,16 @@ function startForm() {
 
 function showDetailCustomer(value) {
     let resultObject = getCustomerDetailByName(value, customer);
-    document.getElementById("cust_name").innerHTML = "ชื่อ : " + resultObject.cust_name;
+    var custNameDetail = "ชื่อ : " + resultObject.cust_name
+    var custPhoneDetail = "โทรศัพท์ : " + resultObject.cust_phone
+    var custTaxDetail = "เลขที่ผู้เสียภาษี : " + resultObject.cust_tax_no
+    var custAddrDetail = "ที่อยู่ : " + resultObject.cust_addr
+    var custDetail = custNameDetail + "\n" + custPhoneDetail + "\n" + custTaxDetail + "\n" + custAddrDetail + "\n"
+    document.getElementById("cust_detail").innerHTML = custDetail;
+    /*document.getElementById("cust_name").innerHTML = "ชื่อ : " + resultObject.cust_name;
     document.getElementById("cust_phone").innerHTML = "โทรศัพท์ : " + resultObject.cust_phone;
     document.getElementById("cust_tax_no").innerHTML = "เลขที่ผู้เสียภาษี : " + resultObject.cust_tax_no;
-    document.getElementById("cust_addr").innerHTML = "ที่อยู่ : " + resultObject.cust_addr;
+    document.getElementById("cust_addr").innerHTML = "ที่อยู่ : " + resultObject.cust_addr;*/
     custId = resultObject.cust_id;
     custName = value;
     custPhone = resultObject.cust_phone;
@@ -148,6 +154,10 @@ function removeAlloption() {
         select.options[c] = null;
     }
 }
+function appendObjTo(thatArray, newObj) {
+    var frozenObj = Object.freeze(newObj);
+    return Object.freeze(thatArray.concat(frozenObj));
+}
 
 function runScript(e) {
     if (e.keyCode == 13) {
@@ -157,35 +167,45 @@ function runScript(e) {
             removeAlloption();
             createSelect(customer);
         } else {
-            let resultObject = getCustomerDetailByName(txt, customer);
-            if (resultObject !== null) {
-                removeAlloption();
-                var select = document.getElementById("selectCustomer");
-                var option = document.createElement("option");
-                option.text = resultObject.cust_name;
-                option.value = resultObject.cust_name;
-                option.onclick = function () { showDetailCustomer(this.value); };
-                showDetailCustomer(resultObject.cust_name)
-                select.add(option);
-            } else {
+            var myArray = []
+            var newArray = []     
+            var txtLower =  txt.toLowerCase(); 
+            var checkFind = false
+            for (let i = 0; i < customer.length; i++) {
+                var custToLower = customer[i].cust_name.toLowerCase();
+               if(custToLower.includes(txtLower)){
+                    newArray = appendObjTo(myArray, customer[i]);
+                    myArray = newArray
+                    checkFind = true
+               }
+            }
+            if(checkFind == false){
                 removeAlloption();
                 clearCustomerData();
+            }else{
+                removeAlloption();
+                for (let i = 0; i < myArray.length; i++) {
+                    var select = document.getElementById("selectCustomer");
+                    var option = document.createElement("option");
+                    option.text = myArray[i].cust_name;
+                    option.value = myArray[i].cust_name;
+                    option.onclick = function () { showDetailCustomer(this.value); };
+                    select.add(option);
+                }
+                showDetailCustomer(myArray[0].cust_name)
             }
         }
     }
     return false;
 }
 
-function clearCustomerData(){
+function clearCustomerData() {
     custName = "";
     custId = null;
     custPhone = "";
     custTax = "";
     custAddr = "";
-    document.getElementById("cust_name").innerHTML = "";
-    document.getElementById("cust_phone").innerHTML = "";
-    document.getElementById("cust_tax_no").innerHTML = "";
-    document.getElementById("cust_addr").innerHTML = "";
+    document.getElementById("cust_detail").innerHTML = "";
 }
 
 

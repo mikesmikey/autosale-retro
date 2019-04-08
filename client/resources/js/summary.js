@@ -34,9 +34,9 @@ function addRow(tableID, data) {
         td3.innerHTML = data[i].prod_order_date;
         if(data[i].prod_type =="Buy"){
             var priceBuyAll = data[i].type_desc.price_buy + data[i].type_desc.commission
-            td4.innerHTML = priceBuyAll;
+            td4.innerHTML =  Number.parseInt(priceBuyAll).toLocaleString('en-US')
             td5.innerHTML = 0
-            td6.innerHTML = 0 - priceBuyAll
+            td6.innerHTML =  Number.parseInt(0 - priceBuyAll).toLocaleString('en-US')
 
             totalExpenses = totalExpenses + priceBuyAll
             totalIncome = totalIncome + 0
@@ -55,10 +55,10 @@ function addRow(tableID, data) {
                         break 
                     } 
             }
-            td5.innerHTML = priceSell
+            td5.innerHTML = Number.parseInt(priceSell).toLocaleString('en-US')
 
             //สรุป
-            td6.innerHTML = priceSell - 0
+            td6.innerHTML = Number.parseInt(priceSell - 0).toLocaleString('en-US')
             
             totalExpenses = totalExpenses + 0
             totalIncome = totalIncome + priceSell
@@ -66,14 +66,14 @@ function addRow(tableID, data) {
         }else if(data[i].prod_type =="RegisterLicense"){
             //รายจ่าย
             var priceCost = data[i].type_desc.price_per_book + data[i].type_desc.fare
-            td4.innerHTML = priceCost;
+            td4.innerHTML = Number.parseInt(priceCost).toLocaleString('en-US')
           
             //รายรับ
             var totalPriceRel = data[i].type_desc.total_price
-            td5.innerHTML = totalPriceRel
+            td5.innerHTML = Number.parseInt(totalPriceRel).toLocaleString('en-US')
 
             //สรุป
-            td6.innerHTML = totalPriceRel - priceCost
+            td6.innerHTML = Number.parseInt(totalPriceRel - priceCost ).toLocaleString('en-US')
 
             totalExpenses = totalExpenses + priceCost
             totalIncome = totalIncome + totalPriceRel
@@ -85,14 +85,14 @@ function addRow(tableID, data) {
            for (j = 0; j < 2; j++) {
                 priceParts = priceParts + (arrPartsRepair[j].parts_price * arrPartsRepair[j].parts_num) 
             }
-            td4.innerHTML = priceParts
+            td4.innerHTML =  Number.parseInt(priceParts).toLocaleString('en-US')
 
             //รายรับ
             var costOfRepairs = data[i].type_desc.cost_of_repairs
-            td5.innerHTML = costOfRepairs
+            td5.innerHTML =  Number.parseInt(costOfRepairs).toLocaleString('en-US')
 
             //สรุป
-            td6.innerHTML = costOfRepairs - priceParts
+            td6.innerHTML =  Number.parseInt(costOfRepairs - priceParts).toLocaleString('en-US')
 
             totalExpenses = totalExpenses + priceParts
             totalIncome = totalIncome + costOfRepairs
@@ -109,11 +109,14 @@ function addRow(tableID, data) {
     showTotalPrice()
     
 }
-
+   /*document.querySelectorAll(".Cprice").forEach((element)=> {
+        element.innerHTML = " ราคา : " + Number.parseInt(resultObject.type_desc.price_sell).toLocaleString('en-US') +" บาท";
+    })*/
 function showTotalPrice(){
-    document.getElementById("totalExpenses").innerHTML = "รายจ่ายรวม : " + totalExpenses +" บาท"
-    document.getElementById("totalIncome").innerHTML = "รายรับรวม : " + totalIncome +" บาท"
-    document.getElementById("totalProfit").innerHTML = "สรุปผลกำไรรวม : " + totalProfit +" บาท"
+   /* Number.parseInt(totalProfit).toLocaleString('en-US')*/
+    document.getElementById("totalExpenses").innerHTML = "รายจ่ายรวม : " + Number.parseInt(totalExpenses).toLocaleString('en-US') +" บาท"
+    document.getElementById("totalIncome").innerHTML = "รายรับรวม : " + Number.parseInt(totalIncome).toLocaleString('en-US') +" บาท"
+    document.getElementById("totalProfit").innerHTML = "สรุปผลกำไรรวม : " + Number.parseInt(totalProfit).toLocaleString('en-US')+" บาท"
 }
 
 startForm()

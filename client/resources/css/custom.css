@@ -82,7 +82,6 @@ div.border-print{
 }
 div.border-gray-2{
     border: 3px solid gray;
-    padding: 0 10px;
 }
 /*SIZE*/
 .total-table {
@@ -388,6 +387,25 @@ table.table-style-three td {
 }
 .select.setHeight{
    height: 305px;
+}
+.textarea-cus-detail{
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 98.4%;
+    height: 96%;
+    font-size: 17px;
+    font-family: arial, sans-serif;
+    line-height: 35px;
+    resize: none;
+}
+.textarea-cus-edit{
+    background-color: white;
+    border-color: gray;
+    color: #363636;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    max-width: 100%;
+    font-size: 16px;
+    resize: none;
 }
 /*สรุปผลกำไร*/
 .box-set-width{
