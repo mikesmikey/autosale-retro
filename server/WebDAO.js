@@ -4,7 +4,9 @@ const url = 'mongodb://hanami:hanami02@ds163164.mlab.com:63164/choketawee';
 const dbName = 'choketawee';
 
 const User = require('./User');
-
+const GridFSBucket = require('mongodb').GridFSBucket;
+const fs = require('fs')
+const { Readable } = require('stream')
 
 class WebDAO {
 
@@ -252,6 +254,74 @@ class WebDAO {
                             return resolve(true);
                         });
                     } else { return resolve(false) }
+                });
+            });
+        });
+    }
+
+    // uploadFile(source) {
+    //     return new Promise((resolve, reject) => {
+    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    //             const db = client.db(dbName)
+
+                // const readableImgStream = new Readable()
+                // readableImgStream.push(source.buffer)
+
+                // let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
+                // let uploadStream = bucket.openUploadStream(source.name);
+                // let id = uploadStream.id;
+                // readableImgStream.pipe(uploadStream)
+
+                // uploadStream.on('error', () => {
+                //     console.log('error')
+                //     return resolve(false)
+                // });
+
+                // uploadStream.on('finish', () => {
+                //     console.log('success on id => ', id)
+                //     return resolve(id)
+                // });
+    //             var encodeImg;
+    //             fs.readFile(this.source.name, (err, data) => {
+    //                 if(err) throw err
+    //                 encodeImg = new Buffer(data, 'binary'.toString('base64'))
+    //             })
+    //             console.log(encodeImg)
+    //         });
+    //     });
+    // }
+
+    insertCustomer(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').insertOne(customer, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertProductByTypeRepair(product) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').insertOne(product, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertInvoiceByTypeAppt(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
                 });
             });
         });

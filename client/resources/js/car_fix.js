@@ -124,7 +124,7 @@ function deleteCarFixProduct() {
 ////////////////////////////////////////////////////////////////////
 function deleteCarFixProductByThisLicense(car_license) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/product/remove/' + car_license).then((result) => {
+        axios.post('http://localhost:5000/product/type/Repair/remove/' + car_license).then((result) => {
             resolve(result.data);
         })
     });

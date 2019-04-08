@@ -123,17 +123,12 @@ app.get("/customers", (req, res) => {
   })
 })
 
-app.post('/product/remove/:car_license', (req, res) => {
+app.post('/product/type/Repair/remove/:car_license', (req, res) => {
   WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
       res.send(pass);
   });
 });
 
-app.post('/customer/add/:car_fix', (req, res) => {
-  WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_fix).then((pass)=> {
-      res.send(pass);
-  });
-});
 
 app.post('/customer/remove/:name', (req, res) => {
   WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
@@ -141,12 +136,11 @@ app.post('/customer/remove/:name', (req, res) => {
   });
 });
 
-app.post('/product/remove/:car_license', (req, res) => {
-  WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
-    console.log('what the helo')
-      res.send(pass);
-  });
-});
+// app.post('/product/remove/:car_license', (req, res) => {
+//   WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
+//       res.send(pass);
+//   });
+// });
 
 app.post('/customer/edit', (req, res) => {
   WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
@@ -163,6 +157,41 @@ app.get("/products", (req, res) => {
     }
   })
 })
+
+app.post("/image/add", (req, res) => {
+  console.log('server image => ',req.body)
+  WebDAOObj.uploadFile(req.body.source).then(data => {
+      res.json(data);
+  })
+})
+
+app.post("/customer/add", (req, res) => {
+  WebDAOObj.insertCustomer(req.body.custData).then(data => {
+      res.json(data);
+  })
+})
+
+app.post("/invoice/type/Appt/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeAppt(req.body.invoData).then(data => {
+      res.json(data);
+  })
+})
+
+app.post("/product/type/Repair/add", (req, res) => {
+  WebDAOObj.insertProductByTypeRepair(req.body.prodData).then(data => {
+      res.json(data);
+  })
+})
+
+// app.get("/images", (req, res) => {
+//   // WebDAOObj.getAllProduct().then(data => {
+//   //   if (data != null) {
+//   //     res.json(data);
+//   //   } else {
+//   //     res.sendStatus(404);
+//   //   }
+//   // })
+// })
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
