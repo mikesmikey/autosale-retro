@@ -10,6 +10,7 @@ let maxCustomer = -1;
 let maxProduct = -1;
 let maxInvoice = -1;
 let FileUpload = '';
+let convertToBase64;
 
 function whenFormOpenUp() {
     getAllCustomer().then((data) => {
@@ -20,9 +21,21 @@ function whenFormOpenUp() {
     getAllPart();
 }
 
+function getBase64() {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsBinaryString(FileUpload);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+function wrapThis(data) {
+    convertToBase64 = data.split(';base64,').pop();
+}
+
 function uploadImage(event) {
     var selectedFile = event.target.files[0];
-    console.log(selectedFile)
     var reader = new FileReader();
     // console.log(document.getElementById('image-upload').files[0])
     // document.getElementById('image-upload').value = files[0]
@@ -36,9 +49,10 @@ function uploadImage(event) {
             img.width = '300'
             img.height = '200'
         };
-        
+
         reader.readAsDataURL(selectedFile)
         FileUpload = selectedFile;
+        getBase64(FileUpload).then(data => wrapThis(data))
     }
     else {
         alert('ไม่ใช่ไฟล์รูปภาพ กรุณาเลือกใหม่')
@@ -180,15 +194,17 @@ function insertThisCustomerByCarFix() {
         }
 
         var image = {
-            name: FileUpload.name,
+            name: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             size: FileUpload.size,
-            type: "image/jpeg"
+            type: "image/jpeg",
+            base64: convertToBase64
         }
 
         console.log(customerOfCarFixData)
         console.log(productCarFixData)
         console.log(invoiceAppt)
-        console.log(image)
+        console.log(convertToBase64)
+
         // addCustomerByCarFix(customerOfCarFixData).then((data) => {
         //     if (data) {
         //         alert('เพิ่มลูกค้าสำเร็จ')
@@ -221,14 +237,17 @@ function insertThisCustomerByCarFix() {
         //         alert('เพิ่มลูกค้าไม่สำเร็จ')
         //     }
         // })
-        addImageByCarFix(image).then((data) => {
-            if (data) {
-                alert('เพิ่มรูปรถสำเร็จ')
-            }
-            else {
-                alert('เพิ่มรูปรถไม่สำเร็จ')
-            }
+        getImageByCarFixWithCustomerId(9).then((data) => {
+            console.log('data => ', data)
         })
+        // addImageByCarFix(image).then((data) => {
+        //     if (data) {
+        //         alert('เพิ่มรูปรถสำเร็จ')
+        //     }
+        //     else {
+        //         alert('เพิ่มรูปรถไม่สำเร็จ')
+        //     }
+        // })
         CarFixAdds = []
         // window.location.href = 'car_fix.html';
     }
@@ -293,6 +312,14 @@ function runScript(e) {
 function addInvoiceAppt(invoData) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/invoice/type/Appt/add', { "invoData": invoData }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
+
+function getImageByCarFixWithCustomerId(imgId) {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/images/id_'+ imgId).then((result) => {
             resolve(result.data);
         })
     })

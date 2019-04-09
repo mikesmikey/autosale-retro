@@ -6,7 +6,7 @@ const dbName = 'choketawee';
 const User = require('./User');
 const GridFSBucket = require('mongodb').GridFSBucket;
 const fs = require('fs')
-const { Readable } = require('stream')
+const { Readable, Writable } = require('stream')
 
 class WebDAO {
 
@@ -259,37 +259,66 @@ class WebDAO {
         });
     }
 
-    // uploadFile(source) {
-    //     return new Promise((resolve, reject) => {
-    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    //             const db = client.db(dbName)
+    getCarImageByObjectId(cust_id) { //cust_id => specified a file
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
+                let downloadStream = bucket.openDownloadStreamByName(cust_id);
 
-                // const readableImgStream = new Readable()
-                // readableImgStream.push(source.buffer)
-
-                // let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
-                // let uploadStream = bucket.openUploadStream(source.name);
-                // let id = uploadStream.id;
-                // readableImgStream.pipe(uploadStream)
-
-                // uploadStream.on('error', () => {
-                //     console.log('error')
-                //     return resolve(false)
+                // const writadableImgStream = new Writable({
+                //     write(chunk, encoding, callback) {
+                //         console.log('on write stream  => ', chunk.toString());
+                //         callback();
+                //     }
                 // });
 
-                // uploadStream.on('finish', () => {
-                //     console.log('success on id => ', id)
-                //     return resolve(id)
-                // });
-    //             var encodeImg;
-    //             fs.readFile(this.source.name, (err, data) => {
-    //                 if(err) throw err
-    //                 encodeImg = new Buffer(data, 'binary'.toString('base64'))
-    //             })
-    //             console.log(encodeImg)
-    //         });
-    //     });
-    // }
+                downloadStream.on('data', (chunk) => {
+                   console.log('on data => ', chunk)
+                });
+
+                downloadStream.on('error', (err) => {
+                    console.log('error => ', err)
+                    return resolve(false)
+                });
+
+                downloadStream.on('end', () => {
+                    console.log('error => ', err)
+                    return resolve(true)
+                });
+            })
+        })
+    }
+
+    insertCarImage(source) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+
+                const bucket = new GridFSBucket(db, {
+                    chunkSizeBytes: 32768,
+                    bucketName: 'carImgs'
+                });
+
+                const readableImgStream = new Readable()
+                readableImgStream.push(source.base64)
+                readableImgStream.push(null)
+
+                let uploadStream = bucket.openUploadStream(source.name);
+                let id = uploadStream.id;
+                readableImgStream.pipe(uploadStream)
+
+                uploadStream.on('error', () => {
+                    return resolve(false)
+                });
+
+                uploadStream.on('finish', () => {
+                    console.log('success on id => ', id)
+                    return resolve(id)
+                });
+            });
+        });
+    }
 
     insertCustomer(customer) {
         return new Promise((resolve, reject) => {
