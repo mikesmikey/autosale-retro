@@ -259,12 +259,12 @@ class WebDAO {
         });
     }
 
-    getCarImageByObjectId(cust_id) { //cust_id => specified a file
-        return new Promise((resolve, reject) => {
-            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-                const db = client.db(dbName)
-                let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
-                let downloadStream = bucket.openDownloadStreamByName(cust_id);
+    // getCarImageByObjectId(cust_id) { //cust_id => specified a file
+    //     return new Promise((resolve, reject) => {
+    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    //             const db = client.db(dbName)
+    //             let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
+    //             let downloadStream = bucket.openDownloadStreamByName(cust_id);
 
                 // const writadableImgStream = new Writable({
                 //     write(chunk, encoding, callback) {
@@ -273,22 +273,22 @@ class WebDAO {
                 //     }
                 // });
 
-                downloadStream.on('data', (chunk) => {
-                   console.log('on data => ', chunk)
-                });
+    //             downloadStream.on('data', (chunk) => {
+    //                console.log('on data => ', chunk)
+    //             });
 
-                downloadStream.on('error', (err) => {
-                    console.log('error => ', err)
-                    return resolve(false)
-                });
+    //             downloadStream.on('error', (err) => {
+    //                 console.log('error => ', err)
+    //                 return resolve(false)
+    //             });
 
-                downloadStream.on('end', () => {
-                    console.log('error => ', err)
-                    return resolve(true)
-                });
-            })
-        })
-    }
+    //             downloadStream.on('end', () => {
+    //                 console.log('error => ', err)
+    //                 return resolve(true)
+    //             });
+    //         })
+    //     })
+    //}
 
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
@@ -352,6 +352,18 @@ class WebDAO {
                     if (err) { throw err }
                     return resolve(true);
                 });
+            });
+        });
+    }
+
+    getAllUsedPartsByThisLicense(licenseCarFix) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne({"prod_type": "Repair", "trn_car.car_license": licenseCarFix}, ( err, data ) => {
+                    if(err) { throw err }
+                    return resolve(data)
+                })
             });
         });
     }

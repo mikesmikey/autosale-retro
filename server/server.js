@@ -193,6 +193,12 @@ app.post("/product/type/Repair/add", (req, res) => {
   })
 })
 
+app.get("/product/type/Repair/:lc", (req, res) => {
+  WebDAOObj.getAllUsedPartsByThisLicense(req.params.lc).then(data => {
+    res.json(data);
+  })
+})
+
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
 });

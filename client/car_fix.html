@@ -23,7 +23,7 @@
 
     <!--JS-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./resources/js/Controller_page.js"></script>
+    <!-- <script src="./resources/js/Controller_page.js"></script> -->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
@@ -142,9 +142,9 @@
                             <div>
                                 <div>
                                     <input id="input_car_fix" class="input-icon-search width80" type="text"
-                                        name="search" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                        name="search" placeholder="ค้นหาด้วยเลขทะเบียน" onkeypress="runScript(event)">
                                     <select id="lplate_selected" size="15" class="selectPlate width80 cursor-pointer"
-                                        onkeypress="runScript(event)">
+                                    >
                                         <!-- //////////  Backend has loaded  ////////////// -->
                                     </select>
                                 </div>

@@ -22,16 +22,12 @@
     <link href="./resources/css/table-custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
-    <script>
-        function changeColor(o) {
-            o.style.backgroundColor = "red"
-        }
-    </script>
-
+    <script src="./resources/js/used_part_update.js"></script>
 </head>
 
 <body>
@@ -146,187 +142,27 @@
                             <div class="column is-3">
                                 <div>
                                     <div>
-                                        <input class="input-icon-search width90" type="text" name="search"
-                                            placeholder="ค้นหาอะไหล่">
-                                        <table class="select-table cursor-pointer">
-                                            <tr style="cursor:default" id="tr01">
+                                        <input id="input_used_part" class="input-icon-search width90" type="text" name="search"
+                                            placeholder="ค้นหาอะไหล่" onkeypress="runScript(event)">
+                                        <table id="parts_hub_table" class="select-table">
+                                            <tr id="tr01" style="cursor:default">
                                                 <th class="mixTop">อะไหล่ที่มีอยู่</th>
                                                 <th class="mixTop">จำนวน</th>
                                             </tr>
-                                            
-                                            <!-- <tr onclick="changeColor(this)">
-                                                <td class="mix">สายพาน</td>
-                                                <td class="mix">18</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    ยางในรถ 4 ล้อ
-                                                </td>
-                                                <td class="mix">
-                                                    35
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                            </tr> -->
+                                                                        
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             <div class="column is-5">
-                                <table class="select-table cursor-pointer" style="width: 100%;">
+                                <table id="used_part_table" class="select-table" style="width: 100%;">
                                     <col width="250">
                                     <col width="80">
                                     <tr style="cursor:default" id="tr01">
                                         <th class="mixTop">อะไหล่ที่ใช้ไปแล้ว</th>
                                         <th class="mixTop">จำนวน</th>
                                     </tr>
-                                    <tr>
-                                        <td class="mix">ชิ้นส่วนถังน้ำมัน</td>
-                                        <td class="mix">1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            เครื่องยนต์โรตารี่
-                                        </td>
-                                        <td class="mix">
-                                            1
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                    </tr>
+                                    
                                 </table>
                                 <br>
                                 <input type="text" size="38">
