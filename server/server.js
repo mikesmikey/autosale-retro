@@ -69,7 +69,7 @@ app.get("/partners", (req, res) => {
 });
 
 app.post("/partners/add", (req, res) => {
-  WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
+  WebDAOObj.insertPartner(req.body.partnerData).then(data => {
       res.json(data);
   })
 });
