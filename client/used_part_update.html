@@ -165,17 +165,25 @@
                                     
                                 </table>
                                 <br>
-                                <input type="text" size="38">
-                                <input type="text" size="2">
+                                <input id="partsName" disabled type="text" size="38">
+                                <input id="partsNum" type="text" size="2">
                             </div>
                         </div>
                         <div class="columns">
                             <button style="margin-left: 13%" type="button"
-                                class="button width20  is-round is-2 is-oros">เพิ่ม</button>
+                                class="button width20  is-round is-2 is-oros" 
+                                onclick="addPartsToUsedParts()" 
+                                onmouseover="turnDefaultBackgroundColor()" >เพิ่ม</button>
                             <button style="margin-left: 52%" type="button"
-                                class="button width20 is-round is-2  is-yentafo">ลบ</button>
-                            <button type="button" class="button is-round is-2 width25 is-orange">
-                                แก้ไข</button>
+                                class="button width20 is-round is-2  is-yentafo" 
+                                onclick="deleteUsedParts()"
+                                onmouseover="turnDefaultBackgroundColorUsed()">ลบ</button>
+                            <button type="button" class="button is-round is-2 width25 is-orange" 
+                                onclick="modifyUsedParts()"
+                                onmouseover="turnDefaultBackgroundColorUsed()">แก้ไข</button>
+                            <button type="button" class="button is-round is-2 width25 is-oros" 
+                                onclick="acceptChange()"
+                                onmouseover="turnDefaultBackgroundColorUsed()">ยืนยัน</button>
                         </div>
                     </div>
                 </div>

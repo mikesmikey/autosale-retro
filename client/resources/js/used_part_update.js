@@ -6,6 +6,10 @@ let partshub = [];
 let resultObject;
 let thisParts = "";
 let thisCarData;
+var partsRepair;
+let selectedRow = -1;
+let selectedRowUsed = -1;
+
 whenFormOpenUp();
 
 function whenFormOpenUp() {
@@ -45,64 +49,105 @@ function ShowDetail(val1) {
   console.table("result => ", val1);
 }
 
-function selectedUsedPartsToModify() {
+function addPartsToUsedParts() {
+  // table parts hub
+  var table = document.getElementById("parts_hub_table");
+  var rows = table.getElementsByTagName("tr");
+  if (selectedRow > 0) {
+    let getPartsHubSelected = rows[selectedRow].innerText.match(/\S+/g);
+    table.deleteRow(selectedRow);
 
-}
+    //switch background to default when rows was deleted
+    turnDefaultBackgroundColor();
 
-function createrowtableUsedParts(data) {
-  const partsRepair = data.type_desc.trn_parts_repair;
-  for (let i = 0; i < partsRepair.length; i++) {
-    var table = document.getElementById("used_part_table");
-    try {
-      var row = table.insertRow(table.length);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
+    //table parts used
+    let table2 = document.getElementById("used_part_table");
+    let rows2 = table2.getElementsByTagName("tr");
 
-      cell1.innerHTML = searchParts(partsRepair[i].parts_id, partshub);
-      cell2.innerHTML = partsRepair[i].parts_num;
-    } catch (error) {}
+    let notHasUsed = false;
+    selectedRow = -1;
+
+    //looping find parts used which is match of parts hub which is selected to modify its number
+    for (let j = 1; j < rows2.length; j++) {
+      let getPartsUsed = rows2[j].innerText.match(/\S+/g);
+      if (getPartsHubSelected[0] === getPartsUsed[0]) {
+        notHasUsed = true;
+        table2.deleteRow(j);
+
+        let row2 = table2.insertRow(j);
+        let cell1 = row2.insertCell(0);
+        let cell2 = row2.insertCell(1);
+        cell1.innerHTML = getPartsUsed[0];
+        cell2.innerHTML =
+          parseInt(getPartsHubSelected[1]) + parseInt(getPartsUsed[1]);
+        break;
+      }
+    }
+
+    //if not match insert to used parts
+    if (!notHasUsed) {
+      let row = table2.insertRow(table2.length);
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+
+      cell1.innerHTML = getPartsHubSelected[0];
+      cell2.innerHTML = getPartsHubSelected[1];
+    }
+    // console.log(notHasUsed);
+    selectedPartsHubToUsedPart();
+  } else if (rows.length > 1) {
+    alert("กรุณาเลือกแถวข้อมูลที่ต้องการทางตารางฝั่งซ้ายก่อน");
+  } else {
+    alert("อะไหล่หมดตารางแล้ว");
   }
-  
 }
 
-function selectedPartsHubToUsingPart() {
+function turnDefaultBackgroundColor() {
+  let table = document.getElementById("parts_hub_table");
+  let rows = table.getElementsByTagName("tr");
+  for (let i = 1; i < rows.length; i++) {
+    if (i !== selectedRow) {
+      if (i % 2 === 1) {
+        rows[i].style.backgroundColor = "white";
+      } else {
+        rows[i].style.backgroundColor = "#dddddd";
+      }
+      rows[i].style.color = "black";
+    }
+  }
+}
+
+function selectedPartsHubToUsedPart() {
   var table = document.getElementById("parts_hub_table");
   var rows = table.getElementsByTagName("tr");
   for (let i = 1; i < rows.length; i++) {
+    rows[i].onmouseenter = function() {
+      turnDefaultBackgroundColor();
+      if (i !== selectedRow) {
+        rows[i].style.backgroundColor = "rgb(35, 128, 250)";
+        rows[i].style.color = "white";
+      }
+      selectedPartsHubToUsedPart();
+    };
+
     rows[i].onclick = function() {
-      let caps = rows[i].innerText.match(/\S+/g);
-      var table2 = document.getElementById("used_part_table");
-      var rows2 = table2.getElementsByTagName("tr");
-      var notHasUsed = false;
+      turnDefaultBackgroundColor();
 
-      for (let j = 1; j < rows2.length; j++) {
-        let capsPartsUsed = rows2[j].innerText.match(/\S+/g);
-        if (caps[0] === capsPartsUsed[0]) {
-          notHasUsed = true;
-          table.deleteRow(i);
-          table2.deleteRow(j);
-
-          let row = table2.insertRow(j);
-          let cell1 = row.insertCell(0);
-          let cell2 = row.insertCell(1);
-          cell1.innerHTML = capsPartsUsed[0];
-          cell2.innerHTML = parseInt(caps[1]) + parseInt(capsPartsUsed[1]);
-          break;
-        }
+      // turn to default bgColor last time slected
+      if (selectedRow % 2 === 1) {
+        rows[selectedRow].style.backgroundColor = "white";
+        rows[selectedRow].style.color = "black";
+      } else if (selectedRow % 2 === 0) {
+        rows[selectedRow].style.backgroundColor = "#dddddd";
+        rows[selectedRow].style.color = "black";
       }
 
-      if(!notHasUsed) {
-        table.deleteRow(i);
-        let row = table2.insertRow(table2.length);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-  
-        cell1.innerHTML = caps[0];
-        cell2.innerHTML = caps[1];
-      }
-      console.log(notHasUsed)
-      selectedPartsHubToUsingPart()
+      // set bgColor newest selected
+      selectedRow = i;
+      rows[i].style.backgroundColor = "rgb(1, 13, 124)";
+      rows[i].style.color = "white";
 
+      selectedPartsHubToUsedPart();
     };
   }
 }
@@ -118,13 +163,141 @@ function createrowtablePartsHub(data) {
       cell2.innerHTML = data[i].parts_num;
     } catch (error) {}
   }
-  selectedPartsHubToUsingPart();
+  selectedPartsHubToUsedPart();
 }
+
+function createrowtableUsedParts(data) {
+  partsRepair = data.type_desc.trn_parts_repair;
+  for (let i = 0; i < partsRepair.length; i++) {
+    var table = document.getElementById("used_part_table");
+    try {
+      var row = table.insertRow(table.length);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+
+      cell1.innerHTML = searchParts(partsRepair[i].parts_id, partshub);
+      cell2.innerHTML = partsRepair[i].parts_num;
+    } catch (error) {}
+  }
+  selectedUsedPartsToModify();
+}
+
+function turnDefaultBackgroundColorUsed() {
+  let table = document.getElementById("used_part_table");
+  let rows = table.getElementsByTagName("tr");
+  for (let i = 1; i < rows.length; i++) {
+    if (i !== selectedRowUsed) {
+      if (i % 2 === 1) {
+        rows[i].style.backgroundColor = "white";
+      } else {
+        rows[i].style.backgroundColor = "#dddddd";
+      }
+      rows[i].style.color = "black";
+    }
+  }
+}
+
+function selectedUsedPartsToModify() {
+  var table = document.getElementById("used_part_table");
+  var rows = table.getElementsByTagName("tr");
+  for (let i = 1; i < rows.length; i++) {
+    rows[i].onmouseenter = function() {
+      turnDefaultBackgroundColorUsed();
+      if (i !== selectedRowUsed) {
+        rows[i].style.backgroundColor = "rgb(35, 128, 250)";
+        rows[i].style.color = "white";
+      }
+
+      selectedUsedPartsToModify();
+    };
+
+    rows[i].onclick = function() {
+      turnDefaultBackgroundColorUsed();
+      if (selectedRowUsed % 2 === 1) {
+        rows[selectedRowUsed].style.backgroundColor = "white";
+        rows[selectedRowUsed].style.color = "black";
+      } else if (selectedRowUsed % 2 === 0) {
+        rows[selectedRowUsed].style.backgroundColor = "#dddddd";
+        rows[selectedRowUsed].style.color = "black";
+      }
+      selectedRowUsed = i;
+      rows[i].style.backgroundColor = "rgb(1, 13, 124)";
+      rows[i].style.color = "white";
+
+      selectedUsedPartsToModify();
+    };
+  }
+}
+
+function modifyUsedParts() {
+  var table = document.getElementById("used_part_table");
+  var rows = table.getElementsByTagName("tr");
+  if (selectedRowUsed > 0) {
+    let getUsedPartsSelected = rows[selectedRowUsed].innerText.match(/\S+/g);
+    console.log(getUsedPartsSelected);
+  } else {
+    alert("กรุณาเลือกแถวข้อมูลที่ต้องการทางตารางฝั่งขวาก่อน");
+  }
+}
+
+function deleteUsedParts() {
+  var table = document.getElementById("used_part_table");
+  var rows = table.getElementsByTagName("tr");
+
+  var tableph = document.getElementById("parts_hub_table");
+  var rowsph = tableph.getElementsByTagName("tr");
+
+  if (selectedRowUsed > 0) {
+    let getUsedPartsSelected = rows[selectedRowUsed].innerText.match(/\S+/g);
+
+    let partsTurnToHub = searchPartsByName(getUsedPartsSelected[0], partshub);
+    if (partsTurnToHub !== null) {
+      console.log(getUsedPartsSelected);
+
+      //looping to check,Is parts from Hub has available
+      let hubHasFoundThisParts = false;
+
+      for (let i = 1; i < rowsph.length; i++) {
+        if (rowsph[i].innerText.match(/\S+/g)[0] === getUsedPartsSelected[0]) {
+          hubHasFoundThisParts = true;
+          break;
+        }
+      }
+
+      if (!hubHasFoundThisParts) {
+
+        // modify row of used parts to default first seen
+        table.deleteRow(selectedRowUsed);
+        let row = table.insertRow(selectedRowUsed);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        cell1.innerHTML = searchParts(partsRepair[selectedRowUsed-1].parts_id, partshub);
+        cell2.innerHTML = partsRepair[selectedRowUsed-1].parts_num;
+
+        // insert row of parts hub to default first seen
+        row = tableph.insertRow(tableph.length);
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+        cell1.innerHTML = partsTurnToHub.parts_name;
+        cell2.innerHTML = partsTurnToHub.parts_num;
+        
+      } else {
+        alert("อะไหล่นี้เหลือไม่เพียงพอ")
+      }
+    } else {
+      alert("อะไหล่นี้ถูกใช้ไปแล้ว");
+    }
+  } else {
+    alert("กรุณาเลือกแถวข้อมูลที่ต้องการทางตารางฝั่งขวาก่อน");
+  }
+}
+
+function acceptChange() {}
 
 function removeAlloption() {
   // var select = document.getElementById("lplate_add_selected");
   // var length = select.options.length;
-  // //console.log('length => ', length)
+  //console.log('length => ', length)
   // for (i = 0, c = 0; i < length; i++) {
   //     select.options[c] = null;
   // }
@@ -187,6 +360,14 @@ function searchParts(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
     if (myArray[i].parts_id === nameKey) {
       return myArray[i].parts_name;
+    }
+  }
+  return null;
+}
+function searchPartsByName(nameKey, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].parts_name === nameKey) {
+      return myArray[i];
     }
   }
   return null;
