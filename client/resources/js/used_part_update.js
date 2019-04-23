@@ -254,23 +254,43 @@ function modifyUsedParts() {
     if (document.getElementById("partsName").value !== rows[selectedRowUsed].innerText.match(/\S+/g)[0]) {
       alert('แก้ไขไม่ได้, อะไหล่ไม่ตรงกัน')
     } else {
-      var modifyNum = document.getElementById("partsNum").value
+      var modifyNum = parseInt(document.getElementById("partsNum").value)
 
       //find with using parts name(another table)
       var findPartsFromHub = searchPartsByName(document.getElementById("partsName").value, partshub)
 
       if (modifyNum > 0 && modifyNum <= findPartsFromHub.parts_num) {
 
-        table.deleteRow(selectedRowUsed)
+        //add extra used parts num to using parts num
+        var isPartsExists = false
 
-        let row = table.insertRow(selectedRowUsed);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
+        for (let j = 0; j < partsRepair.length; j++) {
+          var getText = rows[selectedRowUsed].innerText.match(/\S+/g)
+          if (getText[0] === searchParts(partsRepair[j].parts_id, partshub)) {
 
-        cell1.innerHTML = document.getElementById("partsName").value
-        cell2.innerHTML = modifyNum
+            isPartsExists = true
+            table.deleteRow(selectedRowUsed);
+            let row = table.insertRow(selectedRowUsed);
 
-        //touch render bgColor 
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerHTML = getText[0];
+            cell2.innerHTML = modifyNum + partsRepair[j].parts_num;
+            break;
+          }
+        }
+
+        if(!isPartsExists) {
+          table.deleteRow(selectedRowUsed)
+
+          let row = table.insertRow(selectedRowUsed);
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+  
+          cell1.innerHTML = document.getElementById("partsName").value
+          cell2.innerHTML = modifyNum
+        }
+
         selectedUsedPartsToModify();
 
         document.getElementById("partsName").value = ''
@@ -314,7 +334,6 @@ function deleteUsedParts() {
 
     let partsTurnToHub = searchPartsByName(getUsedPartsSelected[0], partshub);
     if (partsTurnToHub !== null) {
-      console.log(getUsedPartsSelected);
 
       //looping to check,Is parts from Hub has available
       let hubHasFoundThisParts = false;
@@ -393,7 +412,15 @@ function deleteUsedParts() {
   }
 }
 
-function acceptChange() {}
+function acceptChange() {
+
+  if (document.getElementById("partsName").value !== '') {
+    alert("กรุณาแก้ไขให้เรียบร้อยก่อน")
+  } else {
+
+
+  }
+}
 
 function removeAlloption() {
   // var select = document.getElementById("lplate_add_selected");
