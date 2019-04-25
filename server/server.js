@@ -199,6 +199,18 @@ app.get("/product/type/Repair/:lc", (req, res) => {
   })
 })
 
+app.post("/product/type/Repair/edit/:car_license", (req, res) => {
+  WebDAOObj.editPartFromThisProduct(req.params.car_license, req.body.partsUsingData).then((pass) => {
+    res.send(pass);
+  })
+})
+
+app.post("/parts/edit", (req, res) => {
+  WebDAOObj.editPartsHub(req.body.partsUsingData).then((data) => {
+     res.send(data);
+  })
+})
+
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
 });

@@ -363,6 +363,38 @@ class WebDAO {
                 db.collection('Product').findOne({"prod_type": "Repair", "trn_car.car_license": licenseCarFix}, ( err, data ) => {
                     if(err) { throw err }
                     return resolve(data)
+                })               
+            });
+        });
+    }
+
+    editPartFromThisProduct(licenseCarFix, partsUsingData) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.trn_parts_repair": partsUsingData }} , (err, result) => {
+                    if(err) { throw err }
+                    if (result.value) {
+                        return resolve(true);
+                    } else { 
+                        return resolve(false) 
+                    }
+                })
+            });
+        });
+    }
+
+    editPartsHub(partsUsingData) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('PartsHub').findOneAndUpdate({"parts_id": partsUsingData.parts_id}, {"$set":{ "parts_num": partsUsingData.parts_num }}, (err, result) => {
+                    if(err) { throw err }
+                    if (result.value) {
+                        return resolve({"status": true, "parts_id": partsUsingData.parts_id});
+                    } else { 
+                        return resolve({"status": false}) 
+                    }
                 })
             });
         });
