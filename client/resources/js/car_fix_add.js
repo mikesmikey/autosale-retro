@@ -200,56 +200,45 @@ function insertThisCustomerByCarFix() {
             base64: convertToBase64
         }
 
-        console.log(customerOfCarFixData)
-        console.log(productCarFixData)
-        console.log(invoiceAppt)
-        console.log(convertToBase64)
+        // console.log(customerOfCarFixData)
+        // console.log(productCarFixData)
+        // console.log(invoiceAppt)
+        // console.log(convertToBase64)
 
-        // addCustomerByCarFix(customerOfCarFixData).then((data) => {
-        //     if (data) {
-        //         alert('เพิ่มลูกค้าสำเร็จ')
-        //         addProductByCarFix(productCarFixData).then((data) => {
-        //             if (data) {
-        //                 alert('เพิ่มโปรดักสำเร็จ')
-        //                 addInvoiceAppt(invoiceAppt).then((data) => {
-        //                     if (data) {
-        //                         alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')                              
-        //                         addImageByCarFix(image).then((data) => {
-        //                             if (data) {
-        //                                 alert('เพิ่มรูปรถสำเร็จ')
-        //                             }
-        //                             else {
-        //                                 alert('เพิ่มรูปรถไม่สำเร็จ')
-        //                             }
-        //                         })      
-        //                     }
-        //                     else {
-        //                         alert('เพิ่มรูปรถไม่สำเร็จ')
-        //                     }
-        //                 })
-        //             }
-        //             else {
-        //                 alert('เพิ่มโปรดักไม่สำเร็จ')
-        //             }
-        //         })
-        //     }
-        //     else {
-        //         alert('เพิ่มลูกค้าไม่สำเร็จ')
-        //     }
-        // })
-        getImageByCarFixWithCustomerId(9).then((data) => {
-            console.log('data => ', data)
+        addCustomerByCarFix(customerOfCarFixData).then((data) => {
+            if (data) {
+                alert('เพิ่มลูกค้าสำเร็จ')
+                addProductByCarFix(productCarFixData).then((data) => {
+                    if (data) {
+                        alert('เพิ่มโปรดักสำเร็จ')
+                        addInvoiceAppt(invoiceAppt).then((data) => {
+                            if (data) {
+                                alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')                              
+                                addImageByCarFix(image).then((data) => {
+                                    if (data) {
+                                        alert('เพิ่มรูปรถสำเร็จ')
+                                    }
+                                    else {
+                                        alert('เพิ่มรูปรถไม่สำเร็จ')
+                                    }
+                                })      
+                            }
+                            else {
+                                alert('เพิ่มใบนัดรับไม่สำเร็จ')
+                            }
+                        })
+                    }
+                    else {
+                        alert('เพิ่มโปรดักไม่สำเร็จ')
+                    }
+                })
+            }
+            else {
+                alert('เพิ่มลูกค้าไม่สำเร็จ')
+            }
         })
-        // addImageByCarFix(image).then((data) => {
-        //     if (data) {
-        //         alert('เพิ่มรูปรถสำเร็จ')
-        //     }
-        //     else {
-        //         alert('เพิ่มรูปรถไม่สำเร็จ')
-        //     }
-        // })
         CarFixAdds = []
-        // window.location.href = 'car_fix.html';
+        window.location.href = './car_fix.html';
     }
 
 }

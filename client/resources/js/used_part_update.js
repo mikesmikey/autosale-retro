@@ -1,3 +1,4 @@
+whenFormOpenUp();
 let thisPlateLicense = decodeURIComponent(window.location.search)
   .substring(1)
   .split("=")
@@ -9,8 +10,6 @@ let thisCarData;
 var partsRepair;
 let selectedRow = -1;
 let selectedRowUsed = -1;
-
-whenFormOpenUp();
 
 function whenFormOpenUp() {
   getAllPart().then(data => {
@@ -515,11 +514,14 @@ function acceptChange() {
                   }
                 });
                 console.log(partsUsingData[i], hasUpdate, hasNumchange);
-                break;
+                break; 
               }
             }
           }
         }
+
+        window.location.href = "./car_fix.html"
+
       } else {
         alert("อัพเดทอะไหล่ไม่สำเร็จ");
       }
@@ -529,12 +531,12 @@ function acceptChange() {
 
 //                            [SEARCHING]
 function removeAlloption() {
-  // var select = document.getElementById("lplate_add_selected");
-  // var length = select.options.length;
-  //console.log('length => ', length)
-  // for (i = 0, c = 0; i < length; i++) {
-  //     select.options[c] = null;
-  // }
+  var table = document.getElementById("parts_hub_table")
+  var rows = table.getElementsByTagName("tr")
+  for(let i = rows.length-1 ; i >= 1 ; i--) {
+    table.deleteRow(i)
+
+  }
 }
 
 function runScript(e) {
@@ -542,35 +544,25 @@ function runScript(e) {
     var txt = document.getElementById("input_used_part").value;
     if (txt === "") {
       removeAlloption();
-      createrowtablePartsHub(product);
+      createrowtablePartsHub(partshub);
     } else {
-      console.log(txt);
-      let resultObject = searchProductByCarFix(txt, product);
+      let resultObject = searchPartsByName(txt, partshub);
       if (resultObject !== null) {
-        removeAlloption();
-        var table = document.getElementById("parts_hub_table");
+          removeAlloption();
+          var table = document.getElementById("parts_hub_table");
+          var row = table.insertRow(table.length);
 
-        var row = table.insertRow(table.length);
-
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.innerHTML = "NEW CELL1";
-        cell2.innerHTML = "NEW CELL2";
-
-        // var select = document.getElementById("lplate_selected");
-        // var option = document.createElement("option");
-        // option.text = resultObject.trn_car.car_license;
-        // option.value = resultObject.trn_car.car_license;
-        // option.onclick = function () { ShowDetail(this.value); };
-        // ShowDetail(resultObject.trn_car.car_license)
-        // select.add(option);
-      } else {
-        removeAlloption();
-      }
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = resultObject.parts_name;
+          cell2.innerHTML = resultObject.parts_num;
+          selectedPartsHubToUsedPart();
+        } else {
+          removeAlloption();
+        }
+      } 
     }
   }
-  return false;
-}
 
 
 
