@@ -384,6 +384,22 @@ class WebDAO {
         });
     }
 
+    editRepairCostFromThisProduct(licenseCarFix, cost) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.cost_of_repairs": parseInt(cost) }}, (err, result) => {
+                    if(err) { throw err }
+                    if (result.value) {
+                        return resolve(true);
+                    } else { 
+                        return resolve(false) 
+                    }
+                })
+            });
+        });
+    }
+
     editRepairStatusFromThisProduct(licenseCarFix) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {

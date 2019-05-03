@@ -5,6 +5,7 @@ let product = [];
 let customer = [];
 let invoice = [];
 let thisCarLicense = "";
+let thisCarData;
 let thisCarFixProduct = [];
 let packReairingDetail = [];
 
@@ -12,6 +13,7 @@ function whenFormOpenUp() {
   getAllProductByType("Repair").then(data => {
     createselect(data);
   });
+
   getAllCustomer();
   getAllInvoiceByType("Appointment");
   getAllPart();
@@ -22,22 +24,39 @@ function mockCarFixAdd() {
 }
 
 function mockCarFixAppraise() {
-  if(thisCarLicense !== "") {
-    valuate ="?license_plate=" + thisCarLicense;
-    window.location.href = "./car_fix_appraise.html" + valuate;
+  if (thisCarLicense !== "") {
+    getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
+      if (data.type_desc.cost_of_repairs !== 0) {
+        alert("โปรดักนี้ประเมินราคาซ่อมแล้ว")
+      }
+      else if (data.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
+        alert("สถานะของโปรดักอยู่ในระหว่างดำเนินการ")
+      }
+      else if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+        valuate = "?license_plate=" + thisCarLicense;
+        window.location.href = "./car_fix_appraise.html" + valuate;
+      }
+    });
   }
   else {
-    alert("กรุณาเลือกเลขทะเบียนก่อน") 
+    alert("กรุณาเลือกเลขทะเบียนก่อน")
   }
 }
 
 function mockUsedPartUpdate() {
-  if(thisCarLicense !== "") {
-    valuate ="?license_plate=" + thisCarLicense;
-    window.location.href = "./used_part_update.html" + valuate;
+  if (thisCarLicense !== "") {
+    getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
+      if (data.type_desc.cost_of_repairs !== 0) {
+        alert("โปรดักนี้ดำเนินการซ่อมเรียบร้อยแล้ว")
+      }
+      else {
+        valuate = "?license_plate=" + thisCarLicense;
+        window.location.href = "./used_part_update.html" + valuate;
+      }
+    })
   }
   else {
-    alert("กรุณาเลือกเลขทะเบียนก่อน") 
+    alert("กรุณาเลือกเลขทะเบียนก่อน")
   }
 }
 
@@ -87,9 +106,9 @@ function printDiv(printDivName) {
       var node = document.createElement("p");
       var textnode = document.createTextNode(
         resPrintReparingParts_Name[i] +
-          " " +
-          resPrintReparingParts_Num[i] +
-          " ชิ้น"
+        " " +
+        resPrintReparingParts_Num[i] +
+        " ชิ้น"
       );
       node.appendChild(textnode);
       document.getElementById("repairingBill_parts_repair").appendChild(node);
@@ -159,6 +178,17 @@ function deleteCarFixProduct() {
   closeFixDelete();
 }
 ////////////////////////////////////////////////////////////////////
+function getAllUsedPartsByThisLicense(val) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get("http://localhost:5000/product/type/Repair/" + val)
+      .then(result => {
+        resolve(result.data);
+        thisCarData = result.data;
+      });
+  });
+}
+
 function deleteCarFixProductByThisLicense(car_license) {
   return new Promise((resolve, reject) => {
     axios
@@ -211,7 +241,7 @@ function getAllProductByType(type) {
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
-//   console.log("result => ", resultObject);
+  //   console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
   let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc
     .appt_date;
@@ -294,11 +324,11 @@ function createselect(data) {
       var option = document.createElement("option");
       option.text = data[i].trn_car.car_license;
       option.value = data[i].trn_car.car_license;
-      option.onclick = function() {
+      option.onclick = function () {
         ShowDetail(this.value);
       };
       select.add(option);
-    } catch (error) {}
+    } catch (error) { }
   }
 }
 function removeAlloption() {
@@ -325,7 +355,7 @@ function runScript(e) {
         var option = document.createElement("option");
         option.text = resultObject.trn_car.car_license;
         option.value = resultObject.trn_car.car_license;
-        option.onclick = function() {
+        option.onclick = function () {
           ShowDetail(this.value);
         };
         ShowDetail(resultObject.trn_car.car_license);
