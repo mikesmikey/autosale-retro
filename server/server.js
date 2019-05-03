@@ -205,6 +205,12 @@ app.post("/product/type/Repair/edit/:car_license", (req, res) => {
   })
 })
 
+app.post("/product/type/Repair/edit/status/:car_license", (req, res) => {
+  WebDAOObj.editRepairStatusFromThisProduct(req.params.car_license).then((pass) => {
+    res.send(pass);
+  })
+})
+
 app.post("/parts/edit", (req, res) => {
   WebDAOObj.editPartsHub(req.body.partsUsingData).then((data) => {
      res.send(data);

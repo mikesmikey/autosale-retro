@@ -21,6 +21,16 @@ function mockCarFixAdd() {
   window.location.href = "./car_fix_add.html";
 }
 
+function mockCarFixAppraise() {
+  if(thisCarLicense !== "") {
+    valuate ="?license_plate=" + thisCarLicense;
+    window.location.href = "./car_fix_appraise.html" + valuate;
+  }
+  else {
+    alert("กรุณาเลือกเลขทะเบียนก่อน") 
+  }
+}
+
 function mockUsedPartUpdate() {
   if(thisCarLicense !== "") {
     valuate ="?license_plate=" + thisCarLicense;

@@ -372,7 +372,23 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.trn_parts_repair": partsUsingData }} , (err, result) => {
+                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.trn_parts_repair": partsUsingData }}, (err, result) => {
+                    if(err) { throw err }
+                    if (result.value) {
+                        return resolve(true);
+                    } else { 
+                        return resolve(false) 
+                    }
+                })
+            });
+        });
+    }
+
+    editRepairStatusFromThisProduct(licenseCarFix) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" }}, (err, result) => {
                     if(err) { throw err }
                     if (result.value) {
                         return resolve(true);
