@@ -13,6 +13,7 @@
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/element.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/table-custom.css" type="text/css" rel="stylesheet">
 
     <!--Commons CSS -->
     <link href="./resources/css/initial.css" type="text/css" rel="stylesheet">
@@ -20,14 +21,27 @@
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
+
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/menuController.js"></script>
+    <script src="./resources/js/navbarController.js"></script>
+    <script src="./resources/js/part_manage.js"></script>
     <script src="./resources/js/utilities.js"></script>
+    <script>
+            function hide() {
+              var x = document.getElementById("formlist");
+           
+                x.style.display = "none";
+              
+            }
+            </script>
 </head>
 
-<body>
+<body onload="hide()">
     <div class="navbar-div">
         <nav class="navbar is-oros" aria-label="main navigation">
             <a class="navbar-item banner">
@@ -84,29 +98,17 @@
                 </ul>
             </li>
             <li>
-                <a id="fix-manage-button" onclick="mainMenuCheck(event)">
+                <a href="./car_fix.html">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
-                <ul id="fix-manage-list">
-                    <li>
-                        <a href="./car_fix.html">
-                            จัดการซ่อม
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./car_fix_part.html">
-                            จัดการอะไหล่ในส่วนการซ่อม
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a id="part-manage-button" onclick="mainMenuCheck(event)">
                     <svg class="menu-icon icon-car-part icon-size-6"></svg>
                     จัดการอะไหล่
                 </a>
-                <ul id="part-manage-list" class="is-active">
+                <ul id="part-manage-list">
                     <li>
                         <a href="./part_manage.html" class="is-black-oros is-active">
                             จัดการอะไหล่ส่วนกลาง
@@ -140,235 +142,82 @@
         </ul>
     </nav>
     <div class="subcontent-area">
-        <div class="subcontent-main-div index">
+        <div class="subcontent-main-div index box-set-width">
             <div class="box with-title is-round">
                 <div class="box-title is-oros">
-                    จัดการอะไหล่ส่วนกลาง
+                        จัดการอะไหล่ส่วนกลาง
                 </div>
-
                 <div class="box-content">
-                    <div class="columns" style="width: 1000px">
-                        <div class="column is-6">
-                            <h2>ค้นหาอะไหล่</h2>
-                        </div>
-                        <div class="column is-2">
-                            <div>
-                                <input class="input-icon-search width100" type="text" name="search"
-                                    placeholder="Search">
-                            </div>
-                        </div>
-                    </div>
                     <div class="columns">
-                        <div class="column is-8">
-                            <div>
-                                    <table style="width: 1010px; ">
-                                            <tr id="tr01">
-                                                <th class="mixTop" style="width:60px; text-align: center">ลำดับที่</th>
-                                                <th class="mixTop">รายการ</th>
-                                                <th class="mixTop" style="width: 80px;">จำนวน</th>
-                                                <th class="mixTop" style="width: 200px;">ราคาต่อหน่วย(บาท)</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix" style="width:60px; text-align: center">1</td>
-                                                <td class="mix">หลอดไฟ(กล่อง)</td>
-                                                <td class="mix">30</td>
-                                                <td class="mix">30</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix" style="width:60px; text-align: center">2</td>
-                                                <td class="mix">
-                                                    ล้อ
-                                                </td>
-                                                <td class="mix">
-                                                    8
-                                                </td>
-                                                <td class="mix">
-                                                    1,000
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix" style="width:60px; text-align: center">3</td>
-                                                <td class="mix">
-                                                    ยาง
-                                                </td>
-                                                <td class="mix">
-                                                    12
-                                                </td>
-                                                <td class="mix">
-                                                    2,000
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix" style="width:60px; text-align: center">4</td>
-                                                <td class="mix">
-                                                    พวงมาลัย
-                                                </td>
-                                                <td class="mix">
-                                                    6
-                                                </td>
-                                                <td class="mix">
-                                                    2,500
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix" style="width:60px; text-align: center">5</td>
-                                                <td class="mix">
-                                                    เพลา
-                                                </td>
-                                                <td class="mix">
-                                                    7
-                                                </td>
-                                                <td class="mix">
-                                                    3,000
-                                                </td>
-                                            </tr>
-                
-                
-                                            <tr>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                
-                                        </table>
-
-
-                            </div>
-
-
+                        <div class="column box-set-center">
+                            <table class='tbl-qa'>
+                                <thead>
+                                    <tr>
+                                        <th class='table-header'>ลำดับ</th>
+                                        <th class='table-header'>รายการ</th>
+                                        <th class='table-header'>จำนวน</th>
+                                        <th class='table-header'>ราคาต่อหน่วย(บาท)</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody id='table-body'>
+                                    <tr class='table-row' id='table-row'></tr>
+                                </tbody>
+                            </table>
                         </div>
-
-
-
                     </div>
+
                     <div class="columns">
 
-                        <div class="column is-6"></div>
-                        <div class="column is-2">
-                            <center>
-                                &nbsp; &nbsp; <button type="button"
-                                    class="button margin-left-x is-round is-2 width90 is-oros"
-                                    onclick="printDiv('formlist')">
-                                    พิมพ์</button>
-                            </center>
-
-
-
-
-
-
+                            <div class="column is-6">
+                                
+                            </div>
+                            <div class="column is-2">
+                                <center>
+                                    &nbsp; &nbsp; <button type="button"
+                                        class="button margin-left-x is-round is-2 width90 is-oros"
+                                        onclick="printDiv('formlist')">
+                                        พิมพ์</button>
+                                </center>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="box" id="formlist">
-        <div align="center">
-            <h1>พิมพ์รายการ</h1>
-        </div>
-        <div align="center">
-            <div class="columns">
-                <div class="column is-8">
-                    <div>
-                            <table style="width: 1010px; ">
-                                    <tr id="tr01">
-                                        <th class="mixTop" style="width:60px; text-align: center">ลำดับที่</th>
-                                        <th class="mixTop">รายการ</th>
-                                        <th class="mixTop" style="width: 80px;">จำนวน</th>
-                                        <th class="mixTop" style="width: 200px;">ราคาต่อหน่วย(บาท)</th>
-                                    </tr>
+    <div class="box" id="formlist" >
+            <div align="center">
+                    <h1>พิมพ์รายการอะไหล่ส่วนกลาง</h1>
+                  </div>
+                  <div align="center">
+        <div class="columns">
+            <div class="column is-8">
+                <div>
+                        <table class='tbl-qa'>
+                                <thead>
                                     <tr>
-                                        <td class="mix" style="width:60px; text-align: center">1</td>
-                                        <td class="mix">หลอดไฟ(กล่อง)</td>
-                                        <td class="mix">30</td>
-                                        <td class="mix">30</td>
+                                        <th class='table-header'>ลำดับ</th>
+                                        <th class='table-header'>รายการ</th>
+                                        <th class='table-header'>จำนวน</th>
+                                        <th class='table-header'>ราคาต่อหน่วย(บาท)</th>
+                                       
                                     </tr>
-                                    <tr>
-                                        <td class="mix" style="width:60px; text-align: center">2</td>
-                                        <td class="mix">
-                                            ล้อ
-                                        </td>
-                                        <td class="mix">
-                                            8
-                                        </td>
-                                        <td class="mix">
-                                            1,000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix" style="width:60px; text-align: center">3</td>
-                                        <td class="mix">
-                                            ยาง
-                                        </td>
-                                        <td class="mix">
-                                            12
-                                        </td>
-                                        <td class="mix">
-                                            2,000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix" style="width:60px; text-align: center">4</td>
-                                        <td class="mix">
-                                            พวงมาลัย
-                                        </td>
-                                        <td class="mix">
-                                            6
-                                        </td>
-                                        <td class="mix">
-                                            2,500
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix" style="width:60px; text-align: center">5</td>
-                                        <td class="mix">
-                                            เพลา
-                                        </td>
-                                        <td class="mix">
-                                            7
-                                        </td>
-                                        <td class="mix">
-                                            3,000
-                                        </td>
-                                    </tr>
-        
-        
-                                    <tr>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                    </tr>
-        
-                                </table>
-
-
-
-                    </div>
-
-
+                                </thead>
+                                <tbody id='table-body2'>
+                                    <tr class='table-row' id='table-row'></tr>
+                                </tbody>
+                        </table>
+                        
+    
+    
                 </div>
+                    
+    
             </div>
+      
         </div>
+    </div>
 </body>
 
 <footer>
