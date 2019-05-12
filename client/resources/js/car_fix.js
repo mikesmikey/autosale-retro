@@ -241,10 +241,11 @@ function getAllProductByType(type) {
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
-  //   console.log("result => ", resultObject);
+  // console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
-  let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc
-    .appt_date;
+  let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
+  let repairingStatus = resultObject.type_desc.repair_status
+
   thisCarLicense = value;
   document.getElementById("productID").innerHTML =
     "เลขออเดอร์ : " + resultObject.prod_id;
@@ -256,6 +257,7 @@ function ShowDetail(value) {
     "รุ่น : " + resultObject.trn_car.car_model;
   document.getElementById("carOwner").innerHTML = "เจ้าของ : " + carOwner;
   document.getElementById("ApptDate").innerHTML = "วันที่นัดรับ : " + ApptDate;
+  document.getElementById("repairingStatus").innerHTML = "สถานะซ่อม : " + repairingStatus;
 
   thisCarFixProduct.push(resultObject.trn_car.car_license);
   thisCarFixProduct.push(resultObject.trn_car.car_brand);
