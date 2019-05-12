@@ -32,7 +32,6 @@ function closeCustomerDelete() {
     document.getElementById('delete-customer').classList.remove('is-active');
 }
 
-
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {

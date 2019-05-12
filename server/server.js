@@ -1,16 +1,18 @@
 const express = require("express");
+const pretty = require("express-prettify");
 const bodyParser = require("body-parser");
 const app = express();
 const port = 5000;
-const cors= require('cors')
+const cors = require('cors')
 app.use(bodyParser.json());
 app.use(cors())
+app.use(pretty({ query: 'pretty' }));
 
 //disable cors due to the server will not using cross origin feature.
 
 const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
-const Customer= require('./Customer');
+const Customer = require('./Customer');
 const Partner = require('./Partner');
 const ProductRegister = require('./ProductRegister');
 
@@ -34,7 +36,7 @@ app.get("/products", (req, res) => {
     }
   });
 });
-app.get("/products/:type", (req, res) => {
+app.get("/products/type/:type", (req, res) => {
   WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
       res.json(data);
@@ -68,21 +70,31 @@ app.get("/partners", (req, res) => {
   });
 });
 
-app.post("/partners/add", (req, res) => {
-  WebDAOObj.insertPartner(req.body.partnerData).then(data => {
+app.get("/user/last", (req, res) => {
+  WebDAOObj.getCustomerlastNumber().then(data => {
+    if (data != null) {
       res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
+app.post("/partners/add", (req, res) => {
+  WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
+    res.json(data);
   })
 });
 
 app.post("/partners/edit", (req, res) => {
   WebDAOObj.editPartner(new Partner(req.body.partnerData)).then(data => {
-      res.json(data);
+    res.json(data);
   })
 });
 
 app.post('/partners/remove/:CompanyName', (req, res) => {
-  WebDAOObj.deletePartner(req.params.CompanyName).then((pass)=> {
-      res.send(pass);
+  WebDAOObj.deletePartner(req.params.CompanyName).then((pass) => {
+    res.send(pass);
   });
 });
 
@@ -125,15 +137,28 @@ app.get("/customers", (req, res) => {
   })
 })
 
-app.post('/customer/remove/:name', (req, res) => {
-  WebDAOObj.deleteCustomerByName(req.params.name).then((pass)=> {
-      res.send(pass);
+app.post('/product/type/Repair/remove/:car_license', (req, res) => {
+  WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass) => {
+    res.send(pass);
   });
 });
 
+
+app.post('/customer/remove/:name', (req, res) => {
+  WebDAOObj.deleteCustomerByName(req.params.name).then((pass) => {
+    res.send(pass);
+  });
+});
+
+// app.post('/product/remove/:car_license', (req, res) => {
+//   WebDAOObj.deleteCarFixProductByThisLicense(req.params.car_license).then((pass)=> {
+//       res.send(pass);
+//   });
+// });
+
 app.post('/customer/edit', (req, res) => {
-  WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass)=> {
-      res.send(pass);
+  WebDAOObj.editCustomer(new Customer(req.body.customerData)).then((pass) => {
+    res.send(pass);
   })
 })
 
@@ -149,6 +174,66 @@ app.get("/products", (req, res) => {
     } else {
       res.sendStatus(404);
     }
+  })
+})
+
+app.post("/image/add", (req, res) => {
+  WebDAOObj.insertCarImage(req.body.source).then(data => {
+    res.json(data);
+  })
+})
+
+app.get("/images/id_:imgId", (req, res) => {
+  WebDAOObj.getCarImageByObjectId(req.body.imgId).then(data => {
+    console.log(data)
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+})
+
+
+app.post("/invoice/type/Appt/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeAppt(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/product/type/Repair/add", (req, res) => {
+  WebDAOObj.insertProductByTypeRepair(req.body.prodData).then(data => {
+    res.json(data);
+  })
+})
+
+app.get("/product/type/Repair/:lc", (req, res) => {
+  WebDAOObj.getAllUsedPartsByThisLicense(req.params.lc).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/product/type/Repair/edit/:car_license", (req, res) => {
+  WebDAOObj.editPartFromThisProduct(req.params.car_license, req.body.partsUsingData).then((pass) => {
+    res.send(pass);
+  })
+})
+
+app.post("/product/type/Repair/edit/status/:car_license", (req, res) => {
+  WebDAOObj.editRepairStatusFromThisProduct(req.params.car_license).then((pass) => {
+    res.send(pass);
+  })
+})
+
+app.post("/product/type/Repair/edit/cost/:cost/:car_license", (req, res) => {
+  WebDAOObj.editRepairCostFromThisProduct(req.params.car_license, req.params.cost).then((pass) => {
+    res.send(pass);
+  })
+})
+
+app.post("/parts/edit", (req, res) => {
+  WebDAOObj.editPartsHub(req.body.partsUsingData).then((data) => {
+     res.send(data);
   })
 })
 

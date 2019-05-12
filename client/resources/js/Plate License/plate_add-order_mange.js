@@ -22,7 +22,7 @@ function startForm() {
     var ar = searchCustomerByName("mark zuckerberg",customer)
     console.log('size '+Object.keys(customer).length)
     console.log('ar '+ar)
-    console.log(' customer '+ customer[0].cust_id)
+    //console.log(' customer '+ customer[0].cust_id)
 }
 
 function setMaxvalue() {
@@ -48,17 +48,6 @@ function setMaxvalue() {
         }
     }
 }
-function plusMaxValue(value) {
-    if (value === 'customer') {
-        maxCustomer = maxCustomer + 1
-    }
-    if (value === 'invoice') {
-        maxInvoice = maxInvoice + 1
-    }
-    if (value === 'product') {
-        maxProduct = maxProduct + 1
-    }
-}
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {
@@ -81,7 +70,7 @@ function getAllInvoiceByType(type) {
 }
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/' + type).then((result) => {
+        axios.get('http://localhost:5000/products/type/' + type).then((result) => {
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
             }
@@ -178,36 +167,38 @@ function checkInputText() {
             productObj.car_license = car_num
             InsertProduct(productObj);
             var product_check = InsertProduct(productObj);
-
+            console.log("Sexy Code")
+            console.log(product_check)
             if (!product_check) {
                 alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
             } else {
                 alert('[1]บันทึกข้อมูลสำเร็จ')
             }
         } else {
-            var custObj = {}
-            custObj.cust_id = maxCustomer + 1
-            custObj.cus_name = cus_name
-            custObj.cus_address = cus_address
-            custObj.cus_phone = cus_phone
-            custObj.cus_tax = cus_tax
+            this.getLastUser().then((lastUser) =>{
+                var custObj = {}
+                maxCustomer = lastUser[0].cust_id
+                custObj.cust_id = lastUser[0].cust_id + 1
+                custObj.cus_name = cus_name
+                custObj.cus_address = cus_address
+                custObj.cus_phone = cus_phone
+                custObj.cus_tax = cus_tax 
+                console.log(custObj)
+                var cust_check = InsertCostomer(custObj);
+                if (!cust_check) {
+                    alert('เกิดข้อผิดหลาด ชื่อลูกค้าซ้ำกัน')
+                }
+                console.log('cust_check = ' + cust_check)
+            })
+           
 
-            var cust_check = InsertCostomer(CustomerData);
-            if (!cust_check) {
-                alert('เกิดข้อผิดหลาด ชื่อลูกค้าซ้ำกัน')
-            }
-            console.log('cust_check = ' + cust_check)
-            plusMaxValue('customer')
-            console.log('maxCustomer =' + maxCustomer)
-
-            var productObj = {}
-            productObj.prod_id = maxProduct + 1
-            productObj.cust_id = maxCustomer
-            productObj.car_brand = car_name
-            productObj.car_model = car_model
-            productObj.car_license = car_num
-
-            var product_check = InsertProduct(productObj);
+            // var productObj = {}
+            // productObj.prod_id = maxProduct + 1
+            // productObj.cust_id = maxCustomer
+            // productObj.car_brand = car_name
+            // productObj.car_model = car_model
+            // productObj.car_license = car_num
+            // var product_check = InsertProduct(productObj);
 
             if (!product_check) {
                 alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
@@ -221,6 +212,13 @@ function checkInputText() {
     console.log('cus_input = ' + cus_input)
     console.log('car_input = ' + car_input)
     console.log('selectName = ' + selectName)
+}
+function getLastUser() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/user/last').then((result) => {
+            resolve(result.data);
+        })
+    })
 }
 
 function InsertCostomer(CustomerData) {

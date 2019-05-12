@@ -224,6 +224,14 @@ div.border-gray-2{
     padding: 5px;
 }
 
+.partCarFixDelete {
+    width: 40%;
+}
+
+.partCarFixPrintsHubDelete {
+    width: 50%;
+}
+
 /*Input - Edit*/
 .my-input{
     padding: 13px;
@@ -347,9 +355,8 @@ table.table-style-three td {
 }
 #example1 {
     box-sizing: content-box;  
-    width: 200px;
-    height: 100px;
-    padding: 30px;  
+    width: 300px;
+    height: 200px;
     border: 10px solid blue;
   }
 .paddingPart{
@@ -449,3 +456,7 @@ table.table-style-three td {
 #formCarFix{
     display: none;
 }
+
+#data_show label{
+    word-break: break-all;
+    }
