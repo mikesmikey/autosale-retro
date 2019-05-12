@@ -159,6 +159,7 @@ function checkInputText() {
                     alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
                 } else {
                     alert('บันทึกข้อมูลสำเร็จ')
+                    this.startForm()
                 }
              })
         } else {
@@ -171,11 +172,6 @@ function checkInputText() {
                 custObj.phone = cus_phone
                 custObj.tax_no = cus_tax 
                 var cust_check = InsertCostomer(custObj);
-                if (!cust_check) {
-                    alert('เกิดข้อผิดหลาด ชื่อลูกค้าซ้ำกัน')
-                }else{
-                    alert('บันทึกข้อมูลสำเร็จ')
-                }
                 this.getLastProduct().then((lastProduct) => {
                     var productObj = {}
                     productObj.prod_id = lastProduct[0].prod_id + 1
@@ -188,6 +184,7 @@ function checkInputText() {
                         alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
                     } else {
                         alert('บันทึกข้อมูลสำเร็จ')
+                        this.startForm()
                     }
                 })
             })
