@@ -5,6 +5,7 @@ const app = express();
 const port = 5000;
 const cors = require('cors')
 app.use(bodyParser.json());
+app.use(bodyParser({limit: '50mb'}));
 app.use(cors())
 app.use(pretty({ query: 'pretty' }));
 

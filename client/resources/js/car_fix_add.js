@@ -41,7 +41,6 @@ function uploadImage(event) {
     // document.getElementById('image-upload').value = files[0]
     var file = document.getElementById('image-upload').value.split('\\').pop().split('.')
     var img = document.getElementById('img_car')
-
     if (file[1] === 'jpg' || file[1] === 'png' || file[1] === 'PNG' || file[1] === 'svg') {
         reader.onload = function (event) {
             img.src = event.target.result;
@@ -217,6 +216,7 @@ function insertThisCustomerByCarFix() {
                                 addImageByCarFix(image).then((data) => {
                                     if (data) {
                                         alert('เพิ่มรูปรถสำเร็จ')
+                                        window.location.href = './car_fix.html';
                                     }
                                     else {
                                         alert('เพิ่มรูปรถไม่สำเร็จ')
@@ -238,7 +238,6 @@ function insertThisCustomerByCarFix() {
             }
         })
         CarFixAdds = []
-        window.location.href = './car_fix.html';
     }
 
 }
@@ -324,7 +323,7 @@ function addImageByCarFix(source) {
 
 function addCustomerByCarFix(custData) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/customer/add', { "custData": custData }).then((result) => {
+        axios.post('http://localhost:5000/customer/insert', { "customerData": custData }).then((result) => {
             resolve(result.data);
         })
     })

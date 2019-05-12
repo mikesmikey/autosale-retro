@@ -387,4 +387,3 @@ function getPartnerDetailByCompany(companyName, myArray) {
 
 
 
-

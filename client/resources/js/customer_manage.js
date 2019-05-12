@@ -157,6 +157,7 @@ function runScript(e) {
             createSelect(customer);
         } else {
             let resultObject = getCustomerDetailByName(txt, customer);
+            console.log(resultObject)
             if (resultObject !== null) {
                 removeAlloption();
                 var select = document.getElementById("selectCustomer");

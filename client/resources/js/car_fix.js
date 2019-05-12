@@ -242,6 +242,8 @@ function getAllProductByType(type) {
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
   // console.log("result => ", resultObject);
+  console.log(resultObject.cust_id)
+  console.log(customer)
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
   let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
