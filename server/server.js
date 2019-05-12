@@ -70,6 +70,16 @@ app.get("/partners", (req, res) => {
   });
 });
 
+app.get("/user/last", (req, res) => {
+  WebDAOObj.getCustomerlastNumber().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
 app.post("/partners/add", (req, res) => {
   WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
     res.json(data);
@@ -184,11 +194,6 @@ app.get("/images/id_:imgId", (req, res) => {
   })
 })
 
-app.post("/customer/add", (req, res) => {
-  WebDAOObj.insertCustomer(req.body.custData).then(data => {
-    res.json(data);
-  })
-})
 
 app.post("/invoice/type/Appt/add", (req, res) => {
   WebDAOObj.insertInvoiceByTypeAppt(req.body.invoData).then(data => {

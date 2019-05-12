@@ -47,6 +47,19 @@ class WebDAO {
             });
         });
     }
+//$natural:-1
+    getCustomerlastNumber(){
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').find().sort({cust_id: -1}).limit(1).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+
 
     getAllProductByType(type) {
         return new Promise((resolve, reject) => {
@@ -166,7 +179,8 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').findOne({ "cust_name": user.cust_name }, (err, data) => {
+                console.log(customer)
+                db.collection('Customer').findOne({ "cust_name": customer.cust_name }, (err, data) => {
                     if (err) { throw err }
                     if (!data) {
                         db.collection('User').insertOne(customer.getUserObjectData(), (err, result) => {
