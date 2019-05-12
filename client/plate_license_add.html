@@ -22,10 +22,12 @@
     <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/Plate License/plate_add-order_mange.js"></script>
 </head>
 
 <body>
@@ -148,29 +150,52 @@
                                 <div>
                                     <input class="input-icon-search width80" type="text" name="search"
                                         placeholder="ค้นหาด้วยชื่อลูกค้า">
-                                    <select multiple size="13" class="selectPlate width80 cursor-pointer">
-                                        <option value="James Goodman">James Goodman</option>
-                                        <option value="Maria Brown">Maria Brown</option>
-                                        <option value="Saul Walker">Saul Walker</option>
+                                    <select id='listCustomerName' multiple size="12"
+                                        class="selectPlate width80 cursor-pointer plateAdd">
+
                                     </select>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="column is-5">
-                            <div class="border-gray">
-                                <div class="box boxplate ">
-                                    <label class="label is-3">ชื่อ</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70"><br><br>
-                                    <label class="label is-3">ที่อยู่</label>
-                                    <textarea class="textarea-plate is-pulled-right width70 address"
-                                        rows="6"></textarea><br><br><br><br><br><br><br>
-                                    <label class="label is-3">เบอร์โทรศัพท์</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70"><br><br><br>
-                                    <label class="label is-3">เลขประจำตัวผู้เสียภาษี</label>
-                                    <input type="text" class="input-plateAdd  is-pulled-right width70">
+                        <div class="column is-5 border-gray">
+                            <div id = 'data_input'>
+                                <div class="boxplate columns" style="padding:10px">
+                                    <div id='group-label'>
+                                        <label class="label is-2">ชื่อ *</label><br><br>
+                                        <label class="label is-2">ที่อยู่ *</label><br><br><br><br><br><br><br><br>
+                                        <label class="label is-2">เบอร์โทรศัพท์ *</label><br><br>
+                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี *</label>
+                                    </div>
+                                    <div id='group-input' class="column is-6 ">
+                                        <center>
+                                            <input id='input_name' type="text" class="input-plateAdd  width90 "><br><br>
+                                            <textarea id='input_address' class="textarea-plate  width90 address "
+                                                rows="6">
+                                        </textarea><br><br>
+                                            <input id='input_phone' type="text"
+                                                class="input-plateAdd  width90 "><br><br>
+                                            <input id='input_tax' type="text" class="input-plateAdd  width90 ">
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
+                            <div id= 'data_show' class='deplay-none' style="padding:20px;overflow-y: scroll;height: 300px;">  
+                                   
+                                    <label id='label_name' class="label is-2">ชื่อ :</label><br><br>
+                                    <label id='label_address'
+                                        class="label is-2">ที่อยู่</label><br><br>
+                                    <label id='label_phone' class="label is-2">เบอร์โทรศัพท์</label><br><br>
+                                    <label id='label_tax' class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class='columns'>
+                        <div class='column is-3'>
+                            <button style="margin-right: 20%" type="button" onclick="showInputAdd('Show')"
+                                class="button is-round is-2 is-free-size is-pulled-right is-oros">
+                                เพิ่มลูกค้า</button>
                         </div>
                     </div>
                 </div>
@@ -180,31 +205,31 @@
                         <div class="border-gray">
                             <div class="columns" style="margin-left:2%">
                                 <div class="column is-1" style="padding:40px">
-                                    <label class="label is-3">ยี่ห้อรถ </label>
+                                    <label class="label is-2">ยี่ห้อรถ *</label>
                                     <br>
                                     <br>
-                                    <label class="label is-3">เลขทะเบียน </label>
+                                    <label  class="label is-2">เลขทะเบียน *</label>
                                     <br>
                                     <br>
                                 </div>
                                 <div class="column is-2">
-                                    <input type="text" class="input-plate" style="width: 95%">
+                                    <input id='input_car' type="text" class="input-plate" style="width: 95%">
                                     <br>
                                     <br>
-                                    <input type="text" class="input-plate" style="width: 95%">
+                                    <input id='input_carNum' type="text" class="input-plate" style="width: 95%">
                                     <br>
-                                    
+
                                 </div>
 
                                 <div class="column is-1" style="margin-left:5%">
-                                    <label class="label is-3">รุ่น </label>
+                                    <label  class="label is-2">รุ่น *</label>
                                     <br>
                                     <br>
                                     <br>
                                     <br>
                                 </div>
                                 <div class="column is-2">
-                                    <input type="text" class="input-plate" style="width: 100%">
+                                    <input id='input_model'type="text" class="input-plate" style="width: 100%">
                                     <br>
                                     <br>
                                     <br>
@@ -217,7 +242,7 @@
                             <div class="column is-4">
                                 <br>
                                 <center>
-                                    <button type="button" onclick="printDiv('print_appiontment')"
+                                    <button type="button" onclick="checkInputText()"
                                         class="button is-round is-2  is-oros">ยืนยัน</button>
                                     <button type="button" onclick="plate_license()"
                                         class="button is-round is-2  is-yentafo">ยกเลิก</button>
@@ -229,73 +254,74 @@
         </div>
 
     </div>
- 
-        <div class="columns deplay-none" style="  border-style: solid; border-width: 3px;">
-            <p>บริษัท : โชคทวีออโต้เซล</p><br>
-            <p>วันที่ออกใบรับ : 12/01/2562</p><br>
-            <p>วันนัดรับ : 19/01/2562</p><br>
-            <p>ชื่อลูกค้า : Jame Weed</p><br>
-            <p>เบอร์โทรศัทพ์ : 0616577011</p><br>
-            <p> ที่อยู่ : 10/10 หมู่บ้านสินชัย ถนนหนองมน อำเภอเมือง จังหวัดชลบุรี</p><br>
-            <p> ยี่ห้อรถ : Honda</p><br>
-            <p>รุ่น : abc</p><br>
-            <p> เลขทะเบียน : 1กข 999</p>
+
+    <div class="columns deplay-none" style="  border-style: solid; border-width: 3px;">
+        <p>บริษัท : โชคทวีออโต้เซล</p><br>
+        <p>วันที่ออกใบรับ : 12/01/2562</p><br>
+        <p>วันนัดรับ : 19/01/2562</p><br>
+        <p>ชื่อลูกค้า : Jame Weed</p><br>
+        <p>เบอร์โทรศัทพ์ : 0616577011</p><br>
+        <p> ที่อยู่ : 10/10 หมู่บ้านสินชัย ถนนหนองมน อำเภอเมือง จังหวัดชลบุรี</p><br>
+        <p> ยี่ห้อรถ : Honda</p><br>
+        <p>รุ่น : abc</p><br>
+        <p> เลขทะเบียน : 1กข 999</p>
+    </div>
+    </div>
+    <!--From print ใบรับรถ-->
+    <div id="print_appiontment" class="deplay-none">
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
+            <br>
+            <div style="margin-left:1% ;padding: 5px">
+                <label id="print_appiontment_date" class="label is-4">วันที่ </label>
+                <br>
+                <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
+                <br>
+                <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
+                <br>
+                <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
+                <br>
+                <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">ข้อมูลบริการ</label>
+        <br>
+        <div class="columns" style=" border-style:solid ; border-width: 1px;">
+            <br>
+            <div style="margin-left:1%; padding: 5px">
+                <label id="print_appiontment_appt_date" class="label is-4">วันนัดรับเล่มทะเบียน : </label>
+                <br>
+                <label id="print_appiontment_customer_name" class="label is-4">ชื่อลูกค้า : </label>
+                <br>
+                <label id="print_appiontment_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
+                <br>
+                <label id="print_appiontment_address" class="label is-4">ที่อยู่ : </label>
+                <br>
+                <label id="print_appiontment_brand" class="label is-4">ยี่ห้อรถ : </label>
+                <br>
+                <label id="print_appiontment_model" class="label is-4">รุ่น : </label>
+                <br>
+                <label id="print_appiontment_license" class="label is-4">เลขทะเบียน : </label>
+                <br>
+            </div>
+        </div>
+        <br>
+        <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน
+            มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
+        <br>
+        <div style=" border-style: solid; border-width: 1px;">
+            <br>
+            <center>
+                <label class="label is-4">ลงชื่อ ................................................ ( ลูกค้า )</label>
+                <br>
+                <label class="label is-4">ลงชื่อ ................................................ ( พนักงาน )</label>
+            </center>
+            <br>
         </div>
     </div>
- <!--From print ใบรับรถ-->
- <div id="print_appiontment" class="deplay-none">
-    <div style=" border-style: solid; border-width: 1px;">
-        <br>
-        <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
-        <br>
-        <div  style="margin-left:1% ;padding: 5px">
-            <label id="print_appiontment_date"  class="label is-4">วันที่ </label>
-            <br>
-            <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
-            <br>
-            <label class="label is-4"> บริษัท โชคทวีออโต้เซล</label>
-            <br>
-            <label class="label is-4">มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</label>
-            <br>
-            <label class="label is-4">โทรศัทพ์ 0-3810-2222</label>
-            <br>
-        </div>
-    </div>
-    <br>
-    <label class="label is-4">ข้อมูลบริการ</label>
-    <br>
-    <div class="columns" style=" border-style:solid ; border-width: 1px;">
-        <br>
-        <div  style="margin-left:1%; padding: 5px">
-            <label id="print_appiontment_appt_date" class="label is-4">วันนัดรับเล่มทะเบียน : </label>
-            <br>
-            <label id="print_appiontment_customer_name" class="label is-4">ชื่อลูกค้า : </label>
-            <br>
-            <label id="print_appiontment_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
-            <br>
-            <label id="print_appiontment_address" class="label is-4">ที่อยู่ : </label>
-            <br>
-            <label id="print_appiontment_brand" class="label is-4">ยี่ห้อรถ : </label>
-            <br>
-            <label id="print_appiontment_model" class="label is-4">รุ่น : </label>
-            <br>
-            <label id="print_appiontment_license" class="label is-4">เลขทะเบียน : </label>
-            <br>
-        </div>
-    </div>
-    <br>
-    <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
-    <br>
-    <div style=" border-style: solid; border-width: 1px;">
-        <br>
-        <center>
-        <label class="label is-4">ลงชื่อ  ................................................ ( ลูกค้า )</label>
-        <br>
-        <label class="label is-4">ลงชื่อ  ................................................ ( พนักงาน )</label>
-        </center>
-        <br>
-    </div>
-</div>
 
 
 </body>

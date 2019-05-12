@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - เพิ่มลูกค้าและรายการซ่อมรถ</title>
+    <title>โชคทวี - อัพเดทอะไหล่ที่ใช้</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -22,12 +22,12 @@
     <link href="./resources/css/table-custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
-
-
+    <script src="./resources/js/used_part_update.js"></script>
 </head>
 
 <body>
@@ -142,201 +142,73 @@
                             <div class="column is-3">
                                 <div>
                                     <div>
-                                        <input class="input-icon-search width90" type="text" name="search" placeholder="ค้นหาอะไหล่">
-                                        <table class="select-table cursor-pointer">
-                                            <tr style="cursor:default" id="tr01">
+                                        <input id="input_used_part" class="input-icon-search width90" type="text"
+                                            name="search" placeholder="ค้นหาอะไหล่" onkeypress="runScript(event)">
+                                        <table id="parts_hub_table" class="select-table">
+                                            <tr id="tr01" style="cursor:default">
                                                 <th class="mixTop">อะไหล่ที่มีอยู่</th>
                                                 <th class="mixTop">จำนวน</th>
                                             </tr>
-                                            <tr>
-                                                <td class="mix">สายพาน</td>
-                                                <td class="mix">18</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    ยางในรถ 4 ล้อ
-                                                </td>
-                                                <td class="mix">
-                                                    35
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                                <td class="mix">
-                                                    <br />
-                                                </td>
-                                            </tr>
 
-                                            <tr>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                                <td class="mixUnder">
-                                                    <br />
-                                                </td>
-                                            </tr>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             <div class="column is-5">
-                                <table style="width: 100%;">
+                                <table id="used_part_table" class="select-table" style="width: 100%;">
                                     <col width="250">
                                     <col width="80">
-                                    <tr id="tr01">
+                                    <tr style="cursor:default" id="tr01">
                                         <th class="mixTop">อะไหล่ที่ใช้ไปแล้ว</th>
                                         <th class="mixTop">จำนวน</th>
                                     </tr>
-                                    <tr>
-                                        <td class="mix">ชิ้นส่วนถังน้ำมัน</td>
-                                        <td class="mix">1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            เครื่องยนต์โรตารี่
-                                        </td>
-                                        <td class="mix">
-                                            1
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                        <td class="mix">
-                                            <br />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                        <td class="mixUnder">
-                                            <br />
-                                        </td>
-                                    </tr>
+
                                 </table>
                                 <br>
-                                <input type="text" size="38">
-                                <input type="text" size="2">
+                                <input id="partsName" disabled type="text" size="38">
+                                <input id="partsNum" type="text" size="2" onkeypress="validateNumber(event)">
                             </div>
                         </div>
                         <div class="columns">
-                            <button style="margin-left: 13%" type="button" class="button width20  is-round is-2 is-oros">เพิ่ม</button>
-                            <button style="margin-left: 52%" type="button" class="button width20 is-round is-2  is-yentafo">ลบ</button>
-                            <button type="button" class="button is-round is-2 width25 is-orange">
-                                แก้ไข</button>
+                            <button id="add_btn" style="margin-left: 13%" type="button" class="button width20  is-round is-2 is-oros"
+                                onclick="addPartsToUsedParts()"
+                                onmouseover="turnDefaultBackgroundColor()">เพิ่ม</button>
+                            <button id="remove_btn" style="margin-left: 50%" type="button"
+                                class="button width20 is-round is-2  is-yentafo" onclick="deleteUsedParts()"
+                                onmouseover="turnDefaultBackgroundColorUsed()">ลบ</button>
+                            <button id="edit_btn" type="button" class="button is-round is-2 width25 is-orange"
+                                onclick="modifyUsedParts()"
+                                onmouseover="turnDefaultBackgroundColorUsed()">แก้ไข</button>
+                            <button id="accept_btn" type="button" class="button is-round is-2 width25 is-oros"
+                                onclick="acceptChange()" onmouseover="turnDefaultBackgroundColorUsed()">ยืนยัน</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h2>สถานะการซ่อม</h2>
+                    <div class="columns">
+                        <div class="column is-5">
+                            <select id="repairing_status" size="3" class="selectPlate width50 cursor-pointer" disabled>
+                                <option value="doing" selected>
+                                    อยู่ในระหว่างดำเนินการ
+                                </option>
+                                <option value="done">
+                                    ดำเนินการเรียบร้อย
+                                </option>
+                            </select>
+                        </div>
+                        <div class="column is-7">
+                            <div class="columns">
+                                <button style="margin-left: 12%" id="status_accept_btn" type="button"
+                                    class="button is-round is-2 width30 is-orange"
+                                    onclick="selectedStatusRepairing()">อัพเดทสถานะการซ่อม</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 <!-- <button style="margin-left: 58%" type="button" class="button width30 is-round is-2 is-oros">เพิ่ม</button> -->
 <!-- <button type="button" class="button is-round is-2 width30 is-yentafo">

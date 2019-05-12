@@ -32,7 +32,6 @@ function closeCustomerDelete() {
     document.getElementById('delete-customer').classList.remove('is-active');
 }
 
-
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {
@@ -153,6 +152,7 @@ function runScript(e) {
     if (e.keyCode == 13) {
         var txt = document.getElementById("input_customer_name").value
         if (txt === "") {
+            clearCustomerData();
             removeAlloption();
             createSelect(customer);
         } else {
@@ -168,10 +168,23 @@ function runScript(e) {
                 select.add(option);
             } else {
                 removeAlloption();
+                clearCustomerData();
             }
         }
     }
     return false;
+}
+
+function clearCustomerData(){
+    custName = "";
+    custId = null;
+    custPhone = "";
+    custTax = "";
+    custAddr = "";
+    document.getElementById("cust_name").innerHTML = "";
+    document.getElementById("cust_phone").innerHTML = "";
+    document.getElementById("cust_tax_no").innerHTML = "";
+    document.getElementById("cust_addr").innerHTML = "";
 }
 
 

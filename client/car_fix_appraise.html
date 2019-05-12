@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - หน้าแรก</title>
+    <title>โชคทวี - จัดการซ่อมรถ</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -19,11 +19,15 @@
     <link href="./resources/css/navbar.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/main-menu.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
+    <link href="./resources/css/part_order_css.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
-    <script src="./resources/js/Controller_page.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="./resources/js/Controller_page.js"></script> -->
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/car_fix_appraise.js"></script>
 </head>
 
 <body>
@@ -83,7 +87,7 @@
                 </ul>
             </li>
             <li>
-                <a href="./car_fix.html">
+                <a href="./car_fix.html" class="is-black-oros">
                     <svg class="menu-icon icon-car-motor icon-size-6"></svg>
                     จัดการซ่อมรถ
                 </a>
@@ -126,65 +130,66 @@
             </li>
         </ul>
     </nav>
+
     <div class="subcontent-area">
-        <div class="subcontent-main-div index">
-            <div class="box with-title is-round">
-                <div class="box-title is-oros">
-                    หน้าแรก
+        <div class="box with-title is-round">
+            <div class="box-title is-oros">
+                ประเมินราคาซ่อม
+            </div>
+            <div class="box">
+                <div class="column is-5">
+                    <table id="apr_used_part_table" class="select-table" style="width: 80%;">
+                        <col width="250">
+                        <col width="80">
+                        <tr style="cursor:default" id="tr01">
+                            <th class="mixTop">อะไหล่ที่ใช้ไปแล้ว</th>
+                            <th class="mixTop">จำนวน</th>
+                            <th class="mixTop">ราคาอะไหล่(ต่อชิ้น)</th>
+                        </tr>
+                    </table>
                 </div>
-                <div class="box-content">
-                    <div class="columns">
-                        <a class="column menu-box text-center" href="./index.html">
-                            <img class="custom" src="./resources/icons/index_icons/house.svg">
-                            <h3 class="label is-2">หน้าแรก</h3>
-                        </a>
-                        <a class="column menu-box text-center" href="./plate_license.html">
-                            <img src="./resources/icons/index_icons/license-plate-color.svg">
-                            <h3 class="label is-2">จัดการต่อทะเบียน</h3>
-                        </a>
-                        <a class="column menu-box text-center" href="./car_buy.html">
-                            <img src="./resources/icons/index_icons/car-color.svg">
-                            <h3 class="label is-2">จัดการซื้อ-ขายรถ</h3>
-                        </a>
-                    </div>
-                    <div class="columns">
-                        <a class="column menu-box text-center" href="./car_fix.html">
-                            <img class="custom" src="./resources/icons/index_icons/tools.svg">
-                            <h3 class="label is-2">จัดการซ่อมรถ</h3>
-                        </a>
-                        <a class="column menu-box text-center" href="./part_manage.html">
-                            <img src="./resources/icons/index_icons/motor.svg">
-                            <h3 class="label is-2">จัดการอะไหล่</h3>
-                        </a>
-                        <a class="column menu-box text-center" href="./customer_manage.html">
-                            <img src="./resources/icons/index_icons/id-card.svg">
-                            <h3 class="label is-2">จัดการลูกค้า</h3>
-                        </a>
-                    </div>
-                    <div class="columns">
-                        <a class="column menu-box text-center" href="./partner_manage.html">
-                            <img src="./resources/icons/index_icons/networking.svg" class="custom">
-                            <h3 class="label is-2">จัดการคู่ค้า</h3>
-                        </a>
-                        <a class="column menu-box text-center" href="./summary.html">
-                            <img class="custom" src="./resources/icons/index_icons/profit.svg">
-                            <h3 class="label is-2">สรุปผลกำไร</h3>
-                        </a>
-                        <a class="column menu-box text-center" onclick="mockLogout()">
-                            <img src="./resources/icons/index_icons/exit.svg" class="custom">
-                            <h3 class="label is-2">ออกจากระบบ</h3>
-                        </a>
-                    </div>
+                <br>
+                <div class="column is-4">
+                    <p>
+                        <label class="label is-3">ราคาอะไหล่โดยรวม</label>
+                        <input id="total_parts_price" type="text" class="input-plateAdd  is-pulled-right width70"
+                            disabled>
+                    </p>
+
+                    <p>
+                        <label class="label is-3">กำหนดราคา</label>
+                        <p>
+                            <label class="label is-3">กำไร 10%</label>
+                            <input type="radio" name="making_p" value="10" onclick="appraiseOne()">
+                        </p>
+
+                        <p>
+                            <label class="label is-3">กำไร 20%</label>
+                            <input type="radio" name="making_p" value="20" onclick="appraiseTwo()">
+                        </p>
+
+                        <p>
+                            <label class="label is-3">กำไร 30%</label>
+                            <input type="radio" name="making_p" value="30" onclick="appraiseThree()">
+                        </p>
+
+                        <p>
+                            <label class="label is-3">กำหนดให้</label>
+                            <input type="radio" name="making_p" value="0" onclick="appraiseMyself()">                         
+                        </p>
+                    </p>
+
+                    <p>
+                        <label class="label is-3">ราคาซ่อมที่ได้</label>
+                        <input id="repair_price" type="text" class="input-plateAdd  is-pulled-right width70"
+                            disabled onkeypress="validateNumber(event)">
+                    </p>
+                </div>
+                <div class="column is-4" style="text-align: center">
+                    <button id="accept_btn" type="button" class="button is-round is-2 width25 is-oros"
+                        onclick="accept()">ยืนยัน</button>
                 </div>
             </div>
         </div>
     </div>
 </body>
-
-<footer>
-    <!-- Controller JS -->
-    <script src="./resources/js/menuController.js"></script>
-    <script src="./resources/js/navbarController.js"></script>
-</footer>
-
-</html>

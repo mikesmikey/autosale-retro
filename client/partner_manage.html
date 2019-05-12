@@ -130,9 +130,9 @@
         </ul>
     </nav>
 
-    
 
-    
+
+
     <div class="subcontent-area">
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
@@ -146,24 +146,21 @@
                     <div class="columns">
                         <div class="column is-2 customer-column-left">
                             <div>
-                                <input class="input-icon-search" id="input_partner_name" type="text" name="search" style="width: 100%;"
-                                    placeholder="ค้นหาชื่อคู่ค้า" onkeypress="runScript(event)" >
-                                <select 
-                                    multiple size="9" 
-                                    class="select selectPlate" 
-                                    id="PartnerSelect" 
+                                <input class="input-icon-search" id="input_partner_name" type="text" name="search"
+                                    style="width: 100%;" placeholder="ค้นหาชื่อคู่ค้า" onkeypress="runScript(event)">
+                                <select multiple size="9" class="select selectPlate" id="PartnerSelect"
                                     onclick="loadCompanyNameInSelect()">
                                 </select>
                             </div>
                             <br>
                         </div>
                         <div class="column">
-                            <div class="border-gray-2" style="height: 344px;">
-                                <p>ชื่อบริษัท : <span id="companyName"></span></p>
-                                <p>ชื่อ : <span id="partnerName"></span></p>
-                                <p>โทรศัพท์ : <span id="partnerPhone"></span></p>
-                                <p>ประเภท : <span id="partnerType"></span></p>
-                                <p>ที่อยู่ : <span id="partnerAddr"></span></p>
+                            <div class="border-gray-2" style="overflow-y: scroll;height: 344px;">
+                                <p>ชื่อบริษัท : <span id="companyName" style="word-break: break-all;"></span></p>
+                                <p>ชื่อ : <span id="partnerName" style="word-break: break-all;"></span></p>
+                                <p>โทรศัพท์ : <span id="partnerPhone" style="word-break: break-all;"></span></p>
+                                <p>ประเภท : <span id="partnerType" style="word-break: break-all;"></span></p>
+                                <p>ที่อยู่ : <span id="partnerAddr" style="word-break: break-all;"></span></p>
 
                             </div>
                             <br>
@@ -200,218 +197,176 @@
 
 
 
-        <form class="box" id="formPartDetailCustomer">
-            <div class="select" style="width:99%">
-                <br>
+    <form class="box" id="formPartDetailCustomer">
+        <div class="select" style="width:99%">
+            <br>
+            <div>
                 <div>
-                    <div>
-                        <center>
-                            <font size=6> พิมพ์รายละเอียดคู่ค้า </font>
-                        </center>
-                    </div>
+                    <center>
+                        <font size=6> พิมพ์รายละเอียดคู่ค้า </font>
+                    </center>
+                </div>
 
-                    <br>
-                    <div class="select">
-                        <p>ชื่อบริษัท : <span id="companyNamePrint"></span></p>
-                        <p>ชื่อ : <span id="partnerNamePrint"></span></p>
-                        <p>โทรศัพท์ : <span id="partnerPhonePrint"></span></p>
-                        <p>ประเภท : <span id="partnerTypePrint"></span></p>
-                        <p>ที่อยู่ : <span id="partnerAddrPrint"></span></p>
+                <br>
+                <div class="select">
+                    <p>ชื่อบริษัท : <span id="companyNamePrint"></span></p>
+                    <p>ชื่อ : <span id="partnerNamePrint"></span></p>
+                    <p>โทรศัพท์ : <span id="partnerPhonePrint"></span></p>
+                    <p>ประเภท : <span id="partnerTypePrint"></span></p>
+                    <p>ที่อยู่ : <span id="partnerAddrPrint"></span></p>
 
-                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
 
 
-        <form id="add-Partner" class="modal">
-            <div class="box partCustomer">
-                <center>
-                    <h1 class="label is-2">เพิ่มข้อมูลคู่ค้า</h1>
-                </center>
+    <form id="add-Partner" class="modal">
+        <div class="box partCustomer">
+            <center>
+                <h1 class="label is-2">เพิ่มข้อมูลคู่ค้า</h1>
+            </center>
 
-                <label class="label is-2">ชื่อบริษัท</label>
-                <input 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    type="text" 
-                    name="companyNameInput"
-                    value=""
-                >
-                    
-                    <br><br>
+            <label class="label is-2">ชื่อบริษัท</label>
+            <input class="input-plateAdd  is-pulled-right width80" type="text" name="companyNameInput" value="">
 
-                <label class="label is-2">ชื่อ</label>
-                <input 
-                    type="text" 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    name="partnerNameInput"
-                    value=""
-                >
-                    <br><br>
+            <br><br>
 
-                <label class="label is-2">โทรศัพท์</label>
-                <input 
-                    type="text" 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    name="partnerPhoneInput"
-                    value=""
-                >
-                
-                <br><br>
-                
-                <div class="columns"></div>
+            <label class="label is-2">ชื่อ</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80" name="partnerNameInput" value="">
+            <br><br>
 
-                <label class="label is-2">ประเภท</label>
-                <select class="is-pulled-right width82 height30 "
-                        name="partnerTypeInput"
-                >
-                    <option value="Agent" >Agent</option>
-                    <option value="Company">Company</option>
-                </select><br><br>
+            <label class="label is-2">โทรศัพท์</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80" name="partnerPhoneInput" value="">
 
-                <label class="label is-2">ที่อยู่</label>
-                <textarea 
-                        class="textarea-plate is-pulled-right width81 address"
-                        rows="6"
-                        name="partnerAddrInput"
-                >
+            <br><br>
+
+            <div class="columns"></div>
+
+            <label class="label is-2">ประเภท</label>
+            <select class="is-pulled-right width82 height30 " name="partnerTypeInput">
+                <option value="Agent">Agent</option>
+                <option value="Company">Company</option>
+            </select><br><br>
+
+            <label class="label is-2">ที่อยู่</label>
+            <textarea class="textarea-plate is-pulled-right width81 address" rows="6" name="partnerAddrInput">
                 </textarea>
-                <br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br>
 
-                <br>
-                <div class="columns">
-                    <div class="column is-10">
-                    </div>
-                    <div class="column is-1"></div>
-                    <div class="column is-2"></div>
-                    <div class="column is-2">
-                        <center>
-                            <button type="button" 
+            <br>
+            <div class="columns">
+                <div class="column is-10">
+                </div>
+                <div class="column is-1"></div>
+                <div class="column is-2"></div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button"
                             onclick="addButtonHandle(companyNameInput.value,partnerNameInput.value,partnerPhoneInput.value,partnerTypeInput.value,partnerAddrInput.value)"
                             class="button is-width70  is-round is-pulled-right is-2 is-oros">ตกลง</button>
-                        </center>
-                    </div>
-                    <div class="column is-2">
-                        <center>
-                            <button type="button" onclick="closePartnerAdd()"
-                                class="button  is-width70 is-round is-pulled-right is-2  is-yentafo">ยกเลิก</button>
-                        </center>
-                    </div>
-                    <div class="column is-2">
-                    </div>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closePartnerAdd()"
+                            class="button  is-width70 is-round is-pulled-right is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
 
 
 
-        <form id="edit-Partner" class="modal">
-            <div class="box partCustomer">
-                <center>
-                    <h1 class="label is-2">แก้ไขข้อมูลคู่ค้า</h1>
-                </center>
+    <form id="edit-Partner" class="modal">
+        <div class="box partCustomer">
+            <center>
+                <h1 class="label is-2">แก้ไขข้อมูลคู่ค้า</h1>
+            </center>
 
-                <label class="label is-2">ชื่อบริษัท</label>
-                <input 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    type="text" 
-                    id="companyNameInput"
-                    name="companyNameInput"
-                    value=""
-                >
-                    
-                    <br><br>
+            <label class="label is-2">ชื่อบริษัท</label>
+            <input class="input-plateAdd  is-pulled-right width80" type="text" id="companyNameInput"
+                name="companyNameInput" value="">
 
-                <label class="label is-2">ชื่อ</label>
-                <input 
-                    type="text" 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    id="partnerNameInput"
-                    name="partnerNameInput"
-                    value=""
-                >
-                    <br><br>
+            <br><br>
 
-                <label class="label is-2">โทรศัพท์</label>
-                <input 
-                    type="text" 
-                    class="input-plateAdd  is-pulled-right width80" 
-                    id="partnerPhoneInput"
-                    name="partnerPhoneInput"
-                    value=""
-                >
-                
-                <br><br>
-                
-                <div class="columns"></div>
+            <label class="label is-2">ชื่อ</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80" id="partnerNameInput"
+                name="partnerNameInput" value="">
+            <br><br>
 
-                <label class="label is-2">ประเภท</label>
-                <select class="is-pulled-right width82 height30 "
-                        id="partnerTypeInput"
-                        name="partnerTypeInput"
-                >
-                    <option value="Agent" >Agent</option>
-                    <option value="Company">Company</option>
-                </select><br><br>
+            <label class="label is-2">โทรศัพท์</label>
+            <input type="text" class="input-plateAdd  is-pulled-right width80" id="partnerPhoneInput"
+                name="partnerPhoneInput" value="">
 
-                <label class="label is-2">ที่อยู่</label>
-                <textarea 
-                        class="textarea-plate is-pulled-right width81 address"
-                        rows="6"
-                        id="partnerAddrInput"
-                        name="partnerAddrInput"
-                >
+            <br><br>
+
+            <div class="columns"></div>
+
+            <label class="label is-2">ประเภท</label>
+            <select class="is-pulled-right width82 height30 " id="partnerTypeInput" name="partnerTypeInput">
+                <option value="Agent">Agent</option>
+                <option value="Company">Company</option>
+            </select><br><br>
+
+            <label class="label is-2">ที่อยู่</label>
+            <textarea class="textarea-plate is-pulled-right width81 address" rows="6" id="partnerAddrInput"
+                name="partnerAddrInput">
                 </textarea>
-                <br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br>
 
-                <br>
-                <div class="columns">
-                    <div class="column is-10">
-                    </div>
-                    <div class="column " id="c01"></div>
-                    <div class="column is-2"></div>
-                    <div class="column is-2">
-                        <center>
-                            <button type="button" onclick="editButtonHandle(companyNameInput.value,partnerNameInput.value,partnerPhoneInput.value,partnerTypeInput.value,partnerAddrInput.value)"
-                                    class="button is-width70  is-round is-2 is-oros">ตกลง</button>
-                        </center>
-                    </div>
-                    <div class="column is-2">
-                        <center>
-                            <button type="button" onclick="closePartnerEdit()"
-                                class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
-                        </center>
-                    </div>
-                    <div class="column is-2">
-                    </div>
+            <br>
+            <div class="columns">
+                <div class="column is-10">
+                </div>
+                <div class="column " id="c01"></div>
+                <div class="column is-2"></div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button"
+                            onclick="editButtonHandle(companyNameInput.value,partnerNameInput.value,partnerPhoneInput.value,partnerTypeInput.value,partnerAddrInput.value)"
+                            class="button is-width70  is-round is-2 is-oros">ตกลง</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closePartnerEdit()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
 
 
-        <form id="delete-Partner" class="modal">
-            <div class="box partCustomerDelete">
-                <center>
-                    <h1 class="label is-4">คุณแน่ใจแล้วหรือว่าต้องการลบคู่ค้าท่านนี้?
-                    </h1>
-                </center>
-                <br>
-                <div class="columns is-center">
-                    <div class="column">
-                        <center>
-                            <button type="button" onclick="deleteButtonHandle()"
-                                class="button is-width70 is-2 is-round  is-oros">ยืนยัน</button>
-                        </center>
-                    </div>
-                    <div class="column">
-                        <center>
-                            <button type="button" onclick="closePartnerDelete()"
-                                class="button  is-width70 is-2 is-round   is-yentafo">ยกเลิก</button>
-                        </center>
-                    </div>
+    <form id="delete-Partner" class="modal">
+        <div class="box partCustomerDelete">
+            <center>
+                <h1 class="label is-4">คุณแน่ใจแล้วหรือว่าต้องการลบคู่ค้าท่านนี้?
+                </h1>
+            </center>
+            <br>
+            <div class="columns is-center">
+                <div class="column">
+                    <center>
+                        <button type="button" onclick="deleteButtonHandle()"
+                            class="button is-width70 is-2 is-round  is-oros">ยืนยัน</button>
+                    </center>
+                </div>
+                <div class="column">
+                    <center>
+                        <button type="button" onclick="closePartnerDelete()"
+                            class="button  is-width70 is-2 is-round   is-yentafo">ยกเลิก</button>
+                    </center>
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
 
 </body>
 
@@ -421,7 +376,7 @@
     <script src="./resources/js/navbarController.js"></script>
     <script src="./resources/js/partner_manage.js"></script>
     <script src="./resources/js/utilities.js"></script>
-   
+
 </footer>
 
 </html>

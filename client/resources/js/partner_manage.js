@@ -396,31 +396,7 @@ function getPartnerDetailByCompany(companyName, myArray) {
 }
 
 
-function runScript(e) {
-    if (e.keyCode == 13) {
-        var txt = document.getElementById("input_partner_name").value
-        if (txt === "") {
-            removeSelected();
-            setSelectedEdit(partner);
-            setSelectedStart(numberStatr);
-        } else {
-            let resultObject = getPartnerDetailByCompany(txt, partner);
-            console.log(resultObject)
-            if (resultObject !== null) {
-                removeSelected();
-                var option = document.createElement("option");
-                option.text = resultObject.company_name;
-                option.value = resultObject.company_name;
-                loadDetailPartner(resultObject.company_name);
-                select.appendChild(option);
-            } else {
-                removeSelected();
-                setDetailZero();
-            }
-        }
-    }
-    return false;
-}
+
 
 
 
