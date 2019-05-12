@@ -1,3 +1,4 @@
+const mongoDb = require('mongodb');
 const mongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const url = 'mongodb://hanami:hanami02@ds163164.mlab.com:63164/choketawee';
@@ -47,22 +48,22 @@ class WebDAO {
             });
         });
     }
-    getCustomerlastNumber(){
+    getCustomerlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').find().sort({cust_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
             });
         });
     }
-    getProductlastNumber(){
+    getProductlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find().sort({prod_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Product').find().sort({ prod_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -390,6 +391,49 @@ class WebDAO {
     //     })
     //}
 
+    testUploadImg() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                if (client) {
+
+                    const db = client.db(dbName)
+                    var bucket = new mongoDb.GridFSBucket(db, {
+                        chunkSizeBytes: 32768,
+                        bucketName: 'carImgs'
+                    });
+
+                    fs.createReadStream('./1ED0CMq.jpg').
+                        pipe(bucket.openUploadStream('1ED0CMq.jpg')).
+                        on('error', function (error) {
+                            assert.ifError(error);
+                        }).
+                        on('finish', function () {
+                            console.log('done!');
+                        });
+                } else {
+                    resolve(false)
+                }
+            })
+        })
+    }
+
+    getCarImageById(objectId) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                if (client) {
+                    const db = client.db(dbName)
+                    var bucket = new mongoDb.GridFSBucket(db, {
+                        chunkSizeBytes: 32768,
+                        bucketName: 'carImgs'
+                    });
+                    resolve(bucket.openDownloadStream(new ObjectId(objectId)))
+                } else {
+                    resolve(false)
+                }
+            })
+        })
+    }
+
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -400,22 +444,47 @@ class WebDAO {
                     bucketName: 'carImgs'
                 });
 
-                const readableImgStream = new Readable()
-                readableImgStream.push(source.base64)
-                readableImgStream.push(null)
+                // const readableImgStream = new Readable()
+                // readableImgStream.push(source.base64)
+                // readableImgStream.push(null)
 
-                let uploadStream = bucket.openUploadStream(source.name);
-                let id = uploadStream.id;
-                readableImgStream.pipe(uploadStream)
+                // let uploadStream = bucket.openUploadStream(source.name);
+                // let id = uploadStream.id;
+                // readableImgStream.pipe(uploadStream)
 
-                uploadStream.on('error', () => {
-                    return resolve(false)
+                // uploadStream.on('error', () => {
+                //     return resolve(false)
+                // });
+
+                // uploadStream.on('finish', () => {
+                //     console.log('success on id => ', id)
+                //     return resolve(id)
+                // });
+
+                const { Readable } = require('stream');
+                const stream = new Readable();
+                stream.push(source.buffer);
+                stream.push(null);
+                stream.pipe(bucket.openUploadStream(source.originalname)).
+                on('error', function (error) {
+                    assert.ifError(error);
+                    resolve(false)
+                }).
+                on('finish', function () {
+                    console.log('done!');
+                    resolve(true)
                 });
-
-                uploadStream.on('finish', () => {
-                    console.log('success on id => ', id)
-                    return resolve(id)
-                });
+                // console.log(source.path)
+                // fs.createReadStream(stream).
+                //     pipe(bucket.openUploadStream(source.originalname)).
+                //     on('error', function (error) {
+                //         assert.ifError(error);
+                //         resolve(false)
+                //     }).
+                //     on('finish', function () {
+                //         console.log('done!');
+                //         resolve(true)
+                //     });
             });
         });
     }

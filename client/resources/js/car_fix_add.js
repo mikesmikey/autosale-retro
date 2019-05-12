@@ -11,6 +11,8 @@ let maxProduct = -1;
 let maxInvoice = -1;
 let FileUpload = '';
 let convertToBase64;
+let imageType;
+let imageFile;
 
 function whenFormOpenUp() {
     getAllCustomer().then((data) => {
@@ -52,6 +54,9 @@ function uploadImage(event) {
 
         reader.readAsDataURL(selectedFile)
         FileUpload = selectedFile;
+        imageType = `image/${file[1]}`
+        imageFile = new FormData()
+        imageFile.append('carImg', selectedFile);
         getBase64(FileUpload).then(data => wrapThis(data))
     }
     else {
@@ -199,7 +204,7 @@ function insertThisCustomerByCarFix() {
          var image = {
             name: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             size: FileUpload.size,
-            type: "image/jpeg",
+            type: imageType,
             base64: convertToBase64
         }
 
@@ -221,7 +226,7 @@ function insertThisCustomerByCarFix() {
                 addInvoiceAppt(invoiceAppt).then((data) => {
                     if (data) {
                         alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
-                        addImageByCarFix(image).then((data) => {
+                        addImageByCarFix(imageFile).then((data) => {
                             if (data) {
                                 alert('เพิ่มรูปรถสำเร็จ')
                                 window.location.href = './car_fix.html';
@@ -310,7 +315,7 @@ function addInvoiceAppt(invoData) {
 
 function getImageByCarFixWithCustomerId(imgId) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/images/id_'+ imgId).then((result) => {
+        axios.get('http://localhost:5000/image/id_'+ imgId).then((result) => {
             resolve(result.data);
         })
     })
@@ -318,7 +323,14 @@ function getImageByCarFixWithCustomerId(imgId) {
 
 function addImageByCarFix(source) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/image/add', { "source": source }).then((result) => {
+        axios(
+            {
+                method: 'POST',
+                headers: { 'content-type': 'multipart/form-data' },
+                url: 'http://localhost:5000/image/add',
+                data: source
+            }
+        ).then((result) => {
             resolve(result.data);
         })
     })
