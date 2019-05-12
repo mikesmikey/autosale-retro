@@ -46,8 +46,8 @@ function mockCarFixAppraise() {
 function mockUsedPartUpdate() {
   if (thisCarLicense !== "") {
     getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
-      if (data.type_desc.cost_of_repairs !== 0) {
-        alert("โปรดักนี้ดำเนินการซ่อมเรียบร้อยแล้ว")
+      if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+        alert("สถานะของโปรดักดำเนินการซ่อมเรียบร้อยแล้ว")
       }
       else {
         valuate = "?license_plate=" + thisCarLicense;
@@ -243,7 +243,7 @@ function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
   // console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
-  let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
+  let ApptDate = searchInvoice(resultObject, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
 
   thisCarLicense = value;
@@ -349,7 +349,6 @@ function runScript(e) {
       removeAlloption();
       createselect(product);
     } else {
-      console.log(txt);
       let resultObject = searchProductByCarFix(txt, product);
       if (resultObject !== null) {
         removeAlloption();
@@ -419,7 +418,7 @@ function searchCustomerByName(nameKey, myArray) {
 }
 function searchInvoice(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
-    if (myArray[i].prod_id === nameKey) {
+    if (myArray[i].prod_id === nameKey.prod_id && myArray[i].cust_id === nameKey.cust_id) {
       return myArray[i];
     }
   }

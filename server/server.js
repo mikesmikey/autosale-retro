@@ -14,7 +14,7 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
-const ProductRegister = require('./ProductRegister');
+// const ProductRegister = require('./ProductRegister');
 
 
 const WebDAOObj = new WebDAO();
@@ -182,6 +182,13 @@ app.get("/products", (req, res) => {
     } else {
       res.sendStatus(404);
     }
+  })
+})
+
+
+app.post('/customer/addByCarfix', (req, res) => {
+  WebDAOObj.insertCustomerByCarFix(req.body.custData).then((data)=> {
+      res.json(data);
   })
 })
 

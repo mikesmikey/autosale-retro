@@ -184,6 +184,18 @@ class WebDAO {
         });
     }
 
+    insertCustomerByCarFix(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').insertOne(customer, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
     insertCustomer(customer) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {

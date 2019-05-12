@@ -1,5 +1,3 @@
-
-whenFormOpenUp();
 let resultObject;
 let partshub = [];
 let product = []
@@ -12,7 +10,7 @@ let maxInvoice = -1;
 let FileUpload = '';
 let convertToBase64;
 
-function whenFormOpenUp() {
+function startForm() {
     getAllCustomer().then((data) => {
         createselect(data);
     });
@@ -403,12 +401,6 @@ function getAllCustomer() {
 
 //     })
 // }
-////////////////////////////////////////////////////////////////////
-
-
-
-
-////////////////////////////////////////////////////////////////////
 
 function searchCarLcByProduct(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
@@ -463,4 +455,4 @@ function searchInvoice(nameKey, myArray) {
         }
     }
 }
-////////////////////////////////////////////////////////////////////
+startForm();

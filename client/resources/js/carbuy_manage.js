@@ -4,7 +4,7 @@ let customer = [];
 let invoice = [];
 let select = "none"
 function startForm() {
-    getAllProductByType("RegisterLicense").then((data) => {
+    getAllProductByType("Buy").then((data) => {
         createselect(data);
     });
     getAllCustomer();
@@ -14,7 +14,7 @@ function startForm() {
 
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/'+type).then((result) => { 
+        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
             console.log(result.data) 
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
@@ -35,15 +35,15 @@ function getAllCustomer() {
 }
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/'+type).then((result) => {
-            resolve(result.data);
-            for (let i = 0; i < result.data.length; i++) {
-                product.push(result.data[i])
-            }
-        })
+      axios.get("http://localhost:5000/products/type/" + type).then(result => {
+        resolve(result.data);
+        for (let i = 0; i < result.data.length; i++) {
+          product.push(result.data[i]);
+        }
+      });
+    });
+  }
 
-    })
-}
 function launchLicenseDelete() {
     document.getElementById('delete-license').classList.add('is-active');
 }
@@ -62,8 +62,9 @@ function countObject(obj) {
     return count;
 }
 function searchProductByCarLicense(nameKey, myArray) {
+    console.log(myArray)
     for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].type_desc.car_license === nameKey) {
+        if (myArray[i].trn_car.car_license === nameKey) {
             return myArray[i];
         }
     }
@@ -93,6 +94,7 @@ function searchInvice(nameKey, myArray) {
 }
 function ShowDetail(value) {
     let resultObject = searchProductByCarLicense(value, product);
+    console.log(resultObject)
     select = value ;
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
@@ -103,6 +105,10 @@ function ShowDetail(value) {
     document.getElementById("dca_car_model").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
     //เจ้าของ
     document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
+    
+    document.getElementById("car_engine").innerHTML = "เครื่องยนต์ : " + resultObject.trn_car.car_engine + " cc"
+    document.getElementById("car_status").innerHTML = "สภาพ : " + resultObject.trn_car.car_status + "%"
+    document.getElementById("car_history").innerHTML = "ประวัติ : " + resultObject.trn_car.car_history
     setAttributePrint(value)
 }
 function createselect(data) {
@@ -152,41 +158,43 @@ function setAttributePrint(value) {
     let invoiceObj = searchInvice(productObj.prod_id, invoice);
 
     //from รายละเอียดลูกค้า
-    let invoiceDate = document.getElementById('print_detail_date')
-    invoiceDate.innerHTML = "วันที่ " + getCurrentDate();
-    let customerName = document.getElementById('print_detail_customer_name')
-    customerName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
-    let cutomerPhone = document.getElementById('print_detail_phone')
-    cutomerPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
-    let cutomerAddress = document.getElementById('print_detail_address')
-    cutomerAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
-    let cutomerBrand = document.getElementById('print_detail_car_brand')
-    cutomerBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
-    let cutomerModel = document.getElementById('print_detail_car_model')
-    cutomerModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
-    let cutomerLicense = document.getElementById('print_detail_car_license')
-    cutomerLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
+    // let invoiceDate = document.getElementById('print_detail_date')
+    // invoiceDate.innerHTML = "วันที่ " + getCurrentDate();
+    // let customerName = document.getElementById('print_detail_customer_name')
+    // customerName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    // let cutomerPhone = document.getElementById('print_detail_phone')
+    // cutomerPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
+    // let cutomerAddress = document.getElementById('print_detail_address')
+    // cutomerAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
+    // let cutomerBrand = document.getElementById('print_detail_car_brand')
+    // cutomerBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
+    // let cutomerModel = document.getElementById('print_detail_car_model')
+    // cutomerModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
+    // let cutomerLicense = document.getElementById('print_detail_car_license')
+    // cutomerLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
+   
+    
 
     //from ใบรับเล่มทะเบียน print_appiontment_appt_date
-    let appiontmentApptDate = document.getElementById('print_appiontment_appt_date')
-    appiontmentApptDate.innerHTML = "วันนัดรับเล่มทะเบียน : " + formatStringDate(invoiceObj.trn_desc.appt_date);
-    let appiontmentDate = document.getElementById('print_appiontment_date')
-    appiontmentDate.innerHTML = "วันที่ " + formatStringDate(invoiceObj.issue_date);
-    let appiontmentName = document.getElementById('print_appiontment_customer_name')
-    appiontmentName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
-    let appiontmentPhone = document.getElementById('print_appiontment_phone')
-    appiontmentPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
-    let appiontmentAddress = document.getElementById('print_appiontment_address')
-    appiontmentAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
-    let appiontmentBrand = document.getElementById('print_appiontment_brand')
-    appiontmentBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
-    let appiontmentModel = document.getElementById('print_appiontment_model')
-    appiontmentModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
-    let appiontmentLicense = document.getElementById('print_appiontment_license')
-    appiontmentLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
+    // let appiontmentApptDate = document.getElementById('print_appiontment_appt_date')
+    // appiontmentApptDate.innerHTML = "วันนัดรับเล่มทะเบียน : " + formatStringDate(invoiceObj.trn_desc.appt_date);
+    // let appiontmentDate = document.getElementById('print_appiontment_date')
+    // appiontmentDate.innerHTML = "วันที่ " + formatStringDate(invoiceObj.issue_date);
+    // let appiontmentName = document.getElementById('print_appiontment_customer_name')
+    // appiontmentName.innerHTML = "ชื่อลูกค้า : " + searchCustomer(productObj.cust_id, customer).cust_name;
+    // let appiontmentPhone = document.getElementById('print_appiontment_phone')
+    // appiontmentPhone.innerHTML = "เบอร์โทรศัทพ์ : " + customerObj.cust_phone
+    // let appiontmentAddress = document.getElementById('print_appiontment_address')
+    // appiontmentAddress.innerHTML = "ที่อยู่ : " + customerObj.cust_addr
+    // let appiontmentBrand = document.getElementById('print_appiontment_brand')
+    // appiontmentBrand.innerHTML = "ยี่ห้อรถ : " + productObj.trn_car.car_brand
+    // let appiontmentModel = document.getElementById('print_appiontment_model')
+    // appiontmentModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
+    // let appiontmentLicense = document.getElementById('print_appiontment_license')
+    // appiontmentLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
 
     //Text in Alert
-    document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : " + value
+    //document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : " + value
     //print_appiontment_
 
 }
@@ -242,5 +250,3 @@ function checInvioce(){
     }
 }
 startForm();
-
-
