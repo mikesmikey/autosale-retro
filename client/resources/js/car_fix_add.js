@@ -153,22 +153,17 @@ function insertThisCustomerByCarFix() {
 
         var canFindThisCust = searchCustomerByName(CarFixAdds[0], customer)
 
-        var customerOfCarFixData = {
-            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            cust_name: CarFixAdds[0],
-            cust_phone: CarFixAdds[1],
-            cust_tax_no: CarFixAdds[2],
-            cust_addr: CarFixAdds[3]
-        };
+        console.log(canFindThisCust)
+
 
         var productCarFixData = {
             prod_id: maxProduct + 1,
-            cust_id: maxCustomer + 1,
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             prod_order_date: "",
             prod_type: 'Repair',
             type_desc: {
                 repair_detail: CarFixAdds[7].split(/\n/),
-                repair_status: "ยังไม่อยากซ่อม",
+                repair_status: "อยู่ในระหว่างดำเนินการ",
                 cost_of_repairs: 0,
                 trn_parts_repair: []
             },
@@ -180,10 +175,18 @@ function insertThisCustomerByCarFix() {
             }
         };
 
+        var customerOfCarFixData = {
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+            cust_name: CarFixAdds[0],
+            cust_phone: CarFixAdds[1],
+            cust_tax_no: CarFixAdds[2],
+            cust_addr: CarFixAdds[3]
+        };
+
         var invoiceAppt = {
             invo_id: maxInvoice + 1,
             prod_id: maxProduct + 1,
-            cust_id: maxCustomer + 1,
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             issue_date_no: 1,
             invo_type: "Appointment",
             type_desc: {
@@ -193,52 +196,51 @@ function insertThisCustomerByCarFix() {
             issue_date: "2018 03 20"
         }
 
-        var image = {
+         var image = {
             name: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             size: FileUpload.size,
             type: "image/jpeg",
             base64: convertToBase64
         }
 
-        // console.log(customerOfCarFixData)
-        // console.log(productCarFixData)
-        // console.log(invoiceAppt)
-        // console.log(convertToBase64)
+        //if new customer
+        if(typeof canFindThisCust === 'undefined') {
+            addCustomerByCarFix(customerOfCarFixData).then((data) => {
+                if (data) {
+                    alert('เพิ่มลูกค้าสำเร็จ')
+                }
+                else {
+                    alert('เพิ่มลูกค้าไม่สำเร็จ')
+                }
+            })
+        }
 
-        addCustomerByCarFix(customerOfCarFixData).then((data) => {
+        addProductByCarFix(productCarFixData).then((data) => {
             if (data) {
-                alert('เพิ่มลูกค้าสำเร็จ')
-                addProductByCarFix(productCarFixData).then((data) => {
+                alert('เพิ่มโปรดักสำเร็จ')
+                addInvoiceAppt(invoiceAppt).then((data) => {
                     if (data) {
-                        alert('เพิ่มโปรดักสำเร็จ')
-                        addInvoiceAppt(invoiceAppt).then((data) => {
+                        alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
+                        addImageByCarFix(image).then((data) => {
                             if (data) {
-                                alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')                              
-                                addImageByCarFix(image).then((data) => {
-                                    if (data) {
-                                        alert('เพิ่มรูปรถสำเร็จ')
-                                    }
-                                    else {
-                                        alert('เพิ่มรูปรถไม่สำเร็จ')
-                                    }
-                                })      
+                                alert('เพิ่มรูปรถสำเร็จ')
+                                window.location.href = './car_fix.html';
+                                CarFixAdds = [];    
                             }
                             else {
-                                alert('เพิ่มใบนัดรับไม่สำเร็จ')
+                                alert('เพิ่มรูปรถไม่สำเร็จ')
                             }
-                        })
+                        })                                
                     }
                     else {
-                        alert('เพิ่มโปรดักไม่สำเร็จ')
+                        alert('เพิ่มใบนัดรับไม่สำเร็จ')
                     }
                 })
             }
             else {
-                alert('เพิ่มลูกค้าไม่สำเร็จ')
+                alert('เพิ่มโปรดักไม่สำเร็จ')
             }
         })
-        CarFixAdds = []
-        window.location.href = './car_fix.html';
     }
 
 }
