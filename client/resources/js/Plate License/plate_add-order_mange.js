@@ -2,12 +2,62 @@ let product = [];
 let customer = [];
 let invoice = [];
 let selectName = 'none'
+let maxCustomer = -1
+let maxInvoice = -1
+let maxProduct = -1
+
 function startForm() {
     getAllProductByType("RegisterLicense")
     getAllCustomer().then((data) => {
         createselect(data)
     });
     getAllInvoiceByType("Appointment")
+    console.log(product)
+    console.log(customer)
+    console.log(invoice)
+    setMaxvalue()
+    console.log('[1] maxCustomer = '+maxCustomer)
+    console.log('[1] maxInvoice = '+maxInvoice)
+    console.log('[1] maxProduct = '+maxProduct)
+    var ar = searchCustomerByName("mark zuckerberg",customer)
+    console.log('size '+Object.keys(customer).length)
+    console.log('ar '+ar)
+    console.log(' customer '+ customer[0].cust_id)
+}
+
+function setMaxvalue() {
+    console.log('[setMaxvalue] product.length = '+product.length)
+    console.log('[setMaxvalue] customer.length = '+customer.length)
+    console.log('[setMaxvalue] invoice.length = '+invoice.length)
+    //set product max id
+    for (i = 0; i < product.length; i++) {
+        if (product.prod_id > maxProduct) {
+            maxProduct = product.prod_id
+        }
+    }
+    //set customer max id 
+    for (i = 0; i < customer.length; i++) {
+        if (customer.cust_id > maxCustomer) {
+            maxCustomer = customer.prod_id
+        }
+    }
+    //set invoice max id 
+    for (i = 0; i < invoice.length; i++) {
+        if (invoice.cust_id > maxInvoice) {
+            maxInvoice = invoice.prod_id
+        }
+    }
+}
+function plusMaxValue(value) {
+    if (value === 'customer') {
+        maxCustomer = maxCustomer + 1
+    }
+    if (value === 'invoice') {
+        maxInvoice = maxInvoice + 1
+    }
+    if (value === 'product') {
+        maxProduct = maxProduct + 1
+    }
 }
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
@@ -21,7 +71,7 @@ function getAllCustomer() {
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/' + type).then((result) => {
+        axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
             for (let i = 0; i < result.data.length; i++) {
                 invoice.push(result.data[i])
             }
@@ -90,16 +140,103 @@ function showInputAdd(command) {
         document.getElementById('data_show').classList.remove('deplay-none')
     }
 }
-function setDafault(){
-    document.getElementById('label_name').innerHTML = 'ชื่อ : ' 
-    document.getElementById('label_address').innerHTML = 'ที่อยู่ : ' 
-    document.getElementById('label_phone').innerHTML = 'เบอร์โทรศัพท์ : ' 
-    document.getElementById('label_tax').innerHTML = 'เลขประจำตัวผู้เสียภาษี : ' 
+function setDafault() {
+    document.getElementById('label_name').innerHTML = 'ชื่อ : '
+    document.getElementById('label_address').innerHTML = 'ที่อยู่ : '
+    document.getElementById('label_phone').innerHTML = 'เบอร์โทรศัพท์ : '
+    document.getElementById('label_tax').innerHTML = 'เลขประจำตัวผู้เสียภาษี : '
 }
 
+function checkInputText() {
+    var cus_name = document.getElementById('input_name').value
+    var cus_address = document.getElementById('input_address').value
+    var cus_phone = document.getElementById('input_phone').value
+    var cus_tax = document.getElementById('input_tax').value
+    var cus_input = true
 
+    var car_name = document.getElementById('input_car').value
+    var car_num = document.getElementById('input_carNum').value
+    var car_model = document.getElementById('input_model').value
+    var car_input = true
 
+    if (car_name === '' || car_num === '' || car_model === '') {
+        car_input = false
+    }
 
+    if (cus_name === '' || cus_address === '' || cus_phone === '' || cus_tax === '') {
+        cus_input = false
+    }
+    if ((selectName === 'none' && cus_input === false) || car_input === false) {
+        alert('กรุณากรอกข้อมูล')
+    } else {
+        if (selectName !== 'none') {
+            var productObj = {}
+            productObj.prod_id = maxProduct + 1
+            productObj.cust_id = searchCustomerByName(selectName,customer).cust_id
+            productObj.car_brand = car_name
+            productObj.car_model = car_model
+            productObj.car_license = car_num
+            InsertProduct(productObj);
+            var product_check = InsertProduct(productObj);
+
+            if (!product_check) {
+                alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+            } else {
+                alert('[1]บันทึกข้อมูลสำเร็จ')
+            }
+        } else {
+            var custObj = {}
+            custObj.cust_id = maxCustomer + 1
+            custObj.cus_name = cus_name
+            custObj.cus_address = cus_address
+            custObj.cus_phone = cus_phone
+            custObj.cus_tax = cus_tax
+
+            var cust_check = InsertCostomer(CustomerData);
+            if (!cust_check) {
+                alert('เกิดข้อผิดหลาด ชื่อลูกค้าซ้ำกัน')
+            }
+            console.log('cust_check = ' + cust_check)
+            plusMaxValue('customer')
+            console.log('maxCustomer =' + maxCustomer)
+
+            var productObj = {}
+            productObj.prod_id = maxProduct + 1
+            productObj.cust_id = maxCustomer
+            productObj.car_brand = car_name
+            productObj.car_model = car_model
+            productObj.car_license = car_num
+
+            var product_check = InsertProduct(productObj);
+
+            if (!product_check) {
+                alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+            } else {
+                alert('บันทึกข้อมูลสำเร็จ')
+            }
+        }
+
+    }
+    console.log('check')
+    console.log('cus_input = ' + cus_input)
+    console.log('car_input = ' + car_input)
+    console.log('selectName = ' + selectName)
+}
+
+function InsertCostomer(CustomerData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/customer/insert', { "customerData": CustomerData }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
+function InsertProduct(productData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/products/RegisterLicense/insert', { "productData": productData }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
 
 
 

@@ -162,10 +162,10 @@
                             <div id = 'data_input'>
                                 <div class="boxplate columns" style="padding:10px">
                                     <div id='group-label'>
-                                        <label class="label is-2">ชื่อ :</label><br><br>
-                                        <label class="label is-2">ที่อยู่</label><br><br><br><br><br><br><br><br>
-                                        <label class="label is-2">เบอร์โทรศัพท์</label><br><br>
-                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
+                                        <label class="label is-2">ชื่อ *</label><br><br>
+                                        <label class="label is-2">ที่อยู่ *</label><br><br><br><br><br><br><br><br>
+                                        <label class="label is-2">เบอร์โทรศัพท์ *</label><br><br>
+                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี *</label>
                                     </div>
                                     <div id='group-input' class="column is-6 ">
                                         <center>
@@ -205,31 +205,31 @@
                         <div class="border-gray">
                             <div class="columns" style="margin-left:2%">
                                 <div class="column is-1" style="padding:40px">
-                                    <label class="label is-2">ยี่ห้อรถ </label>
+                                    <label class="label is-2">ยี่ห้อรถ *</label>
                                     <br>
                                     <br>
-                                    <label class="label is-2">เลขทะเบียน </label>
+                                    <label  class="label is-2">เลขทะเบียน *</label>
                                     <br>
                                     <br>
                                 </div>
                                 <div class="column is-2">
-                                    <input type="text" class="input-plate" style="width: 95%">
+                                    <input id='input_car' type="text" class="input-plate" style="width: 95%">
                                     <br>
                                     <br>
-                                    <input type="text" class="input-plate" style="width: 95%">
+                                    <input id='input_carNum' type="text" class="input-plate" style="width: 95%">
                                     <br>
 
                                 </div>
 
                                 <div class="column is-1" style="margin-left:5%">
-                                    <label class="label is-2">รุ่น </label>
+                                    <label  class="label is-2">รุ่น *</label>
                                     <br>
                                     <br>
                                     <br>
                                     <br>
                                 </div>
                                 <div class="column is-2">
-                                    <input type="text" class="input-plate" style="width: 100%">
+                                    <input id='input_model'type="text" class="input-plate" style="width: 100%">
                                     <br>
                                     <br>
                                     <br>
@@ -242,7 +242,7 @@
                             <div class="column is-4">
                                 <br>
                                 <center>
-                                    <button type="button" onclick="printDiv('print_appiontment')"
+                                    <button type="button" onclick="checkInputText()"
                                         class="button is-round is-2  is-oros">ยืนยัน</button>
                                     <button type="button" onclick="plate_license()"
                                         class="button is-round is-2  is-yentafo">ยกเลิก</button>

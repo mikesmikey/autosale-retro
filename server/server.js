@@ -12,6 +12,7 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer= require('./Customer');
 const Partner = require('./Partner');
+const ProductRegister = require('./ProductRegister');
 
 
 const WebDAOObj = new WebDAO();
@@ -42,8 +43,11 @@ app.get("/products/:type", (req, res) => {
     }
   });
 });
-
-
+app.get("/products/RegisterLicense/insert", (req, res) => {
+  WebDAOObj.insertProdeuctRegister(new ProductRegister(req.body.productData)).then(data => {
+      res.json(data);
+  });
+});
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
     if (data != null) {
@@ -65,7 +69,7 @@ app.get("/partners", (req, res) => {
 });
 
 app.post("/partners/add", (req, res) => {
-  WebDAOObj.insertPartner(new Partner(req.body.partnerData)).then(data => {
+  WebDAOObj.insertPartner(req.body.partnerData).then(data => {
       res.json(data);
   })
 });
@@ -133,6 +137,11 @@ app.post('/customer/edit', (req, res) => {
   })
 })
 
+app.post('/customer/insert', (req, res) => {
+  WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data)=> {
+      res.send(data);
+  })
+})
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
