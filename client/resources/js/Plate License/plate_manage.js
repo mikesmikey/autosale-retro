@@ -12,8 +12,8 @@ function startForm() {
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
-            console.log(result.data) 
+        axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
+            console.log(result.data)
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 invoice.push(result.data[i])
@@ -33,7 +33,7 @@ function getAllCustomer() {
 }
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/type/'+type).then((result) => {
+        axios.get('http://localhost:5000/products/type/' + type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
@@ -43,7 +43,11 @@ function getAllProductByType(type) {
     })
 }
 function launchLicenseDelete() {
-    document.getElementById('delete-license').classList.add('is-active');
+    if(select === 'none'){
+        alert('กรุณาเลือกหมายเลขทะเบียนรถก่อน')
+    }else{
+        document.getElementById('delete-license').classList.add('is-active');
+    }
 }
 function closeLicenseDelete() {
     document.getElementById('delete-license').classList.remove('is-active');
@@ -93,8 +97,7 @@ function searchCustomer(value, array) {
 }
 function ShowDetail(value) {
     let resultObject = searchProductByCarLicense(value, product);
-    console.log(resultObject)
-    select = value ;
+    select = value;
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
     document.getElementById("dca_car_license").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
@@ -108,7 +111,7 @@ function ShowDetail(value) {
 }
 function createselect(data) {
     for (let i = 0; i < data.length; i++) {
-        var select = document.getElementById("selectNumber");
+        let select = document.getElementById("selectNumber");
         var option = document.createElement("option");
         option.text = data[i].trn_car.car_license;
         option.value = data[i].trn_car.car_license;
@@ -126,7 +129,7 @@ function runScript(e) {
             let resultObject = searchProductByCarLicense(txt, product);
             if (resultObject !== null) {
                 removeAlloption();
-                var select = document.getElementById("selectNumber");
+                let select = document.getElementById("selectNumber");
                 var option = document.createElement("option");
                 option.text = resultObject.trn_car.car_license;
                 option.value = resultObject.trn_car.car_license;
@@ -141,7 +144,7 @@ function runScript(e) {
     return false;
 }
 function removeAlloption() {
-    var select = document.getElementById("selectNumber");
+    let select = document.getElementById("selectNumber");
     var length = select.options.length;
     for (i = 0, c = 0; i < length; i++) {
         select.options[c] = null;
@@ -170,7 +173,7 @@ function setAttributePrint(value) {
 
     //from ใบรับเล่มทะเบียน print_appiontment_appt_date
     let appiontmentApptDate = document.getElementById('print_appiontment_appt_date')
-    appiontmentApptDate.innerHTML = "วันนัดรับเล่มทะเบียน : " + formatStringDate(invoiceObj.trn_desc.appt_date);
+    appiontmentApptDate.innerHTML = "วันนัดรับเล่มทะเบียน : " + formatDate7Day(productObj.prod_order_date)
     let appiontmentDate = document.getElementById('print_appiontment_date')
     appiontmentDate.innerHTML = "วันที่ " + formatStringDate(invoiceObj.issue_date);
     let appiontmentName = document.getElementById('print_appiontment_customer_name')
@@ -191,19 +194,63 @@ function setAttributePrint(value) {
     //print_appiontment_
 
 }
+function deleteProductCustomer(){
+    let productObj = this.searchProductByCarLicense(select,product)
+    this.deleteProduct(productObj).then((check_product)=>{
+        if(check_product){
+            this.closeLicenseDelete()
+            alert('ลบสำเร็จ')
+            this.removeAlloption()
+            this.startForm()
+        }else{
+            this.closeLicenseDelete()
+            alert('เกิดข้อผิดพลาดลบไม่สำเร็จ')
+        }
+    })
+}
 function getCurrentDate() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    yyyy = yyyy+543 
+    yyyy = yyyy + 543
     today = dd + '/' + mm + '/' + yyyy;
 
     return today
 }
 function formatStringDate(value){
     var str = value.split(" ");
-    var date = str[2] + '/' +str[1] + '/'+str[0]
+    var date = str[2]+'/'+str[1]+'/'+str[0]
+    return date
+}
+function formatDate7Day(value) {
+    var str = value.split("/");
+    var dd = Number.parseInt(str[0])
+    var mm = Number.parseInt(str[1])
+    var yyyy = Number.parseInt(str[2])
+    var date = ''
+    var int_dd = Number.parseInt(dd)
+    var int_mm = Number.parseInt(mm)
+    var int_yyyy = Number.parseInt(yyyy)
+    if (int_mm != 2) {
+        if (int_dd + 7 <= 31) {
+            date = (int_dd + 7) + '/' + int_mm + '/' + int_yyyy
+        } else {
+            let tempDay = dd + 7 - 31
+            if (int_mm + 1 <= 12) {
+                date = tempDay + '/' + (int_mm + 1) + '/' + int_yyyy
+            } else {
+                date = tempDay + '/' + (int_mm + 1 - 12) + '/' + (int_yyyy + 1)
+            }
+        }
+    } else {
+        if (int_dd + 7 <= 28) {
+            date = (int_dd + 7) + '/' + int_mm + '/' + int_yyyy
+        } else {
+            let tempDay = int_dd + 7 - 28
+            date = tempDay + '/' + (int_mm + 1) + '/' + int_yyyy
+        }
+    }
     return date
 }
 function printDiv(printDivName) {
@@ -229,19 +276,29 @@ function startFromBeforePrint() {
     getAllCustomer();
     getAllInvoiceByType("Appointment");
 }
-function checInvioce(){
-    
-    let checkObj = searchProductByCarLicense(select,product)
-    if(select === "none"){
+function checInvioce(value) {
+    console.log(select)
+    let checkObj = searchProductByCarLicense(select, product)
+    if (select === "none") {
         alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
     }
-    else if(checkObj.type_desc.licenae_status){
-        //function setAttributePrintFormBills
-        //printDiv('print_bill')
-        //printDiv('print_invoice')
-    }else{
-        alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีราคา")
+    else if(value ===  'print_detail' || value === 'print_appiontment'){
+        printDiv(value)
     }
+    else if (checkObj.type_desc.licenae_status) {
+        //function setAttributePrintFormBills
+        printDiv(value)
+    } else {
+        alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีการกำหนดราคาราคา")
+    }
+}
+
+function deleteProduct(productObj) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/product/delete',{ "productData": productObj }).then((result) => {
+            resolve(result.data);
+        })
+    })
 }
 
 startForm();

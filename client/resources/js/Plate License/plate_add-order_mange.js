@@ -13,7 +13,7 @@ function startForm() {
     });
     getAllInvoiceByType("Appointment")
     setMaxvalue()
-    var ar = searchCustomerByName("mark zuckerberg",customer)
+    var ar = searchCustomerByName("mark zuckerberg", customer)
 }
 
 function setMaxvalue() {
@@ -79,10 +79,10 @@ function searchCustomerByName(nameKey, myArray) {
 }
 
 function removeAlloption() {
-    var select = document.getElementById("list-CustomerName");
+    var select = document.getElementById("listCustomerName");
     var length = select.options.length;
-    for (i = 0, c = 0; i < length; i++) {
-        select.options[c] = null;
+    for (i = 0; i < length; i++) {
+        select.options[0] = null;
     }
 }
 
@@ -123,7 +123,6 @@ function setDafault() {
     document.getElementById('label_phone').innerHTML = 'เบอร์โทรศัพท์ : '
     document.getElementById('label_tax').innerHTML = 'เลขประจำตัวผู้เสียภาษี : '
 }
-
 function checkInputText() {
     var cus_name = document.getElementById('input_name').value
     var cus_address = document.getElementById('input_address').value
@@ -150,49 +149,77 @@ function checkInputText() {
             this.getLastProduct().then((lastProduct) => {
                 var productObj = {}
                 productObj.prod_id = lastProduct[0].prod_id + 1
-                productObj.cust_id = searchCustomerByName(selectName,customer).cust_id
+                productObj.cust_id = searchCustomerByName(selectName, customer).cust_id
                 productObj.car_brand = car_name
                 productObj.car_model = car_model
                 productObj.car_license = car_num
                 var product_check = InsertProduct(productObj);
-                if (!product_check) {
-                    alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
-                } else {
-                    alert('บันทึกข้อมูลสำเร็จ')
-                    this.startForm()
-                }
-             })
+                this.getLastInvoice().then((lastInvoice) =>{
+                    var invoiceObj = {}
+                    invoiceObj.invo_id = lastInvoice[0].invo_id + 1
+                    invoiceObj.prod_id = productObj.prod_id
+                    invoiceObj.cust_id = searchCustomerByName(selectName, customer).cust_id
+                    var invoice_check = InsertInvoice(invoiceObj)
+                    if (!product_check&&!invoice_check) {
+                        alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+                    } else {
+                        alert('บันทึกข้อมูลสำเร็จ')
+                        this.removeAlloption()
+                        this.startForm()
+                        this.setDafaultFrom()
+                    }
+                }) 
+            })
         } else {
-            this.getLastUser().then((lastUser) =>{
+            this.getLastUser().then((lastUser) => {
                 var custObj = {}
                 maxCustomer = lastUser[0].cust_id
                 custObj.id = lastUser[0].cust_id + 1
                 custObj.name = cus_name
                 custObj.addr = cus_address
                 custObj.phone = cus_phone
-                custObj.tax_no = cus_tax 
-                var cust_check = InsertCostomer(custObj);
-                this.getLastProduct().then((lastProduct) => {
-                    var productObj = {}
-                    productObj.prod_id = lastProduct[0].prod_id + 1
-                    productObj.cust_id = custObj.id
-                    productObj.car_brand = car_name
-                    productObj.car_model = car_model
-                    productObj.car_license = car_num
-                    var product_check = InsertProduct(productObj);
-                    if (!product_check) {
-                        alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
-                    } else {
-                        alert('บันทึกข้อมูลสำเร็จ')
-                        this.startForm()
-                    }
-                })
+                custObj.tax_no = cus_tax
+                var customer_check = InsertCostomer(custObj);
+                if(!customer_check){
+                    alert("เกิดข้อผิดพลาด ชือลูกค่้าซ้ำ")
+                }else{
+                    this.getLastProduct().then((lastProduct) => {
+                        var productObj = {}
+                        productObj.prod_id = lastProduct[0].prod_id + 1
+                        productObj.cust_id = custObj.id
+                        productObj.car_brand = car_name
+                        productObj.car_model = car_model
+                        productObj.car_license = car_num
+                        var product_check = InsertProduct(productObj);
+                        this.getLastInvoice().then((lastInvoice) =>{
+                            var invoiceObj = {}
+                            invoiceObj.invo_id = lastInvoice[0].invo_id + 1
+                            invoiceObj.prod_id = productObj.prod_id
+                            invoiceObj.cust_id = custObj.id
+                            var invoice_check = InsertInvoice(invoiceObj)
+                            if (!product_check&&!invoice_check) {
+                                alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+                            } else {
+                                alert('บันทึกข้อมูลสำเร็จ')
+                                this.removeAlloption()
+                                this.startForm()
+                                this.setDafaultFrom()
+                            }
+                        }) 
+                    })
+                }
             })
         }
 
     }
 }
-
+function getLastInvoice() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/invoice/last').then((result) => {
+            resolve(result.data);
+        })
+    })
+}
 function getLastUser() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/user/last').then((result) => {
@@ -207,8 +234,14 @@ function getLastProduct() {
         })
     })
 }
+function InsertInvoice(invoiceData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/invoice/insert/register', { "invoiceObj": invoiceData }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
 function InsertCostomer(CustomerData) {
-
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/customer/insert', { "customerData": CustomerData }).then((result) => {
             resolve(result.data);
@@ -223,7 +256,39 @@ function InsertProduct(productData) {
     })
 }
 
-
+function serachCustomerName() {
+    var input, option, tr, i;
+    input = document.getElementById("serach-input").value;
+    option = document.getElementById("listCustomerName");
+    tr = option.getElementsByTagName("option");
+    for (i = 0; i < tr.length; i++) {
+        console.log(tr[i].value)
+        if (tr[i].value.indexOf(input) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+function setDafaultFrom() {
+    var attribute = ['input_car', 'input_carNum', 'input_model', 'input_tax', 'input_phone', 'input_address', 'input_name']
+    for (var i = 0; i < attribute.length; i++) {
+        console.log(document.getElementById(attribute[i]).value)
+        document.getElementById(attribute[i]).value  = null
+    }
+}
+function checkPhone() {
+    var input = document.getElementById('input_phone')
+    input.value = input.value.slice(0, 10);
+}
+function checkTaxNum() {
+    var input = document.getElementById('input_tax')
+    input.value = input.value.slice(0, 13);
+}
+function checkCarNum() {
+    var input = document.getElementById('input_carNum')
+    input.value = input.value.slice(0, 7);
+}
 
 
 startForm()

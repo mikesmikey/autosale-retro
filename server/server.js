@@ -14,7 +14,6 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
-const ProductRegister = require('./ProductRegister');
 
 
 const WebDAOObj = new WebDAO();
@@ -53,6 +52,11 @@ app.post("/products/RegisterLicense/insert", (req, res) => {
 
 app.get("/products/productIdLast", (req, res) => {
   WebDAOObj.getProductlastNumber().then(data => {
+      res.json(data);
+  });
+});
+app.get("/invoice/last", (req, res) => {
+  WebDAOObj.getInvoicelastNumber().then(data => {
       res.json(data);
   });
 });
@@ -95,6 +99,12 @@ app.post("/partners/add", (req, res) => {
 
 app.post("/partners/edit", (req, res) => {
   WebDAOObj.editPartner(new Partner(req.body.partnerData)).then(data => {
+    res.json(data);
+  })
+});
+
+app.post("/product/delete", (req, res) => {
+  WebDAOObj.deleteProduct(req.body.productData).then(data => {
     res.json(data);
   })
 });
@@ -172,6 +182,11 @@ app.post('/customer/edit', (req, res) => {
 app.post('/customer/insert', (req, res) => {
   console.log(req.body.customerData)
   WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data)=> {
+      res.send(data);
+  })
+})
+app.post('/invoice/insert/register', (req, res) => {
+  WebDAOObj.insertInvoiceRegister(req.body.invoiceObj).then((data)=> {
       res.send(data);
   })
 })
