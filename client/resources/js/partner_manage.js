@@ -9,7 +9,7 @@ function launchPartnerEdit() {
         console.log(document.getElementById("PartnerSelect").value)
         document.getElementById('edit-Partner').classList.add('is-active');
         loadDetailPartner();
-    }else{
+    }else{                                           
         alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
     }
 }
@@ -33,7 +33,7 @@ function launchPartnerDelete() {
     if(document.getElementById("PartnerSelect").value != "" || document.getElementById("companyNameInput").value != ""){
         document.getElementById('delete-Partner').classList.add('is-active');
     }else{
-        alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
+        alert("กรุณาเลือกคู่ค้าที่ต้องการลบ")
     }
 }
 
@@ -199,19 +199,28 @@ function addButtonHandle(companyName,partnerName,partnerPhone,partnerType,partne
     partnerData.partner_addr = partnerAddr;
 
     console.log(partnerData);
-    addPartner(partnerData).then((data) => {
-        if (data) {
-            removeSelected();
-            getAllPartner().then((data) => {
-                setSelected(data);
-            })
-            alert("สำเร็จ!")
-            closePartnerAdd();
-        } else {
-            alert("เพิ่มไม่สำเร็จ!")
-            closePartnerAdd();
-        }
-    })
+    if(companyName.length != 0 && 
+        partnerName.length != 0 && 
+        partnerPhone != 0 && 
+        partnerAddr != 0
+    ){
+        addPartner(partnerData).then((data) => {
+            if (data) {
+                removeSelected();
+                getAllPartner().then((data) => {
+                    setSelected(data);
+                })
+                alert("สำเร็จ!")
+                closePartnerAdd();
+            } else {
+                alert("เพิ่มไม่สำเร็จ!")
+                closePartnerAdd();
+            }
+        })
+    }else{
+        alert("กรุณากรอกข้อมูลให้ครบ!")
+    }
+
 }
 
 
@@ -239,19 +248,27 @@ function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partn
     partnerData.partner_addr = partnerAddr;
 
     //console.log(partnerData);
-    editPartner(partnerData).then((data) => {
-        if (data) { 
-            removeSelected();
-            getAllPartner().then((data) => {
-                setSelectedEdit(data);
-            })
-            alert("สำเร็จ!")
-            closePartnerEdit();
-        } else {
-            alert("แก้ไขไม่สำเร็จ!")
-            closePartnerEdit();
-        }
-    })
+    if(companyName.length != 0 && 
+        partnerName.length != 0 && 
+        partnerPhone != 0 && 
+        partnerAddr != 0
+    ){
+        editPartner(partnerData).then((data) => {
+            if (data) { 
+                removeSelected();
+                getAllPartner().then((data) => {
+                    setSelectedEdit(data);
+                })
+                alert("สำเร็จ!")
+                closePartnerEdit();
+            } else {
+                alert("แก้ไขไม่สำเร็จ!")
+                closePartnerEdit();
+            }
+        })
+    }else{
+        alert("กรุณากรอกข้อมูลให้ครบ!")
+    }
     
 }
 
