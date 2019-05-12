@@ -10,6 +10,7 @@ let thisCarData;
 var partsRepair;
 let selectedRow = -1;
 let selectedRowUsed = -1;
+let proceed = false
 
 function whenFormOpenUp() {
   getAllPart().then(data => {
@@ -34,6 +35,17 @@ function editPartThisProduct(partsUsingData, thisPlateLicense) {
   });
 }
 
+function lockProceed() {
+
+  if (thisCarData.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
+    proceed = false
+    document.getElementById("repairing_status").disabled = false
+  }
+  else if (thisCarData.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+    proceed = true
+    document.getElementById("repairing_status").disabled = true
+  }
+}
 
 function editRepairStatus() {
   return new Promise((resolve, reject) => {
@@ -67,6 +79,8 @@ function getAllUsedPartsByThisLicense(val) {
       .then(result => {
         resolve(result.data);
         thisCarData = result.data;
+
+        lockProceed();
       });
   });
 }
@@ -465,12 +479,12 @@ function selectedStatusRepairing() {
       editRepairStatus(thisPlateLicense).then(data => {
         if (data) {
           alert("อัพเดทสถานะซ่อมแล้ว")
+          window.location.href = "./car_fix.html"
         }
       })
       break;
     }
   }
-  // window.location.href = "./car_fix.html"
 }
 
 function acceptChange() {
@@ -542,7 +556,8 @@ function acceptChange() {
                 }
 
                 if (
-                  hasUpdate ? !hasNumchange : hasNumchange
+                  hasUpdate == true && hasNumchange == true ||
+                  hasUpdate == false && hasNumchange == false
                 ) {
                   let partsNumNotNegative =
                     partshub[j].parts_num - partsUsingData[i].parts_num;
@@ -559,6 +574,7 @@ function acceptChange() {
                           partshub
                         )}" สำเร็จ`
                       );
+                      window.location.href = "./car_fix.html"
                     }
                   });
                   console.log(partsUsingData[i], hasUpdate, hasNumchange);
@@ -567,8 +583,6 @@ function acceptChange() {
               }
             }
           }
-
-          window.location.href = "./car_fix.html"
 
         } else {
           alert("อัพเดทอะไหล่ไม่สำเร็จ");
