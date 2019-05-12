@@ -63,3 +63,7 @@ button#but01{
 body{
   -webkit-print-color-adjust:exact;
 }
+div#appointment_repairing_detail {
+  border: 1px solid black;
+  width: 95%
+}
