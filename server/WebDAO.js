@@ -47,7 +47,6 @@ class WebDAO {
             });
         });
     }
-//$natural:-1
     getCustomerlastNumber(){
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -59,7 +58,17 @@ class WebDAO {
             });
         });
     }
-
+    getProductlastNumber(){
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find().sort({prod_id: -1}).limit(1).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     getAllProductByType(type) {
         return new Promise((resolve, reject) => {
@@ -179,11 +188,10 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                console.log(customer)
                 db.collection('Customer').findOne({ "cust_name": customer.cust_name }, (err, data) => {
                     if (err) { throw err }
                     if (!data) {
-                        db.collection('User').insertOne(customer.getUserObjectData(), (err, result) => {
+                        db.collection('Customer').insertOne(customer.getCustomerObjectData(), (err, result) => {
                             if (err) { throw err }
                             return resolve(true);
                         });
@@ -193,7 +201,7 @@ class WebDAO {
         });
     }
 
-    insertProdeuctRegister(Product) {
+    insertProdeuctRegister(arrObj) {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -203,7 +211,6 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                var arrObj = Product.getProductRegister();
                 console.log('[insertProdeuctRegister] arrObj = ' + arrObj)
                 var doc = {
                     prod_id: arrObj.prod_id,
