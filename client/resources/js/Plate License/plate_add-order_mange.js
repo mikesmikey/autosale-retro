@@ -12,23 +12,11 @@ function startForm() {
         createselect(data)
     });
     getAllInvoiceByType("Appointment")
-    console.log(product)
-    console.log(customer)
-    console.log(invoice)
     setMaxvalue()
-    console.log('[1] maxCustomer = '+maxCustomer)
-    console.log('[1] maxInvoice = '+maxInvoice)
-    console.log('[1] maxProduct = '+maxProduct)
     var ar = searchCustomerByName("mark zuckerberg",customer)
-    console.log('size '+Object.keys(customer).length)
-    console.log('ar '+ar)
-    //console.log(' customer '+ customer[0].cust_id)
 }
 
 function setMaxvalue() {
-    console.log('[setMaxvalue] product.length = '+product.length)
-    console.log('[setMaxvalue] customer.length = '+customer.length)
-    console.log('[setMaxvalue] invoice.length = '+invoice.length)
     //set product max id
     for (i = 0; i < product.length; i++) {
         if (product.prod_id > maxProduct) {
@@ -159,60 +147,55 @@ function checkInputText() {
         alert('กรุณากรอกข้อมูล')
     } else {
         if (selectName !== 'none') {
-            var productObj = {}
-            productObj.prod_id = maxProduct + 1
-            productObj.cust_id = searchCustomerByName(selectName,customer).cust_id
-            productObj.car_brand = car_name
-            productObj.car_model = car_model
-            productObj.car_license = car_num
-            InsertProduct(productObj);
-            var product_check = InsertProduct(productObj);
-            console.log("Sexy Code")
-            console.log(product_check)
-            if (!product_check) {
-                alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
-            } else {
-                alert('[1]บันทึกข้อมูลสำเร็จ')
-            }
+            this.getLastProduct().then((lastProduct) => {
+                var productObj = {}
+                productObj.prod_id = lastProduct[0].prod_id + 1
+                productObj.cust_id = searchCustomerByName(selectName,customer).cust_id
+                productObj.car_brand = car_name
+                productObj.car_model = car_model
+                productObj.car_license = car_num
+                var product_check = InsertProduct(productObj);
+                if (!product_check) {
+                    alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+                } else {
+                    alert('บันทึกข้อมูลสำเร็จ')
+                }
+             })
         } else {
             this.getLastUser().then((lastUser) =>{
                 var custObj = {}
                 maxCustomer = lastUser[0].cust_id
-                custObj.cust_id = lastUser[0].cust_id + 1
-                custObj.cus_name = cus_name
-                custObj.cus_address = cus_address
-                custObj.cus_phone = cus_phone
-                custObj.cus_tax = cus_tax 
-                console.log(custObj)
+                custObj.id = lastUser[0].cust_id + 1
+                custObj.name = cus_name
+                custObj.addr = cus_address
+                custObj.phone = cus_phone
+                custObj.tax_no = cus_tax 
                 var cust_check = InsertCostomer(custObj);
                 if (!cust_check) {
                     alert('เกิดข้อผิดหลาด ชื่อลูกค้าซ้ำกัน')
+                }else{
+                    alert('บันทึกข้อมูลสำเร็จ')
                 }
-                console.log('cust_check = ' + cust_check)
+                this.getLastProduct().then((lastProduct) => {
+                    var productObj = {}
+                    productObj.prod_id = lastProduct[0].prod_id + 1
+                    productObj.cust_id = custObj.id
+                    productObj.car_brand = car_name
+                    productObj.car_model = car_model
+                    productObj.car_license = car_num
+                    var product_check = InsertProduct(productObj);
+                    if (!product_check) {
+                        alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
+                    } else {
+                        alert('บันทึกข้อมูลสำเร็จ')
+                    }
+                })
             })
-           
-
-            // var productObj = {}
-            // productObj.prod_id = maxProduct + 1
-            // productObj.cust_id = maxCustomer
-            // productObj.car_brand = car_name
-            // productObj.car_model = car_model
-            // productObj.car_license = car_num
-            // var product_check = InsertProduct(productObj);
-
-            if (!product_check) {
-                alert('เกิดข้อผิดหลาดทางเซิฟเวอร์')
-            } else {
-                alert('บันทึกข้อมูลสำเร็จ')
-            }
         }
 
     }
-    console.log('check')
-    console.log('cus_input = ' + cus_input)
-    console.log('car_input = ' + car_input)
-    console.log('selectName = ' + selectName)
 }
+
 function getLastUser() {
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/user/last').then((result) => {
@@ -220,8 +203,15 @@ function getLastUser() {
         })
     })
 }
-
+function getLastProduct() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/products/productIdLast').then((result) => {
+            resolve(result.data);
+        })
+    })
+}
 function InsertCostomer(CustomerData) {
+
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/customer/insert', { "customerData": CustomerData }).then((result) => {
             resolve(result.data);

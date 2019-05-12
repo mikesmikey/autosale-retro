@@ -45,11 +45,18 @@ app.get("/products/type/:type", (req, res) => {
     }
   });
 });
-app.get("/products/RegisterLicense/insert", (req, res) => {
-  WebDAOObj.insertProdeuctRegister(new ProductRegister(req.body.productData)).then(data => {
+app.post("/products/RegisterLicense/insert", (req, res) => {
+  WebDAOObj.insertProdeuctRegister(req.body.productData).then(data => {
       res.json(data);
   });
 });
+
+app.get("/products/productIdLast", (req, res) => {
+  WebDAOObj.getProductlastNumber().then(data => {
+      res.json(data);
+  });
+});
+
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
     if (data != null) {
@@ -163,6 +170,7 @@ app.post('/customer/edit', (req, res) => {
 })
 
 app.post('/customer/insert', (req, res) => {
+  console.log(req.body.customerData)
   WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data)=> {
       res.send(data);
   })
