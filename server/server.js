@@ -14,6 +14,7 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
+const ProductRegister = require('./ProductRegister');
 
 
 const WebDAOObj = new WebDAO();
@@ -44,7 +45,17 @@ app.get("/products/type/:type", (req, res) => {
     }
   });
 });
+app.post("/products/RegisterLicense/insert", (req, res) => {
+  WebDAOObj.insertProdeuctRegister(req.body.productData).then(data => {
+      res.json(data);
+  });
+});
 
+app.get("/products/productIdLast", (req, res) => {
+  WebDAOObj.getProductlastNumber().then(data => {
+      res.json(data);
+  });
+});
 
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
@@ -58,6 +69,16 @@ app.get("/parts", (req, res) => {
 
 app.get("/partners", (req, res) => {
   WebDAOObj.getAllPartner().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
+app.get("/user/last", (req, res) => {
+  WebDAOObj.getCustomerlastNumber().then(data => {
     if (data != null) {
       res.json(data);
     } else {
@@ -148,6 +169,12 @@ app.post('/customer/edit', (req, res) => {
   })
 })
 
+app.post('/customer/insert', (req, res) => {
+  console.log(req.body.customerData)
+  WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data)=> {
+      res.send(data);
+  })
+})
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
@@ -175,11 +202,6 @@ app.get("/images/id_:imgId", (req, res) => {
   })
 })
 
-app.post("/customer/add", (req, res) => {
-  WebDAOObj.insertCustomer(req.body.custData).then(data => {
-    res.json(data);
-  })
-})
 
 app.post("/invoice/type/Appt/add", (req, res) => {
   WebDAOObj.insertInvoiceByTypeAppt(req.body.invoData).then(data => {

@@ -43,18 +43,72 @@ function closePartnerDelete() {
 
 
 function setSelectedStart(first) {
-    document.getElementById("companyName").innerHTML = partner[first].company_name;
-    document.getElementById("partnerName").innerHTML = partner[first].partner_name;
-    document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
+
+    if(partner[first].company_name.length>92){
+        var Ccompanynam = "";
+        for(var j = 0;j<partner[first].company_name.length;j+=92){
+            Ccompanynam += partner[first].company_name.substring(j,j+92);
+            if(j+92<partner[first].company_name.length){
+                Ccompanynam += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+            }
+        }
+        document.getElementById("companyName").innerHTML = Ccompanynam;
+        document.getElementById("companyNamePrint").innerHTML = Ccompanynam;
+    }else{
+        document.getElementById("companyName").innerHTML = partner[first].company_name;
+        document.getElementById("companyNamePrint").innerHTML = partner[first].company_name;
+    }
+
+    if(partner[first].partner_name.length>97){
+        var Cpartnername = "";
+        for(var k = 0;k<partner[first].partner_name.length;k+=97){
+            Cpartnername += partner[first].partner_name.substring(k,k+97);
+            if(k+97<partner[first].partner_name.length){
+                Cpartnername += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+            }            
+        }
+        document.getElementById("partnerName").innerHTML = Cpartnername;
+        document.getElementById("partnerNamePrint").innerHTML = Cpartnername;
+    }else{
+        document.getElementById("partnerName").innerHTML = partner[first].partner_name;
+        document.getElementById("partnerNamePrint").innerHTML = partner[first].partner_name;
+    }
+
+
+    if(partner[first].partner_phone.length>79){
+        var Cpartnerphone = "";
+        for(var o = 0;o<partner[first].partner_phone.length;o+=79){
+            Cpartnerphone += partner[first].partner_phone.substring(o,o+79);
+            if(o+79<partner[first].partner_phone.length){
+                Cpartnerphone += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+            }
+        }
+        document.getElementById("partnerPhone").innerHTML = Cpartnerphone;
+        document.getElementById("partnerPhonePrint").innerHTML = Cpartnerphone;
+    }else{
+        document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
+        document.getElementById("partnerPhonePrint").innerHTML = partner[first].partner_phone;
+    }
+    
+    if(partner[first].partner_addr.length>95){
+        var Cpartneraddr = "";
+        for(var p = 0;p<partner[first].partner_addr.length;p+=95){
+            Cpartneraddr += partner[first].partner_addr.substring(p,p+95);
+            if(p+95<partner[first].partner_addr.length){
+                Cpartneraddr += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+            }
+        }
+        document.getElementById("partnerAddr").innerHTML = Cpartneraddr;
+        document.getElementById("partnerAddrPrint").innerHTML = Cpartneraddr;
+    }else{
+        document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
+        document.getElementById("partnerAddrPrint").innerHTML = partner[first].partner_addr;
+    }
+
     document.getElementById("partnerType").innerHTML = partner[first].partner_type;
-    document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
-
-
-    document.getElementById("companyNamePrint").innerHTML = partner[first].company_name;
-    document.getElementById("partnerNamePrint").innerHTML = partner[first].partner_name;
-    document.getElementById("partnerPhonePrint").innerHTML = partner[first].partner_phone;
+    
     document.getElementById("partnerTypePrint").innerHTML = partner[first].partner_type;
-    document.getElementById("partnerAddrPrint").innerHTML = partner[first].partner_addr;
+
 }
 
 function  setDetailZero() {
@@ -234,11 +288,70 @@ function loadCompanyNameInSelect() {
 function loadDetailPartner(CompanyNameS) {
     for(let i = 0;i<partner.length;i++){
         if(partner[i].company_name == CompanyNameS){
-            document.getElementById("companyName").innerHTML = partner[i].company_name;
-            document.getElementById("partnerName").innerHTML = partner[i].partner_name;
-            document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
-            document.getElementById("partnerType").innerHTML = partner[i].partner_type;
-            document.getElementById("partnerAddr").innerHTML = partner[i].partner_addr;
+ 
+            if(partner[i].company_name.length>92){
+                var Ccompanynam = "";
+                for(var j = 0;j<partner[i].company_name.length;j+=92){
+                    Ccompanynam += partner[i].company_name.substring(j,j+92);
+                    if(j+92<partner[i].company_name.length){
+                        Ccompanynam += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                    }
+                }
+                document.getElementById("companyName").innerHTML = Ccompanynam;
+                document.getElementById("companyNamePrint").innerHTML = Ccompanynam;
+            }else{
+                document.getElementById("companyName").innerHTML = partner[i].company_name;
+                document.getElementById("companyNamePrint").innerHTML = partner[i].company_name;
+            }
+
+            if(partner[i].partner_name.length>97){
+                var Cpartnername = "";
+                for(var k = 0;k<partner[i].partner_name.length;k+=97){
+                    Cpartnername += partner[i].partner_name.substring(k,k+97);
+                    if(k+97<partner[i].partner_name.length){
+                        Cpartnername += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                    }            
+                }
+                document.getElementById("partnerName").innerHTML = Cpartnername;
+                document.getElementById("partnerNamePrint").innerHTML = Cpartnername;
+            }else{
+                document.getElementById("partnerName").innerHTML = partner[i].partner_name;
+                document.getElementById("partnerNamePrint").innerHTML = partner[i].partner_name;
+            }
+
+
+            if(partner[i].partner_phone.length>79){
+                var Cpartnerphone = "";
+                for(var o = 0;o<partner[i].partner_phone.length;o+=79){
+                    Cpartnerphone += partner[i].partner_phone.substring(o,o+79);
+                    if(o+79<partner[i].partner_phone.length){
+                        Cpartnerphone += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                    }
+                }
+                document.getElementById("partnerPhone").innerHTML = Cpartnerphone;
+                document.getElementById("partnerPhonePrint").innerHTML = Cpartnerphone;
+            }else{
+                document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
+                document.getElementById("partnerPhonePrint").innerHTML = partner[i].partner_phone;
+            }
+            
+            if(partner[i].partner_addr.length>95){
+                var Cpartneraddr = "";
+                for(var p = 0;p<partner[i].partner_addr.length;p+=95){
+                    Cpartneraddr += partner[i].partner_addr.substring(p,p+95);
+                    if(p+95<partner[i].partner_addr.length){
+                        Cpartneraddr += "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                    }
+                }
+                document.getElementById("partnerAddr").innerHTML = Cpartneraddr;
+                document.getElementById("partnerAddrPrint").innerHTML = Cpartneraddr;
+            }else{
+                document.getElementById("partnerAddr").innerHTML = partner[i].partner_addr;
+                document.getElementById("partnerAddrPrint").innerHTML = partner[i].partner_addr;
+            }
+
+            
+            document.getElementById("partnerType").innerHTML = partner[i].partner_type;            
 
             document.getElementById("companyNameInput").value = partner[i].company_name;
             document.getElementById("partnerNameInput").value = partner[i].partner_name;
@@ -246,11 +359,8 @@ function loadDetailPartner(CompanyNameS) {
             document.getElementById("partnerTypeInput").value = partner[i].partner_type;
             document.getElementById("partnerAddrInput").value = partner[i].partner_addr;
 
-            document.getElementById("companyNamePrint").innerHTML = partner[i].company_name;
-            document.getElementById("partnerNamePrint").innerHTML = partner[i].partner_name;
-            document.getElementById("partnerPhonePrint").innerHTML = partner[i].partner_phone;
             document.getElementById("partnerTypePrint").innerHTML = partner[i].partner_type;
-            document.getElementById("partnerAddrPrint").innerHTML = partner[i].partner_addr;
+            
             companyname = partner[i].company_name;
             break;
         }
@@ -269,31 +379,7 @@ function getPartnerDetailByCompany(companyName, myArray) {
 }
 
 
-function runScript(e) {
-    if (e.keyCode == 13) {
-        var txt = document.getElementById("input_partner_name").value
-        if (txt === "") {
-            removeSelected();
-            setSelectedEdit(partner);
-            setSelectedStart(numberStatr);
-        } else {
-            let resultObject = getPartnerDetailByCompany(txt, partner);
-            console.log(resultObject)
-            if (resultObject !== null) {
-                removeSelected();
-                var option = document.createElement("option");
-                option.text = resultObject.company_name;
-                option.value = resultObject.company_name;
-                loadDetailPartner(resultObject.company_name);
-                select.appendChild(option);
-            } else {
-                removeSelected();
-                setDetailZero();
-            }
-        }
-    }
-    return false;
-}
+
 
 
 

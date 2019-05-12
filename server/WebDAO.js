@@ -47,6 +47,28 @@ class WebDAO {
             });
         });
     }
+    getCustomerlastNumber(){
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').find().sort({cust_id: -1}).limit(1).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
+    getProductlastNumber(){
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find().sort({prod_id: -1}).limit(1).toArray((err, data) => {
+                    if (err) { throw err }
+                    return resolve(data);
+                });
+            });
+        });
+    }
 
     getAllProductByType(type) {
         return new Promise((resolve, reject) => {
@@ -161,6 +183,68 @@ class WebDAO {
             });
         });
     }
+
+    insertCustomer(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').findOne({ "cust_name": customer.cust_name }, (err, data) => {
+                    if (err) { throw err }
+                    if (!data) {
+                        db.collection('Customer').insertOne(customer.getCustomerObjectData(), (err, result) => {
+                            if (err) { throw err }
+                            return resolve(true);
+                        });
+                    } else { return resolve(false) }
+                });
+            });
+        });
+    }
+
+    insertProdeuctRegister(arrObj) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + ' ' + mm + ' ' + dd;
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                console.log('[insertProdeuctRegister] arrObj = ' + arrObj)
+                var doc = {
+                    prod_id: arrObj.prod_id,
+                    cust_id: arrObj.cust_id,
+                    prod_order_date: today,
+                    prod_type: 'RegisterLicense',
+                    type_desc: {
+                        car_license: arrObj.car_license,
+                        price_per_book: -1,
+                        fare: -1,
+                        total_price: -1,
+                        licenae_status: false
+                    },
+                    trn_car: {
+                        car_brand: arrObj.car_brand,
+                        car_model: arrObj.car_model,
+                        car_license: arrObj.car_license,
+                        car_pic: {}
+                    }
+                };
+                console.log('[insertProdeuctRegister] doc = ' + doc)
+                db.collection('Product').insertOne(doc, (err, result) => {
+                    if (err) { throw err }
+                    if (result) {
+                        return resolve(true);
+                    } else {
+                        return resolve(false);
+                    }
+                });
+
+            });
+        });
+    }
+
     deleteCustomerByName(name) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -242,6 +326,22 @@ class WebDAO {
         });
     }
 
+
+    /*===========[Car Fix DAO]===================*/
+
+    getCarByPlateLicense(lplate) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne(
+                    { "type_desc.car_license": lplate }, (err, data) => {
+                        if (err) { throw err }
+                        return resolve(data);
+                    });
+            });
+        });
+    }
+
     deleteCarFixProductByThisLicense(car_license) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -266,12 +366,12 @@ class WebDAO {
     //             let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
     //             let downloadStream = bucket.openDownloadStreamByName(cust_id);
 
-                // const writadableImgStream = new Writable({
-                //     write(chunk, encoding, callback) {
-                //         console.log('on write stream  => ', chunk.toString());
-                //         callback();
-                //     }
-                // });
+    // const writadableImgStream = new Writable({
+    //     write(chunk, encoding, callback) {
+    //         console.log('on write stream  => ', chunk.toString());
+    //         callback();
+    //     }
+    // });
 
     //             downloadStream.on('data', (chunk) => {
     //                console.log('on data => ', chunk)
@@ -320,18 +420,6 @@ class WebDAO {
         });
     }
 
-    insertCustomer(customer) {
-        return new Promise((resolve, reject) => {
-            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-                const db = client.db(dbName)
-                db.collection('Customer').insertOne(customer, (err, result) => {
-                    if (err) { throw err }
-                    return resolve(true);
-                });
-            });
-        });
-    }
-
     insertProductByTypeRepair(product) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -352,6 +440,7 @@ class WebDAO {
                     if (err) { throw err }
                     return resolve(true);
                 });
+
             });
         });
     }
@@ -360,10 +449,10 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').findOne({"prod_type": "Repair", "trn_car.car_license": licenseCarFix}, ( err, data ) => {
-                    if(err) { throw err }
+                db.collection('Product').findOne({ "prod_type": "Repair", "trn_car.car_license": licenseCarFix }, (err, data) => {
+                    if (err) { throw err }
                     return resolve(data)
-                })               
+                })
             });
         });
     }
@@ -372,12 +461,12 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.trn_parts_repair": partsUsingData }}, (err, result) => {
-                    if(err) { throw err }
+                db.collection('Product').findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.trn_parts_repair": partsUsingData } }, (err, result) => {
+                    if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
-                    } else { 
-                        return resolve(false) 
+                    } else {
+                        return resolve(false)
                     }
                 })
             });
@@ -388,12 +477,12 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.cost_of_repairs": parseInt(cost) }}, (err, result) => {
-                    if(err) { throw err }
+                db.collection('Product').findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.cost_of_repairs": parseInt(cost) } }, (err, result) => {
+                    if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
-                    } else { 
-                        return resolve(false) 
+                    } else {
+                        return resolve(false)
                     }
                 })
             });
@@ -404,12 +493,12 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').findOneAndUpdate({"trn_car.car_license": licenseCarFix}, {"$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" }}, (err, result) => {
-                    if(err) { throw err }
+                db.collection('Product').findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" } }, (err, result) => {
+                    if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
-                    } else { 
-                        return resolve(false) 
+                    } else {
+                        return resolve(false)
                     }
                 })
             });
@@ -420,12 +509,12 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('PartsHub').findOneAndUpdate({"parts_id": partsUsingData.parts_id}, {"$set":{ "parts_num": partsUsingData.parts_num }}, (err, result) => {
-                    if(err) { throw err }
+                db.collection('PartsHub').findOneAndUpdate({ "parts_id": partsUsingData.parts_id }, { "$set": { "parts_num": partsUsingData.parts_num } }, (err, result) => {
+                    if (err) { throw err }
                     if (result.value) {
-                        return resolve({"status": true, "parts_id": partsUsingData.parts_id});
-                    } else { 
-                        return resolve({"status": false}) 
+                        return resolve({ "status": true, "parts_id": partsUsingData.parts_id });
+                    } else {
+                        return resolve({ "status": false })
                     }
                 })
             });
