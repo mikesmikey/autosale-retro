@@ -47,33 +47,33 @@ class WebDAO {
             });
         });
     }
-    getCustomerlastNumber(){
+    getCustomerlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').find().sort({cust_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
             });
         });
     }
-    getProductlastNumber(){
+    getProductlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find().sort({prod_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Product').find().sort({ prod_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
             });
         });
     }
-    getInvoicelastNumber(){
+    getInvoicelastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Invoice').find().sort({invo_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Invoice').find().sort({ invo_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -216,7 +216,7 @@ class WebDAO {
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
 
-        today = dd+'/'+mm+'/'+yyyy;
+        today = dd + '/' + mm + '/' + yyyy;
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
@@ -253,20 +253,66 @@ class WebDAO {
             });
         });
     }
+    insertBillsTypeRegister(invoice) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = yyyy + ' ' + mm + ' ' + dd;
+
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                var paraTemp = {}
+                paraTemp.total = invoice.price
+                paraTemp.tax = Number.parseInt(paraTemp.total) * 0.07
+                paraTemp.exc_vat = paraTemp.total + paraTemp.tax
+                var doc = {
+                    invo_id: invoice.InvoId,
+                    prod_id: invoice.prodId,
+                    cust_id: invoice.cusId,
+                    invo_type: "Bill",
+                    trn_desc: {
+                        total: paraTemp.total,
+                        tax: paraTemp.tax,
+                        exc_vat: paraTemp.exc_vat,
+                        items: [
+                            {
+                                item_name: invoice.carLicense,
+                                item_price: invoice.price,
+                                item_num: 1
+                            }
+                        ]
+                    },
+                    issue_date_no: 1,
+                    issue_date: today
+                };
+                db.collection('Invoice').insertOne(doc, (err, result) => {
+                    if (err) { throw err }
+                    if (result) {
+                        return resolve(true);
+                    } else {
+                        return resolve(false);
+                    }
+                });
+
+            });
+        });
+    }
     insertInvoiceRegister(invoice) {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-    
+
         today = yyyy + ' ' + mm + ' ' + dd;
-    
+
         var day7 = ''
         var int_dd = Number.parseInt(dd)
         var int_mm = Number.parseInt(mm)
         var int_yyyy = Number.parseInt(yyyy)
         if (int_mm !== 2) {
-            var checkday = int_dd+7
+            var checkday = int_dd + 7
             console.log(checkday)
             var checkmon = int_mm + 1
             if (checkday <= 31) {
@@ -315,6 +361,33 @@ class WebDAO {
             });
         });
     }
+    changeStatusProductRegister(productData) {
+        console.log(productData)
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({ prod_id: Number.parseInt(productData.prod_id)  }).toArray((err, data) => {
+                    if (err) { throw err }
+                    if(data){
+                        data[0].type_desc.price_per_book = Number.parseInt(productData.price_per_book)
+                        data[0].type_desc.fare = Number.parseInt(productData.fare)
+                        data[0].type_desc.total_price = Number.parseInt(productData.total_price)
+                        data[0].type_desc.licenae_status =  true
+                        console.log(data[0])
+                        db.collection('Product').findOneAndUpdate({ "prod_id": Number.parseInt(productData.prod_id) }, { "$set": data[0] }, (err, result) => {
+                            if (err) { throw err }
+                            if (result.value) {
+                                return resolve(true);
+                            } else { return resolve(false) }
+                        });
+                    }else{
+                        return resolve(false)
+                    }
+                });
+            });
+        });
+    }
+
     deleteCustomerByName(name) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {

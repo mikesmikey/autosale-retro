@@ -109,9 +109,26 @@ app.post("/product/delete", (req, res) => {
   })
 });
 
+app.post("/invoice/bills/register/add", (req, res) => {
+  WebDAOObj.insertBillsTypeRegister(req.body.invoiceData).then(data => {
+    res.json(data);
+  })
+});
+
 app.post('/partners/remove/:CompanyName', (req, res) => {
   WebDAOObj.deletePartner(req.params.CompanyName).then((pass) => {
     res.send(pass);
+  });
+});
+
+
+app.post("/product/register/changeStatus/", (req, res) => {
+  WebDAOObj.changeStatusProductRegister(req.body.productData).then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
   });
 });
 

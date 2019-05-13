@@ -9,6 +9,7 @@ function startForm() {
     });
     getAllCustomer();
     getAllInvoiceByType("Appointment");
+    select = 'none'
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
@@ -43,11 +44,21 @@ function getAllProductByType(type) {
     })
 }
 function launchLicenseDelete() {
-    if(select === 'none'){
+    if (select === 'none') {
         alert('กรุณาเลือกหมายเลขทะเบียนรถก่อน')
-    }else{
+    } else {
         document.getElementById('delete-license').classList.add('is-active');
     }
+}
+function launchLicenseCost() {
+    if (select === 'none') {
+        alert('กรุณาเลือกหมายเลขทะเบียนรถก่อน')
+    } else {
+        document.getElementById('cost-license').classList.add('is-active');
+    }
+}
+function closeLicenseCost() {
+    document.getElementById('cost-license').classList.remove('is-active');
 }
 function closeLicenseDelete() {
     document.getElementById('delete-license').classList.remove('is-active');
@@ -79,6 +90,14 @@ function searchProduct(nameKey, myArray) {
     }
     return null;
 }
+function searchInvoiceByCusIdAndProductId(cusID, ProductId, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].prod_id === ProductId && myArray[i].cust_id === cusID) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
 
 function searchInvice(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
@@ -87,6 +106,7 @@ function searchInvice(nameKey, myArray) {
         }
     }
 }
+
 
 function searchCustomer(value, array) {
     for (var i = 0; i < array.length; i++) {
@@ -191,18 +211,19 @@ function setAttributePrint(value) {
 
     //Text in Alert
     document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : " + value
+    document.getElementById('alert-cost-number').innerHTML = "หมายเลขทะเบียน " + value
     //print_appiontment_
 
 }
-function deleteProductCustomer(){
-    let productObj = this.searchProductByCarLicense(select,product)
-    this.deleteProduct(productObj).then((check_product)=>{
-        if(check_product){
+function deleteProductCustomer() {
+    let productObj = this.searchProductByCarLicense(select, product)
+    this.deleteProduct(productObj).then((check_product) => {
+        if (check_product) {
             this.closeLicenseDelete()
             alert('ลบสำเร็จ')
             this.removeAlloption()
             this.startForm()
-        }else{
+        } else {
             this.closeLicenseDelete()
             alert('เกิดข้อผิดพลาดลบไม่สำเร็จ')
         }
@@ -218,9 +239,9 @@ function getCurrentDate() {
 
     return today
 }
-function formatStringDate(value){
+function formatStringDate(value) {
     var str = value.split(" ");
-    var date = str[2]+'/'+str[1]+'/'+str[0]
+    var date = str[2] + '/' + str[1] + '/' + str[0]
     return date
 }
 function formatDate7Day(value) {
@@ -282,7 +303,7 @@ function checInvioce(value) {
     if (select === "none") {
         alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
     }
-    else if(value ===  'print_detail' || value === 'print_appiontment'){
+    else if (value === 'print_detail' || value === 'print_appiontment') {
         printDiv(value)
     }
     else if (checkObj.type_desc.licenae_status) {
@@ -292,10 +313,82 @@ function checInvioce(value) {
         alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีการกำหนดราคาราคา")
     }
 }
+function InsertCost() {
+    let productObj = searchProductByCarLicense(select, product)
+    let price = document.getElementById('inputCostPrice').value
+    let cost = document.getElementById('inputCostService').value
+    let sum = 0
 
+    if (price.length === 0 || cost.length === 0) {
+        alert('กรุณาระบุราคาให้ครบ')
+    } else {
+        sum = Number.parseInt(price) + Number.parseInt(cost)
+        let tempProduct = {}
+        tempProduct.prod_id = productObj.prod_id
+        tempProduct.price_per_book = Number.parseInt(price)
+        tempProduct.fare = Number.parseInt(cost)
+        tempProduct.total_price = sum
+        console.log(tempProduct)
+        this.changeStatusProduct(tempProduct).then((check_producStatus) => {
+            if (check_producStatus) {
+                let tempBills = {}
+                tempBills.price = sum
+                tempBills.carLicense = select
+                tempBills.cusId = productObj.cust_id
+                tempBills.InvoId = searchInvoiceByCusIdAndProductId(productObj.cust_id, productObj.prod_id, invoice).invo_id
+                tempBills.prodId = productObj.prod_id
+                this.insertBillsRegister(tempBills).then((check_billsResgister) => {
+                    if (check_billsResgister) {
+                        alert('บันทึกข้อมูลสำเร็จ')
+                        this.closeLicenseCost()
+                        this.removeAlloption()
+                        this.startForm()
+                    } else {
+                        alert('เกิดข้อผิดพลาดทางเซิฟเวอร์')
+                    }
+                })
+            } else {
+                alert('เปลี่ยนไม่สำเร็จ')
+            }
+        })
+    }
+}
+function CheckInsertCost(){
+    if(select !==  'none'){
+        let checkObj = searchProductByCarLicense(select, product)
+        if(!checkObj.type_desc.licenae_status){
+            this.launchLicenseCost()
+        }else {
+            alert('หมายเลขทะเบียน '+select+'  นี้มีการเพิ่มราคาไปแล้ว')
+        }
+    }else{
+        alert('กรุณาเลือกหมายเลขทะเบียนรถก่อน')
+    }
+}
 function deleteProduct(productObj) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/product/delete',{ "productData": productObj }).then((result) => {
+        axios.post('http://localhost:5000/product/delete', { "productData": productObj }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
+function changeStatusProduct(productData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/product/register/changeStatus/', { "productData": productData }).then((result) => {
+            resolve(result.data);
+        })
+    })
+}
+function getLastInvoice() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/invoice/last').then((result) => {
+            resolve(result.data);
+        })
+    })
+}
+function insertBillsRegister(invoiceObj) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/invoice/bills/register/add', { "invoiceData": invoiceObj }).then((result) => {
             resolve(result.data);
         })
     })
