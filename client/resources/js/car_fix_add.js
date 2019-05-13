@@ -234,7 +234,7 @@ function insertThisCustomerByCarFix() {
                     addInvoiceAppt(invoiceAppt).then((data) => {
                         if (data) {
                             alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
-                            // window.location.href = './car_fix.html';
+                            window.location.href = './car_fix.html';
                         }
                     })
                 }

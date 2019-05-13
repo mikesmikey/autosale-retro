@@ -1,7 +1,12 @@
-let thisPlateLicense = decodeURIComponent(window.location.search)
-    .substring(1)
-    .split("=")
-    .pop();
+var valBucket = decodeURIComponent(window.location.search).substring(1).split("&")
+
+let thisPlateLicense = valBucket[0].split("=").pop()
+let thisCust = valBucket[1].split("=").pop()
+let thisProduct = valBucket[2].split("=").pop()
+
+console.log(thisPlateLicense)
+console.log(thisCust)
+console.log(thisProduct)
 whenFormOpenUp();
 let partshub = [];
 let resultObject;
@@ -109,6 +114,11 @@ function accept() {
         editRepairCost(cost).then(data => {
             if (data) {
                 alert("อัพเดทราคาซ่อมแล้ว")
+
+                var invoiceBill = {
+
+                }
+
                 window.location.href = "./car_fix.html"
             }
         })

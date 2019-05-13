@@ -248,6 +248,18 @@ app.post("/invoice/type/Appt/add", (req, res) => {
   })
 })
 
+app.post("/invoice/type/Bill/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeBill(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/invoice/type/Receipt/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeReceipt(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
 app.post("/product/type/Repair/add", (req, res) => {
   WebDAOObj.insertProductByTypeRepair(req.body.prodData, req.body.imgId).then(data => {
     res.json(data);

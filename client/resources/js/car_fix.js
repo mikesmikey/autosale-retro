@@ -25,25 +25,28 @@ function mockCarFixAdd() {
   window.location.href = "./car_fix_add.html";
 }
 
-function mockCarFixAppraise() {
-  if (thisCarLicense !== "") {
-    getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
-      if (data.type_desc.cost_of_repairs !== 0) {
-        alert("โปรดักนี้ประเมินราคาซ่อมแล้ว")
-      }
-      else if (data.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
-        alert("สถานะของโปรดักอยู่ในระหว่างดำเนินการ")
-      }
-      else if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
-        valuate = "?license_plate=" + thisCarLicense;
-        window.location.href = "./car_fix_appraise.html" + valuate;
-      }
-    });
-  }
-  else {
-    alert("กรุณาเลือกเลขทะเบียนก่อน")
-  }
-}
+// function mockCarFixAppraise() {
+//   if (thisCarLicense !== "") {
+//     getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
+//       if (data.type_desc.cost_of_repairs !== 0) {
+//         alert("โปรดักนี้ประเมินราคาซ่อมแล้ว")
+//       }
+//       else if (data.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
+//         alert("สถานะของโปรดักอยู่ในระหว่างดำเนินการ")
+//       }
+//       else if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+
+//         let productNow = searchProductByCarFix(thisCarLicense, product);
+
+//         valuate = "?license_plate=" + thisCarLicense + "&custId=" + productNow.cust_id + "&prodId=" + productNow.prod_id;
+//         window.location.href = "./car_fix_appraise.html" + valuate;
+//       }
+//     });
+//   }
+//   else {
+//     alert("กรุณาเลือกเลขทะเบียนก่อน")
+//   }
+// }
 
 function mockUsedPartUpdate() {
   if (thisCarLicense !== "") {
@@ -52,7 +55,9 @@ function mockUsedPartUpdate() {
         alert("สถานะของโปรดักดำเนินการซ่อมเรียบร้อยแล้ว")
       }
       else {
-        valuate = "?license_plate=" + thisCarLicense;
+        let productNow = searchProductByCarFix(thisCarLicense, product);
+
+        valuate = "?license_plate=" + thisCarLicense + "&customerId=" + productNow.cust_id + "&productId=" + productNow.prod_id;
         window.location.href = "./used_part_update.html" + valuate;
       }
     })
@@ -263,15 +268,16 @@ function getAllProductByType(type) {
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
-  console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
   let ApptDate = searchInvoice(resultObject, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
-  let carImage = searchCarImage(resultObject.cust_id, carimages).base64;
+
+  document.getElementById('carUpload').src = ""
+  let carImage = searchCarImage(resultObject.cust_id, carimages);
 
   thisCarLicense = value;
 
-  document.getElementById('carUpload').src = carImage
+  document.getElementById('carUpload').src = carImage.base64;
 
   document.getElementById("productID").innerHTML =
     "เลขออเดอร์ : " + resultObject.prod_id;

@@ -468,6 +468,31 @@ class WebDAO {
         });
     }
 
+    insertInvoiceByTypeReceipt(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertInvoiceByTypeBill(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+
+            });
+        });
+    }
+
     getAllUsedPartsByThisLicense(licenseCarFix) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
