@@ -151,6 +151,7 @@ function closeFixPrintsHubDelete() {
 }
 
 function launchFixDelete() {
+
   if (thisCarLicense != "") {
     document.getElementById("alert-license-no").innerHTML =
       "หมายเลขทะเบียน : '" + thisCarLicense + "'";

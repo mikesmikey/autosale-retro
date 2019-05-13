@@ -25,14 +25,15 @@ function whenFormOpenUp() {
 function getBase64() {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsBinaryString(FileUpload);
+        reader.readAsDataURL(FileUpload);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
 }
 
 function wrapThis(data) {
-    convertToBase64 = data.split(';base64,').pop();
+    convertToBase64 = data;
+    console.log(convertToBase64)
 }
 
 function uploadImage(event) {
