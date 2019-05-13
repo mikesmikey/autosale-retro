@@ -4,6 +4,7 @@ let partshub = [];
 let product = [];
 let customer = [];
 let invoice = [];
+let carimages = [];
 let thisCarLicense = "";
 let thisCarData;
 let thisCarFixProduct = [];
@@ -14,6 +15,7 @@ function whenFormOpenUp() {
     createselect(data);
   });
 
+  getAllCarImages();
   getAllCustomer();
   getAllInvoiceByType("Appointment");
   getAllPart();
@@ -151,7 +153,6 @@ function closeFixPrintsHubDelete() {
 }
 
 function launchFixDelete() {
-
   if (thisCarLicense != "") {
     document.getElementById("alert-license-no").innerHTML =
       "หมายเลขทะเบียน : '" + thisCarLicense + "'";
@@ -179,6 +180,14 @@ function deleteCarFixProduct() {
   closeFixDelete();
 }
 ////////////////////////////////////////////////////////////////////
+// function getImageByCarFixWithCustomerId(imgId) {
+//   return new Promise((resolve, reject) => {
+//       axios.get('http://localhost:5000/image/id_' + imgId).then((result) => {
+//           resolve(result.data);
+//       })
+//   })
+// }
+
 function getAllUsedPartsByThisLicense(val) {
   return new Promise((resolve, reject) => {
     axios
@@ -199,6 +208,18 @@ function deleteCarFixProductByThisLicense(car_license) {
       });
   });
 }
+
+function getAllCarImages() {
+  return new Promise((resolve, reject) => {
+    axios.get("http://localhost:5000/images").then(result => {
+      resolve(result.data);
+      for (let i = 0; i < result.data.length; i++) {
+        carimages.push(result.data[i]);
+      }
+    });
+  })
+}
+
 function getAllPart() {
   return new Promise((resolve, reject) => {
     axios.get("http://localhost:5000/parts/").then(result => {
@@ -242,12 +263,16 @@ function getAllProductByType(type) {
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
-  // console.log("result => ", resultObject);
+  console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
   let ApptDate = searchInvoice(resultObject, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
+  let carImage = searchCarImage(resultObject.cust_id, carimages).base64;
 
   thisCarLicense = value;
+
+  document.getElementById('carUpload').src = carImage
+
   document.getElementById("productID").innerHTML =
     "เลขออเดอร์ : " + resultObject.prod_id;
   document.getElementById("carLicense").innerHTML =
@@ -420,6 +445,13 @@ function searchCustomerByName(nameKey, myArray) {
 function searchInvoice(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
     if (myArray[i].prod_id === nameKey.prod_id && myArray[i].cust_id === nameKey.cust_id) {
+      return myArray[i];
+    }
+  }
+}
+function searchCarImage(nameKey, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].cust_id === nameKey) {
       return myArray[i];
     }
   }

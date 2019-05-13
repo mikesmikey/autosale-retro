@@ -11,6 +11,8 @@ let maxProduct = -1;
 let maxInvoice = -1;
 let FileUpload = '';
 let convertToBase64;
+let imageType;
+let imageFile;
 let selectedFile;
 
 function whenFormOpenUp() {
@@ -20,6 +22,8 @@ function whenFormOpenUp() {
     getAllProduct();
     getAllInvoice();
     getAllPart();
+
+
 }
 
 function getBase64() {
@@ -54,6 +58,14 @@ function uploadImage(event) {
 
         reader.readAsDataURL(selectedFile)
         FileUpload = selectedFile;
+
+        // imageType = `image/${file[1]}`
+        // getImageByCarFixWithCustomerId("5cd88323db38ac040ca0713a").then(data => {
+        //     console.log(data)
+        // })
+        // imageFile = new FormData()
+        // imageFile.append('carImg', selectedFile);
+
         getBase64(FileUpload).then(data => wrapThis(data))
     }
     else {
@@ -145,8 +157,8 @@ function insertThisCustomerByCarFix() {
         }
     }
 
-    console.log(maxCustomer);
-    console.log(maxInvoice)
+    console.log('cust_id -> ', maxCustomer);
+    console.log('invo_id -> ', maxInvoice);
 
     if (checkNull) {
         alert('กรุณากรอกข้อมูลให้ครบ')
@@ -196,9 +208,9 @@ function insertThisCustomerByCarFix() {
         }
 
         var image = {
-            name: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            size: FileUpload.size,
-            type: "image/jpeg",
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+            invo_id: maxInvoice + 1,
+            prod_id: maxProduct + 1,
             base64: convertToBase64
         }
 
@@ -213,33 +225,22 @@ function insertThisCustomerByCarFix() {
                 }
             })
         }
-        addProductByCarFix(productCarFixData).then((data) => {
-            if (data) {
-                alert('เพิ่มโปรดักสำเร็จ')
-                addInvoiceAppt(invoiceAppt).then((data) => {
-                    if (data) {
-                        alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
-                        addImageByCarFix(image).then((data) => {
-                            if (data) {
-                                alert('เพิ่มรูปรถสำเร็จ')
-                                window.location.href = './car_fix.html';
-                            }
-                            else {
-                                alert('เพิ่มรูปรถไม่สำเร็จ')
-                            }
-                        })
-                    }
-                    else {
-                        alert('เพิ่มใบนัดรับไม่สำเร็จ')
-                    }
-                })
-            }
-            else {
-                alert('เพิ่มโปรดักไม่สำเร็จ')
-            }
+        addImageByCarFix(image).then((data) => {
+            alert('เพิ่มรูปรถสำเร็จ')
+            console.log('data -> ',data)
+            addProductByCarFix(productCarFixData, data).then((data) => {
+                if (data) {
+                    alert('เพิ่มโปรดักสำเร็จ')
+                    addInvoiceAppt(invoiceAppt).then((data) => {
+                        if (data) {
+                            alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
+                            // window.location.href = './car_fix.html';
+                        }
+                    })
+                }
+            })
         })
     }
-
 }
 
 function addNewCustomerByRepair() {
@@ -305,14 +306,6 @@ function addInvoiceAppt(invoData) {
     })
 }
 
-function getImageByCarFixWithCustomerId(imgId) {
-    return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/images/id_' + imgId).then((result) => {
-            resolve(result.data);
-        })
-    })
-}
-
 function addImageByCarFix(source) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/image/add', { "source": source }).then((result) => {
@@ -320,6 +313,7 @@ function addImageByCarFix(source) {
         })
     })
 }
+
 
 function addCustomerByCarFix(custData) {
     return new Promise((resolve, reject) => {
@@ -329,9 +323,9 @@ function addCustomerByCarFix(custData) {
     })
 }
 
-function addProductByCarFix(prodData) {
+function addProductByCarFix(prodData, imgId) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/product/type/Repair/add', { "prodData": prodData }).then((result) => {
+        axios.post('http://localhost:5000/product/type/Repair/add', { "prodData": prodData, "imgId": imgId }).then((result) => {
             resolve(result.data);
         })
     })

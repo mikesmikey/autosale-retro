@@ -1,3 +1,4 @@
+const mongoDb = require('mongodb');
 const mongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const url = 'mongodb://hanami:hanami02@ds163164.mlab.com:63164/choketawee';
@@ -47,22 +48,22 @@ class WebDAO {
             });
         });
     }
-    getCustomerlastNumber(){
+    getCustomerlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Customer').find().sort({cust_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
             });
         });
     }
-    getProductlastNumber(){
+    getProductlastNumber() {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find().sort({prod_id: -1}).limit(1).toArray((err, data) => {
+                db.collection('Product').find().sort({ prod_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
                     return resolve(data);
                 });
@@ -371,90 +372,78 @@ class WebDAO {
         });
     }
 
-    // getCarImageByObjectId(cust_id) { //cust_id => specified a file
-    //     return new Promise((resolve, reject) => {
-    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    //             const db = client.db(dbName)
-    //             let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
-    //             let downloadStream = bucket.openDownloadStreamByName(cust_id);
+    testUploadImg() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                if (client) {
 
-    // const writadableImgStream = new Writable({
-    //     write(chunk, encoding, callback) {
-    //         console.log('on write stream  => ', chunk.toString());
-    //         callback();
-    //     }
-    // });
+                    const db = client.db(dbName)
+                    var bucket = new mongoDb.GridFSBucket(db, {
+                        chunkSizeBytes: 32768,
+                        bucketName: 'carImgs'
+                    });
 
-    //             downloadStream.on('data', (chunk) => {
-    //                console.log('on data => ', chunk)
-    //             });
+                    fs.createReadStream('./1ED0CMq.jpg').
+                        pipe(bucket.openUploadStream('1ED0CMq.jpg')).
+                        on('error', function (error) {
+                            assert.ifError(error);
+                        }).
+                        on('finish', function () {
+                            console.log('done!');
+                        });
+                } else {
+                    resolve(false)
+                }
+            })
+        })
+    }
 
-    //             downloadStream.on('error', (err) => {
-    //                 console.log('error => ', err)
-    //                 return resolve(false)
-    //             });
+    getCarImageById(imgId) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('CarImage').findOne(new ObjectId(imgId), (err, data) => {
+                    if(err) { throw err }
+                    return resolve(data)
+                })
 
-    //             downloadStream.on('end', () => {
-    //                 console.log('error => ', err)
-    //                 return resolve(true)
-    //             });
-    //         })
-    //     })
-    //}
+                // var bucket = new mongoDb.GridFSBucket(db, {
+                //     chunkSizeBytes: 32768,
+                //     bucketName: 'carImgs'
+                // });
+                // resolve(bucket.openDownloadStream(new ObjectId(objectId)))
+            })
+        })
+    }
 
-    // getCarImageToFile(id) {
-    //     return new Promise((resolve, reject) => {
-    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    //             const db = client.db(dbName)
-
-    //             const bucket = new GridFSBucket(db, {
-    //                 chunkSizeBytes: 32768,
-    //                 bucketName: 'carImgs'
-    //             });
-
-    //             bucket.openDownloadStream(new ObjectId(id)).
-    //             pipe(fs.createWriteStream('./output.jpg')).
-    //             on('error', function(err) {
-    //                 console.log(err)
-    //             }).
-    //             on('finish', function() {
-    //                 console.log('done!');
-    //                 process.exit(0);
-    //             });
-    //         });
-    //     });
-    // }
+    getAllCarImages() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('CarImage').find({}).project({ "_id": 0 }).toArray((err, data) => {
+                    if(err) { throw err }
+                    return resolve(data)
+                })              
+            })
+        })
+    }
 
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-
-                const bucket = new GridFSBucket(db, {
-                    chunkSizeBytes: 32768,
-                    bucketName: 'carImgs'
-                });
-
-                const readableImgStream = new Readable()
-                readableImgStream.push(source.base64)
-                readableImgStream.push(null)
-
-                let uploadStream = bucket.openUploadStream(source.name);
-                let id = uploadStream.id;
-                readableImgStream.pipe(uploadStream)
-
-                uploadStream.on('error', () => {
-                    return resolve(false)
-                });
-                uploadStream.on('finish', () => {
-                    console.log('success on id => ', id)
-                    return resolve(id)
+                db.collection('CarImage').insertOne(source, (err, result) => {
+                    if (err) { throw err }
+                    console.log('success on id -> ', source._id)
+                    return resolve(source._id)
                 });
             });
         });
     }
 
-    insertProductByTypeRepair(product) {
+    insertProductByTypeRepair(product, imgId) {
+        product.trn_car.car_pic = new ObjectId(imgId)
+
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
