@@ -402,6 +402,29 @@ class WebDAO {
     //     })
     //}
 
+    // getCarImageToFile(id) {
+    //     return new Promise((resolve, reject) => {
+    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    //             const db = client.db(dbName)
+
+    //             const bucket = new GridFSBucket(db, {
+    //                 chunkSizeBytes: 32768,
+    //                 bucketName: 'carImgs'
+    //             });
+
+    //             bucket.openDownloadStream(new ObjectId(id)).
+    //             pipe(fs.createWriteStream('./output.jpg')).
+    //             on('error', function(err) {
+    //                 console.log(err)
+    //             }).
+    //             on('finish', function() {
+    //                 console.log('done!');
+    //                 process.exit(0);
+    //             });
+    //         });
+    //     });
+    // }
+
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -423,7 +446,6 @@ class WebDAO {
                 uploadStream.on('error', () => {
                     return resolve(false)
                 });
-
                 uploadStream.on('finish', () => {
                     console.log('success on id => ', id)
                     return resolve(id)

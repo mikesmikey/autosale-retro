@@ -11,6 +11,7 @@ let maxProduct = -1;
 let maxInvoice = -1;
 let FileUpload = '';
 let convertToBase64;
+let selectedFile;
 
 function whenFormOpenUp() {
     getAllCustomer().then((data) => {
@@ -35,7 +36,7 @@ function wrapThis(data) {
 }
 
 function uploadImage(event) {
-    var selectedFile = event.target.files[0];
+    selectedFile = event.target.files[0];
     var reader = new FileReader();
     // console.log(document.getElementById('image-upload').files[0])
     // document.getElementById('image-upload').value = files[0]

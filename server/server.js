@@ -198,8 +198,8 @@ app.post("/image/add", (req, res) => {
   })
 })
 
-app.get("/images/id_:imgId", (req, res) => {
-  WebDAOObj.getCarImageByObjectId(req.body.imgId).then(data => {
+app.get("/image/id_:imgId", (req, res) => {
+  WebDAOObj.getCarImageToFile(req.params.imgId).then(data => {
     console.log(data)
     if (data != null) {
       res.json(data);
