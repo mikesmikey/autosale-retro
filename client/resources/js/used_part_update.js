@@ -119,6 +119,19 @@ function addInvoiceReceipt(invoData) {
   });
 }
 
+function editRepairCost(cost) {
+  return new Promise((resolve, reject) => {
+      axios
+          .post(
+              "http://localhost:5000/product/type/Repair/edit/cost/" +
+              cost + "/" + thisPlateLicense
+          )
+          .then(result => {
+              resolve(result.data);
+          });
+  });
+}
+
 function getAllPart() {
   return new Promise((resolve, reject) => {
     axios.get("http://localhost:5000/parts/").then(result => {
@@ -512,10 +525,10 @@ function selectedStatusRepairing() {
         if (data) {
           alert("อัพเดทสถานะซ่อมแล้ว")
 
-          let items = [], total = 0;
+          let items = [], total = 0,numberParts = 0;
           for(var i in partsRepair) {
-            total += partsRepair[i].parts_price * partsRepair[i].parts_num
-        
+            total += partsRepair[i].parts_price * partsRepair[i].parts_num;
+            numberParts += partsRepair[i].parts_num;
             items.push({
               name: searchParts(partsRepair[i].parts_id, partshub),
               price: partsRepair[i].parts_price,
@@ -556,7 +569,15 @@ function selectedStatusRepairing() {
               alert('เพิ่มใบกำกับภาษีสำเร็จ')
               addInvoiceReceipt(invoiceReceipt).then(data => {
                 alert('เพิ่มใบเสร็จสำเร็จ')
-                window.location.href = "./car_fix.html"
+                
+                let discount = (numberParts > 99) ? numberParts * 10 : 0
+                let cost = Math.abs(total + (total * 0.07) - discount)             
+                editRepairCost(cost).then(data => {
+                  if(data) {
+                      alert("อัพเดทราคาซ่อมแล้ว")
+                      window.location.href = "./car_fix.html"
+                  }
+                })
               })
             }
           })

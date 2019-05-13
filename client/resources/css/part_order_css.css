@@ -11,6 +11,14 @@ table#table01 {
   border-collapse: collapse;
   width: 95%;
 }
+table#bill-table {
+  border-collapse: collapse;
+  width: 95%;
+}
+table#receipt-table {
+  border-collapse: collapse;
+  width: 95%;
+}
 table#table02 {
   border-collapse: collapse;
   width: 100%;

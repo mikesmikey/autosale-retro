@@ -37,7 +37,6 @@ function getBase64() {
 
 function wrapThis(data) {
     convertToBase64 = data;
-    console.log(convertToBase64)
 }
 
 function uploadImage(event) {
@@ -227,7 +226,6 @@ function insertThisCustomerByCarFix() {
         }
         addImageByCarFix(image).then((data) => {
             alert('เพิ่มรูปรถสำเร็จ')
-            console.log('data -> ',data)
             addProductByCarFix(productCarFixData, data).then((data) => {
                 if (data) {
                     alert('เพิ่มโปรดักสำเร็จ')
