@@ -184,6 +184,13 @@ app.post('/customer/insert', (req, res) => {
     res.send(data);
   })
 })
+
+app.post('/customer/addByCarfix', (req, res) => {
+  WebDAOObj.insertCustomerByCarFix(req.body.custData).then((data)=> {
+      res.json(data);
+  })
+})
+
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
