@@ -157,7 +157,7 @@
                                     <tr>
                                         <td colspan="2" style="background-color: white" ;>
                                             <!-- //////////  Backend has not loaded  ////////////// -->
-                                            <img id="carUpload" src="./resources/imgs/egocar.jpg" alt="egocar"
+                                            <img id="carUpload" src="" alt=""
                                                 height="200" width="230">
                                         </td>
                                         <td style="background-color: white">
@@ -201,10 +201,10 @@
                                         <div class="columns">
                                             <div class=" column is-5">
                                                 <div id="bor01">
-                                                    <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
-                                                    <p>&nbspเลขที่บิล : sadf123214214214</p>
-                                                    <p>&nbspวันที่ออก : 17/11/2561</p>
-                                                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
+                                                    <p id="rect-prod_id">&nbsp;เลขที่ออเดอร์ : </p>
+                                                    <p id="rect-invo_id">&nbsp;เลขที่บิล : </p>
+                                                    <p id="rect-launch_date">&nbsp;วันที่ออก : </p>
+                                                    <p id="rect-type">&nbsp;ประเภทออเดอร์ : </p>
                                                     <br>
                                                     <br>
                                                 </div>
@@ -212,56 +212,12 @@
                                                     <p>&nbsp&nbsp&nbsp&nbsp&nbsp รายการ
                                                     </p>
                                                     <center>
-                                                        <table id="table01">
+                                                        <table id="receipt-table">
                                                             <tr id="tr01">
                                                                 <th class="mixTop">&nbspรายการ</th>
                                                                 <th class="mixTop">&nbspจำนวน</th>
                                                                 <th class="mixTop">&nbspราคา</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mix">
-                                                                    <br />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="mixUnder">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mixUnder">
-                                                                    <br />
-                                                                </td>
-                                                                <td class="mixUnder">
-                                                                    <br />
-                                                                </td>
-                                                            </tr>
+                                                            </tr>                                                      
                                                         </table>
                                                     </center>
                                                     <br>
@@ -336,16 +292,14 @@
 
                                                         </div>
                                                         <div class="column is-3">
-                                                            <label>ผู้ซื้อ : นาย James Goodman</label>
+                                                            <label id="bill-cust_name">ผู้ซื้อ : </label>
                                                             <br>
-                                                            <label>ที่อยู่ : New York USA</label>
-                                                            <br>
-                                                            <label>จ.ชลบุรี 20000</label>
+                                                            <label id="bill-cust_addr">ที่อยู่ : </label>
                                                         </div>
                                                         <div class="column is-3">
-                                                            <label>รหัสลูกค้า : 134651631</label>
+                                                            <label id="bill-cust_id">รหัสลูกค้า : </label>
                                                             <br>
-                                                            <label>เลขที่ผู้เสียภาษี : 12313547641</label>
+                                                            <label id="bill-cust_tax_no">เลขที่ผู้เสียภาษี : </label>
                                                             <br>
                                                         </div>
                                                     </div>
@@ -354,69 +308,14 @@
                                         </div>
                                         <div class="columns">
                                             <div class="column is-8">
-                                                <table style="width: 100%" id="table01">
+                                                <table style="width: 100%" id="bill-table">
                                                     <tr id="tr01">
                                                         <th class="mixTop">&nbspลำดับ</th>
                                                         <th class="mixTop">&nbspรายการ</th>
                                                         <th class="mixTop">&nbspราคาต่อหน่อย</th>
                                                         <th class="mixTop">&nbspจำนวน</th>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mix">
-                                                            <br />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="mixUnder">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mixUnder">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mixUnder">
-                                                            <br />
-                                                        </td>
-                                                        <td class="mixUnder">
-                                                            <br />
-                                                        </td>
-                                                    </tr>
+                                                   
                                                 </table>
                                             </div>
                                         </div>
@@ -433,32 +332,32 @@
                                                         <td class="mix">
                                                             รวมทั้งสิ้น
                                                         </td>
-                                                        <td class="mix">
-                                                            1234
+                                                        <td id="bill-total" class="mix">
+                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mix">
                                                             ส่วนลด
                                                         </td>
-                                                        <td class="mix">
-                                                            1234
+                                                        <td id="bill-discount" class="mix">
+                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mix">
                                                             ภาษีมูลค่าเพิ่ม
                                                         </td>
-                                                        <td class="mix">
-                                                            54
+                                                        <td id="bill-vat" class="mix">
+                                                            7%
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="mixUnder">
                                                             รวมมูลค่าสินค้า
                                                         </td>
-                                                        <td class="mixUnder">
-                                                            1200
+                                                        <td id="bill-exc_vat" class="mixUnder">
+                                                            
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -583,7 +482,7 @@
                                                         <div class="column is-3">
 
                                                             <img id="repairingBill_car_upload"
-                                                                src="./resources/imgs/egocar.jpg" height="150"
+                                                                src="" height="150"
                                                                 width="200" align="right">
                                                         </div>
 
@@ -625,11 +524,11 @@
                     <button type="button" class="button width10 is-round is-2  is-yentafo" onclick="launchFixDelete()">
                         ลบ
                     </button>
-                    <button style="margin-left: 21%" type="button" onclick="mockCarFixAppraise()"
+                    <!-- <button style="margin-left: 21%" type="button" onclick="mockCarFixAppraise()"
                         class="button is-round is-2 width20 is-orange">
                         ประเมินราคาซ่อม
-                    </button>
-                    <button type="button" onclick="mockUsedPartUpdate()"
+                    </button> -->
+                    <button style="margin-left: 37%" type="button" onclick="mockUsedPartUpdate()"
                         class="button is-round is-2 width20 is-orange">
                         อัพเดทอะไหล่ที่ใช้
                     </button>

@@ -148,7 +148,7 @@ function checkInputText() {
         if (selectName !== 'none') {
             this.getLastProduct().then((lastProduct) => {
                 var productObj = {}
-                productObj.prod_id = lastProduct[0].prod_id + 1
+                productObj.prod_id = this.getNumberId(lastProduct,'prod_id')
                 productObj.cust_id = searchCustomerByName(selectName, customer).cust_id
                 productObj.car_brand = car_name
                 productObj.car_model = car_model
@@ -156,7 +156,7 @@ function checkInputText() {
                 var product_check = InsertProduct(productObj);
                 this.getLastInvoice().then((lastInvoice) =>{
                     var invoiceObj = {}
-                    invoiceObj.invo_id = lastInvoice[0].invo_id + 1
+                    invoiceObj.invo_id = this.getNumberId(lastInvoice,'invo_id')
                     invoiceObj.prod_id = productObj.prod_id
                     invoiceObj.cust_id = searchCustomerByName(selectName, customer).cust_id
                     var invoice_check = InsertInvoice(invoiceObj)
@@ -173,8 +173,8 @@ function checkInputText() {
         } else {
             this.getLastUser().then((lastUser) => {
                 var custObj = {}
-                maxCustomer = lastUser[0].cust_id
-                custObj.id = lastUser[0].cust_id + 1
+                maxCustomer = this.getNumberId(lastUser,cust_id) -1
+                custObj.id = this.getNumberId(lastUser,cust_id)
                 custObj.name = cus_name
                 custObj.addr = cus_address
                 custObj.phone = cus_phone
@@ -185,7 +185,7 @@ function checkInputText() {
                 }else{
                     this.getLastProduct().then((lastProduct) => {
                         var productObj = {}
-                        productObj.prod_id = lastProduct[0].prod_id + 1
+                        productObj.prod_id = this.getNumberId(lastProduct,'prod_id')
                         productObj.cust_id = custObj.id
                         productObj.car_brand = car_name
                         productObj.car_model = car_model
@@ -193,7 +193,7 @@ function checkInputText() {
                         var product_check = InsertProduct(productObj);
                         this.getLastInvoice().then((lastInvoice) =>{
                             var invoiceObj = {}
-                            invoiceObj.invo_id = lastInvoice[0].invo_id + 1
+                            invoiceObj.invo_id = this.getNumberId(lastInvoice,'invo_id')
                             invoiceObj.prod_id = productObj.prod_id
                             invoiceObj.cust_id = custObj.id
                             var invoice_check = InsertInvoice(invoiceObj)
@@ -289,6 +289,22 @@ function checkCarNum() {
     var input = document.getElementById('input_carNum')
     input.value = input.value.slice(0, 7);
 }
-
+function getNumberId(arr,name) {
+    console.log(arr)
+    console.log(name)
+    console.log(arr.length)
+    if (arr.length===0) {
+        return 0
+    }else{
+        console.log(name === 'invo_id')
+        if(name === 'invo_id'){
+            return arr[0].invo_id + 1
+        }else if(name === 'cust_id'){
+            return arr[0].cust_id + 1
+        }else{
+            return arr[0].prod_id + 1
+        }
+    }
+}
 
 startForm()

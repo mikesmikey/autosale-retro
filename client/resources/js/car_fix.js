@@ -4,6 +4,7 @@ let partshub = [];
 let product = [];
 let customer = [];
 let invoice = [];
+let carimages = [];
 let thisCarLicense = "";
 let thisCarData;
 let thisCarFixProduct = [];
@@ -14,8 +15,9 @@ function whenFormOpenUp() {
     createselect(data);
   });
 
+  getAllCarImages();
   getAllCustomer();
-  getAllInvoiceByType("Appointment");
+  getAllInvoice();
   getAllPart();
 }
 
@@ -23,34 +25,39 @@ function mockCarFixAdd() {
   window.location.href = "./car_fix_add.html";
 }
 
-function mockCarFixAppraise() {
-  if (thisCarLicense !== "") {
-    getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
-      if (data.type_desc.cost_of_repairs !== 0) {
-        alert("โปรดักนี้ประเมินราคาซ่อมแล้ว")
-      }
-      else if (data.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
-        alert("สถานะของโปรดักอยู่ในระหว่างดำเนินการ")
-      }
-      else if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
-        valuate = "?license_plate=" + thisCarLicense;
-        window.location.href = "./car_fix_appraise.html" + valuate;
-      }
-    });
-  }
-  else {
-    alert("กรุณาเลือกเลขทะเบียนก่อน")
-  }
-}
+// function mockCarFixAppraise() {
+//   if (thisCarLicense !== "") {
+//     getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
+//       if (data.type_desc.cost_of_repairs !== 0) {
+//         alert("โปรดักนี้ประเมินราคาซ่อมแล้ว")
+//       }
+//       else if (data.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
+//         alert("สถานะของโปรดักอยู่ในระหว่างดำเนินการ")
+//       }
+//       else if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+
+//         let productNow = searchProductByCarFix(thisCarLicense, product);
+
+//         valuate = "?license_plate=" + thisCarLicense + "&custId=" + productNow.cust_id + "&prodId=" + productNow.prod_id;
+//         window.location.href = "./car_fix_appraise.html" + valuate;
+//       }
+//     });
+//   }
+//   else {
+//     alert("กรุณาเลือกเลขทะเบียนก่อน")
+//   }
+// }
 
 function mockUsedPartUpdate() {
   if (thisCarLicense !== "") {
     getAllUsedPartsByThisLicense(thisCarLicense).then(data => {
-      if (data.type_desc.cost_of_repairs !== 0) {
-        alert("โปรดักนี้ดำเนินการซ่อมเรียบร้อยแล้ว")
+      if (data.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+        alert("สถานะของโปรดักดำเนินการซ่อมเรียบร้อยแล้ว")
       }
       else {
-        valuate = "?license_plate=" + thisCarLicense;
+        let productNow = searchProductByCarFix(thisCarLicense, product);
+
+        valuate = "?license_plate=" + thisCarLicense + "&customerId=" + productNow.cust_id + "&productId=" + productNow.prod_id;
         window.location.href = "./used_part_update.html" + valuate;
       }
     })
@@ -61,84 +68,145 @@ function mockUsedPartUpdate() {
 }
 
 function printDiv(printDivName) {
-  let resPrintRepairDetail = resultObject.type_desc.repair_detail;
-  let resPrintReparingParts_Name = [];
-  let resPrintReparingParts_Num = [];
-  const currentPage = document.body.innerHTML;
-  document.body.innerHTML = document.getElementById(printDivName).innerHTML;
-  if (printDivName === "repairingBill") {
-    document.getElementById("repairingBill_car_license").innerHTML =
-      "&nbsp;&nbsp;เลขทะเบียน : " + thisCarFixProduct[0];
-    document.getElementById("repairingBill_car_brand").innerHTML =
-      "&nbsp;&nbsp;ยี่ห้อ : " + thisCarFixProduct[1];
-    document.getElementById("repairingBill_car_model").innerHTML =
-      "&nbsp;&nbsp;รุ่น : " + thisCarFixProduct[2];
-    document.getElementById("repairingBill_car_owner").innerHTML =
-      "&nbsp;&nbsp;เจ้าของ : " + thisCarFixProduct[3];
-
-    for (var i in resultObject.type_desc.trn_parts_repair) {
-      resPrintReparingParts_Name[i] = searchParts(
-        resultObject.type_desc.trn_parts_repair[i].parts_id,
-        partshub
-      );
-      resPrintReparingParts_Num[i] =
-        resultObject.type_desc.trn_parts_repair[i].parts_num;
-    }
-
-    for (var i in resultObject.type_desc.trn_parts_repair) {
-      console.log(
-        resPrintReparingParts_Name[i],
-        ", ",
-        resPrintReparingParts_Num[i]
-      );
-    }
-
-    for (var i in resPrintRepairDetail) {
-      var node = document.createElement("p");
-      var textnode = document.createTextNode("- " + resPrintRepairDetail[i]);
-      node.appendChild(textnode);
-      document
-        .getElementById("repairingBill_repairing_detail")
-        .appendChild(node);
-    }
-
-    for (var i in resultObject.type_desc.trn_parts_repair) {
-      var node = document.createElement("p");
-      var textnode = document.createTextNode(
-        resPrintReparingParts_Name[i] +
-        " " +
-        resPrintReparingParts_Num[i] +
-        " ชิ้น"
-      );
-      node.appendChild(textnode);
-      document.getElementById("repairingBill_parts_repair").appendChild(node);
-    }
-  } else if (printDivName === "bill") {
-  } else if (printDivName === "receipt") {
-  } else if (printDivName === "appointment") {
-    document.getElementById("appointment_car_license").innerHTML =
-      "&nbsp;&nbsp;เลขทะเบียน : " + thisCarFixProduct[0];
-    document.getElementById("appointment_car_brand").innerHTML =
-      "&nbsp;&nbsp;ยี่ห้อ : " + thisCarFixProduct[1];
-    document.getElementById("appointment_car_model").innerHTML =
-      "&nbsp;&nbsp;รุ่น : " + thisCarFixProduct[2];
-    document.getElementById("appointment_car_owner").innerHTML =
-      "&nbsp;&nbsp;เจ้าของ : " + thisCarFixProduct[3];
-    document.getElementById("appointment_car_appt_date").innerHTML =
-      "&nbsp;&nbsp;วันที่นัดรับ : " + thisCarFixProduct[4];
-
-    for (var i in resPrintRepairDetail) {
-      var node = document.createElement("p");
-      var textnode = document.createTextNode("- " + resPrintRepairDetail[i]);
-      node.appendChild(textnode);
-
-      document.getElementById("appointment_repairing_detail").appendChild(node);
-    }
+  if (resultObject.type_desc.cost_of_repairs === 0) {
+    alert('โปรดักอยู่ในระหว่างดำเนินการซ่อม')
   }
+  else {
+    let resPrintRepairDetail = resultObject.type_desc.repair_detail;
+    let resPrintReparingParts_Name = [];
+    let resPrintReparingParts_Num = [];
+    const currentPage = document.body.innerHTML;
+    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+    if (printDivName === "repairingBill") {
+      document.getElementById("repairingBill_car_license").innerHTML =
+        "&nbsp;&nbsp;เลขทะเบียน : " + thisCarFixProduct[0];
+      document.getElementById("repairingBill_car_brand").innerHTML =
+        "&nbsp;&nbsp;ยี่ห้อ : " + thisCarFixProduct[1];
+      document.getElementById("repairingBill_car_model").innerHTML =
+        "&nbsp;&nbsp;รุ่น : " + thisCarFixProduct[2];
+      document.getElementById("repairingBill_car_owner").innerHTML =
+        "&nbsp;&nbsp;เจ้าของ : " + thisCarFixProduct[3];
 
-  window.print();
-  document.body.innerHTML = currentPage;
+      for (var i in resultObject.type_desc.trn_parts_repair) {
+        resPrintReparingParts_Name[i] = searchParts(
+          resultObject.type_desc.trn_parts_repair[i].parts_id,
+          partshub
+        );
+        resPrintReparingParts_Num[i] =
+          resultObject.type_desc.trn_parts_repair[i].parts_num;
+      }
+
+      document.getElementById('repairingBill_car_upload').src = ""
+      let carImage = searchCarImage(resultObject.cust_id, carimages);
+      document.getElementById('repairingBill_car_upload').src = carImage.base64;
+
+      for (var i in resPrintRepairDetail) {
+        var node = document.createElement("p");
+        var textnode = document.createTextNode("- " + resPrintRepairDetail[i]);
+        node.appendChild(textnode);
+        document
+          .getElementById("repairingBill_repairing_detail")
+          .appendChild(node);
+      }
+
+      for (var i in resultObject.type_desc.trn_parts_repair) {
+        var node = document.createElement("p");
+        var textnode = document.createTextNode(
+          resPrintReparingParts_Name[i] +
+          " " +
+          resPrintReparingParts_Num[i] +
+          " ชิ้น"
+        );
+        node.appendChild(textnode);
+        document.getElementById("repairingBill_parts_repair").appendChild(node);
+      }
+    } else if (printDivName === "bill") {
+      let bill = searchInvoiceByCustAndProd("Bill", resultObject.cust_id, resultObject.prod_id, invoice)
+
+      var table = document.getElementById("bill-table")
+
+      var total = 0, numberParts = 0;
+
+      for (var i = 0; i < bill.type_desc.items.length; i++) {
+
+        let row = table.insertRow(i + 1);
+        let lineNumber = row.insertCell(0);
+        let name = row.insertCell(1);
+        let price = row.insertCell(2);
+        let num = row.insertCell(3);
+
+        lineNumber.innerHTML = i + 1;
+        name.innerHTML = bill.type_desc.items[i].name;
+        price.innerHTML = bill.type_desc.items[i].price;
+        num.innerHTML = bill.type_desc.items[i].num;
+
+        total += bill.type_desc.items[i].price * bill.type_desc.items[i].num;
+        numberParts += bill.type_desc.items[i].num;
+      }
+
+
+
+      let custShow = searchCustomer(resultObject.cust_id, customer);
+      document.getElementById("bill-cust_name").innerHTML = "ผู้ซื้อ : " + custShow.cust_name
+      document.getElementById("bill-cust_id").innerHTML = "รหัสลูกค้า : " + custShow.cust_id
+      document.getElementById("bill-cust_tax_no").innerHTML = "เลขที่ผู้เสียภาษี : " + custShow.cust_tax_no
+      document.getElementById("bill-cust_addr").innerHTML = "ที่อยู่ : " + custShow.cust_addr
+
+      let discount = (numberParts > 99) ? numberParts * 10 : 0
+
+      document.getElementById("bill-total").innerHTML = total
+      document.getElementById("bill-discount").innerHTML = discount
+      document.getElementById("bill-exc_vat").innerHTML = Math.abs(total + (total * 0.07) - discount)
+
+    } else if (printDivName === "receipt") {
+
+      let rect = searchInvoiceByCustAndProd("Receipt", resultObject.cust_id, resultObject.prod_id, invoice)
+      var table = document.getElementById("receipt-table")
+
+      for (var i = 0; i < rect.type_desc.items.length; i++) {
+
+        let row = table.insertRow(i + 1);
+        let name = row.insertCell(0);
+        let price = row.insertCell(1);
+        let num = row.insertCell(2);
+
+        name.innerHTML = rect.type_desc.items[i].name;
+        price.innerHTML = rect.type_desc.items[i].price;
+        num.innerHTML = rect.type_desc.items[i].num;
+      }
+
+      document.getElementById("rect-prod_id").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
+      document.getElementById("rect-invo_id").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
+      document.getElementById("rect-type").innerHTML = "&nbsp;วันที่ออก : Repair";
+      document.getElementById("rect-launch_date").innerHTML = "&nbsp;ประเภทออเดอร์ : 2019 05 14";
+
+    } else if (printDivName === "appointment") {
+
+      document.getElementById("appointment_car_license").innerHTML =
+        "&nbsp;&nbsp;เลขทะเบียน : " + thisCarFixProduct[0];
+      document.getElementById("appointment_car_brand").innerHTML =
+        "&nbsp;&nbsp;ยี่ห้อ : " + thisCarFixProduct[1];
+      document.getElementById("appointment_car_model").innerHTML =
+        "&nbsp;&nbsp;รุ่น : " + thisCarFixProduct[2];
+      document.getElementById("appointment_car_owner").innerHTML =
+        "&nbsp;&nbsp;เจ้าของ : " + thisCarFixProduct[3];
+      document.getElementById("appointment_car_appt_date").innerHTML =
+        "&nbsp;&nbsp;วันที่นัดรับ : " + thisCarFixProduct[4];
+
+      for (var i in resPrintRepairDetail) {
+        var node = document.createElement("p");
+        var textnode = document.createTextNode("- " + resPrintRepairDetail[i]);
+        node.appendChild(textnode);
+
+        document.getElementById("appointment_repairing_detail").appendChild(node);
+      }
+    }
+
+    window.print();
+    document.body.innerHTML = currentPage;
+  }
 }
+
 function launchFixPrintsHubDelete() {
   if (thisCarLicense != "") {
     document.getElementById("printshub-fix").classList.add("is-active");
@@ -178,6 +246,14 @@ function deleteCarFixProduct() {
   closeFixDelete();
 }
 ////////////////////////////////////////////////////////////////////
+// function getImageByCarFixWithCustomerId(imgId) {
+//   return new Promise((resolve, reject) => {
+//       axios.get('http://localhost:5000/image/id_' + imgId).then((result) => {
+//           resolve(result.data);
+//       })
+//   })
+// }
+
 function getAllUsedPartsByThisLicense(val) {
   return new Promise((resolve, reject) => {
     axios
@@ -189,6 +265,17 @@ function getAllUsedPartsByThisLicense(val) {
   });
 }
 
+function getAllInvoice() {
+  return new Promise((resolve, reject) => {
+    axios.get('http://localhost:5000/invoices/').then((result) => {
+      resolve(result.data);
+      for (let i = 0; i < result.data.length; i++) {
+        invoice.push(result.data[i])
+      }
+    })
+  })
+}
+
 function deleteCarFixProductByThisLicense(car_license) {
   return new Promise((resolve, reject) => {
     axios
@@ -198,6 +285,18 @@ function deleteCarFixProductByThisLicense(car_license) {
       });
   });
 }
+
+function getAllCarImages() {
+  return new Promise((resolve, reject) => {
+    axios.get("http://localhost:5000/images").then(result => {
+      resolve(result.data);
+      for (let i = 0; i < result.data.length; i++) {
+        carimages.push(result.data[i]);
+      }
+    });
+  })
+}
+
 function getAllPart() {
   return new Promise((resolve, reject) => {
     axios.get("http://localhost:5000/parts/").then(result => {
@@ -208,16 +307,18 @@ function getAllPart() {
     });
   });
 }
-function getAllInvoiceByType(type) {
-  return new Promise((resolve, reject) => {
-    axios.get("http://localhost:5000/invoices/type/" + type).then(result => {
-      resolve(result.data);
-      for (let i = 0; i < result.data.length; i++) {
-        invoice.push(result.data[i]);
-      }
-    });
-  });
-}
+
+// function getAllInvoiceByType(type) {
+//   return new Promise((resolve, reject) => {
+//     axios.get("http://localhost:5000/invoices/type/" + type).then(result => {
+//       resolve(result.data);
+//       for (let i = 0; i < result.data.length; i++) {
+//         invoice.push(result.data[i]);
+//       }
+//     });
+//   });
+// }
+
 function getAllCustomer() {
   return new Promise((resolve, reject) => {
     axios.get("http://localhost:5000/customers/").then(result => {
@@ -241,12 +342,17 @@ function getAllProductByType(type) {
 ////////////////////////////////////////////////////////////////////
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
-  // console.log("result => ", resultObject);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
-  let ApptDate = searchInvoice(resultObject.prod_id, invoice).type_desc.appt_date;
+  let ApptDate = searchInvoiceByCustAndProd("Appointment", resultObject.cust_id, resultObject.prod_id, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
 
+  document.getElementById('carUpload').src = ""
+  let carImage = searchCarImage(resultObject.cust_id, carimages);
+
   thisCarLicense = value;
+
+  document.getElementById('carUpload').src = carImage.base64;
+
   document.getElementById("productID").innerHTML =
     "เลขออเดอร์ : " + resultObject.prod_id;
   document.getElementById("carLicense").innerHTML =
@@ -349,7 +455,6 @@ function runScript(e) {
       removeAlloption();
       createselect(product);
     } else {
-      console.log(txt);
       let resultObject = searchProductByCarFix(txt, product);
       if (resultObject !== null) {
         removeAlloption();
@@ -419,9 +524,24 @@ function searchCustomerByName(nameKey, myArray) {
 }
 function searchInvoice(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
-    if (myArray[i].prod_id === nameKey) {
+    if (myArray[i].prod_id === nameKey.prod_id && myArray[i].cust_id === nameKey.cust_id) {
       return myArray[i];
     }
   }
+}
+function searchCarImage(nameKey, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].cust_id === nameKey) {
+      return myArray[i];
+    }
+  }
+}
+function searchInvoiceByCustAndProd(type, custId, prodId, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].invo_type === type && myArray[i].cust_id === parseInt(custId) && myArray[i].prod_id === parseInt(prodId)) {
+      return myArray[i];
+    }
+  }
+  return null;
 }
 ////////////////////////////////////////////////////////////////////

@@ -4,9 +4,18 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 5000;
 const cors = require('cors')
+const multer = require('multer');
 app.use(bodyParser.json());
 app.use(cors())
 app.use(pretty({ query: 'pretty' }));
+
+const storage = multer.memoryStorage()
+const upload = multer({
+  limits: {
+    fileSize: 15728640
+  },
+  storage: storage,
+});
 
 //disable cors due to the server will not using cross origin feature.
 
@@ -14,7 +23,6 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
-
 
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
@@ -46,13 +54,13 @@ app.get("/products/type/:type", (req, res) => {
 });
 app.post("/products/RegisterLicense/insert", (req, res) => {
   WebDAOObj.insertProdeuctRegister(req.body.productData).then(data => {
-      res.json(data);
+    res.json(data);
   });
 });
 
 app.get("/products/productIdLast", (req, res) => {
   WebDAOObj.getProductlastNumber().then(data => {
-      res.json(data);
+    res.json(data);
   });
 });
 app.get("/invoice/last", (req, res) => {
@@ -198,8 +206,8 @@ app.post('/customer/edit', (req, res) => {
 
 app.post('/customer/insert', (req, res) => {
   console.log(req.body.customerData)
-  WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data)=> {
-      res.send(data);
+  WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data) => {
+    res.send(data);
   })
 })
 app.post('/invoice/insert/register', (req, res) => {
@@ -217,20 +225,43 @@ app.get("/products", (req, res) => {
   })
 })
 
+var carImgUpload = upload.single('carImg')
+
+// app.post("/image/add", (req, res) => {
+//   carImgUpload(req, res, (err) => {
+//     if (err instanceof multer.MulterError) {
+//       res.json(err);
+//     } else if (err) {
+//       res.json(err);
+//     } else {
+//       WebDAOObj.insertCarImage(req.file).then(data => {
+//         res.json(data);
+//       })
+//     }
+//   })
+// })
 app.post("/image/add", (req, res) => {
   WebDAOObj.insertCarImage(req.body.source).then(data => {
     res.json(data);
   })
 })
 
-app.get("/images/id_:imgId", (req, res) => {
-  WebDAOObj.getCarImageByObjectId(req.body.imgId).then(data => {
-    console.log(data)
-    if (data != null) {
-      res.json(data);
-    } else {
-      res.sendStatus(404);
-    }
+app.post("/image/test", (req, res) => {
+  WebDAOObj.testUploadImg().then(data => {
+    res.json(data);
+  })
+})
+
+// app.get("/image/id_:imgId", (req, res) => {
+//   WebDAOObj.getCarImageById(req.params.imgId).then(data => {
+//     res.json(data);
+   
+//   })s
+// })
+
+app.get("/images", (req, res) => {
+  WebDAOObj.getAllCarImages().then(data => {
+    res.json(data)
   })
 })
 
@@ -241,8 +272,20 @@ app.post("/invoice/type/Appt/add", (req, res) => {
   })
 })
 
+app.post("/invoice/type/Bill/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeBill(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/invoice/type/Receipt/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeReceipt(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
 app.post("/product/type/Repair/add", (req, res) => {
-  WebDAOObj.insertProductByTypeRepair(req.body.prodData).then(data => {
+  WebDAOObj.insertProductByTypeRepair(req.body.prodData, req.body.imgId).then(data => {
     res.json(data);
   })
 })
@@ -273,7 +316,7 @@ app.post("/product/type/Repair/edit/cost/:cost/:car_license", (req, res) => {
 
 app.post("/parts/edit", (req, res) => {
   WebDAOObj.editPartsHub(req.body.partsUsingData).then((data) => {
-     res.send(data);
+    res.send(data);
   })
 })
 

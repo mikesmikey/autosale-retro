@@ -14,6 +14,7 @@ function startForm() {
     select = 'none'
 }
 function getAllInvoiceByType(type) {
+    invoiceAppointment=[]
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
             resolve(result.data);
@@ -24,16 +25,20 @@ function getAllInvoiceByType(type) {
     })
 }
 function getInvoiceByType(type) {
+    invoiceBills=[]
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
             resolve(result.data);
+            console.log(result.data)
             for (let i = 0; i < result.data.length; i++) {
+                console.log(result.data)
                 invoiceBills.push(result.data[i])
             }
         })
     })
 }
 function getAllCustomer() {
+    customer=[]
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/customers').then((result) => {
             resolve(result.data);
@@ -44,6 +49,7 @@ function getAllCustomer() {
     })
 }
 function getAllProductByType(type) {
+    product=[]
     return new Promise((resolve, reject) => {
         axios.get('http://localhost:5000/products/type/' + type).then((result) => {
             resolve(result.data);
@@ -87,7 +93,7 @@ function countObject(obj) {
 }
 function searchProductByCarLicense(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].type_desc.car_license === nameKey) {
+        if (myArray[i].trn_desc.car_license === nameKey) {
             return myArray[i];
         }
     }
@@ -309,19 +315,22 @@ function startFromBeforePrint() {
     getAllInvoiceByType("Appointment");
 }
 function checInvioce(value) {
-    let checkObj = searchProductByCarLicense(select, product)
-    if (select === "none") {
-        alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
-    }
-    else if (value === 'print_detail' || value === 'print_appiontment') {
-        printDiv(value)
-    }
-    else if (checkObj.type_desc.licenae_status) {
-       this.setAttributePrintFormBills()
-        printDiv(value)
-    } else {
-        alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีการกำหนดราคาราคา")
-    }
+    getAllProductByType("RegisterLicense").then((data) => {
+        let checkObj = searchProductByCarLicense(select, product)
+        console.log(checkObj)
+        if (select === "none") {
+            alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
+        }
+        else if (value === 'print_detail' || value === 'print_appiontment') {
+            printDiv(value)
+        }
+        else if (checkObj.trn_desc.licenae_status) {
+            this.setAttributePrintFormBills()
+            printDiv(value)
+        } else {
+            alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีการกำหนดราคาราคา")
+        }
+    });
 }
 function InsertCost() {
     let productObj = searchProductByCarLicense(select, product)
@@ -338,6 +347,7 @@ function InsertCost() {
         tempProduct.price_per_book = Number.parseInt(price)
         tempProduct.fare = Number.parseInt(cost)
         tempProduct.total_price = sum
+        console.log(tempProduct)
         this.changeStatusProduct(tempProduct).then((check_producStatus) => {
             if (check_producStatus) {
                 let tempBills = {}
@@ -362,18 +372,18 @@ function InsertCost() {
         })
     }
 }
-function CheckInsertCost(){
-    if(select !==  'none'){
+function CheckInsertCost() {
+    if (select !== 'none') {
         product = []
         this.getAllProductByType("RegisterLicense").then((result) => {
             let checkObj = searchProductByCarLicense(select, product)
-            if(!checkObj.type_desc.licenae_status){
+            if (!checkObj.trn_desc.licenae_status) {
                 this.launchLicenseCost()
-            }else {
-                alert('หมายเลขทะเบียน '+select+'  นี้มีการเพิ่มราคาไปแล้ว')
+            } else {
+                alert('หมายเลขทะเบียน ' + select + '  นี้มีการเพิ่มราคาไปแล้ว')
             }
         })
-    }else{
+    } else {
         alert('กรุณาเลือกหมายเลขทะเบียนรถก่อน')
     }
 }
@@ -406,35 +416,36 @@ function insertBillsRegister(invoiceObj) {
         })
     })
 }
-function setAttributePrintFormBills (){
+function setAttributePrintFormBills() {
     let productData = this.searchProductByCarLicense(select, product)
-    let invoiceData = this.searchInvoiceByCusIdAndProductId(productData.cust_id,productData.prod_id,invoiceBills)
-    let customerData = this.searchCustomer(productData.cust_id,customer)
+    let invoiceData = this.searchInvoiceByCusIdAndProductId(productData.cust_id, productData.prod_id, invoiceBills)
+    let customerData = this.searchCustomer(productData.cust_id, customer)
     console.log(invoiceData)
     document.getElementById('invoice_productLineNumber').innerHTML = '1'
     document.getElementById('invoice_productNumber').innerHTML = '1'
-    document.getElementById('invoice_customerName').innerHTML ='ผู้ซื้อ : ' +customerData.cust_name
-    document.getElementById('invoice_customerId').innerHTML =  'รหัสลูกค้า : '+productData.cust_id
-    document.getElementById('invoice_customerAddress').innerHTML =  'ที่อยู่ : '+customerData.cust_addr
-    document.getElementById('invoice_customerTax').innerHTML =  ' เลขที่ผู้เสียภาษี : '+customerData.cust_tax_no
-    document.getElementById('invoice_productCarLicense').innerHTML = productData.type_desc.car_license
-    document.getElementById('invoice_productCost').innerHTML =  invoiceData.trn_desc.total 
-    document.getElementById('invoice_productPrice').innerHTML =  invoiceData.trn_desc.total
-    document.getElementById('invoice_total').innerHTML =  invoiceData.trn_desc.total
-    document.getElementById('invoice_tax').innerHTML =  invoiceData.trn_desc.tax
-    document.getElementById('invoice_totalAll').innerHTML =  invoiceData.trn_desc.exc_vat
+    document.getElementById('invoice_customerName').innerHTML = 'ผู้ซื้อ : ' + customerData.cust_name
+    document.getElementById('invoice_customerId').innerHTML = 'รหัสลูกค้า : ' + productData.cust_id
+    document.getElementById('invoice_customerAddress').innerHTML = 'ที่อยู่ : ' + customerData.cust_addr
+    document.getElementById('invoice_customerTax').innerHTML = ' เลขที่ผู้เสียภาษี : ' + customerData.cust_tax_no
+    document.getElementById('invoice_productCarLicense').innerHTML = productData.trn_desc.car_license
+    document.getElementById('invoice_productCost').innerHTML = invoiceData.type_desc.total
+    document.getElementById('invoice_productPrice').innerHTML = invoiceData.type_desc.total
+    document.getElementById('invoice_total').innerHTML = invoiceData.type_desc.total
+    document.getElementById('invoice_tax').innerHTML = invoiceData.type_desc.tax
+    document.getElementById('invoice_totalAll').innerHTML = invoiceData.type_desc.exc_vat
 
-    document.getElementById('bill_date').innerHTML = '&nbspวันที่ออกใบ : '+ formatStringDate(invoiceData.issue_date)
-    document.getElementById('printBillCustomerName').innerHTML = 'ชื่อลูกค้า : '+customerData.cust_name
-    document.getElementById('printBillCustomerAddress').innerHTML = 'ที่อยู่ : '+customerData.cust_addr
+    document.getElementById('bill_date').innerHTML = '&nbspวันที่ออกใบ : ' + formatStringDate(invoiceData.issue_date)
+    document.getElementById('printBillCustomerName').innerHTML = 'ชื่อลูกค้า : ' + customerData.cust_name
+    document.getElementById('printBillCustomerAddress').innerHTML = 'ที่อยู่ : ' + customerData.cust_addr
     document.getElementById('printBillCustomerPhone').innerHTML = 'เบอร์โทรศัทพ์ : ' + customerData.cust_phone
-    document.getElementById('printBillProducCar').innerHTML = productData.type_desc.car_license
+    document.getElementById('printBillProducCar').innerHTML = productData.trn_desc.car_license
     document.getElementById('printBillProducNumber').innerHTML = '1'
-    document.getElementById('printBillProductPrice').innerHTML = invoiceData.trn_desc.total
-    document.getElementById('printBillCostAll').innerHTML = 'ราคารวม : '+invoiceData.trn_desc.total
-    document.getElementById('printBillVat').innerHTML = 'ภาษี VAT 7 % : '+invoiceData.trn_desc.tax
-    document.getElementById('printBillPriceAll').innerHTML = 'ราคาสุทธิ : '+invoiceData.trn_desc.exc_vat
-    
-  
+    document.getElementById('printBillProductPrice').innerHTML = invoiceData.type_desc.total
+    document.getElementById('printBillCostAll').innerHTML = 'ราคารวม : ' + invoiceData.type_desc.total
+    document.getElementById('printBillVat').innerHTML = 'ภาษี VAT 7 % : ' + invoiceData.type_desc.tax
+    document.getElementById('printBillPriceAll').innerHTML = 'ราคาสุทธิ : ' + invoiceData.type_desc.exc_vat
+
+
 }
+
 startForm();

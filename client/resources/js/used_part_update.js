@@ -1,17 +1,22 @@
-let thisPlateLicense = decodeURIComponent(window.location.search)
-  .substring(1)
-  .split("=")
-  .pop();
+var valBucket = decodeURIComponent(window.location.search).substring(1).split("&")
+let thisPlateLicense = valBucket[0].split("=").pop()
+let thisCustomer = valBucket[1].split("=").pop()
+let thisProduct = valBucket[2].split("=").pop()
+
+
 whenFormOpenUp();
 let partshub = [];
+let invoice = [];
 let resultObject;
 let thisParts = "";
 let thisCarData;
 var partsRepair;
 let selectedRow = -1;
 let selectedRowUsed = -1;
+let proceed = false
 
 function whenFormOpenUp() {
+  getAllInvoice();
   getAllPart().then(data => {
     createrowtablePartsHub(data);
   });
@@ -19,6 +24,9 @@ function whenFormOpenUp() {
   getAllUsedPartsByThisLicense(thisPlateLicense).then(data => {
     createrowtableUsedParts(data);
   });
+
+  
+
 }
 
 function editPartThisProduct(partsUsingData, thisPlateLicense) {
@@ -34,6 +42,17 @@ function editPartThisProduct(partsUsingData, thisPlateLicense) {
   });
 }
 
+function lockProceed() {
+
+  if (thisCarData.type_desc.repair_status === "อยู่ในระหว่างดำเนินการ") {
+    proceed = false
+    document.getElementById("repairing_status").disabled = false
+  }
+  else if (thisCarData.type_desc.repair_status === "ดำเนินการเรียบร้อย") {
+    proceed = true
+    document.getElementById("repairing_status").disabled = true
+  }
+}
 
 function editRepairStatus() {
   return new Promise((resolve, reject) => {
@@ -60,6 +79,17 @@ function editPartsHub(partsUsingData) {
   });
 }
 
+function getAllInvoice() {
+  return new Promise((resolve, reject) => {
+      axios.get('http://localhost:5000/invoices/').then((result) => {
+          resolve(result.data);
+          for (let i = 0; i < result.data.length; i++) {
+              invoice.push(result.data[i])
+          }
+      })
+  })
+}
+
 function getAllUsedPartsByThisLicense(val) {
   return new Promise((resolve, reject) => {
     axios
@@ -67,7 +97,38 @@ function getAllUsedPartsByThisLicense(val) {
       .then(result => {
         resolve(result.data);
         thisCarData = result.data;
+
+        lockProceed();
       });
+  });
+}
+
+function addInvoiceBill(invoData) {
+  return new Promise((resolve, reject) => {
+      axios.post('http://localhost:5000/invoice/type/Bill/add', { "invoData": invoData }).then((result) => {
+          resolve(result.data);
+      });
+  });
+}
+
+function addInvoiceReceipt(invoData) {
+  return new Promise((resolve, reject) => {
+      axios.post('http://localhost:5000/invoice/type/Receipt/add', { "invoData": invoData }).then((result) => {
+          resolve(result.data);
+      });
+  });
+}
+
+function editRepairCost(cost) {
+  return new Promise((resolve, reject) => {
+      axios
+          .post(
+              "http://localhost:5000/product/type/Repair/edit/cost/" +
+              cost + "/" + thisPlateLicense
+          )
+          .then(result => {
+              resolve(result.data);
+          });
   });
 }
 
@@ -430,7 +491,6 @@ function deleteUsedParts() {
         alert("อะไหล่นี้เหลือไม่เพียงพอ");
       }
 
-      //switch background to default when rows was deleted
       for (let i = 1; i < rows.length; i++) {
         if (i % 2 === 1) {
           rows[i].style.backgroundColor = "white";
@@ -442,11 +502,9 @@ function deleteUsedParts() {
 
       selectedRowUsed = -1;
 
-      //clear fields
       document.getElementById("partsName").value = "";
       document.getElementById("partsNum").value = "";
 
-      //touch another table when one is changed
       selectedUsedPartsToModify();
       selectedPartsHubToUsedPart();
     } else {
@@ -458,6 +516,7 @@ function deleteUsedParts() {
 }
 
 function selectedStatusRepairing() {
+
   var select = document.getElementById('repairing_status')
   var options = select.getElementsByTagName('option')
   for (let i = 0; i < options.length; i++) {
@@ -465,12 +524,68 @@ function selectedStatusRepairing() {
       editRepairStatus(thisPlateLicense).then(data => {
         if (data) {
           alert("อัพเดทสถานะซ่อมแล้ว")
+
+          let items = [], total = 0,numberParts = 0;
+          for(var i in partsRepair) {
+            total += partsRepair[i].parts_price * partsRepair[i].parts_num;
+            numberParts += partsRepair[i].parts_num;
+            items.push({
+              name: searchParts(partsRepair[i].parts_id, partshub),
+              price: partsRepair[i].parts_price,
+              num: partsRepair[i].parts_num,
+            })
+          }
+        
+          const prodInt = parseInt(thisProduct), custInt = parseInt(thisCustomer)
+
+          var invoiceBill = {
+            invo_id: searchInvoiceByCustAndProd(thisCustomer, thisProduct, invoice).invo_id + 1,
+            prod_id: prodInt,
+            cust_id: custInt,
+            invo_type: "Bill",
+            type_desc: {
+              total: total,
+              tax: total * 0.07,
+              exc_vat: total + (total * 0.07),
+              items: items
+            }
+          }
+
+          var invoiceReceipt= {
+            invo_id: invoiceBill.invo_id + 1,
+            prod_id: prodInt,
+            cust_id: custInt,
+            invo_type: "Receipt",
+            type_desc: {
+              total: total,
+              tax: total * 0.07,
+              non_vat: Math.abs(total - (total * 0.07)),
+              items: items
+            }
+          }
+
+          addInvoiceBill(invoiceBill).then(data => {
+            if(data) {
+              alert('เพิ่มใบกำกับภาษีสำเร็จ')
+              addInvoiceReceipt(invoiceReceipt).then(data => {
+                alert('เพิ่มใบเสร็จสำเร็จ')
+                
+                let discount = (numberParts > 99) ? numberParts * 10 : 0
+                let cost = Math.abs(total + (total * 0.07) - discount)             
+                editRepairCost(cost).then(data => {
+                  if(data) {
+                      alert("อัพเดทราคาซ่อมแล้ว")
+                      window.location.href = "./car_fix.html"
+                  }
+                })
+              })
+            }
+          })
         }
       })
       break;
     }
   }
-  // window.location.href = "./car_fix.html"
 }
 
 function acceptChange() {
@@ -542,7 +657,8 @@ function acceptChange() {
                 }
 
                 if (
-                  hasUpdate ? !hasNumchange : hasNumchange
+                  hasUpdate == true && hasNumchange == true ||
+                  hasUpdate == false && hasNumchange == false
                 ) {
                   let partsNumNotNegative =
                     partshub[j].parts_num - partsUsingData[i].parts_num;
@@ -559,6 +675,7 @@ function acceptChange() {
                           partshub
                         )}" สำเร็จ`
                       );
+                      window.location.href = "./car_fix.html"
                     }
                   });
                   console.log(partsUsingData[i], hasUpdate, hasNumchange);
@@ -567,8 +684,6 @@ function acceptChange() {
               }
             }
           }
-
-          window.location.href = "./car_fix.html"
 
         } else {
           alert("อัพเดทอะไหล่ไม่สำเร็จ");
@@ -628,6 +743,15 @@ function searchParts(nameKey, myArray) {
 function searchPartsByName(nameKey, myArray) {
   for (var i = 0; i < myArray.length; i++) {
     if (myArray[i].parts_name === nameKey) {
+      return myArray[i];
+    }
+  }
+  return null;
+}
+
+function searchInvoiceByCustAndProd(custId, prodId, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].cust_id === parseInt(custId) && myArray[i].prod_id === parseInt(prodId)) {
       return myArray[i];
     }
   }

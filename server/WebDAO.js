@@ -1,3 +1,4 @@
+const mongoDb = require('mongodb');
 const mongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const url = 'mongodb://hanami:hanami02@ds163164.mlab.com:63164/choketawee';
@@ -53,7 +54,13 @@ class WebDAO {
                 const db = client.db(dbName)
                 db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
-                    return resolve(data);
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.cust_id = 0
+                        return resolve(result)
+                    }
                 });
             });
         });
@@ -64,7 +71,13 @@ class WebDAO {
                 const db = client.db(dbName)
                 db.collection('Product').find().sort({ prod_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
-                    return resolve(data);
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.prod_id = 0
+                        return resolve(result)
+                    }
                 });
             });
         });
@@ -75,7 +88,13 @@ class WebDAO {
                 const db = client.db(dbName)
                 db.collection('Invoice').find().sort({ invo_id: -1 }).limit(1).toArray((err, data) => {
                     if (err) { throw err }
-                    return resolve(data);
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.invo_id = 0
+                        return resolve(result)
+                    }
                 });
             });
         });
@@ -194,6 +213,18 @@ class WebDAO {
         });
     }
 
+    insertCustomerByCarFix(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').insertOne(customer, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
     insertCustomer(customer) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -225,7 +256,7 @@ class WebDAO {
                     cust_id: arrObj.cust_id,
                     prod_order_date: today,
                     prod_type: 'RegisterLicense',
-                    type_desc: {
+                    trn_desc: {
                         car_license: arrObj.car_license,
                         price_per_book: -1,
                         fare: -1,
@@ -270,7 +301,7 @@ class WebDAO {
                     prod_id: invoice.prodId,
                     cust_id: invoice.cusId,
                     invo_type: "Bill",
-                    trn_desc: {
+                    type_desc: {
                         total: paraTemp.total,
                         tax: paraTemp.tax,
                         exc_vat: paraTemp.exc_vat,
@@ -339,7 +370,7 @@ class WebDAO {
                     cust_id: invoice.cust_id,
                     issue_date_no: 1,
                     invo_type: "Appointment",
-                    trn_desc: {
+                    type_desc: {
                         type: "RegisterLicense",
                         appt_date: day7
                     },
@@ -358,16 +389,18 @@ class WebDAO {
         });
     }
     changeStatusProductRegister(productData) {
+        //console.log(productData)
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').find({ prod_id: Number.parseInt(productData.prod_id)  }).toArray((err, data) => {
                     if (err) { throw err }
                     if(data){
-                        data[0].type_desc.price_per_book = Number.parseInt(productData.price_per_book)
-                        data[0].type_desc.fare = Number.parseInt(productData.fare)
-                        data[0].type_desc.total_price = Number.parseInt(productData.total_price)
-                        data[0].type_desc.licenae_status =  true
+                        data[0].trn_desc.price_per_book = Number.parseInt(productData.price_per_book)
+                        data[0].trn_desc.fare = Number.parseInt(productData.fare)
+                        data[0].trn_desc.total_price = Number.parseInt(productData.total_price)
+                        data[0].trn_desc.licenae_status =  true
+                        console.log(data[0])
                         db.collection('Product').findOneAndUpdate({ "prod_id": Number.parseInt(productData.prod_id) }, { "$set": data[0] }, (err, result) => {
                             if (err) { throw err }
                             if (result.value) {
@@ -486,7 +519,7 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').findOne(
-                    { "type_desc.car_license": lplate }, (err, data) => {
+                    { "trn_desc.car_license": lplate }, (err, data) => {
                         if (err) { throw err }
                         return resolve(data);
                     });
@@ -511,68 +544,78 @@ class WebDAO {
         });
     }
 
-    // getCarImageByObjectId(cust_id) { //cust_id => specified a file
-    //     return new Promise((resolve, reject) => {
-    //         mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    //             const db = client.db(dbName)
-    //             let bucket = new GridFSBucket(db, { bucketName: 'carImgs' })
-    //             let downloadStream = bucket.openDownloadStreamByName(cust_id);
+    testUploadImg() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                if (client) {
 
-    // const writadableImgStream = new Writable({
-    //     write(chunk, encoding, callback) {
-    //         console.log('on write stream  => ', chunk.toString());
-    //         callback();
-    //     }
-    // });
+                    const db = client.db(dbName)
+                    var bucket = new mongoDb.GridFSBucket(db, {
+                        chunkSizeBytes: 32768,
+                        bucketName: 'carImgs'
+                    });
 
-    //             downloadStream.on('data', (chunk) => {
-    //                console.log('on data => ', chunk)
-    //             });
+                    fs.createReadStream('./1ED0CMq.jpg').
+                        pipe(bucket.openUploadStream('1ED0CMq.jpg')).
+                        on('error', function (error) {
+                            assert.ifError(error);
+                        }).
+                        on('finish', function () {
+                            console.log('done!');
+                        });
+                } else {
+                    resolve(false)
+                }
+            })
+        })
+    }
 
-    //             downloadStream.on('error', (err) => {
-    //                 console.log('error => ', err)
-    //                 return resolve(false)
-    //             });
+    getCarImageById(imgId) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('CarImage').findOne(new ObjectId(imgId), (err, data) => {
+                    if(err) { throw err }
+                    return resolve(data)
+                })
 
-    //             downloadStream.on('end', () => {
-    //                 console.log('error => ', err)
-    //                 return resolve(true)
-    //             });
-    //         })
-    //     })
-    //}
+                // var bucket = new mongoDb.GridFSBucket(db, {
+                //     chunkSizeBytes: 32768,
+                //     bucketName: 'carImgs'
+                // });
+                // resolve(bucket.openDownloadStream(new ObjectId(objectId)))
+            })
+        })
+    }
+
+    getAllCarImages() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('CarImage').find({}).project({ "_id": 0 }).toArray((err, data) => {
+                    if(err) { throw err }
+                    return resolve(data)
+                })              
+            })
+        })
+    }
 
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-
-                const bucket = new GridFSBucket(db, {
-                    chunkSizeBytes: 32768,
-                    bucketName: 'carImgs'
-                });
-
-                const readableImgStream = new Readable()
-                readableImgStream.push(source.base64)
-                readableImgStream.push(null)
-
-                let uploadStream = bucket.openUploadStream(source.name);
-                let id = uploadStream.id;
-                readableImgStream.pipe(uploadStream)
-
-                uploadStream.on('error', () => {
-                    return resolve(false)
-                });
-
-                uploadStream.on('finish', () => {
-                    console.log('success on id => ', id)
-                    return resolve(id)
+                db.collection('CarImage').insertOne(source, (err, result) => {
+                    if (err) { throw err }
+                    console.log('success on id -> ', source._id)
+                    return resolve(source._id)
                 });
             });
         });
     }
 
-    insertProductByTypeRepair(product) {
+    insertProductByTypeRepair(product, imgId) {
+        product.trn_car.car_pic = new ObjectId(imgId)
+
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
@@ -585,6 +628,31 @@ class WebDAO {
     }
 
     insertInvoiceByTypeAppt(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+
+            });
+        });
+    }
+
+    insertInvoiceByTypeReceipt(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertInvoiceByTypeBill(invoice) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
