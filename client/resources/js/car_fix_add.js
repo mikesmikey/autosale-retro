@@ -169,7 +169,7 @@ function insertThisCustomerByCarFix() {
         var productCarFixData = {
             prod_id: maxProduct + 1,
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            prod_order_date: "",
+            prod_order_date: "15/03/2018",
             prod_type: 'Repair',
             type_desc: {
                 repair_detail: CarFixAdds[7].split(/\n/),
@@ -201,9 +201,9 @@ function insertThisCustomerByCarFix() {
             invo_type: "Appointment",
             type_desc: {
                 type: "Repair",
-                appt_date: "2018 03 22"
+                appt_date: "15/07/2018"
             },
-            issue_date: "2018 03 20"
+            issue_date: "25/08/2018"
         }
 
         var image = {

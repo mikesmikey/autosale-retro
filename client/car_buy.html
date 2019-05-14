@@ -151,10 +151,11 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search" onkeypress="runScript(event)"
-                                        placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select id="selectNumber" multiple size="16" class="selectPlate width80 cursor-pointer">
-                                        
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <select id="selectNumber" multiple size="16"
+                                        class="selectPlate width80 cursor-pointer">
+
                                     </select>
                                 </div>
 
@@ -176,7 +177,7 @@
                             <div class="columns">
                                 <div class="column" style="padding:15px">
                                     <center>
-                                        <img src="./resources/icons/car.svg" alt="Smiley face" height="160" width="120">
+                                        <img id="carbuy_upload" src="" alt="" height="160" width="120">
                                     </center>
                                 </div>
                                 <div class="column is-5 border-gray" style="padding:5px">
@@ -191,7 +192,7 @@
 
                             <div class="columns is-9">
                                 <div class=" column border-gray">
-                                    <p >รายละเอียดเครื่องยนต์</p>
+                                    <p>รายละเอียดเครื่องยนต์</p>
                                     <p id="car_engine">เครื่องยนต์: </p>
                                     <p id="car_status">สภาพ: </p>
                                     <p id="car_history">ประวัติ: </p>
@@ -203,7 +204,7 @@
                                 <div class="column" style="text-align:right">
                                     <br>
                                     <button type="button" class="button is-width40  is-round is-2 is-oros"
-                                        onClick="printDiv('car_bill')">พิมพ์</button>
+                                        onclick="printDiv('receipt')">พิมพ์</button>
                                 </div>
 
                             </div>
@@ -215,62 +216,44 @@
         </div>
     </div>
 
-    <div class="box" id="car_bill">
-        <div class="columns">
-            <div class="column">
-                <br>
-                <center>
-                    <font size=6> พิมพ์ใบเสร็จ </font>
-                </center>
-                <br>
-            </div>
-        </div>
-        <div class="columns">
-            <div class=" column">
-                <div id="bor01">
-                    <p>&nbspเลขที่ออเดอร์ : 214321890427140721</p>
-                    <p>&nbspเลขที่บิล : sadf123214214214</p>
-                    <p>&nbspวันที่ออก : 17/11/2561</p>
-                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
-                    <br><br>
-                </div>
-                <div id="bor01">
-                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp
-                        รายการ</p>
+    <div class="box" id="formCarFix">
+        <div class="box" id="receipt">
+            <div class="columns">
+                <div class="column">
+                    <br>
                     <center>
-                        <table id="table01">
-                            <tr id="tr01">
-                                <th class="mixTop">&nbspรายการ</th>
-                                <th class="mixTop">&nbspจำนวน</th>
-                                <th class="mixTop">&nbspราคา</th>
-                            </tr>
-                            <tr>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                            </tr>
-                            <tr>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                            </tr>
-                            <tr>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                            </tr>
-                            <tr>
-                                <td class="mixUnder"><br /></td>
-                                <td class="mixUnder"><br /></td>
-                                <td class="mixUnder"><br /></td>
-                            </tr>
-
-
-                        </table>
-                    </center> <br>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
                 </div>
             </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
 
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -281,7 +264,6 @@
     <!-- Controller JS -->
     <script src="./resources/js/menuController.js"></script>
     <script src="./resources/js/navbarController.js"></script>
-    <script src="./resources/js/utilities.js"></script>
 </footer>
 
 </html>

@@ -128,105 +128,61 @@
             </li>
         </ul>
     </nav>
+        
     <div class="subcontent-area">
         <div class="subcontent-main-div plate">
             <div class="box with-title is-round">
                 <div class="box-title is-oros">
-                    เพิ่มลุกค้าซื้อรถ
+                    เพิ่มลูกค้าและรายการซื้อรถ
                 </div>
                 <div class="box">
-                    <div class="columns">
-
-                        <div class="column is-3">
-                            <h2> ลูกค้าเดิม
-                                <h2>
-                        </div>
-                        <div class="column is-5">
-                            <h2> ลูกค้าใหม่
-                                <h2>
-                        </div>
-                    </div>
                     <div class="columns">
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
-                                        placeholder="ค้นหาด้วยชื่อ">
-                                    <select id="carbuy_platelicense" multiple size="12" class="selectPlate width80">
-                                        <option value="กข123">James Goodman
-                                        </option>
-                                        <option value="ฟห121"> Maria Brown
-                                        </option>
-                                        <option value="พก999">Saul Walker</option>
+                                    <input id="input_car_fix_add" class="input-icon-search width80" type="text"
+                                        name="search" placeholder="ค้นหาด้วยชื่อลูกค้าเดิม">
+                                    <select id="carbuy_plicense" size="12"
+                                        class="selectPlate width80 cursor-pointer">
+
                                     </select>
                                 </div>
-
-                                <br>
-
                             </div>
 
                         </div>
                         <div class="column is-5">
-                            <div class="columns border-gray">
+                            <div class="border-gray">
                                 <div id='data_input'>
                                     <div class="boxplate columns" style="padding:10px">
                                         <div id='group-label'>
-                                            <label class="label is-2">ชื่อ :</label>
-                                            <br>
-                                            <br>
-                                            <label class="label is-2">ที่อยู่</label>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <label class="label is-2">เบอร์โทรศัพท์</label>
-                                            <br>
-                                            <br>
+                                            <label class="label is-2">ชื่อ :</label><br><br>
+                                            <label class="label is-2">ที่อยู่</label><br><br><br><br><br><br><br><br>
+                                            <label class="label is-2">เบอร์โทรศัพท์</label><br><br>
                                             <label class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
                                         </div>
                                         <div id='group-input' class="column is-6 ">
                                             <center>
-                                                <input id='cust-name' type="text" class="input-plateAdd  width90 ">
-                                                <br>
-                                                <br>
+                                                <input id='cust-name' type="text"
+                                                    class="input-plateAdd  width90 "><br><br>
                                                 <textarea id='cust-addr' class="textarea-plate  width90 address "
                                                     rows="6">
-                                            </textarea>
-                                                <br>
-                                                <br>
-                                                <input id='cust-phone' type="text" class="input-plateAdd  width90 ">
-                                                <br>
-                                                <br>
+                                                </textarea><br><br>
+                                                <input id='cust-phone' type="text"
+                                                    class="input-plateAdd  width90 "><br><br>
                                                 <input id='cust-tax_no' type="text" class="input-plateAdd  width90 ">
                                             </center>
                                         </div>
                                     </div>
                                 </div>
                                 <div id='data_show' class='deplay-none' style="padding:20px">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <label id='show-cust-name' class="label is-2">ชื่อ :</label>
-                                    <br>
-                                    <br>
-                                    <label id='show-cust-addr' class="label is-2">ที่อยู่</label>
-                                    <br>
-                                    <br>
-                                    <label id='show-cust-phone' class="label is-2">เบอร์โทรศัพท์</label>
-                                    <br>
-                                    <br>
+                                    <br><br><br>
+                                    <label id='show-cust-name' class="label is-2">ชื่อ :</label><br><br>
+                                    <label id='show-cust-addr' class="label is-2">ที่อยู่</label><br><br>
+                                    <label id='show-cust-phone' class="label is-2">เบอร์โทรศัพท์</label><br><br>
                                     <label id='show-cust-tax_no' class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
-                                    <br>
-                                    <br>
-                                    <br>
+                                    <br><br><br>
                                 </div>
                             </div>
-                            <br>
-
                         </div>
                     </div>
                     <div class='columns'>
@@ -238,7 +194,8 @@
                     </div>
                 </div>
                 <div class="box">
-                    <h2> เลขทะเบียนทั้งหมด<h2>
+                    <h2> รายละเอียดรถที่ซ่อม
+                        <h2>
                             <div class="border-gray">
                                 <div class="box boxplate ">
                                     <div class="columns">
@@ -256,7 +213,6 @@
                                             </div>
                                         </div>
                                         <div class="column is-4">
-
                                             <p>
                                                 <label class="label is-3">ยี่ห้อ</label>
                                                 <input type="text" class="input-plateAdd  is-pulled-right width70"
@@ -273,11 +229,20 @@
                                                     id="car-license">
                                             </p>
                                             <p>
-                                                <label class="label is-3">รายละเอียด</label>
-                                                <textarea class="textarea-plate is-pulled-right width70 address"
-                                                    rows="3" id="repair-detail"></textarea>
+                                                <label class="label is-3">เครื่องยนต์</label>
+                                                <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                                    id="car-engine">
                                             </p>
-                                            <br>
+                                            <p>
+                                                <label class="label is-3">สภาพ</label>
+                                                <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                                    id="car-status">
+                                            </p>
+                                            <p>
+                                                <label class="label is-3">ประวัติ</label>
+                                                <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                                    id="car-histor">
+                                            </p>
                                             <p>
                                                 <label class="label is-3">ราคาซื้อ</label>
                                                 <input type="text" class="input-plateAdd  is-pulled-right width70"
@@ -297,73 +262,35 @@
                                     </div>
                                 </div>
                             </div>
+
                 </div>
                 <div class="box">
-                    <h2> นายหน้า(ไม่จำเป็นต้องมี)<h2>
-                            <div class="border-gray">
-                                <div class="box boxplate">
-                                    <div class="columns">
-                                        <div class="column is-4">
-                                            <p>
-                                                <label class="label is-3">ชื่อ</label>
-                                                <input type="text" class="input-plateAdd  is-pulled-right width70"
-                                                    id="partner-name">
-                                            </p>
-                                            <p>
-                                                <label class="label is-3">เบอร์โทร</label>
-                                                <input type="text" class="input-plateAdd  is-pulled-right width70"
-                                                    id="partner-phone">
-                                            </p>
-                                        </div>
-                                    </div>
+                    <h2> นายหน้า(ไม่จำเป็นต้องมี)</h2>
+                    <div class="border-gray">
+                        <div class="box boxplate">
+                            <div class="columns">
+                                <div class="column is-4">
+                                    <p>
+                                        <label class="label is-3">ชื่อ</label>
+                                        <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                            id="partner-name">
+                                    </p>
+                                    <p>
+                                        <label class="label is-3">เบอร์โทร</label>
+                                        <input type="text" class="input-plateAdd  is-pulled-right width70"
+                                            id="partner-phone">
+                                    </p>
                                 </div>
                             </div>
-                            <br>
-                            <div style="text-align: center;">
-                                <button type="button" onclick=""
-                                    class="button is-round is-2 width13 is-oros">ยืนยัน</button>
-                                <button type="button" onclick=""
-                                    class="button is-round is-2 width13 is-yentafo">ยกเลิก</button>
-                            </div>
-                            <!-- <div class="box">
-                    <h2> นายหน้า(ไม่จำเป็นต้องมี)</h2>
-                    <div class="columns is-9 border-gray">
-                        <div class="columns">
-                            <div class="column is-6" style="padding:15px">
-                                <br>
-                                <p align="right">ชื่อ</p>
-                                <br>
-                                <p align="right">เบอร์โทร</p>
-                            </div>
-                            <div class="column" style="padding:15px">
-                                <br>
-                                <br>
-                                <input id="partner_name" type="text" name="email" size="40">
-                                <br>
-                                <br>
-                                <br>
-                                <input id="partner_phone" type="text" name="email" size="40">
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="columns" style="text-align:right">
-                        <div class="column is-4" style="text-align:right">
-                        </div>
-                        <div class="column is-2" style="text-align:right">
-                            <button type="button" onclick="insertThisCustomerByCarFix()"
-                                class="button is-width80  is-round is-2 is-oros">ยืนยัน</button>
-                        </div>
-                        <div class="column is-2">
-                            <a href="./car_buy.html">
-                                <button type="button"
-                                    class="button margin-left-x is-width80 is-round is-2  is-yentafo">ยกเลิก</button>
-                            </a>
                         </div>
                     </div>
-                </div> -->
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" onclick="insertThisCustomerByCarBuy()"
+                        class="button is-round is-2 width13 is-oros">ยืนยัน</button>
+                    <button type="button" onclick="mockCarBuy()"
+                        class="button is-round is-2 width13 is-yentafo">ยกเลิก</button>
                 </div>
             </div>
         </div>

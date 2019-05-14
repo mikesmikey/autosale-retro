@@ -1,12 +1,15 @@
 //RegisterLicense
 let product = [];
+let resultObject;
 let customer = [];
+let carimages = [];
 let invoice = [];
 let select = "none"
 function startForm() {
     getAllProductByType("Buy").then((data) => {
         createselect(data);
     });
+    getAllCarImages();
     getAllCustomer();
     getAllInvoiceByType("Appointment");
 }
@@ -14,8 +17,7 @@ function startForm() {
 
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
-            console.log(result.data) 
+        axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 invoice.push(result.data[i])
@@ -33,16 +35,26 @@ function getAllCustomer() {
         })
     })
 }
+function getAllCarImages() {
+    return new Promise((resolve, reject) => {
+        axios.get("http://localhost:5000/images").then(result => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                carimages.push(result.data[i]);
+            }
+        });
+    })
+}
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/products/type/" + type).then(result => {
-        resolve(result.data);
-        for (let i = 0; i < result.data.length; i++) {
-          product.push(result.data[i]);
-        }
-      });
+        axios.get("http://localhost:5000/products/type/" + type).then(result => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                product.push(result.data[i]);
+            }
+        });
     });
-  }
+}
 
 function launchLicenseDelete() {
     document.getElementById('delete-license').classList.add('is-active');
@@ -62,7 +74,6 @@ function countObject(obj) {
     return count;
 }
 function searchProductByCarLicense(nameKey, myArray) {
-    console.log(myArray)
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].trn_car.car_license === nameKey) {
             return myArray[i];
@@ -92,10 +103,28 @@ function searchInvice(nameKey, myArray) {
         }
     }
 }
+function printDiv(type) {
+    let resPrintRepairDetail = resultObject.type_desc.repair_detail;
+    let resPrintReparingParts_Name = [];
+    let resPrintReparingParts_Num = [];
+    const currentPage = document.body.innerHTML;
+
+    if (type === 'receipt') {
+
+    }
+    window.print();
+    document.body.innerHTML = currentPage;
+}
+
 function ShowDetail(value) {
-    let resultObject = searchProductByCarLicense(value, product);
+    resultObject = searchProductByCarLicense(value, product);
     console.log(resultObject)
-    select = value ;
+
+    document.getElementById('carbuy_upload').src = ""
+    let carImage = searchCarImage(resultObject.cust_id, carimages);
+    select = value;
+    document.getElementById('carbuy_upload').src = carImage.base64;
+
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
     document.getElementById("dca_car_license").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
@@ -105,7 +134,7 @@ function ShowDetail(value) {
     document.getElementById("dca_car_model").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
     //เจ้าของ
     document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
-    
+
     document.getElementById("car_engine").innerHTML = "เครื่องยนต์ : " + resultObject.trn_car.car_engine + " cc"
     document.getElementById("car_status").innerHTML = "สภาพ : " + resultObject.trn_car.car_status + "%"
     document.getElementById("car_history").innerHTML = "ประวัติ : " + resultObject.trn_car.car_history
@@ -172,8 +201,8 @@ function setAttributePrint(value) {
     // cutomerModel.innerHTML = "รุ่น : " + productObj.trn_car.car_model
     // let cutomerLicense = document.getElementById('print_detail_car_license')
     // cutomerLicense.innerHTML = "เลขทะเบียน : " + productObj.trn_car.car_license
-   
-    
+
+
 
     //from ใบรับเล่มทะเบียน print_appiontment_appt_date
     // let appiontmentApptDate = document.getElementById('print_appiontment_appt_date')
@@ -198,55 +227,69 @@ function setAttributePrint(value) {
     //print_appiontment_
 
 }
+function printDiv(printDivName) {
+    if (resultObject === undefined) {
+        alert('กรุณาคลิกป้ายทะเบียนก่อน')
+    }
+    else {
+        let resPrintRepairDetail = resultObject.type_desc.repair_detail;
+        let resPrintReparingParts_Name = [];
+        let resPrintReparingParts_Num = [];
+        const currentPage = document.body.innerHTML;
+        document.body.innerHTML = document.getElementById(printDivName).innerHTML;
+        if (printDivName === "receipt") {
+            let rect = searchInvoiceByCustAndProd("Receipt", resultObject.cust_id, resultObject.prod_id, invoice)
+            var table = document.getElementById("table01")
+
+            for (var i = 0; i < rect.type_desc.items.length; i++) {
+
+                let row = table.insertRow(i + 1);
+                let name = row.insertCell(0);
+                let price = row.insertCell(1);
+                let num = row.insertCell(2);
+
+                name.innerHTML = rect.type_desc.items[i].name;
+                price.innerHTML = rect.type_desc.items[i].price;
+                num.innerHTML = rect.type_desc.items[i].num;
+            }
+            document.getElementById("prodId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
+            document.getElementById("invoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
+            document.getElementById("type").innerHTML = "&nbsp;วันที่ออก : Repair";
+            document.getElementById("launchDate").innerHTML = "&nbsp;ประเภทออเดอร์ : 14/05/2019";
+        }
+        window.print();
+        document.body.innerHTML = currentPage;
+    }
+}
 function getCurrentDate() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    yyyy = yyyy+543 
+    yyyy = yyyy + 543
     today = dd + '/' + mm + '/' + yyyy;
 
     return today
 }
-function formatStringDate(value){
+function formatStringDate(value) {
     var str = value.split(" ");
-    var date = str[2] + '/' +str[1] + '/'+str[0]
+    var date = str[2] + '/' + str[1] + '/' + str[0]
     return date
 }
-function printDiv(printDivName) {
-    const currentPage = document.body.innerHTML
 
-    document.body.innerHTML = document.getElementById(printDivName).innerHTML;
-
-    window.print();
-
-    document.body.innerHTML = currentPage;
-    startFromBeforePrint();
-}
-function startFromBeforePrint() {
-    removeAlloption();
-    document.getElementById("dca_prod_id").innerHTML = "กรุณาเลือกหมายเลขทะเบียนทางด้านซ้าย"
-    document.getElementById("dca_car_license").innerHTML = "เพือแสดงข้อความรายละเอียด"
-    document.getElementById("dca_car_brand").innerHTML = "การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย"
-    document.getElementById("dca_car_model").innerHTML = "1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ "
-    document.getElementById("dca_customer_name").innerHTML = "4.รุ่นรถ 5.เจ้าของรถ"
-    getAllProductByType("RegisterLicense").then((data) => {
-        createselect(data);
-    });
-    getAllCustomer();
-    getAllInvoiceByType("Appointment");
-}
-function checInvioce(){
-    let checkObj = searchProductByCarLicense(select,product)
-    if(select === "none"){
-        alert("กรุณาเลือกหมายเลขทะเบียนรถก่อน")
+function searchCarImage(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].cust_id === nameKey) {
+            return myArray[i];
+        }
     }
-    else if(checkObj.type_desc.licenae_status){
-        //function setAttributePrintFormBills
-        //printDiv('print_bill')
-        //printDiv('print_invoice')
-    }else{
-        alert("ไม่สามารถพิมพ์ใบเสร็จเนื่องจากยังไม่มีราคา")
+}
+function searchInvoiceByCustAndProd(type, custId, prodId, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].invo_type === type && myArray[i].cust_id === parseInt(custId) && myArray[i].prod_id === parseInt(prodId)) {
+      return myArray[i];
     }
+  }
+  return null;
 }
 startForm();

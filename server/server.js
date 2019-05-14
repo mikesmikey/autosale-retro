@@ -254,8 +254,20 @@ app.post("/invoice/type/Bill/add", (req, res) => {
   })
 })
 
+app.post("/invoice/type/Contract/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeContract(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
 app.post("/invoice/type/Receipt/add", (req, res) => {
   WebDAOObj.insertInvoiceByTypeReceipt(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/product/type/Buy/add", (req, res) => {
+  WebDAOObj.insertProductByTypeBuy(req.body.prodData, req.body.imgId).then(data => {
     res.json(data);
   })
 })

@@ -16,6 +16,10 @@ function mockCarFix() {
     window.location.href = './car_fix.html';
 }
 
+function mockCarBuy() {
+    window.location.href = './car_buy.html';
+}
+
 function mockUsedPartUpdate() {
     window.location.href = "./used_part_update.html";
 }

@@ -1,5 +1,6 @@
 let resultObject;
 let partshub = [];
+let partner = [];
 let product = []
 let customer = [];
 let invoice = [];
@@ -9,11 +10,15 @@ let maxProduct = -1;
 let maxInvoice = -1;
 let FileUpload = '';
 let convertToBase64;
+let imageType;
+let imageFile;
+let selectedFile;
 
 function startForm() {
     getAllCustomer().then((data) => {
         createselect(data);
     });
+    getAllPartner();
     getAllProduct();
     getAllInvoice();
     getAllPart();
@@ -22,18 +27,18 @@ function startForm() {
 function getBase64() {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsBinaryString(FileUpload);
+        reader.readAsDataURL(FileUpload);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
 }
 
 function wrapThis(data) {
-    convertToBase64 = data.split(';base64,').pop();
+    convertToBase64 = data;
 }
 
 function uploadImage(event) {
-    var selectedFile = event.target.files[0];
+    selectedFile = event.target.files[0];
     var reader = new FileReader();
     // console.log(document.getElementById('image-upload').files[0])
     // document.getElementById('image-upload').value = files[0]
@@ -50,6 +55,14 @@ function uploadImage(event) {
 
         reader.readAsDataURL(selectedFile)
         FileUpload = selectedFile;
+
+        // imageType = `image/${file[1]}`
+        // getImageByCarFixWithCustomerId("5cd88323db38ac040ca0713a").then(data => {
+        //     console.log(data)
+        // })
+        // imageFile = new FormData()
+        // imageFile.append('carImg', selectedFile);
+
         getBase64(FileUpload).then(data => wrapThis(data))
     }
     else {
@@ -103,7 +116,7 @@ function setDafault() {
 
 }
 
-function insertThisCustomerByCarFix() {
+function insertThisCustomerByCarBuy() {
     let CarFixAdds = [];
     CarFixAdds.push(document.getElementById('cust-name').value);
     CarFixAdds.push(document.getElementById('cust-phone').value);
@@ -113,11 +126,19 @@ function insertThisCustomerByCarFix() {
     CarFixAdds.push(document.getElementById('car-brand').value);
     CarFixAdds.push(document.getElementById('car-model').value);
     CarFixAdds.push(document.getElementById('car-license').value);
-    CarFixAdds.push(document.getElementById('repair-detail').value);
+    CarFixAdds.push(document.getElementById('car-engine').value);
+    CarFixAdds.push(document.getElementById('car-status').value);
+    CarFixAdds.push(document.getElementById('car-histor').value);
+    CarFixAdds.push(document.getElementById('carbuy-price').value);
+    CarFixAdds.push(document.getElementById('carsell-price').value);
+    CarFixAdds.push(document.getElementById('detail-assess').value);
     CarFixAdds.push(FileUpload);
 
+    CarFixAdds.push(document.getElementById('partner-name').value);
+    CarFixAdds.push(document.getElementById('partner-phone').value);
+
     let checkNull = false;
-    for (var i in CarFixAdds) {
+    for (var i = 0; i < CarFixAdds.length - 2; i++) {
         if (CarFixAdds[i] === '') {
             checkNull = true;
         }
@@ -148,29 +169,60 @@ function insertThisCustomerByCarFix() {
         alert('กรุณากรอกข้อมูลให้ครบ')
     }
     else {
-
+        console.log(CarFixAdds)
         var canFindThisCust = searchCustomerByName(CarFixAdds[0], customer)
+        var canFindThisPartner = searchPartnerByName(CarFixAdds[12], partner)
+        var productCarBuyData;
+        if(canFindThisPartner === undefined) {
+            productCarBuyData = {
+                prod_id: maxProduct + 1,
+                cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+                prod_order_date: "15/03/2018",
+                prod_type: 'Buy',
+                type_desc: {
+                    price_buy: CarFixAdds[10],
+                    price_sell: CarFixAdds[11],
+                    detail_assessment: CarFixAdds[12],
+                    status_buy: "ยังไม่ขาย"
+                },
+                trn_car: {
+                    car_brand: CarFixAdds[4],
+                    car_model: CarFixAdds[5],
+                    car_license: CarFixAdds[6],
+                    car_pic: {},
+                    car_engine: CarFixAdds[7],
+                    car_status: CarFixAdds[8],
+                    car_histor: CarFixAdds[9]
+                }
+            };
+        }
+        else {
+            productCarBuyData = {
+                prod_id: maxProduct + 1,
+                cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+                prod_order_date: "15/03/2018",
+                prod_type: 'Buy',
+                type_desc: {
+                    partner_id: canFindThisPartner.partner_id,
+                    price_buy: CarFixAdds[10],
+                    price_sell: CarFixAdds[11],
+                    commission: 5000,
+                    detail_assessment: CarFixAdds[12],
+                    status_buy: "ยังไม่ขาย"
+                },
+                trn_car: {
+                    car_brand: CarFixAdds[4],
+                    car_model: CarFixAdds[5],
+                    car_license: CarFixAdds[6],
+                    car_pic: {},
+                    car_engine: CarFixAdds[7],
+                    car_status: CarFixAdds[8],
+                    car_histor: CarFixAdds[9]
+                }
+            };
+        }
 
-        var productCarFixData = {
-            prod_id: maxProduct + 1,
-            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            prod_order_date: "",
-            prod_type: 'Repair',
-            type_desc: {
-                repair_detail: CarFixAdds[7].split(/\n/),
-                repair_status: "อยู่ในระหว่างดำเนินการ",
-                cost_of_repairs: 0,
-                trn_parts_repair: []
-            },
-            trn_car: {
-                car_brand: CarFixAdds[4],
-                car_model: CarFixAdds[5],
-                car_license: CarFixAdds[6],
-                car_pic: {}
-            }
-        };
-
-        var customerOfCarFixData = {
+        var customerOfCarBuyData = {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             cust_name: CarFixAdds[0],
             cust_phone: CarFixAdds[1],
@@ -178,29 +230,33 @@ function insertThisCustomerByCarFix() {
             cust_addr: CarFixAdds[3]
         };
 
-        var invoiceAppt = {
+        var invoiceContract = {
             invo_id: maxInvoice + 1,
             prod_id: maxProduct + 1,
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             issue_date_no: 1,
-            invo_type: "Appointment",
+            invo_type: "Contract",
             type_desc: {
-                type: "Repair",
-                appt_date: "2018 03 22"
+                type: canFindThisPartner === undefined ? "None" : (searchPartner(canFindThisPartner.partner_id, partner).partner_type === "Company" ? "Company" : "Agent")
             },
-            issue_date: "2018 03 20"
+            issue_date: "01/10/2018"
         }
 
         var image = {
-            name: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            size: FileUpload.size,
-            type: "image/jpeg",
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+            invo_id: maxInvoice + 1,
+            prod_id: maxProduct + 1,
             base64: convertToBase64
         }
 
+        console.log(productCarBuyData)
+        console.log(customerOfCarBuyData)
+        console.log(invoiceContract)
+        console.log(image)
+
         //if new customer
         if (typeof canFindThisCust === 'undefined') {
-            addCustomerByCarFix(customerOfCarFixData).then((data) => {
+            addCustomerByCarFix(customerOfCarBuyData).then((data) => {
                 if (data) {
                     alert('เพิ่มลูกค้าสำเร็จ')
                 }
@@ -209,30 +265,19 @@ function insertThisCustomerByCarFix() {
                 }
             })
         }
-        addProductByCarFix(productCarFixData).then((data) => {
-            if (data) {
-                alert('เพิ่มโปรดักสำเร็จ')
-                addInvoiceAppt(invoiceAppt).then((data) => {
-                    if (data) {
-                        alert('เพิ่มใบนัดรับ(รถ)สำเร็จ')
-                        addImageByCarFix(image).then((data) => {
-                            if (data) {
-                                alert('เพิ่มรูปรถสำเร็จ')
-                                window.location.href = './car_fix.html';
-                            }
-                            else {
-                                alert('เพิ่มรูปรถไม่สำเร็จ')
-                            }
-                        })
-                    }
-                    else {
-                        alert('เพิ่มใบนัดรับไม่สำเร็จ')
-                    }
-                })
-            }
-            else {
-                alert('เพิ่มโปรดักไม่สำเร็จ')
-            }
+        addImageByCarBuy(image).then((data) => {
+            alert('เพิ่มรูปรถสำเร็จ')
+            addProductByCarBuy(productCarBuyData, data).then((data) => {
+                if (data) {
+                    alert('เพิ่มโปรดักสำเร็จ')
+                    addInvoiceContract(invoiceContract).then((data) => {
+                        if (data) {
+                            alert('เพิ่มใบสัญญาซื้อสำเร็จ')
+                            //window.location.href = './car_buy.html';
+                        }
+                    })
+                }
+            })
         })
     }
 
@@ -248,7 +293,7 @@ function addNewCustomerByRepair() {
 function createselect(data) {
     for (let i = 0; i < data.length; i++) {
         try {
-            var select = document.getElementById("lplate_add_selected");
+            var select = document.getElementById("carbuy_plicense");
             var option = document.createElement("option");
             option.text = data[i].cust_name;
             option.value = data[i].cust_name;
@@ -293,23 +338,15 @@ function runScript(e) {
 }
 
 ////////////////////////////////////////////////////////////////////
-function addInvoiceAppt(invoData) {
+function addInvoiceContract(invoData) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/invoice/type/Appt/add', { "invoData": invoData }).then((result) => {
+        axios.post('http://localhost:5000/invoice/type/Contract/add', { "invoData": invoData }).then((result) => {
             resolve(result.data);
         })
     })
 }
 
-function getImageByCarFixWithCustomerId(imgId) {
-    return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/images/id_' + imgId).then((result) => {
-            resolve(result.data);
-        })
-    })
-}
-
-function addImageByCarFix(source) {
+function addImageByCarBuy(source) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/image/add', { "source": source }).then((result) => {
             resolve(result.data);
@@ -325,9 +362,20 @@ function addCustomerByCarFix(custData) {
     })
 }
 
-function addProductByCarFix(prodData) {
+function getAllPartner() {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/product/type/Repair/add', { "prodData": prodData }).then((result) => {
+        axios.get('http://localhost:5000/partners').then((result) => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                partner.push(result.data[i])
+            }
+        })
+    })
+}
+
+function addProductByCarBuy(prodData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/product/type/Buy/add', { "prodData": prodData }).then((result) => {
             resolve(result.data);
         })
     })
@@ -367,17 +415,6 @@ function getAllInvoice() {
     })
 }
 
-// function getAllInvoiceByType(type) {
-//     return new Promise((resolve, reject) => {
-//         axios.get('http://localhost:5000/invoices/type/' + type).then((result) => {
-
-//             resolve(result.data);
-//             for (let i = 0; i < result.data.length; i++) {
-//                 invoice.push(result.data[i])
-//             }
-//         })
-//     })
-// }
 
 function getAllCustomer() {
     return new Promise((resolve, reject) => {
@@ -389,18 +426,6 @@ function getAllCustomer() {
         })
     })
 }
-
-// function getAllProductByType(type) {
-//     return new Promise((resolve, reject) => {
-//         axios.get('http://localhost:5000/products/type/' + type).then((result) => {
-//             resolve(result.data);
-//             for (let i = 0; i < result.data.length; i++) {
-//                 product.push(result.data[i])
-//             }
-//         })
-
-//     })
-// }
 
 function searchCarLcByProduct(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
@@ -444,6 +469,20 @@ function searchCustomer(nameKey, myArray) {
 function searchCustomerByName(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_name === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+function searchPartnerByName(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].partner_name === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+function searchPartner(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].partner_id === nameKey) {
             return myArray[i];
         }
     }

@@ -455,7 +455,34 @@ class WebDAO {
         });
     }
 
+    insertProductByTypeBuy(product, imgId) {
+        product.trn_car.car_pic = new ObjectId(imgId)
+
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').insertOne(product, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
     insertInvoiceByTypeAppt(invoice) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').insertOne(invoice, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+
+            });
+        });
+    }
+
+    insertInvoiceByTypeContract(invoice) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
