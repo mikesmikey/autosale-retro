@@ -220,7 +220,6 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                console.log('[insertProdeuctRegister] arrObj = ' + arrObj)
                 var doc = {
                     prod_id: arrObj.prod_id,
                     cust_id: arrObj.cust_id,
@@ -240,7 +239,6 @@ class WebDAO {
                         car_pic: {}
                     }
                 };
-                console.log('[insertProdeuctRegister] doc = ' + doc)
                 db.collection('Product').insertOne(doc, (err, result) => {
                     if (err) { throw err }
                     if (result) {
@@ -313,7 +311,6 @@ class WebDAO {
         var int_yyyy = Number.parseInt(yyyy)
         if (int_mm !== 2) {
             var checkday = int_dd + 7
-            console.log(checkday)
             var checkmon = int_mm + 1
             if (checkday <= 31) {
                 day7 = int_yyyy + ' ' + int_mm + ' ' + checkday
@@ -336,7 +333,6 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                console.log('[insertProdeuctRegister] arrObj = ' + invoice)
                 var doc = {
                     invo_id: invoice.invo_id,
                     prod_id: invoice.prod_id,
@@ -362,7 +358,6 @@ class WebDAO {
         });
     }
     changeStatusProductRegister(productData) {
-        console.log(productData)
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
@@ -373,7 +368,6 @@ class WebDAO {
                         data[0].type_desc.fare = Number.parseInt(productData.fare)
                         data[0].type_desc.total_price = Number.parseInt(productData.total_price)
                         data[0].type_desc.licenae_status =  true
-                        console.log(data[0])
                         db.collection('Product').findOneAndUpdate({ "prod_id": Number.parseInt(productData.prod_id) }, { "$set": data[0] }, (err, result) => {
                             if (err) { throw err }
                             if (result.value) {
@@ -410,7 +404,6 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Partner').findOne({ "company_name": partner.company_name }, (err, data) => {
-                    //console.log(partner.company_name)
                     if (err) { throw err }
                     if (!data) {
                         db.collection('Partner').insertOne(partner.getPartnerObjectData(), (err, result) => {
