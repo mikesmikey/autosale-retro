@@ -155,6 +155,12 @@ function insertThisCustomerByCarFix() {
             maxProduct = product[i].prod_id;
         }
     }
+    if(maxProduct === -1) 
+        maxProduct = 0
+    if(maxCustomer === -1) 
+        maxCustomer = 0
+    if(maxInvoice === -1) 
+        maxInvoice = 0 
 
     console.log('cust_id -> ', maxCustomer);
     console.log('invo_id -> ', maxInvoice);
@@ -210,6 +216,7 @@ function insertThisCustomerByCarFix() {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             invo_id: maxInvoice + 1,
             prod_id: maxProduct + 1,
+            type: "Repair",
             base64: convertToBase64
         }
 

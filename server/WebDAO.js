@@ -18,9 +18,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('User').find({}).project({ "_id": 0, "username": 0, "password": 0 }).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -30,9 +31,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('User').findOne({ "username": username }, { "_id": 0, "username": 0, "password": 0 }, (err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -42,9 +44,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -53,9 +56,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -64,9 +68,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').find().sort({ prod_id: -1 }).limit(1).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -76,9 +81,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').find({ "prod_type": type }).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -88,9 +94,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Customer').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -100,9 +107,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -112,9 +120,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('PartsHub').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -124,9 +133,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Partner').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -138,9 +148,10 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Employee').find({}).toArray((err, data) => {
-                    if (err) { throw err }
+                    if (err) { client.close(); throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -153,6 +164,7 @@ class WebDAO {
                     if (err) { throw err }
                     return resolve(data);
                 });
+                client.close();
             });
         });
     }
@@ -355,6 +367,23 @@ class WebDAO {
         });
     }
 
+    deleteCarBuyProductByThisLicense(car_license) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne({ "prod_type": "Buy" }, (err, data) => {
+                    if (err) { throw err }
+                    if (data) {
+                        db.collection('Product').deleteOne({ "trn_car.car_license": car_license }, (err, result) => {
+                            if (err) { throw err }
+                            return resolve(true);
+                        });
+                    } else { return resolve(false) }
+                });
+            });
+        });
+    }
+
     deleteCarFixProductByThisLicense(car_license) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -406,21 +435,15 @@ class WebDAO {
                     if(err) { throw err }
                     return resolve(data)
                 })
-
-                // var bucket = new mongoDb.GridFSBucket(db, {
-                //     chunkSizeBytes: 32768,
-                //     bucketName: 'carImgs'
-                // });
-                // resolve(bucket.openDownloadStream(new ObjectId(objectId)))
             })
         })
     }
 
-    getAllCarImages() {
+    getAllCarImages(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('CarImage').find({}).project({ "_id": 0 }).toArray((err, data) => {
+                db.collection('CarImage').find({ "type": type }).project({ "_id": 0 }).toArray((err, data) => {
                     if(err) { throw err }
                     return resolve(data)
                 })              

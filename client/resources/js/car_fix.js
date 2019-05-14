@@ -15,7 +15,7 @@ function whenFormOpenUp() {
     createselect(data);
   });
 
-  getAllCarImages();
+  getAllCarImages("Repair");
   getAllCustomer();
   getAllInvoice();
   getAllPart();
@@ -177,8 +177,8 @@ function printDiv(printDivName) {
 
       document.getElementById("rect-prod_id").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
       document.getElementById("rect-invo_id").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
-      document.getElementById("rect-type").innerHTML = "&nbsp;วันที่ออก : Repair";
-      document.getElementById("rect-launch_date").innerHTML = "&nbsp;ประเภทออเดอร์ : 2019 05 14";
+      document.getElementById("rect-type").innerHTML = "&nbsp;ประเภทออเดอร์ : Repair";
+      document.getElementById("rect-launch_date").innerHTML = "&nbsp;วันที่ออก : 2018 05 14";
 
     } else if (printDivName === "appointment") {
 
@@ -286,9 +286,9 @@ function deleteCarFixProductByThisLicense(car_license) {
   });
 }
 
-function getAllCarImages() {
+function getAllCarImages(type) {
   return new Promise((resolve, reject) => {
-    axios.get("http://localhost:5000/images").then(result => {
+    axios.get("http://localhost:5000/images/type/" + type).then(result => {
       resolve(result.data);
       for (let i = 0; i < result.data.length; i++) {
         carimages.push(result.data[i]);
@@ -343,6 +343,7 @@ function getAllProductByType(type) {
 function ShowDetail(value) {
   resultObject = searchProductByCarFix(value, product);
   let carOwner = searchCustomer(resultObject.cust_id, customer).cust_name;
+  // console.log(resultObject)
   let ApptDate = searchInvoiceByCustAndProd("Appointment", resultObject.cust_id, resultObject.prod_id, invoice).type_desc.appt_date;
   let repairingStatus = resultObject.type_desc.repair_status
 

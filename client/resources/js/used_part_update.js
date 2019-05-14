@@ -637,7 +637,7 @@ function acceptChange() {
 
       editPartThisProduct(partsUsingData, thisPlateLicense).then(data => {
         if (data) {
-          alert("อัพเดทอะไหล่สำเร็จ");
+          alert("กำลังอัพเดทอะไหล่...");
 
           for (let i = 0; i < partsUsingData.length; i++) {
             for (let j = 0; j < partshub.length; j++) {
@@ -684,14 +684,8 @@ function acceptChange() {
               }
             }
           }
-
-        } else {
-          alert("อัพเดทอะไหล่ไม่สำเร็จ");
-        }
+        } 
       });
-    }
-    else {
-      alert("อะไหล่ไม่มีการอัพเดท")
     }
   }
 }

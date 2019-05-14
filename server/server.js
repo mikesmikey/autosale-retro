@@ -159,6 +159,11 @@ app.post('/product/type/Repair/remove/:car_license', (req, res) => {
   });
 });
 
+app.post('/product/type/Buy/remove/:car_license', (req, res) => {
+  WebDAOObj.deleteCarBuyProductByThisLicense(req.params.car_license).then((pass) => {
+    res.send(pass);
+  });
+});
 
 app.post('/customer/remove/:name', (req, res) => {
   WebDAOObj.deleteCustomerByName(req.params.name).then((pass) => {
@@ -235,8 +240,8 @@ app.post("/image/test", (req, res) => {
 //   })
 // })
 
-app.get("/images", (req, res) => {
-  WebDAOObj.getAllCarImages().then(data => {
+app.get("/images/type/:type", (req, res) => {
+  WebDAOObj.getAllCarImages(req.params.type).then(data => {
     res.json(data)
   })
 })

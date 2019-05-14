@@ -162,6 +162,13 @@ function insertThisCustomerByCarBuy() {
         }
     }
 
+    if(maxProduct === -1) 
+        maxProduct = 0
+    if(maxCustomer === -1) 
+        maxCustomer = 0
+    if(maxInvoice === -1) 
+        maxInvoice = 0 
+
     console.log(maxCustomer);
     console.log(maxInvoice)
 
@@ -169,7 +176,6 @@ function insertThisCustomerByCarBuy() {
         alert('กรุณากรอกข้อมูลให้ครบ')
     }
     else {
-        console.log(CarFixAdds)
         var canFindThisCust = searchCustomerByName(CarFixAdds[0], customer)
         var canFindThisPartner = searchPartnerByName(CarFixAdds[12], partner)
         var productCarBuyData;
@@ -180,8 +186,8 @@ function insertThisCustomerByCarBuy() {
                 prod_order_date: "15/03/2018",
                 prod_type: 'Buy',
                 type_desc: {
-                    price_buy: CarFixAdds[10],
-                    price_sell: CarFixAdds[11],
+                    carbuy_price: CarFixAdds[10],
+                    carsell_price: CarFixAdds[11],
                     detail_assessment: CarFixAdds[12],
                     status_buy: "ยังไม่ขาย"
                 },
@@ -204,8 +210,8 @@ function insertThisCustomerByCarBuy() {
                 prod_type: 'Buy',
                 type_desc: {
                     partner_id: canFindThisPartner.partner_id,
-                    price_buy: CarFixAdds[10],
-                    price_sell: CarFixAdds[11],
+                    carbuy_price: CarFixAdds[10],
+                    carsell_price: CarFixAdds[11],
                     commission: 5000,
                     detail_assessment: CarFixAdds[12],
                     status_buy: "ยังไม่ขาย"
@@ -245,14 +251,48 @@ function insertThisCustomerByCarBuy() {
         var image = {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             invo_id: maxInvoice + 1,
-            prod_id: maxProduct + 1,
+            prod_id: maxProduct + 1, 
+            type: "Buy",
             base64: convertToBase64
         }
 
-        console.log(productCarBuyData)
-        console.log(customerOfCarBuyData)
-        console.log(invoiceContract)
-        console.log(image)
+        var invoiceBill = {
+            invo_id: invoiceContract.invo_id + 1,
+            prod_id: invoiceContract.prod_id,
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+            invo_type: "Bill",
+            type_desc: {
+              total: CarFixAdds[10],
+              tax: CarFixAdds[10] * 0.07,
+              exc_vat: CarFixAdds[10] + (CarFixAdds[10] * 0.07),
+              items: [
+                {
+                    name: "ยี่ห้อ: " + CarFixAdds[4]+ ", รุ่น: "+CarFixAdds[5] + ", เลขทะเบียน: " + CarFixAdds[6],
+                    price: CarFixAdds[10],
+                    num: 1
+                }
+              ]
+            }
+          }
+
+          var invoiceReceipt = {
+            invo_id: invoiceBill.invo_id + 1,
+            prod_id: invoiceContract.prod_id,
+            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+            invo_type: "Receipt",
+            type_desc: {
+              total: CarFixAdds[10],
+              tax: CarFixAdds[10] * 0.07,
+              non_vat: Math.abs(CarFixAdds[10] - (CarFixAdds[10] * 0.07)),
+              items: [
+                  {
+                    name: "ยี่ห้อ: " + CarFixAdds[4]+ ", รุ่น: "+CarFixAdds[5] + ", เลขทะเบียน: " + CarFixAdds[6],
+                    price: CarFixAdds[10],
+                    num: 1
+                  }
+              ]
+            }
+          }
 
         //if new customer
         if (typeof canFindThisCust === 'undefined') {
@@ -272,15 +312,24 @@ function insertThisCustomerByCarBuy() {
                     alert('เพิ่มโปรดักสำเร็จ')
                     addInvoiceContract(invoiceContract).then((data) => {
                         if (data) {
-                            alert('เพิ่มใบสัญญาซื้อสำเร็จ')
-                            //window.location.href = './car_buy.html';
+                            alert('เพิ่มใบสัญญาซื้อ-ขายสำเร็จ')
+                            addInvoiceBill(invoiceBill).then((data) => {
+                                if (data) {
+                                    alert('เพิ่มใบกำกับภาษีสำเร็จ')
+                                    addInvoiceReceipt(invoiceReceipt).then((data) => {
+                                        if (data) {
+                                            alert('เพิ่มใบเสร็จสำเร็จ')
+                                            window.location.href = './car_buy.html';
+                                        }                                      
+                                    })
+                                }                       
+                            })                          
                         }
                     })
                 }
             })
         })
     }
-
 }
 
 function addNewCustomerByRepair() {
@@ -345,6 +394,22 @@ function addInvoiceContract(invoData) {
         })
     })
 }
+
+function addInvoiceBill(invoData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/invoice/type/Bill/add', { "invoData": invoData }).then((result) => {
+            resolve(result.data);
+        });
+    });
+  }
+  
+  function addInvoiceReceipt(invoData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/invoice/type/Receipt/add', { "invoData": invoData }).then((result) => {
+            resolve(result.data);
+        });
+    });
+  }
 
 function addImageByCarBuy(source) {
     return new Promise((resolve, reject) => {
