@@ -22,9 +22,11 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="./resources/js/axios.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
+    <script src="./resources/js/car_sell_add.js"></script>
     <script src="./resources/js/utilities.js"></script>
 </head>
 
@@ -146,35 +148,44 @@
                             <input class="input-icon-search width65" type="text" name="search" placeholder="ชื่อลูกค้า">
                         </div>
                         <div>
-                            <select multiple size="10" class="selectPlate width65">
-                                <option value="JamesGoodman">James Goodman</option>
-                                <option value="MariaBrown">Maria Brown</option>
-                                <option value="SaulWalker">Saul Walker</option>
+                            <select multiple size="10" class="selectPlate width65" id="selectCustomer"> 
                             </select>
                         </div>
                         <div class="columns"><br></div>
                         <div class="columns">
                             <div class="column is-2">
-
+                                
                             </div>
                             <div class="column is-1"></div>
                             <div class="column is-2">
                             </div>
                         </div>
+                        <button style="margin-right: 35%" type="button" onclick="showInputAdd('Show')"
+                                class="button is-round is-2 is-free-size is-pulled-right is-oros">
+                                เพิ่มลูกค้า</button>
                     </div>
                     <div class=" column is-4">
                         <div>
                             <h2>ลูกค้าใหม่ <h2>
                         </div>
-                        <div class="box">
-                            <label class="label is-2">ชื่อ</label>
-                            <input type="text" class="input  is-pulled-right width60"><br><br>
-                            <label class="label is-2">ที่อยู่</label>
-                            <textarea class="textarea is-pulled-right width60 address"
+                        <div class="box" id="input_data">
+                            <label class="label is-2">ชื่อ*</label>
+                            <input type="text" class="input  is-pulled-right width60" id="cust_name"><br><br>
+                            <label class="label is-2">ที่อยู่*</label>
+                            <textarea class="textarea is-pulled-right width60 address" id="cust_addr"
                                 rows="6"></textarea><br><br><br><br><br><br><br>
-                            <label class="label is-2">เบอร์โทรศัพท์</label>
-                            <input type="text" class="input  is-pulled-right width60">
+                            <label class="label is-2">เบอร์โทรศัพท์*</label>
+                            <input type="text" class="input  is-pulled-right width60" id="cust_phone">
                         </div>
+                        <div id= 'data_show' class='deplay-none' style="padding:20px">  
+                            <br><br><br>
+                            <label id='label_name' class="label is-2">ชื่อ :</label><br><br>
+                            <label id='label_address'
+                                class="label is-2">ที่อยู่</label><br><br>
+                            <label id='label_phone' class="label is-2">เบอร์โทรศัพท์</label><br><br>
+                            <label id='label_tax' class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
+                            <br><br><br>
+                    </div>
                         <br>
                         <div class="columns">
                             <div class="column is-2"></div>
@@ -226,22 +237,50 @@
         <div class="box with-title is-round">
             <div class="box">
                 <div class="columns">
-                    <div class="column">
+                    <div class="column is-3">
                         <div>
                             <h2>นายหน้า (ไม่จำเป็นต้องมี) <h2>
                         </div>
-                        <div class="box">
-                            <label class="label is-2">ชื่อ</label>
-                            <input type="text" class="input is-pulled-right width60"><br><br>
-                            <label class="label is-2">เบอร์โทรศัพท์</label>
-                            <input type="text" class="input is-pulled-right width60">
+                        <div>
+                            <input class="input-icon-search width65" type="text" name="search" placeholder="ชื่อนายหน้า">
+                        </div>
+                        <div>
+                            <select multiple size="10" class="selectPlate width65" id="selectPartner"> 
+                            </select>
+                        </div>
+                        <div class="columns"><br></div>
+                        <div class="columns">
+                            <div class="column is-2">
+                                
+                            </div>
+                            <div class="column is-1"></div>
+                            <div class="column is-2">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class=" column is-4">
+                        <div>
+                            
+                        </div>
+                        <div class="box" >
+                            <label class="label is-2" id="companyName">ชื่อบริษัท :</label><br><br>
+                            <label class="label is-2" id="partnerName">ชื่อ</label><br><br>
+                            <label class="label is-2" id="partnerPhone">เบอร์โทรศัพท์</label><br><br>
+                            <label class="label is-2" id="partnerType">ประเภท</label><br><br>
+                            <label class="label is-2" id="partnerAddr">ที่อยู่</label>
+                        </div>
+                        <br>
+                        <div class="columns">
+                            <div class="column is-2"></div>
+                            <div class="column is-2"></div>
+                            <div class="column is-2"></div>
+                            <div class="column is-2">
+                            </div>
                         </div>
 
                     </div>
-                    <div class="column is-2">
-                        <label class="label is-2"></label>
-                    </div>
-                </div>
+                </div><br>
                 <div class="columns">
                     <div class="column is-2"></div>
                     <div class="column is-2"> <button type="button"

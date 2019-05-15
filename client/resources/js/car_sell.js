@@ -86,6 +86,8 @@ function createSelect(data) {
 
 
 
+
+
 startForm();
 /*getAllCustomer().then((data) => { console.log(data) })*/
 
