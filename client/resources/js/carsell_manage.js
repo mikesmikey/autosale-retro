@@ -221,10 +221,17 @@ function removeAlloption() {
 }
 
 function launchFixPrintsHubDelete() {
+    let checkstatus = checkStatusSell(thisCarLicense, product)
     if (thisCarLicense != "") {
-        document.getElementById("printshub-fix").classList.add("is-active");
-    } else {
-        alert("กรุณาเลือกทะเบียนรถก่อน");
+        if(!checkstatus) {
+            document.getElementById("printshub-fix").classList.add("is-active");
+        }
+        else {
+            alert('รถคันนี้ยังไม่ได้ขาย')
+        }
+    }
+    else {
+        alert('กรุณาคลิกป้ายทะเบียนก่อน')
     }
 }
 
@@ -292,7 +299,7 @@ function printDiv(printDivName) {
             console.log()
             document.getElementById("partnerProdId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
             document.getElementById("partnerInvoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
-            document.getElementById("prodType").innerHTML = "&nbsp;ประเภทออเดอร์ : Buy";
+            document.getElementById("prodType").innerHTML = "&nbsp;ประเภทออเดอร์ : Sell";
             document.getElementById("partnerLaunchDate").innerHTML = "&nbsp;วันที่ออก : 2018 07 14";
             document.getElementById("partnerName").innerHTML = "&nbsp;ชื่อนายหน้า : " + partnerShow.partner_name;
             document.getElementById("partnerCompany").innerHTML = "&nbsp;ชื่อบริษัท : " + partnerShow.company_name;
