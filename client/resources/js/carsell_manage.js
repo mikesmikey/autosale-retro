@@ -77,14 +77,15 @@ function searchProductByCarLicense(nameKey, myArray) {
 }
 
 function checkStatusSell(nameKey, myArray) {
+
     for (var i = 0; i < myArray.length; i++) {
+        console.log(myArray[i].trn_car.car_license,nameKey)
         if (myArray[i].trn_car.car_license === nameKey && myArray[i].type_desc.status_sell === "ยังไม่ขาย" ) {
+            
             return true;
-        }
-        else {
-            return false;
-        }
+        }   
     }
+    return false;
 }
 
 function searchProduct(nameKey, myArray) {
