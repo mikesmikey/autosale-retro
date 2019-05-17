@@ -53,7 +53,9 @@ function showDetailCars(value) {
         //document.getElementById("car_mod").innerHTML = " รุ่น : " + resultObject.trn_car.car_model;
         //document.getElementById("car_own").innerHTML = " เจ้าของ : " + result.cust_name;
         //document.getElementById("car_pri").innerHTML = " ราคา : " + resultObject.type_desc.price_sell +" บาท";
-
+        document.querySelectorAll(".Corder").forEach((element)=> {
+            element.innerHTML = " เลขออเดอร์ : " + resultObject.prod_id;
+        })
         document.querySelectorAll(".Cbrand").forEach((element)=> {
             element.innerHTML = " ยี่ห้อ : " + resultObject.trn_car.car_brand;
         })
