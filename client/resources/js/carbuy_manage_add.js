@@ -21,7 +21,7 @@ function startForm() {
     getAllPartner();
     getAllProduct();
     getAllInvoice();
-    getAllPart();
+    // getAllPart();
 }
 
 function getBase64() {
@@ -117,29 +117,29 @@ function setDafault() {
 }
 
 function insertThisCustomerByCarBuy() {
-    let CarFixAdds = [];
-    CarFixAdds.push(document.getElementById('cust-name').value);
-    CarFixAdds.push(document.getElementById('cust-phone').value);
-    CarFixAdds.push(document.getElementById('cust-tax_no').value);
-    CarFixAdds.push(document.getElementById('cust-addr').value);
+    let carbuy = [];
+    carbuy.push(document.getElementById('cust-name').value);
+    carbuy.push(document.getElementById('cust-phone').value);
+    carbuy.push(document.getElementById('cust-tax_no').value);
+    carbuy.push(document.getElementById('cust-addr').value);
 
-    CarFixAdds.push(document.getElementById('car-brand').value);
-    CarFixAdds.push(document.getElementById('car-model').value);
-    CarFixAdds.push(document.getElementById('car-license').value);
-    CarFixAdds.push(document.getElementById('car-engine').value);
-    CarFixAdds.push(document.getElementById('car-status').value);
-    CarFixAdds.push(document.getElementById('car-histor').value);
-    CarFixAdds.push(document.getElementById('carbuy-price').value);
-    CarFixAdds.push(document.getElementById('carsell-price').value);
-    CarFixAdds.push(document.getElementById('detail-assess').value);
-    CarFixAdds.push(FileUpload);
+    carbuy.push(document.getElementById('car-brand').value);
+    carbuy.push(document.getElementById('car-model').value);
+    carbuy.push(document.getElementById('car-license').value);
+    carbuy.push(document.getElementById('car-engine').value);
+    carbuy.push(document.getElementById('car-status').value);
+    carbuy.push(document.getElementById('car-histor').value);
+    carbuy.push(parseInt(document.getElementById('carbuy-price').value));
+    carbuy.push(parseInt(document.getElementById('carsell-price').value));
+    carbuy.push(document.getElementById('detail-assess').value);
+    carbuy.push(FileUpload);
 
-    CarFixAdds.push(document.getElementById('partner-name').value);
-    CarFixAdds.push(document.getElementById('partner-phone').value);
+    carbuy.push(document.getElementById('partner-name').value);
+    carbuy.push(document.getElementById('partner-phone').value);
 
     let checkNull = false;
-    for (var i = 0; i < CarFixAdds.length - 2; i++) {
-        if (CarFixAdds[i] === '') {
+    for (var i = 0; i < carbuy.length - 2; i++) {
+        if (carbuy[i] === '') {
             checkNull = true;
         }
     }
@@ -162,12 +162,12 @@ function insertThisCustomerByCarBuy() {
         }
     }
 
-    if(maxProduct === -1) 
+    if (maxProduct === -1)
         maxProduct = 0
-    if(maxCustomer === -1) 
+    if (maxCustomer === -1)
         maxCustomer = 0
-    if(maxInvoice === -1) 
-        maxInvoice = 0 
+    if (maxInvoice === -1)
+        maxInvoice = 0
 
     console.log(maxCustomer);
     console.log(maxInvoice)
@@ -176,29 +176,30 @@ function insertThisCustomerByCarBuy() {
         alert('กรุณากรอกข้อมูลให้ครบ')
     }
     else {
-        var canFindThisCust = searchCustomerByName(CarFixAdds[0], customer)
-        var canFindThisPartner = searchPartnerByName(CarFixAdds[12], partner)
+        var canFindThisCust = searchCustomerByName(carbuy[0], customer)
+        var canFindThisPartner = searchPartnerByName(carbuy[14], partner)
         var productCarBuyData;
-        if(canFindThisPartner === undefined) {
+        if (canFindThisPartner === undefined) {
             productCarBuyData = {
                 prod_id: maxProduct + 1,
                 cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
                 prod_order_date: "15/03/2018",
                 prod_type: 'Buy',
                 type_desc: {
-                    carbuy_price: CarFixAdds[10],
-                    carsell_price: CarFixAdds[11],
-                    detail_assessment: CarFixAdds[12],
-                    status_buy: "ยังไม่ขาย"
+                    price_buy: carbuy[10],
+                    price_sell: carbuy[11],
+                    commission: 0,
+                    detail_assessment: carbuy[12],
+                    status_sell: "ยังไม่ขาย"
                 },
                 trn_car: {
-                    car_brand: CarFixAdds[4],
-                    car_model: CarFixAdds[5],
-                    car_license: CarFixAdds[6],
+                    car_brand: carbuy[4],
+                    car_model: carbuy[5],
+                    car_license: carbuy[6],
                     car_pic: {},
-                    car_engine: CarFixAdds[7],
-                    car_status: CarFixAdds[8],
-                    car_histor: CarFixAdds[9]
+                    car_engine: carbuy[7],
+                    car_status: carbuy[8],
+                    car_histor: carbuy[9]
                 }
             };
         }
@@ -210,30 +211,30 @@ function insertThisCustomerByCarBuy() {
                 prod_type: 'Buy',
                 type_desc: {
                     partner_id: canFindThisPartner.partner_id,
-                    carbuy_price: CarFixAdds[10],
-                    carsell_price: CarFixAdds[11],
+                    price_buy: carbuy[10],
+                    price_sell: carbuy[11],
                     commission: 5000,
-                    detail_assessment: CarFixAdds[12],
-                    status_buy: "ยังไม่ขาย"
+                    detail_assessment: carbuy[12],
+                    status_sell: "ยังไม่ขาย"
                 },
                 trn_car: {
-                    car_brand: CarFixAdds[4],
-                    car_model: CarFixAdds[5],
-                    car_license: CarFixAdds[6],
+                    car_brand: carbuy[4],
+                    car_model: carbuy[5],
+                    car_license: carbuy[6],
                     car_pic: {},
-                    car_engine: CarFixAdds[7],
-                    car_status: CarFixAdds[8],
-                    car_histor: CarFixAdds[9]
+                    car_engine: carbuy[7],
+                    car_status: carbuy[8],
+                    car_histor: carbuy[9]
                 }
             };
         }
 
         var customerOfCarBuyData = {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            cust_name: CarFixAdds[0],
-            cust_phone: CarFixAdds[1],
-            cust_tax_no: CarFixAdds[2],
-            cust_addr: CarFixAdds[3]
+            cust_name: carbuy[0],
+            cust_phone: carbuy[1],
+            cust_tax_no: carbuy[2],
+            cust_addr: carbuy[3]
         };
 
         var invoiceContract = {
@@ -251,7 +252,7 @@ function insertThisCustomerByCarBuy() {
         var image = {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             invo_id: maxInvoice + 1,
-            prod_id: maxProduct + 1, 
+            prod_id: maxProduct + 1,
             type: "Buy",
             base64: convertToBase64
         }
@@ -262,41 +263,104 @@ function insertThisCustomerByCarBuy() {
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
             invo_type: "Bill",
             type_desc: {
-              total: CarFixAdds[10],
-              tax: CarFixAdds[10] * 0.07,
-              exc_vat: CarFixAdds[10] + (CarFixAdds[10] * 0.07),
-              items: [
-                {
-                    name: "ยี่ห้อ: " + CarFixAdds[4]+ ", รุ่น: "+CarFixAdds[5] + ", เลขทะเบียน: " + CarFixAdds[6],
-                    price: CarFixAdds[10],
-                    num: 1
-                }
-              ]
+                total: carbuy[10],
+                tax: carbuy[10] * 0.07,
+                exc_vat: carbuy[10] + (carbuy[10] * 0.07),
+                items: [
+                    {
+                        name: "ยี่ห้อ: " + carbuy[4] + ", รุ่น: " + carbuy[5] + ", เลขทะเบียน: " + carbuy[6],
+                        price: carbuy[10],
+                        num: 1
+                    }
+                ]
             }
-          }
+        }
 
-          var invoiceReceipt = {
-            invo_id: invoiceBill.invo_id + 1,
-            prod_id: invoiceContract.prod_id,
-            cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            invo_type: "Receipt",
-            type_desc: {
-              total: CarFixAdds[10],
-              tax: CarFixAdds[10] * 0.07,
-              non_vat: Math.abs(CarFixAdds[10] - (CarFixAdds[10] * 0.07)),
-              items: [
-                  {
-                    name: "ยี่ห้อ: " + CarFixAdds[4]+ ", รุ่น: "+CarFixAdds[5] + ", เลขทะเบียน: " + CarFixAdds[6],
-                    price: CarFixAdds[10],
-                    num: 1
-                  }
-              ]
-            }
-          }
+        // console.log(carbuy[13], canFindThisPartner, partner)
+
+        var invoiceReceiptPartner;
+
+        if (canFindThisPartner !== undefined) {
+            invoiceReceiptPartner = {
+                invo_id: invoiceBill.invo_id + 1,
+                prod_id: invoiceContract.prod_id,
+                partner_id: canFindThisPartner.partner_id,
+                invo_type: "ReceiptPartner",
+                type_desc: {
+                    total: carbuy[10],
+                    tax: carbuy[10] * 0.07,
+                    non_vat: Math.abs(carbuy[10] - (carbuy[10] * 0.07)),
+                    items: [
+                        {
+                            name: "ยี่ห้อ: " + carbuy[4] + ", รุ่น: " + carbuy[5] + ", เลขทะเบียน: " + carbuy[6],
+                            price: carbuy[10],
+                            num: 1
+                        }
+                    ]
+                }
+            };
+
+            var invoiceReceipt = {
+                invo_id: invoiceReceiptPartner.invo_id + 1,
+                prod_id: invoiceContract.prod_id,
+                cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+                invo_type: "Receipt",
+                type_desc: {
+                    total: carbuy[10],
+                    tax: carbuy[10] * 0.07,
+                    non_vat: Math.abs(carbuy[10] - (carbuy[10] * 0.07)),
+                    items: [
+                        {
+                            name: "ยี่ห้อ: " + carbuy[4] + ", รุ่น: " + carbuy[5] + ", เลขทะเบียน: " + carbuy[6],
+                            price: carbuy[10],
+                            num: 1
+                        }
+                    ]
+                }
+            };
+
+            addInvoiceReceiptPartner(invoiceReceiptPartner).then((data) => {
+                if (data) {
+                    alert('เพิ่มใบเสร็จนายหน้าสำเร็จ')
+                    addInvoiceReceipt(invoiceReceipt).then((data) => {
+                        if (data) {
+                            alert('เพิ่มใบเสร็จลูกค้าสำเร็จ')
+                        }
+                    })
+                }
+            })
+        }
+        else {
+            var invoiceReceipt = {
+                invo_id: invoiceBill.invo_id + 1,
+                prod_id: invoiceContract.prod_id,
+                cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
+                invo_type: "Receipt",
+                type_desc: {
+                    total: carbuy[10],
+                    tax: carbuy[10] * 0.07,
+                    non_vat: Math.abs(carbuy[10] - (carbuy[10] * 0.07)),
+                    items: [
+                        {
+                            name: "ยี่ห้อ: " + carbuy[4] + ", รุ่น: " + carbuy[5] + ", เลขทะเบียน: " + carbuy[6],
+                            price: carbuy[10],
+                            num: 1
+                        }
+                    ]
+                }
+            };
+
+            addInvoiceReceipt(invoiceReceipt).then((data) => {
+                if (data) {
+                    alert('เพิ่มใบเสร็จลูกค้าสำเร็จ')
+
+                }
+            })
+        }
 
         //if new customer
         if (typeof canFindThisCust === 'undefined') {
-            addCustomerByCarFix(customerOfCarBuyData).then((data) => {
+            addCustomerByCarBuy(customerOfCarBuyData).then((data) => {
                 if (data) {
                     alert('เพิ่มลูกค้าสำเร็จ')
                 }
@@ -305,6 +369,7 @@ function insertThisCustomerByCarBuy() {
                 }
             })
         }
+
         addImageByCarBuy(image).then((data) => {
             alert('เพิ่มรูปรถสำเร็จ')
             addProductByCarBuy(productCarBuyData, data).then((data) => {
@@ -316,14 +381,10 @@ function insertThisCustomerByCarBuy() {
                             addInvoiceBill(invoiceBill).then((data) => {
                                 if (data) {
                                     alert('เพิ่มใบกำกับภาษีสำเร็จ')
-                                    addInvoiceReceipt(invoiceReceipt).then((data) => {
-                                        if (data) {
-                                            alert('เพิ่มใบเสร็จสำเร็จ')
-                                            window.location.href = './car_buy.html';
-                                        }                                      
-                                    })
-                                }                       
-                            })                          
+                                    window.location.href = './car_buy.html';
+
+                                }
+                            })
                         }
                     })
                 }
@@ -401,15 +462,23 @@ function addInvoiceBill(invoData) {
             resolve(result.data);
         });
     });
-  }
-  
-  function addInvoiceReceipt(invoData) {
+}
+
+function addInvoiceReceiptPartner(invoData) {
+    return new Promise((resolve, reject) => {
+        axios.post('http://localhost:5000/invoice/type/ReceiptPartner/add', { "invoData": invoData }).then((result) => {
+            resolve(result.data);
+        });
+    });
+}
+
+function addInvoiceReceipt(invoData) {
     return new Promise((resolve, reject) => {
         axios.post('http://localhost:5000/invoice/type/Receipt/add', { "invoData": invoData }).then((result) => {
             resolve(result.data);
         });
     });
-  }
+}
 
 function addImageByCarBuy(source) {
     return new Promise((resolve, reject) => {
@@ -419,9 +488,9 @@ function addImageByCarBuy(source) {
     })
 }
 
-function addCustomerByCarFix(custData) {
+function addCustomerByCarBuy(custData) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/customer/addByCarfix', { "custData": custData }).then((result) => {
+        axios.post('http://localhost:5000/customer/addByCarBuy', { "custData": custData }).then((result) => {
             resolve(result.data);
         })
     })
@@ -438,9 +507,9 @@ function getAllPartner() {
     })
 }
 
-function addProductByCarBuy(prodData) {
+function addProductByCarBuy(prodData, imgId) {
     return new Promise((resolve, reject) => {
-        axios.post('http://localhost:5000/product/type/Buy/add', { "prodData": prodData }).then((result) => {
+        axios.post('http://localhost:5000/product/type/Buy/add', { "prodData": prodData, "imgId": imgId }).then((result) => {
             resolve(result.data);
         })
     })
@@ -457,17 +526,17 @@ function getAllProduct() {
     });
 }
 
-function getAllPart() {
-    return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/parts/').then((result) => {
+// function getAllPart() {
+//     return new Promise((resolve, reject) => {
+//         axios.get('http://localhost:5000/parts/').then((result) => {
 
-            resolve(result.data);
-            for (let i = 0; i < result.data.length; i++) {
-                partshub.push(result.data[i])
-            }
-        })
-    })
-}
+//             resolve(result.data);
+//             for (let i = 0; i < result.data.length; i++) {
+//                 partshub.push(result.data[i])
+//             }
+//         })
+//     })
+// }
 
 function getAllInvoice() {
     return new Promise((resolve, reject) => {

@@ -76,6 +76,34 @@ class WebDAO {
         });
     }
 
+    editProductCarBuyStatusToSold(cust, prod) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName) // findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" } }
+                db.collection('Product').findOneAndUpdate({ prod_id: parseInt(prod), cust_id: parseInt(cust) }, { "$set": { "type_desc.status_buy": "ขายแล้ว" } }, (err, result) => {
+                    console.log(result)
+                    if (err) { client.close(); throw err }
+                    if (result.value) {
+                        return resolve(true);
+                    } else { return resolve(false) }
+                })
+                client.close();
+            });
+        });
+    }
+    getAllProductNotsoldTypeBuy() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({ "prod_type": "Buy", "type_desc.status_buy": "ยังไม่ขาย" }).toArray((err, data) => {
+                    if (err) { client.close(); throw err }
+                    return resolve(data);
+                });
+                client.close();
+            });
+        });
+    }
+
     getAllProductByType(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -209,6 +237,30 @@ class WebDAO {
         });
     }
 
+    insertCustomerByCarBuy(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').insertOne(customer, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertCustomerByCarSell(customer) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Customer').insertOne(customer, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
     insertCustomer(customer) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -310,7 +362,8 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Partner').findOneAndUpdate({ "partner_id": partner.partner_id }, { "$set": partner.getPartnerObjectData() }, (err, result) => {
+                db.collection('Partner').findOneAndUpdate({ "partner_id": partnerfindOneAndUpdate.partner_id }, { "$set": partner.getPartnerObjectData() }, (err, result) => {
+                    
                     if (err) { throw err }
                     if (result.value) {
                         return resolve(true);
@@ -427,12 +480,24 @@ class WebDAO {
         })
     }
 
+    getCarImageByThisCustAndProd(custId, prodId) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('CarImage').findOne({ cust_id: custId, prod_id: prodId  }, (err, data) => {
+                    if (err) { throw err }
+                    return resolve(data)
+                })
+            })
+        })
+    }
+
     getCarImageById(imgId) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('CarImage').findOne(new ObjectId(imgId), (err, data) => {
-                    if(err) { throw err }
+                    if (err) { throw err }
                     return resolve(data)
                 })
             })
@@ -444,9 +509,9 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('CarImage').find({ "type": type }).project({ "_id": 0 }).toArray((err, data) => {
-                    if(err) { throw err }
+                    if (err) { throw err }
                     return resolve(data)
-                })              
+                })
             })
         })
     }
@@ -465,6 +530,20 @@ class WebDAO {
     }
 
     insertProductByTypeRepair(product, imgId) {
+        product.trn_car.car_pic = new ObjectId(imgId)
+
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').insertOne(product, (err, result) => {
+                    if (err) { throw err }
+                    return resolve(true);
+                });
+            });
+        });
+    }
+
+    insertProductByTypeSell(product, imgId) {
         product.trn_car.car_pic = new ObjectId(imgId)
 
         return new Promise((resolve, reject) => {

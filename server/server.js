@@ -45,6 +45,17 @@ app.get("/products", (req, res) => {
     }
   });
 });
+
+app.get("/products/type/Buy/notSold", (req, res) => {
+  WebDAOObj.getAllProductNotsoldTypeBuy().then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
 app.get("/products/type/:type", (req, res) => {
   WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
@@ -54,6 +65,7 @@ app.get("/products/type/:type", (req, res) => {
     }
   });
 });
+
 app.post("/products/RegisterLicense/insert", (req, res) => {
   WebDAOObj.insertProdeuctRegister(req.body.productData).then(data => {
     res.json(data);
@@ -196,6 +208,18 @@ app.post('/customer/addByCarfix', (req, res) => {
   })
 })
 
+app.post('/customer/addByCarSell', (req, res) => {
+  WebDAOObj.insertCustomerByCarSell(req.body.custData).then((data)=> {
+      res.json(data);
+  })
+})
+
+app.post('/customer/addByCarBuy', (req, res) => {
+  WebDAOObj.insertCustomerByCarBuy(req.body.custData).then((data)=> {
+      res.json(data);
+  })
+})
+
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
@@ -271,8 +295,27 @@ app.post("/invoice/type/Receipt/add", (req, res) => {
   })
 })
 
+app.post("/invoice/type/ReceiptPartner/add", (req, res) => {
+  WebDAOObj.insertInvoiceByTypeReceipt(req.body.invoData).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/product/type/Buy/edit/cust/:cust/prod/:prod", (req, res) => {
+  console.log(req.params.cust, req.params.prod)
+  WebDAOObj.editProductCarBuyStatusToSold(req.params.cust, req.params.prod).then(data => {
+    res.send(data);
+  })
+})
+
 app.post("/product/type/Buy/add", (req, res) => {
   WebDAOObj.insertProductByTypeBuy(req.body.prodData, req.body.imgId).then(data => {
+    res.json(data);
+  })
+})
+
+app.post("/product/type/Sell/add", (req, res) => {
+  WebDAOObj.insertProductByTypeSell(req.body.prodData, req.body.imgId).then(data => {
     res.json(data);
   })
 })

@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - จัดการซื้อรถ</title>
+    <title>โชคทวี - จัดการขายรถ</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
+    <link href="./resources/css/part_order_css.css	" type="text/css" rel="stylesheet">
     <link href="./resources/css/color.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/icon.css" type="text/css" rel="stylesheet">
     <link href="./resources/css/page-helper.css" type="text/css" rel="stylesheet">
@@ -21,10 +22,11 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
-    <script src="./resources/js/Controller_page.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/carsell_manage.js"></script>
 </head>
 
 <body>
@@ -130,112 +132,508 @@
     <div class="subcontent-area">
         <div class="box with-title is-round">
             <div class="box-title is-oros">
-                จัดการซื้อรถ
+                จัดการขายรถ
             </div>
-
             <div class="box">
-                <div class="columns">
-                    <div class="column is-2">
-                        <div>
+                <div>
+                    <div class="columns">
+                        <div class="column is-3">
                             <h2> เลขทะเบียนทั้งหมด <h2>
                         </div>
-                        <div>
-                            <input class="input-icon-search width65" type="text" name="search"
-                                placeholder="ค้นหาทะเบียนรถ">
-                        </div>
-                        <div>
-                            <select multiple size="10" class="selectPlate width65">
-                                <option value="กข123">กข123</option>
-                                <option value="ฟห121">ฟห121</option>
-                                <option value="พก999">พก999</option>
-                            </select>
-                        </div>
-                        <div class="columns"><br></div>
-                        <div class="columns">
-                            <div class="column is-2">
-
-                            </div>
-                            <div class="column is-1"></div>
-                            <div class="column is-2">
-
-
-                            </div>
-
-
+                        <div class="column is-5">
+                            <h2> รายละเอียด <h2>
                         </div>
                     </div>
-                    <div class="column is-2">
-                        <img src="./resources/imgs/Car01.png" height="150" width="200">
-                    </div>
-                    <div class=" column is-4">
-                        <div><br><br>
-                            <div class="border-gray">
-                                <p>&nbsp;เลขออเดอร์ : 214321890427140721</p>
-                                <p>&nbsp;เลขทะเบียน : กข123</p>
-                                <p>&nbsp;ยี่ห้อ : susuki</p>
-                                <p>&nbsp;รุ่น : swift model-ab123</p>
-                                <p>&nbsp;เจ้าของ : James Goodman</p>
-                                <p>&nbsp;ราคา : 5,000,000 บาท</p>
-                            </div>
-                            <br>
-                            <div class="columns">
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-2"></div>
-                                <div class="column is-2">
+                    <div class="columns">
+                        <div class="column is-3">
+                            <div>
+                                <div>
+                                    <input class="input-icon-search width80" type="text" name="search"
+                                        onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <select id="selectNumber" size="16" class="selectPlate width80 cursor-pointer">
+
+                                    </select>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="column is-5">
+                            <div class="columns">
+                                <div class="column" style="padding:15px">
+                                    <center>
+                                        <img id="carsell_upload" src="" alt="image" height="200" width="230">
+                                    </center>
+                                </div>
+                                <div class="column is-4 border-gray" style="padding:5px">
+                                    <p id="carsell-prod_id">&nbsp;เลขออเดอร์ :</p>
+                                    <p id="car-license">&nbsp;เลขทะเบียน : </p>
+                                    <p id="car-brand">&nbsp;ยี่ห้อ : </p>
+                                    <p id="car-model">&nbsp;รุ่น : </p>
+                                    <p id="cust-name">&nbsp;เจ้าของ : </p>
+                                    <p id="carsell-price">&nbsp;ราคา : </p>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="columns is-9">
+                                <div class=" column border-gray">
+                                    <p>&nbsp;รายละเอียดเครื่องยนต์</p>
+                                    <p id="car-engine">&nbsp;เครื่องยนต์ : </p>
+                                    <p id="car-status">&nbsp;สภาพ : </p>
+                                    <p id="car-histor">&nbsp;ประวัติการใช้งาน : </p>
+                                </div>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="width80 is-pulled-right">
-                    <div class="border-gray">
-                        <p>เครื่องยนต์ : 250cc</p>
-                        <p>สภาพ : 90%</p>
-                        <p>ประวัติการใช้งาน : ไม่เคยผ่านการชนมาก่อน</p>
-                    </div><br>
                     <div class="columns">
-                        <div class="column is-2"></div>
-                        <div class="column is-2"></div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-yentafo is-pulled-right"
-                                onClick="mockCarSell()">ขายรถคันนี้</button>
-                        </div>
-                        <div class="column is-2">
-                            <button type="button"
-                                class="button margin-left-x is-round is-2 width65 is-oros is-pulled-right"
-                                onClick="printDiv('print_carStock')">พิมพ์</button>
-                        </div>
+                        <button style="margin-left: 74%" type="button" class="button width15  is-round is-2 is-yentafo"
+                            onclick="mockCarSellAdd()">ขายรถคันนี้</button>
+                        <button type="button" class="button width10 is-round is-2  is-oros"
+                            onclick="launchFixPrintsHubDelete()">พิมพ์</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="box" id="formCarFix">
+        <div id="bill" class="box">
+            <div class="columns">
+                <div class="column is-6">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบกำกับภาษี </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-8">
+                    <div id="bor01">
+                        <div class="columns">
+                            <div class="column is-2">
+                                <img src="./resources/imgs/taxCar..png" alt="taxCar" width="100" height="100" />
+                            </div>
+                            <div class="column is-3">
+                                <label>บริษัท โชคทวี ออโต้เซล จำกัด</label>
+                                <br>
+                                <label>มหาวิทยาลัยบูรพา อ.เมือง ต.แสนสุข</label>
+                                <br>
+                                <label>จ.ชลบุรี 20000</label>
+                            </div>
+                            <div class="column is-4">
+                                <label>ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน</label>
+                                <br>
+                                <label>เลขประจำตัวผู้เสียภาษี 1246513546</label>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-8">
+                    <div id="bor01">
+                        <div class="columns">
+                            <div class="column is-2">
+
+                            </div>
+                            <div class="column is-3">
+                                <label id="bill-cust_name">ผู้ซื้อ : </label>
+                                <br>
+                                <label id="bill-cust_addr">ที่อยู่ : </label>
+                            </div>
+                            <div class="column is-3">
+                                <label id="bill-cust_id">รหัสลูกค้า : </label>
+                                <br>
+                                <label id="bill-cust_tax_no">เลขที่ผู้เสียภาษี : </label>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-8">
+                    <table style="width: 100%" id="bill-table">
+                        <tr id="tr01">
+                            <th class="mixTop">&nbspลำดับ</th>
+                            <th class="mixTop">&nbspรายการ</th>
+                            <th class="mixTop">&nbspราคาต่อหน่อย</th>
+                            <th class="mixTop">&nbspจำนวน</th>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-4">
+                    <p>
+                        หมายเหตุ:
+                    </p>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="column is-4">
+                    <table id="table01">
+                        <tr>
+                            <td class="mix">
+                                รวมทั้งสิ้น
+                            </td>
+                            <td id="bill-total" class="mix">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                ส่วนลด
+                            </td>
+                            <td id="bill-discount" class="mix">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mix">
+                                ภาษีมูลค่าเพิ่ม
+                            </td>
+                            <td id="bill-vat" class="mix">
+                                7%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mixUnder">
+                                รวมมูลค่าสินค้า
+                            </td>
+                            <td id="bill-exc_vat" class="mixUnder">
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div style="float: left">
+                <hr width="100">
+            </div>
+            <div style="float: right">
+                <hr width="100">
+            </div>
+            <div style="margin: 0 auto; width: 100px;">
+                <hr width="100">
+            </div>
+            <div style="float: left">&nbsp;&nbsp;&nbsp;ผู้ส่งสินค้า</div>
+            <div style="float: right">ผู้รับสินค้า&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div style="margin: 0 auto; width: 100px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้รับเงิน</div>
+        </div>
+        <div class="box" id="receipt">
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box" id="receipt">
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box" id="receipter">
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จนายหน้า </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="partnerProdId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="partnerInvoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="partnerLaunchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="prodType">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <p id="partnerName">&nbspชื่อนายหน้า: [ประเภท]</p>
+                        <p id="partnerCompany">&nbspชื่อบริษัท: [ประเภท]</p>
+                        <p id="partnerType">&nbspประเภท: [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="tablePartner">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box" id="contract">
+            <h1 align="center">พิมพ์ใบสัญญาซื้อ-ขาย</h1>
+            <br>
+            <br>
+            <font size="3">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;สัญญาฉบับนี้ทำขึ้นที่…บริษัท โชคทวี ออโต้เซล
+                จำกัด…ที่อยู่…มหาวิทยาลัยบูรพา อ.เมือง ต.แสนสุข จ.ชลบุรี 20000……เมื่อวันที่……<span
+                    id="contr-date"></span>……ระหว่าง……<span id="contr-cust_name"></span>……ซึ่งต่อไปในสัญญานี้รียกว่า
+                “ผู้ซื้อ” ฝ่ายหนึ่ง กับ……บริษัท โชคทวี ออโต้เซล จำกัด……โดย……<span
+                    id="contr-cust_name2"></span>……อยู่เลขที่……<span id="contr-cust_addr"></span>
+                ………ซึ่งต่อไปในสัญญา นี้เรียกว่า “ผู้ขาย” อีกฝ่ายหนึ่ง โดยมีข้อตกลงกันดังต่อไปนี้
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 1. ผู้ซื้อตกลงซื้อและผู้ขายตกลงขาย……<span
+                    id="contr-prod_desc"></span>……
+                จำนวน……1….รายการ เป็นราคารวมทั้งสิ้น……<span id="contr-prod_carbuy_price"></span>…………บาท
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 2.
+                ผู้ขายรับรองว่าสิ่งของที่ขายให้ตามสัญญานี้มีคุณภาพไม่ต่ำกว่าที่กำหนดไว้
+                ในกรณีที่เป็นการซื้อสิ่งของซึ่งจะต้องมีการตรวจทดลอง ผู้ขายรับรองว่า เมื่อตรวจทดลอง
+                แล้วต้องมีคุณภาพไม่ต่ำกว่าที่กำหนดไว้ด้วย
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 3. ผู้ขายสัญญาจะส่งมอบสิ่งของที่ซื้อขายตามสัญญาให้แก่ผู้ซื้อ
+                ภายในวันที่…………<span id="contr-prod_order_date"></span>…… ให้ถูกต้องและครบถ้วนตามที่กำหนดไว้ในข้อ
+                1. แห่งสัญญานี้ พร้อมทั้งหีบห่อหรือเครื่องรัดพันผูกให้ เรียบร้อย การส่งมอบสิ่งของตามสัญญานี้
+                ไม่ว่าจะเป็นการส่งมอบเพียงครั้งเดียว
+                หรือส่งมอบหลาย ครั้งผู้ขายจะต้องแจ้งกำหนดการเวลาส่งมอบแต่ละครั้ง โดยทำเป็นหนังสือ นำไปยื่นต่อผู้ซื้อ
+                ในเวลาราชการก่อนการส่งมอบไม่น้อยกว่า…2-7..วันทำการ
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 4. ถ้าปรากฏว่าสิ่งของผู้ที่ขายส่งมอบไม่ตรงตามสัญญาข้อ 1.
+                ผู้ซื้อทรงไว้ซึ่งสิทธิที่จะไม่
+                รับของนั้น ในกรณีเช่นว่านี้ ผู้ขายต้องรีบน าส่งของนั้นกลับคืนโดยเร็วที่สุดเท่าที่จะทำได้
+                หรือต้องทำการแก้ไข ให้ถูกต้องตามสัญญาโดยผู้ซื้อไม่ต้องใช้ค่าเสียหายหรือค่าใช้จ่ายให้แต่ประการใด
+                และระยะเวลาที่เสียไปเพราะ เหตุดังกล่าว ผู้ขายจะนำมาเป็นเหตุขอต่ออายุสัญญาไม่ได้
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 5. เมื่อผู้ซื้อหรือเจ้าหน้าที่ของผู้ซื้อ
+                ได้ตรวจรับสิ่งของที่ส่งมอบถูกต้องครบถ้วนตาม
+                สัญญาแล้ว ผู้ซื้อหรือเจ้าหน้าที่ของผู้ซื้อจะออกหลักฐานการตรวจรับไว้ให้เพื่อผู้ขายนำมาเป็นหลักฐาน
+                ประกอบการขอรับเงินค่าสิ่งของนั้น
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 6. เมื่อครบกำหนดส่งมอบสิ่งของตามสัญญานี้แล้ว
+                ถ้าผู้ขายไม่ส่งมอบสิ่งของที่ตกลงขาย
+                ให้แก่ ผู้ซื้อ หรือส่งมอบสิ่งของทั้งหมดไม่ถูกต้อง
+                หรือส่งมอบสิ่งของไม่ครบจำนวนผู้ซื้อมีสิทธิบอกเลิกสัญญาได้ ในกรณีที่ผู้ซื้อใช้สิทธิบอกเลิกสัญญา
+                ผู้ขายยอมให้ผู้ซื้อริบหลักประกัน หรือเรียกร้องจาก ธนาคาร ผู้ออกหนังสือค้าประกันตามสัญญาข้อ 7.
+                เป็นจำนวนทั้งหมด
+                หรือแต่บางส่วนก็ได้แล้วแต่ผู้ซื้อจะ
+                เห็นสมควรและถ้าผู้จัดซื้อสิ่งของจากบุคคลอื่นเต็มจำนวนหรือเฉพาะจำนวนที่ขาดส่งแล้วแต่กรณีภายใน
+                กำหนด………………….เดือน นับแต่วันที่บอกเลิกสัญญา โดยให้นับวันที่บอกเลิกสัญญาเป็นวันเริ่มต้น ผู้ขาย
+                ยอมรับผิดชดใช้ราคาที่เพิ่มขึ้นจากราคาที่กำหนดไว้ในสัญญานี้ด้วย
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 7. ในกรณีที่ผู้ซื้อไม่ใช้สิทธิบอกเลิกสัญญาตามสัญญาข้อ 8.
+                ผู้ขายยอมให้ผู้ซื้อปรับเป็น
+                รายวันในอัตราร้อยละศูนย์จุดสอง (0.2) ของราคาสิ่งของที่ยังไม่ได้รับมอบ นับแต่วันถัดจากวันครบกำหนด
+                ตามสัญญา จนถึงวันที่ผู้ขายได้นำสิ่งของมาส่งให้แก่ผู้ซื้อจนถูกต้องครบถ้วน
+                ในระหว่างที่มีการปรับนั้น ถ้าผู้ซื้อเห็นว่าผู้ขายไม่อาจปฏิบัติตามสัญญาต่อไปได้ ผู้ซื้อจะใช้
+                สิทธิบอกเลิกสัญญา
+                และริบหลักประกันหรือเรียกร้องจากธนาคารผู้ออกหนังสือค้าประกันตามสัญญาข้อ 7.
+                กับเรียกร้องให้ชดใช้ราคาที่เพิ่มขึ้นตามที่กำหนดไว้ในสัญญาข้อ
+                8. วรรคสอง นอกเหนือจากการปรับจนถึงวัน บอกเลิกสัญญาด้วยก็ได้
+                <br>&emsp;&emsp;&emsp;&emsp; ข้อ 8. ถ้าผู้ขายไม่ปฏิบัติตามสัญญาข้อหนึ่งข้อใดด้วยเหตุใดๆ ก็ตาม
+                จนเป็นเหตุให้เกิด
+                ความเสียหายแก่ผู้ซื้อแล้ว ผู้ขายยอมรับผิดและยินยอมชดใช้ค่าเสียหายอันเกิดจากการที่ผู้ขายไม่ปฏิบัติตาม
+                สัญญานั้น
+                ให้แก่ผู้ซื้อโดยสิ้นเชิง ภายในกำหนด 30 วัน นับแต่วันที่ได้รับแจ้งจากผู้ซื้อโดยให้นับวันที่ได้รับแจ้ง
+                เป็นวันเริ่มต้น
+                <br>&emsp;&emsp;&emsp;&emsp; สัญญานี้ทำขึ้นเป็นสองฉบับ มีข้อความเป็นอย่างเดียวกัน คู่สัญญาได้อ่านเข้าใจ
+                ข้อความโดย
+                ละเอียดตลอดแล้ว จึงได้ลงลายมือชื่อพร้อมทั้งประทับตรา (ถ้ามี) ไว้เป็นสำคัญต่อหน้าพยานและเก็บไว้
+                ฝ่ายละฉบับ
+            </font>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>ลงชื่อ………………………………………………ผู้ขาย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ลงชื่อ………………………………………………ผู้ซื้อ
+            </p>
+            <p align="center">
+                (...................................................)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(...................................................)
+            </p>
+            <br>
+            <br>
+            <p>ลงชื่อ……………………………………………พยาน&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ลงชื่อ…………………………………………พยาน
+            </p>
+            <p align="center">
+                (...................................................)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(...................................................)
+            </p>
+        </div>
+
+    </div>
+    <div id="printshub-fix" class="modal">
+        <div class="box partCarFixPrintsHubDelete">
+            <div class="columns">
+                <div>
+                    <button type="button" class="button is-width100  is-round is-2 is-oros"
+                        onclick="printDiv('contract')">
+                        พิมพ์ใบสัญญาซื้อ-ขาย
+                    </button>
+
+                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv('bill')">
+                        พิมพ์ใบกำกับภาษี
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="button is-width100 is-round is-2 is-oros" onclick="checkThis()">
+                        พิมพ์ใบเสร็จ
+                    </button>
+                    <button type="button" class="button is-width100  is-round is-2 is-yentafo"
+                        onclick="closeFixPrintsHubDelete()">
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--From print รายละเอียดรถในสต๊อค-->
-    <div class="select deplay-none " id="print_carStock">
+    <!-- <div class="select deplay-none " id="print_carStock">
         <br>
         <div>
 
             <div align='center'>พิมพ์รายละเอียดรถในสต๊อก</div>
             <img src="./resources/imgs/Car01.png" width="250" height="200" class="is-pulled-right">
-            <p> เลขทะเบียน : กข123</p>
-            <p> ยี่ห้อ : susuki</p>
-            <p> รุ่น : swift model-ab123</p>
-            <p> เจ้าของ : James Goodman</p>
-            <p> ราคา : 5,000,000 บาท</p>
+            <p> เลขทะเบียน : </p>
+            <p> ยี่ห้อ : </p>
+            <p> รุ่น : </p>
+            <p> เจ้าของ : </p>
+            <p> ราคา : </p>
             <br>
             <p> รายละเอียด</p>
             <div align="center">
                 <div class="select width95">
-                    <p align="left"> เครื่องยนต์ 250cc</p>
-                    <p align="left"> สภาพ 90%</p>
-                    <p align="left"> ไม่เคยผ่านการชนมาก่อน</p>
+                    <p align="left"> </p>
+                    <p align="left"> </p>
+                    <p align="left"> </p>
                 </div>
             </div>
             <br><br>
         </div>
-    </div>
+    </div> -->
 </body>
 
 <footer>

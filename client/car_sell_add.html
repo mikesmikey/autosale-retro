@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>โชคทวี - จัดการซื้อรถ</title>
+    <title>โชคทวี - เพิ่มลูกค้าและการขายรถ</title>
     <link rel="shortcut icon" type="image/png" href="./resources/imgs/logo.png" />
 
     <!-- Utilities CSS-->
@@ -22,10 +22,12 @@
     <link href="./resources/css/custom.css" type="text/css" rel="stylesheet">
 
     <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./resources/js/Controller_page.js"></script>
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/utilities.js"></script>
+    <script src="./resources/js/carsell_manage_add.js"></script>
 </head>
 
 
@@ -133,61 +135,62 @@
 
         <div class="box with-title is-round">
             <div class="box-title is-oros">
-                เพิ่มลูกค้าและการซื้อรถ
+                เพิ่มลูกค้าและการขายรถ
             </div>
 
             <div class="box car-buy">
                 <div class="columns">
                     <div class="column is-3">
                         <div>
-                            <h2>ลูกค้าเดิม <h2>
-                        </div>
-                        <div>
-                            <input class="input-icon-search width65" type="text" name="search" placeholder="ชื่อลูกค้า">
-                        </div>
-                        <div>
-                            <select multiple size="10" class="selectPlate width65">
-                                <option value="JamesGoodman">James Goodman</option>
-                                <option value="MariaBrown">Maria Brown</option>
-                                <option value="SaulWalker">Saul Walker</option>
-                            </select>
-                        </div>
-                        <div class="columns"><br></div>
-                        <div class="columns">
-                            <div class="column is-2">
+                            <div>
+                                <input id="inputcarSell" class="input-icon-search width80" type="text" name="search"
+                                    placeholder="ค้นหาด้วยชื่อลูกค้าเดิม">
+                                <select id="carsell_plicense" size="12" class="selectPlate width80 cursor-pointer">
 
-                            </div>
-                            <div class="column is-1"></div>
-                            <div class="column is-2">
+                                </select>
                             </div>
                         </div>
+
                     </div>
-                    <div class=" column is-4">
-                        <div>
-                            <h2>ลูกค้าใหม่ <h2>
-                        </div>
-                        <div class="box">
-                            <label class="label is-2">ชื่อ</label>
-                            <input type="text" class="input  is-pulled-right width60"><br><br>
-                            <label class="label is-2">ที่อยู่</label>
-                            <textarea class="textarea is-pulled-right width60 address"
-                                rows="6"></textarea><br><br><br><br><br><br><br>
-                            <label class="label is-2">เบอร์โทรศัพท์</label>
-                            <input type="text" class="input  is-pulled-right width60">
-                        </div>
-                        <br>
-                        <div class="columns">
-                            <div class="column is-2"></div>
-                            <div class="column is-2"></div>
-                            <div class="column is-2"></div>
-                            <div class="column is-2">
+                    <div class="column is-5">
+                        <div class="border-gray">
+                            <div id='data_input'>
+                                <div class="boxplate columns" style="padding:10px">
+                                    <div id='group-label'>
+                                        <label class="label is-2">ชื่อ :</label><br><br>
+                                        <label class="label is-2">ที่อยู่</label><br><br><br><br><br><br><br><br>
+                                        <label class="label is-2">เบอร์โทรศัพท์</label><br><br>
+                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
+                                    </div>
+                                    <div id='group-input' class="column is-6 ">
+                                        <center>
+                                            <input id='cust-name' type="text" class="input-plateAdd  width90 "><br><br>
+                                            <textarea id='cust-addr' class="textarea-plate  width90 address" rows="6">
+                                                                </textarea><br><br>
+                                            <input id='cust-phone' type="text" class="input-plateAdd  width90 "><br><br>
+                                            <input id='cust-tax_no' type="text" class="input-plateAdd  width90 ">
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='data_show' class='deplay-none' style="padding:20px">
+                                <br><br><br>
+                                <label id='show-cust-name' class="label is-2">ชื่อ :</label><br><br>
+                                <label id='show-cust-addr' class="label is-2">ที่อยู่</label><br><br>
+                                <label id='show-cust-phone' class="label is-2">เบอร์โทรศัพท์</label><br><br>
+                                <label id='show-cust-tax_no' class="label is-2">เลขประจำตัวผู้เสียภาษี</label>
+                                <br><br><br>
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <div class='column is-2'>
+                    <button type="button" onclick="showInputAdd('show')"
+                        class="button is-round is-2 is-free-size is-pulled-right is-oros">
+                        เพิ่มลูกค้า</button>
+                </div>
             </div>
-        </div><br>
+        </div>
         <div class="box with-title is-round">
             <div class="box">
                 <div class="columns">
@@ -195,30 +198,31 @@
                         <div>
                             <h2>รายละเอียดรถที่ซื้อ <h2>
                         </div>
-                        <div class="column is-2">
-                            <img src="./resources/imgs/Car01.png" height="250" width="300">
-                        </div><br>
                     </div>
 
                     <div class=" column is-2">
                         <div class="box">
+
                             <p class="label is-2">ยี่ห้อ</p>
                             <p class="label is-2">รุ่น</p>
                             <p class="label is-2">ทะเบียนรถ</p>
-                            <p class="label is-2">ราคา</p><br>
-                            <p class="label is-2">รายละเอียด</p>
+                            <p class="label is-2">ราคา </p><br>
+                            <p class="label is-2">เครื่องยนต์ </p>
+                            <p class="label is-2">สภาพ </p>
+                            <p class="label is-2">ประวัติ </p>
                         </div>
                     </div>
                     <div class=" column is-2">
                         <div class="box">
-                            <p class="label is-2">susuki</p>
-                            <p class="label is-2">swift model-ab123</p>
-                            <p class="label is-2">กข123</p>
-                            <p class="label is-2">5,000,000 บาท</p>
-                        </div>&emsp;
-                        <textarea class="textarea width80" rows="3"
-                            readonly>เครื่องยนต์ 250cc สภาพ 90%   ไม่เคยผ่านการชนมาก่อน</textarea><br>&emsp;
-                        <input type="checkbox" name="fullTaxBill" id="billTaxFull">รับใบกำกับภาษีแบบเต็ม
+                            <p id="carBrand" class="label is-2"></p>
+                            <p id="carModel" class="label is-2"> </p>
+                            <p id="carLicense" class="label is-2"></p>
+                            <p id="carsellPrice" class="label is-2"></p>
+                            <p id="carEngine" class="label is-2"></p>
+                            <p id="carStatus" class="label is-2"></p>
+                            <p id="carHistor" class="label is-2"></p>
+                        </div>
+
                     </div>
                 </div><br>
             </div>
@@ -232,9 +236,9 @@
                         </div>
                         <div class="box">
                             <label class="label is-2">ชื่อ</label>
-                            <input type="text" class="input is-pulled-right width60"><br><br>
+                            <input id="partnerName" type="text" class="input-plateAdd is-pulled-right width60"><br><br>
                             <label class="label is-2">เบอร์โทรศัพท์</label>
-                            <input type="text" class="input is-pulled-right width60">
+                            <input id="partnerPhone" type="text" class="input-plateAdd is-pulled-right width60">
                         </div>
 
                     </div>
@@ -246,10 +250,10 @@
                     <div class="column is-2"></div>
                     <div class="column is-2"> <button type="button"
                             class="button margin-left-x is-round is-2 width65 is-oros"
-                            onClick="printDiv('printContract')">ยืนยัน</button></div>
+                            onclick="confirmSold()">ยืนยัน</button></div>
                     <div class="column is-2"> <button type="button"
                             class="button margin-left-x is-round is-2 width65 is-yentafo "
-                            onClick="refreshPage()">ยกเลิก</button></div>
+                            onclick="mockCarSell()">ยกเลิก</button></div>
                     <div class="column is-2"> </div>
                 </div>
             </div>

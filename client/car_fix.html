@@ -138,13 +138,21 @@
             <div class="box">
                 <div>
                     <div class="columns">
+
+                        <div class="column is-3">
+                            <h2> เลขทะเบียนทั้งหมด <h2>
+                        </div>
+                        <div class="column is-5">
+                            <h2> รายละเอียด <h2>
+                        </div>
+                    </div>
+                    <div class="columns">
                         <div class="column is-3">
                             <div>
                                 <div>
                                     <input id="input_car_fix" class="input-icon-search width80" type="text"
                                         name="search" placeholder="ค้นหาด้วยเลขทะเบียน" onkeypress="runScript(event)">
-                                    <select id="lplate_selected" size="15" class="selectPlate width80 cursor-pointer"
-                                    >
+                                    <select id="lplate_selected" size="15" class="selectPlate width80 cursor-pointer">
                                         <!-- //////////  Backend has loaded  ////////////// -->
                                     </select>
                                 </div>
@@ -157,8 +165,7 @@
                                     <tr>
                                         <td colspan="2" style="background-color: white" ;>
                                             <!-- //////////  Backend has not loaded  ////////////// -->
-                                            <img id="carUpload" src="" alt=""
-                                                height="200" width="230">
+                                            <img id="carUpload" src="" alt="" height="200" width="230">
                                         </td>
                                         <td style="background-color: white">
                                             <div>
@@ -217,7 +224,7 @@
                                                                 <th class="mixTop">&nbspรายการ</th>
                                                                 <th class="mixTop">&nbspจำนวน</th>
                                                                 <th class="mixTop">&nbspราคา</th>
-                                                            </tr>                                                      
+                                                            </tr>
                                                         </table>
                                                     </center>
                                                     <br>
@@ -315,7 +322,7 @@
                                                         <th class="mixTop">&nbspราคาต่อหน่อย</th>
                                                         <th class="mixTop">&nbspจำนวน</th>
                                                     </tr>
-                                                   
+
                                                 </table>
                                             </div>
                                         </div>
@@ -333,7 +340,7 @@
                                                             รวมทั้งสิ้น
                                                         </td>
                                                         <td id="bill-total" class="mix">
-                                                            
+
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -341,7 +348,7 @@
                                                             ส่วนลด
                                                         </td>
                                                         <td id="bill-discount" class="mix">
-                                                            
+
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -357,7 +364,7 @@
                                                             รวมมูลค่าสินค้า
                                                         </td>
                                                         <td id="bill-exc_vat" class="mixUnder">
-                                                            
+
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -481,8 +488,7 @@
                                                         </div>
                                                         <div class="column is-3">
 
-                                                            <img id="repairingBill_car_upload"
-                                                                src="" height="150"
+                                                            <img id="repairingBill_car_upload" src="" height="150"
                                                                 width="200" align="right">
                                                         </div>
 
@@ -585,8 +591,7 @@
                         พิมพ์ใบรายละเอียดซ่อม
                     </button>
 
-                    <button type="button" class="button is-width100  is-round is-2 is-oros"
-                        onclick="printDiv('bill')">
+                    <button type="button" class="button is-width100  is-round is-2 is-oros" onclick="printDiv('bill')">
                         พิมพ์ใบกำกับภาษี
                     </button>
                 </div>

@@ -132,12 +132,12 @@
     </nav>
 
     <div class="subcontent-area">
-        <div class="subcontent-main-div plate">
-            <div class="box with-title is-round">
-                <div class="box-title is-oros">
-                    จัดการการซื้อรถ
-                </div>
-                <div class="box">
+        <div class="box with-title is-round">
+            <div class="box-title is-oros">
+                จัดการซื้อรถ
+            </div>
+            <div class="box">
+                <div>
                     <div class="columns">
 
                         <div class="column is-3">
@@ -151,26 +151,14 @@
                         <div class="column is-3">
                             <div>
                                 <div>
+
                                     <input class="input-icon-search width80" type="text" name="search"
                                         onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select id="selectNumber" multiple size="16"
-                                        class="selectPlate width80 cursor-pointer">
+                                    <select id="selectNumber" size="16" class="selectPlate width80 cursor-pointer">
 
                                     </select>
                                 </div>
 
-                                <br>
-                                <div class="columns">
-                                    <div class="column is-2">
-                                        <a href="./car_buy_add.html"><button type="button"
-                                                class="button is-width80  is-round is-2 is-oros">เพิ่ม</button></a>
-                                    </div>
-                                    <div class="column is-2 margin-left150">
-                                        <button type="button"
-                                            class="button margin-left-x is-width80 is-round is-2  is-yentafo" 
-                                            onclick="launchFixDelete()">ลบ</button>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -178,45 +166,39 @@
                             <div class="columns">
                                 <div class="column" style="padding:15px">
                                     <center>
-                                        <img id="carbuy_upload" src="" alt="" height="160" width="120">
+                                        <img id="carbuy_upload" src="" alt="image" height="200" width="230">
                                     </center>
                                 </div>
-                                <div class="column is-5 border-gray" style="padding:5px">
-                                    <p id="dca_prod_id">เลขออเดอร์ :</p>
-                                    <p id="dca_car_license">เลขทะเบียน :</p>
-                                    <p id="dca_car_brand">ยี่ห้อ : susuki</p>
-                                    <p id="dca_car_model">รุ่น :</p>
-                                    <p id="dca_customer_name">เจ้าของ :</p>
+                                <div class="column is-4 border-gray" style="padding:5px">
+                                    <p id="dca_prod_id">&nbsp;เลขออเดอร์ :</p>
+                                    <p id="dca_car_license">&nbsp;เลขทะเบียน :</p>
+                                    <p id="dca_car_brand">&nbsp;ยี่ห้อ : susuki</p>
+                                    <p id="dca_car_model">&nbsp;รุ่น :</p>
+                                    <p id="dca_customer_name">&nbsp;เจ้าของ :</p>
                                 </div>
                             </div>
                             <br>
 
                             <div class="columns is-9">
                                 <div class=" column border-gray">
-                                    <p>รายละเอียดเครื่องยนต์</p>
-                                    <p id="car_engine">เครื่องยนต์: </p>
-                                    <p id="car_status">สภาพ: </p>
-                                    <p id="car_history">ประวัติ: </p>
+                                    <p>&nbsp;รายละเอียดเครื่องยนต์</p>
+                                    <p id="car_engine">&nbsp;เครื่องยนต์: </p>
+                                    <p id="car_status">&nbsp;สภาพ: </p>
+                                    <p id="car_history">&nbsp;ประวัติ: </p>
                                 </div>
                                 <br>
                             </div>
-
-                            <div class="columns is-9">
-                                <div class="column" style="text-align:right">
-                                    <br>
-                                    <!-- <button type="button" class="button is-width40  is-round is-2 is-oros"
-                                        onclick="printDiv('receipt')">พิมพ์</button> -->
-                                    <button onclick="launchFixPrintsHubDelete()" type="button"
-                                        class="button is-round is-2 width40 is-oros">
-                                        พิมพ์
-                                    </button>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
+                    <div class="columns">
+                        <button style="margin-left: 8%" type="button" class="button width10 is-round is-2 is-oros"
+                            onclick="mockCarBuyAdd()">เพิ่ม</button>
+                        <button type="button" class="button width10 is-round is-2 is-yentafo"
+                            onclick="launchFixDelete()">ลบ</button>
+                        <button style="margin-left: 60%" type="button" class="button width10 is-round is-2  is-oros"
+                            onclick="launchFixPrintsHubDelete()">พิมพ์</button>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -389,6 +371,143 @@
                 </div>
             </div>
         </div>
+        <div class="box" id="receipt">
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box" id="receipter">
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จนายหน้า </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="partnerProdId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="partnerInvoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="partnerLaunchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="prodType">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <p id="partnerName">&nbspชื่อนายหน้า: [ประเภท]</p>
+                        <p id="partnerCompany">&nbspชื่อบริษัท: [ประเภท]</p>
+                        <p id="partnerType">&nbspประเภท: [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="tablePartner">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="columns">
+                <div class="column">
+                    <br>
+                    <center>
+                        <font size=6> พิมพ์ใบเสร็จ </font>
+                    </center>
+                    <br>
+                </div>
+            </div>
+            <div class="columns">
+                <div class=" column">
+                    <div id="bor01">
+                        <p id="prodId">&nbspเลขที่ออเดอร์ : 214321890427140721</p>
+                        <p id="invoId">&nbspเลขที่บิล : sadf123214214214</p>
+                        <p id="launchDate">&nbspวันที่ออก : 17/11/2561</p>
+                        <p id="type">&nbspประเภทออเดอร์ : [ประเภท]</p>
+                        <br>
+                        <br>
+                    </div>
+                    <div id="bor01">
+                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp
+                            รายการ</p>
+                        <center>
+                            <table id="table01">
+                                <tr id="tr01">
+                                    <th class="mixTop">&nbspรายการ</th>
+                                    <th class="mixTop">&nbspจำนวน</th>
+                                    <th class="mixTop">&nbspราคา</th>
+                                </tr>
+
+                            </table>
+                        </center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="box" id="contract">
             <h1 align="center">พิมพ์ใบสัญญาซื้อ-ขาย</h1>
             <br>
@@ -516,8 +635,7 @@
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="button is-width100 is-round is-2 is-oros"
-                        onclick="printDiv('receipt')">
+                    <button type="button" class="button is-width100 is-round is-2 is-oros" onclick="checkThis()">
                         พิมพ์ใบเสร็จ
                     </button>
                     <button type="button" class="button is-width100  is-round is-2 is-yentafo"

@@ -1,5 +1,6 @@
 let thisCarLicense = "";
 let product = [];
+let partner = [];
 let resultObject;
 let customer = [];
 let carimages = [];
@@ -9,6 +10,7 @@ function startForm() {
     getAllProductByType("Buy").then((data) => {
         createselect(data);
     });
+    getAllPartner();
     getAllCustomer();
     getAllInvoice();
 }
@@ -20,6 +22,16 @@ function getAllInvoice() {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 invoice.push(result.data[i])
+            }
+        })
+    })
+}
+function getAllPartner() {
+    return new Promise((resolve, reject) => {
+        axios.get('http://localhost:5000/partners').then((result) => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                partner.push(result.data[i])
             }
         })
     })
@@ -36,14 +48,14 @@ function getAllCustomer() {
 }
 function getAllCarImages(type) {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/images/type/" + type).then(result => {
-        resolve(result.data);
-        for (let i = 0; i < result.data.length; i++) {
-          carimages.push(result.data[i]);
-        }
-      });
+        axios.get("http://localhost:5000/images/type/" + type).then(result => {
+            resolve(result.data);
+            for (let i = 0; i < result.data.length; i++) {
+                carimages.push(result.data[i]);
+            }
+        });
     })
-  }
+}
 
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
@@ -104,6 +116,10 @@ function searchInvice(nameKey, myArray) {
     }
 }
 
+function mockCarBuyAdd() {
+    window.location.href = './car_buy_add.html'
+}
+
 function ShowDetail(value) {
     resultObject = searchProductByCarLicense(value, product);
 
@@ -114,19 +130,19 @@ function ShowDetail(value) {
 
     document.getElementById('carbuy_upload').src = carImage.base64;
 
-    document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
+    document.getElementById("dca_prod_id").innerHTML = "&nbsp;เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
-    document.getElementById("dca_car_license").innerHTML = "เลขทะเบียน : " + resultObject.trn_car.car_license;
+    document.getElementById("dca_car_license").innerHTML = "&nbsp;เลขทะเบียน : " + resultObject.trn_car.car_license;
     //ยี่ห้อ
-    document.getElementById("dca_car_brand").innerHTML = "ยี่ห้อ : " + resultObject.trn_car.car_brand;
+    document.getElementById("dca_car_brand").innerHTML = "&nbsp;ยี่ห้อ : " + resultObject.trn_car.car_brand;
     //รุ่น
-    document.getElementById("dca_car_model").innerHTML = "รุ่น : " + resultObject.trn_car.car_model;
+    document.getElementById("dca_car_model").innerHTML = "&nbsp;รุ่น : " + resultObject.trn_car.car_model;
     //เจ้าของ
-    document.getElementById("dca_customer_name").innerHTML = "เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
+    document.getElementById("dca_customer_name").innerHTML = "&nbsp;เจ้าของ : " + searchCustomer(resultObject.cust_id, customer).cust_name;
 
-    document.getElementById("car_engine").innerHTML = "เครื่องยนต์ : " + resultObject.trn_car.car_engine + " cc"
-    document.getElementById("car_status").innerHTML = "สภาพ : " + resultObject.trn_car.car_status + "%"
-    document.getElementById("car_history").innerHTML = "ประวัติ : " + resultObject.trn_car.car_histor
+    document.getElementById("car_engine").innerHTML = "&nbsp;เครื่องยนต์ : " + resultObject.trn_car.car_engine + " cc"
+    document.getElementById("car_status").innerHTML = "&nbsp;สภาพ : " + resultObject.trn_car.car_status + "%"
+    document.getElementById("car_history").innerHTML = "&nbsp;ประวัติ : " + resultObject.trn_car.car_histor
 
 }
 function createselect(data) {
@@ -170,6 +186,16 @@ function removeAlloption() {
         select.options[c] = null;
     }
 }
+
+function checkThis() {
+    if (resultObject.type_desc.commission !== 0) {
+        printDiv('receipter')
+    }
+    else {
+        printDiv('receipt')
+    }
+}
+
 function printDiv(printDivName) {
     if (resultObject === undefined) {
         alert('กรุณาคลิกป้ายทะเบียนก่อน')
@@ -181,7 +207,55 @@ function printDiv(printDivName) {
         const currentPage = document.body.innerHTML;
         document.body.innerHTML = document.getElementById(printDivName).innerHTML;
         // console.log(resultObject)
-        if (printDivName === "receipt") {
+
+        if (printDivName === 'receipter') {
+
+            let rect = searchInvoiceByCustAndProd("Receipt", resultObject.cust_id, resultObject.prod_id, invoice)
+            var table = document.getElementById("table01")
+
+            for (var i = 0; i < rect.type_desc.items.length; i++) {
+
+                let row = table.insertRow(i + 1);
+                let name = row.insertCell(0);
+                let price = row.insertCell(1);
+                let num = row.insertCell(2);
+
+                name.innerHTML = rect.type_desc.items[i].name;
+                price.innerHTML = rect.type_desc.items[i].price;
+                num.innerHTML = rect.type_desc.items[i].num;
+            }
+
+            document.getElementById("prodId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
+            document.getElementById("invoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
+            document.getElementById("type").innerHTML = "&nbsp;ประเภทออเดอร์ : Buy";
+            document.getElementById("launchDate").innerHTML = "&nbsp;วันที่ออก : 2018 05 14";
+
+            rect = searchInvoiceByPartnerAndProd("ReceiptPartner", resultObject.type_desc.partner_id, resultObject.prod_id, invoice)
+            let partnerShow = searchPartner(resultObject.type_desc.partner_id, partner)
+            var table = document.getElementById("tablePartner")
+
+            for (var i = 0; i < rect.type_desc.items.length; i++) {
+
+                let row = table.insertRow(i + 1);
+                let name = row.insertCell(0);
+                let price = row.insertCell(1);
+                let num = row.insertCell(2);
+
+                name.innerHTML = rect.type_desc.items[i].name;
+                price.innerHTML = rect.type_desc.items[i].price;
+                num.innerHTML = rect.type_desc.items[i].num;
+            } 
+            console.log()
+            document.getElementById("partnerProdId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
+            document.getElementById("partnerInvoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
+            document.getElementById("prodType").innerHTML = "&nbsp;ประเภทออเดอร์ : Buy";
+            document.getElementById("partnerLaunchDate").innerHTML = "&nbsp;วันที่ออก : 2018 05 14";
+            document.getElementById("partnerName").innerHTML = "&nbsp;ชื่อนายหน้า : " + partnerShow.partner_name;
+            document.getElementById("partnerCompany").innerHTML = "&nbsp;ชื่อบริษัท : " + partnerShow.company_name;
+            document.getElementById("partnerType").innerHTML = "&nbsp;ประเภทนายหน้า : " + partnerShow.partner_type;
+
+        }
+        else if (printDivName === "receipt") {
             let rect = searchInvoiceByCustAndProd("Receipt", resultObject.cust_id, resultObject.prod_id, invoice)
 
             var table = document.getElementById("table01")
@@ -202,6 +276,7 @@ function printDiv(printDivName) {
             document.getElementById("invoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;
             document.getElementById("type").innerHTML = "&nbsp;ประเภทออเดอร์ : Buy";
             document.getElementById("launchDate").innerHTML = "&nbsp;วันที่ออก : 2018 05 14";
+
         }
         else if (printDivName === 'bill') {
             let bill = searchInvoiceByCustAndProd("Bill", resultObject.cust_id, resultObject.prod_id, invoice)
@@ -247,8 +322,8 @@ function printDiv(printDivName) {
             document.getElementById("contr-cust_name").innerHTML = cust.cust_name
             document.getElementById("contr-cust_name2").innerHTML = cust.cust_name
             document.getElementById("contr-cust_addr").innerHTML = cust.cust_addr
-            document.getElementById("contr-prod_desc").innerHTML = "รถ ยี่ห้อ "+prod.trn_car.car_brand+",รุ่น "+prod.trn_car.car_model+",เลขทะเบียน "+prod.trn_car.car_license
-            document.getElementById("contr-prod_carbuy_price").innerHTML = prod.type_desc.carbuy_price
+            document.getElementById("contr-prod_desc").innerHTML = "รถ ยี่ห้อ " + prod.trn_car.car_brand + ",รุ่น " + prod.trn_car.car_model + ",เลขทะเบียน " + prod.trn_car.car_license
+            document.getElementById("contr-prod_carbuy_price").innerHTML = prod.type_desc.price_buy
             document.getElementById("contr-prod_order_date").innerHTML = prod.prod_order_date
         }
         window.print();
@@ -283,28 +358,28 @@ function closeFixDelete() {
 
 function deleteCarFixProduct() {
     deleteCarBuyProductByThisLicense(thisCarLicense).then(result => {
-    // console.log('this car license => ', thisCarLicense)
-    if (result) {
-      alert("ลบสำเร็จ");
-      window.location.reload(true);
-    } else {
-      alert("ลบไม่สำเร็จ!");
-      window.location.reload(true);
-    }
-  });
-  thisCarLicense = "";
-  closeFixDelete();
+        // console.log('this car license => ', thisCarLicense)
+        if (result) {
+            alert("ลบสำเร็จ");
+            window.location.reload(true);
+        } else {
+            alert("ลบไม่สำเร็จ!");
+            window.location.reload(true);
+        }
+    });
+    thisCarLicense = "";
+    closeFixDelete();
 }
 
 function deleteCarBuyProductByThisLicense(car_license) {
     return new Promise((resolve, reject) => {
-      axios
-        .post("http://localhost:5000/product/type/Buy/remove/" + car_license)
-        .then(result => {
-          resolve(result.data);
-        });
+        axios
+            .post("http://localhost:5000/product/type/Buy/remove/" + car_license)
+            .then(result => {
+                resolve(result.data);
+            });
     });
-  }
+}
 
 function getCurrentDate() {
     var today = new Date();
@@ -329,9 +404,27 @@ function searchCarImage(nameKey, myArray) {
         }
     }
 }
+
+function searchPartner(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].partner_id === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+
 function searchInvoiceByCustAndProd(type, custId, prodId, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].invo_type === type && myArray[i].cust_id === parseInt(custId) && myArray[i].prod_id === parseInt(prodId)) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
+
+function searchInvoiceByPartnerAndProd(type, partnerId, prodId, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].invo_type === type && myArray[i].partner_id === parseInt(partnerId) && myArray[i].prod_id === parseInt(prodId)) {
             return myArray[i];
         }
     }

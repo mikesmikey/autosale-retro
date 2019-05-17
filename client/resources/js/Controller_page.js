@@ -25,5 +25,5 @@ function mockUsedPartUpdate() {
 }
 
 function mockCarSell() {
-    window.location.replace('./car_sell_add.html');
+    window.location.replace('./car_sell.html');
 }
