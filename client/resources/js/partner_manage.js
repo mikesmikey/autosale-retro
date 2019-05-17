@@ -9,7 +9,7 @@ function launchPartnerEdit() {
         console.log(document.getElementById("PartnerSelect").value)
         document.getElementById('edit-Partner').classList.add('is-active');
         loadDetailPartner();
-    }else{
+    }else{                                           
         alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
     }
 }
@@ -33,7 +33,7 @@ function launchPartnerDelete() {
     if(document.getElementById("PartnerSelect").value != "" || document.getElementById("companyNameInput").value != ""){
         document.getElementById('delete-Partner').classList.add('is-active');
     }else{
-        alert("กรุณาเลือกคู่ค้าที่ต้องการแก้ไข")
+        alert("กรุณาเลือกคู่ค้าที่ต้องการลบ")
     }
 }
 
@@ -43,18 +43,24 @@ function closePartnerDelete() {
 
 
 function setSelectedStart(first) {
-    document.getElementById("companyName").innerHTML = partner[first].company_name;
-    document.getElementById("partnerName").innerHTML = partner[first].partner_name;
-    document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
+
+        document.getElementById("companyName").innerHTML = partner[first].company_name;
+        document.getElementById("companyNamePrint").innerHTML = partner[first].company_name;
+
+        document.getElementById("partnerName").innerHTML = partner[first].partner_name;
+        document.getElementById("partnerNamePrint").innerHTML = partner[first].partner_name;
+
+        document.getElementById("partnerPhone").innerHTML = partner[first].partner_phone;
+        document.getElementById("partnerPhonePrint").innerHTML = partner[first].partner_phone;
+
+        document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
+        document.getElementById("partnerAddrPrint").innerHTML = partner[first].partner_addr;
+
+
     document.getElementById("partnerType").innerHTML = partner[first].partner_type;
-    document.getElementById("partnerAddr").innerHTML = partner[first].partner_addr;
-
-
-    document.getElementById("companyNamePrint").innerHTML = partner[first].company_name;
-    document.getElementById("partnerNamePrint").innerHTML = partner[first].partner_name;
-    document.getElementById("partnerPhonePrint").innerHTML = partner[first].partner_phone;
+    
     document.getElementById("partnerTypePrint").innerHTML = partner[first].partner_type;
-    document.getElementById("partnerAddrPrint").innerHTML = partner[first].partner_addr;
+
 }
 
 function  setDetailZero() {
@@ -145,19 +151,28 @@ function addButtonHandle(companyName,partnerName,partnerPhone,partnerType,partne
     partnerData.partner_addr = partnerAddr;
 
     console.log(partnerData);
-    addPartner(partnerData).then((data) => {
-        if (data) {
-            removeSelected();
-            getAllPartner().then((data) => {
-                setSelected(data);
-            })
-            alert("สำเร็จ!")
-            closePartnerAdd();
-        } else {
-            alert("เพิ่มไม่สำเร็จ!")
-            closePartnerAdd();
-        }
-    })
+    if(companyName.length != 0 && 
+        partnerName.length != 0 && 
+        partnerPhone != 0 && 
+        partnerAddr != 0
+    ){
+        addPartner(partnerData).then((data) => {
+            if (data) {
+                removeSelected();
+                getAllPartner().then((data) => {
+                    setSelected(data);
+                })
+                alert("สำเร็จ!")
+                closePartnerAdd();
+            } else {
+                alert("เพิ่มไม่สำเร็จ!")
+                closePartnerAdd();
+            }
+        })
+    }else{
+        alert("กรุณากรอกข้อมูลให้ครบ!")
+    }
+
 }
 
 
@@ -185,19 +200,27 @@ function editButtonHandle(companyName,partnerName,partnerPhone,partnerType,partn
     partnerData.partner_addr = partnerAddr;
 
     //console.log(partnerData);
-    editPartner(partnerData).then((data) => {
-        if (data) { 
-            removeSelected();
-            getAllPartner().then((data) => {
-                setSelectedEdit(data);
-            })
-            alert("สำเร็จ!")
-            closePartnerEdit();
-        } else {
-            alert("แก้ไขไม่สำเร็จ!")
-            closePartnerEdit();
-        }
-    })
+    if(companyName.length != 0 && 
+        partnerName.length != 0 && 
+        partnerPhone != 0 && 
+        partnerAddr != 0
+    ){
+        editPartner(partnerData).then((data) => {
+            if (data) { 
+                removeSelected();
+                getAllPartner().then((data) => {
+                    setSelectedEdit(data);
+                })
+                alert("สำเร็จ!")
+                closePartnerEdit();
+            } else {
+                alert("แก้ไขไม่สำเร็จ!")
+                closePartnerEdit();
+            }
+        })
+    }else{
+        alert("กรุณากรอกข้อมูลให้ครบ!")
+    }
     
 }
 
@@ -234,11 +257,22 @@ function loadCompanyNameInSelect() {
 function loadDetailPartner(CompanyNameS) {
     for(let i = 0;i<partner.length;i++){
         if(partner[i].company_name == CompanyNameS){
-            document.getElementById("companyName").innerHTML = partner[i].company_name;
-            document.getElementById("partnerName").innerHTML = partner[i].partner_name;
-            document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
-            document.getElementById("partnerType").innerHTML = partner[i].partner_type;
-            document.getElementById("partnerAddr").innerHTML = partner[i].partner_addr;
+
+                document.getElementById("companyName").innerHTML = partner[i].company_name;
+                document.getElementById("companyNamePrint").innerHTML = partner[i].company_name;
+
+                document.getElementById("partnerName").innerHTML = partner[i].partner_name;
+                document.getElementById("partnerNamePrint").innerHTML = partner[i].partner_name;
+   
+                document.getElementById("partnerPhone").innerHTML = partner[i].partner_phone;
+                document.getElementById("partnerPhonePrint").innerHTML = partner[i].partner_phone;
+    
+                document.getElementById("partnerAddr").innerHTML = partner[i].partner_addr;
+                document.getElementById("partnerAddrPrint").innerHTML = partner[i].partner_addr;
+            
+
+            
+            document.getElementById("partnerType").innerHTML = partner[i].partner_type;            
 
             document.getElementById("companyNameInput").value = partner[i].company_name;
             document.getElementById("partnerNameInput").value = partner[i].partner_name;
@@ -246,11 +280,8 @@ function loadDetailPartner(CompanyNameS) {
             document.getElementById("partnerTypeInput").value = partner[i].partner_type;
             document.getElementById("partnerAddrInput").value = partner[i].partner_addr;
 
-            document.getElementById("companyNamePrint").innerHTML = partner[i].company_name;
-            document.getElementById("partnerNamePrint").innerHTML = partner[i].partner_name;
-            document.getElementById("partnerPhonePrint").innerHTML = partner[i].partner_phone;
             document.getElementById("partnerTypePrint").innerHTML = partner[i].partner_type;
-            document.getElementById("partnerAddrPrint").innerHTML = partner[i].partner_addr;
+            
             companyname = partner[i].company_name;
             break;
         }
@@ -258,16 +289,6 @@ function loadDetailPartner(CompanyNameS) {
     }
     //document.getElementById("label").innerHTML=document.getElementById("PartnerSearch").value;
 }
-
-function getPartnerDetailByCompany(companyName, myArray) {
-    for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].company_name === companyName) {
-            return myArray[i];
-        }
-    }
-    return null;
-}
-
 
 function runScript(e) {
     if (e.keyCode == 13) {
@@ -294,6 +315,18 @@ function runScript(e) {
     }
     return false;
 }
+
+function getPartnerDetailByCompany(companyName, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].company_name === companyName) {
+            return myArray[i];
+        }
+    }
+    return null;
+}
+
+
+
 
 
 

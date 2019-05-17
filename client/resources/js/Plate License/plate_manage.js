@@ -12,7 +12,7 @@ function startForm() {
 }
 function getAllInvoiceByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/invoices/'+type).then((result) => { 
+        axios.get('http://localhost:5000/invoices/type/'+type).then((result) => { 
             console.log(result.data) 
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
@@ -33,7 +33,7 @@ function getAllCustomer() {
 }
 function getAllProductByType(type) {
     return new Promise((resolve, reject) => {
-        axios.get('http://localhost:5000/products/'+type).then((result) => {
+        axios.get('http://localhost:5000/products/type/'+type).then((result) => {
             resolve(result.data);
             for (let i = 0; i < result.data.length; i++) {
                 product.push(result.data[i])
@@ -75,13 +75,7 @@ function searchProduct(nameKey, myArray) {
     }
     return null;
 }
-function searchCustomer(nameKey, myArray) {
-    for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].cust_id === nameKey) {
-            return myArray[i];
-        }
-    }
-}
+
 function searchInvice(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].prod_id === nameKey) {
@@ -89,8 +83,17 @@ function searchInvice(nameKey, myArray) {
         }
     }
 }
+
+function searchCustomer(value, array) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].cust_id === value) {
+            return array[i];
+        }
+    }
+}
 function ShowDetail(value) {
     let resultObject = searchProductByCarLicense(value, product);
+    console.log(resultObject)
     select = value ;
     document.getElementById("dca_prod_id").innerHTML = "เลขออเดอร์ : " + resultObject.prod_id;
     //เลขทะเบียนรถ
