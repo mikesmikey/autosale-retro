@@ -93,7 +93,7 @@ function countObject(obj) {
 }
 function searchProductByCarLicense(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
-        if (myArray[i].trn_desc.car_license === nameKey) {
+        if (myArray[i].type_desc.car_license === nameKey) {
             return myArray[i];
         }
     }
@@ -230,6 +230,7 @@ function setAttributePrint(value) {
     document.getElementById('alert-license-no').innerHTML = "หมายเลขทะเบียน : " + value
     document.getElementById('alert-cost-number').innerHTML = "หมายเลขทะเบียน " + value
     //print_appiontment_
+    select=value
 
 }
 function deleteProductCustomer() {
@@ -324,7 +325,7 @@ function checInvioce(value) {
         else if (value === 'print_detail' || value === 'print_appiontment') {
             printDiv(value)
         }
-        else if (checkObj.trn_desc.licenae_status) {
+        else if (checkObj.type_desc.licenae_status) {
             this.setAttributePrintFormBills()
             printDiv(value)
         } else {
@@ -377,7 +378,7 @@ function CheckInsertCost() {
         product = []
         this.getAllProductByType("RegisterLicense").then((result) => {
             let checkObj = searchProductByCarLicense(select, product)
-            if (!checkObj.trn_desc.licenae_status) {
+            if (!checkObj.type_desc.licenae_status) {
                 this.launchLicenseCost()
             } else {
                 alert('หมายเลขทะเบียน ' + select + '  นี้มีการเพิ่มราคาไปแล้ว')
@@ -427,7 +428,7 @@ function setAttributePrintFormBills() {
     document.getElementById('invoice_customerId').innerHTML = 'รหัสลูกค้า : ' + productData.cust_id
     document.getElementById('invoice_customerAddress').innerHTML = 'ที่อยู่ : ' + customerData.cust_addr
     document.getElementById('invoice_customerTax').innerHTML = ' เลขที่ผู้เสียภาษี : ' + customerData.cust_tax_no
-    document.getElementById('invoice_productCarLicense').innerHTML = productData.trn_desc.car_license
+    document.getElementById('invoice_productCarLicense').innerHTML = productData.type_desc.car_license
     document.getElementById('invoice_productCost').innerHTML = invoiceData.type_desc.total
     document.getElementById('invoice_productPrice').innerHTML = invoiceData.type_desc.total
     document.getElementById('invoice_total').innerHTML = invoiceData.type_desc.total
@@ -438,7 +439,7 @@ function setAttributePrintFormBills() {
     document.getElementById('printBillCustomerName').innerHTML = 'ชื่อลูกค้า : ' + customerData.cust_name
     document.getElementById('printBillCustomerAddress').innerHTML = 'ที่อยู่ : ' + customerData.cust_addr
     document.getElementById('printBillCustomerPhone').innerHTML = 'เบอร์โทรศัทพ์ : ' + customerData.cust_phone
-    document.getElementById('printBillProducCar').innerHTML = productData.trn_desc.car_license
+    document.getElementById('printBillProducCar').innerHTML = productData.type_desc.car_license
     document.getElementById('printBillProducNumber').innerHTML = '1'
     document.getElementById('printBillProductPrice').innerHTML = invoiceData.type_desc.total
     document.getElementById('printBillCostAll').innerHTML = 'ราคารวม : ' + invoiceData.type_desc.total

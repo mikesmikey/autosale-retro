@@ -173,8 +173,8 @@ function checkInputText() {
         } else {
             this.getLastUser().then((lastUser) => {
                 var custObj = {}
-                maxCustomer = this.getNumberId(lastUser,cust_id) -1
-                custObj.id = this.getNumberId(lastUser,cust_id)
+                maxCustomer = this.getNumberId(lastUser,'cust_id') -1
+                custObj.id = this.getNumberId(lastUser,'cust_id')
                 custObj.name = cus_name
                 custObj.addr = cus_address
                 custObj.phone = cus_phone

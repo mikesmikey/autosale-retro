@@ -256,7 +256,7 @@ class WebDAO {
                     cust_id: arrObj.cust_id,
                     prod_order_date: today,
                     prod_type: 'RegisterLicense',
-                    trn_desc: {
+                    type_desc: {
                         car_license: arrObj.car_license,
                         price_per_book: -1,
                         fare: -1,
@@ -396,10 +396,10 @@ class WebDAO {
                 db.collection('Product').find({ prod_id: Number.parseInt(productData.prod_id)  }).toArray((err, data) => {
                     if (err) { throw err }
                     if(data){
-                        data[0].trn_desc.price_per_book = Number.parseInt(productData.price_per_book)
-                        data[0].trn_desc.fare = Number.parseInt(productData.fare)
-                        data[0].trn_desc.total_price = Number.parseInt(productData.total_price)
-                        data[0].trn_desc.licenae_status =  true
+                        data[0].type_desc.price_per_book = Number.parseInt(productData.price_per_book)
+                        data[0].type_desc.fare = Number.parseInt(productData.fare)
+                        data[0].type_desc.total_price = Number.parseInt(productData.total_price)
+                        data[0].type_desc.licenae_status =  true
                         console.log(data[0])
                         db.collection('Product').findOneAndUpdate({ "prod_id": Number.parseInt(productData.prod_id) }, { "$set": data[0] }, (err, result) => {
                             if (err) { throw err }
@@ -519,7 +519,7 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Product').findOne(
-                    { "trn_desc.car_license": lplate }, (err, data) => {
+                    { "type_desc.car_license": lplate }, (err, data) => {
                         if (err) { throw err }
                         return resolve(data);
                     });
