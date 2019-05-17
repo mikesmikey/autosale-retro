@@ -204,6 +204,15 @@ function searchCustomerByName(nameKey, myArray) {
         }
     }
 }
+
+function searchPartner(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].partner_id === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+
 function searchPartnerByName(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].partner_name === nameKey) {
@@ -241,6 +250,12 @@ function confirmSold() {
         }
     }
 
+    for (var i in product) {
+        if (product[i].prod_id > maxProduct) {
+            maxProduct = product[i].prod_id;
+        }
+    }
+    
     if (maxProduct === -1)
         maxProduct = 0
     if (maxCustomer === -1)

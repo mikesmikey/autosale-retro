@@ -96,6 +96,14 @@ function searchProduct(nameKey, myArray) {
     return null;
 }
 
+function searchPartner(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].partner_id === nameKey) {
+            return myArray[i];
+        }
+    }
+}
+
 function searchCarImage(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].cust_id === nameKey) {
