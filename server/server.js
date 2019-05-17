@@ -232,7 +232,6 @@ app.post('/invoice/insert/register', (req, res) => {
       res.send(data);
   })
 })
-<<<<<<< HEAD
 
 app.post('/customer/addByCarSell', (req, res) => {
   WebDAOObj.insertCustomerByCarSell(req.body.custData).then((data)=> {
@@ -246,8 +245,6 @@ app.post('/customer/addByCarBuy', (req, res) => {
   })
 })
 
-=======
->>>>>>> cb02bc2c010ab16cf74a02aac34524aae4183702
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
