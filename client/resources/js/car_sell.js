@@ -45,6 +45,7 @@ function startForm() {
 
 function showDetailCars(value) {
     let resultObject = getCarsDetailByName(value, product);
+    console.log(resultObject)
     getCustomer(resultObject.cust_id).then((result) => {
         //document.getElementById("").innerHTML = " เลขออเดอร์ : " + resultObject.trn_car.car_license;
         //document.getElementById("car_lice").innerHTML = " เลขทะเบียน : " + resultObject.trn_car.car_license;
@@ -66,16 +67,16 @@ function showDetailCars(value) {
             element.innerHTML = " เจ้าของ : " + result.cust_name;
         })
         document.querySelectorAll(".Cprice").forEach((element)=> {
-            element.innerHTML = " ราคา : " + Number.parseInt(resultObject.trn_desc.price_sell).toLocaleString('en-US') +" บาท";
+            element.innerHTML = " ราคา : " + Number.parseInt(resultObject.type_desc.price_sell).toLocaleString('en-US') +" บาท";
         })
         document.querySelectorAll(".Cprop1").forEach((element)=> {
-            element.innerHTML = " เครื่องยนต์ : " + result.car_engine;
+            element.innerHTML = " เครื่องยนต์ : " + resultObject.trn_car.car_engine;
         })
         document.querySelectorAll(".Cprop2").forEach((element)=> {
-            element.innerHTML = " สภาพ : " + result.car_status;
+            element.innerHTML = " สภาพ : " + resultObject.trn_car.car_status;
         })
         document.querySelectorAll(".Cprop3").forEach((element)=> {
-            element.innerHTML = " ประวัติการใช้งาน : " + result.car_histor;
+            element.innerHTML = " ประวัติการใช้งาน : " + resultObject.trn_car.car_histor;
         })
 
     })
