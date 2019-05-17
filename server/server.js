@@ -23,8 +23,6 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
-//const ProductRegister = require('./ProductRegister');
-
 
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
@@ -77,6 +75,11 @@ app.get("/products/productIdLast", (req, res) => {
     res.json(data);
   });
 });
+app.get("/invoice/last", (req, res) => {
+  WebDAOObj.getInvoicelastNumber().then(data => {
+      res.json(data);
+  });
+});
 
 app.get("/parts", (req, res) => {
   WebDAOObj.getAllPart().then(data => {
@@ -120,9 +123,32 @@ app.post("/partners/edit", (req, res) => {
   })
 });
 
+app.post("/product/delete", (req, res) => {
+  WebDAOObj.deleteProduct(req.body.productData).then(data => {
+    res.json(data);
+  })
+});
+
+app.post("/invoice/bills/register/add", (req, res) => {
+  WebDAOObj.insertBillsTypeRegister(req.body.invoiceData).then(data => {
+    res.json(data);
+  })
+});
+
 app.post('/partners/remove/:CompanyName', (req, res) => {
   WebDAOObj.deletePartner(req.params.CompanyName).then((pass) => {
     res.send(pass);
+  });
+});
+
+
+app.post("/product/register/changeStatus/", (req, res) => {
+  WebDAOObj.changeStatusProductRegister(req.body.productData).then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
   });
 });
 
@@ -201,12 +227,12 @@ app.post('/customer/insert', (req, res) => {
     res.send(data);
   })
 })
-
-app.post('/customer/addByCarfix', (req, res) => {
-  WebDAOObj.insertCustomerByCarFix(req.body.custData).then((data)=> {
-      res.json(data);
+app.post('/invoice/insert/register', (req, res) => {
+  WebDAOObj.insertInvoiceRegister(req.body.invoiceObj).then((data)=> {
+      res.send(data);
   })
 })
+<<<<<<< HEAD
 
 app.post('/customer/addByCarSell', (req, res) => {
   WebDAOObj.insertCustomerByCarSell(req.body.custData).then((data)=> {
@@ -220,6 +246,8 @@ app.post('/customer/addByCarBuy', (req, res) => {
   })
 })
 
+=======
+>>>>>>> cb02bc2c010ab16cf74a02aac34524aae4183702
 app.get("/products", (req, res) => {
   WebDAOObj.getAllProduct().then(data => {
     if (data != null) {
@@ -261,7 +289,7 @@ app.post("/image/test", (req, res) => {
 //   WebDAOObj.getCarImageById(req.params.imgId).then(data => {
 //     res.json(data);
    
-//   })
+//   })s
 // })
 
 app.get("/images/type/:type", (req, res) => {
