@@ -179,11 +179,25 @@ function insertThisCustomerByCarBuy() {
         var canFindThisCust = searchCustomerByName(carbuy[0], customer)
         var canFindThisPartner = searchPartnerByName(carbuy[14], partner)
         var productCarBuyData;
+
+        var canFindThisCust = searchCustomerByName(carbuy[0], customer)
+
+        var today = new Date();
+        var nextWeek = String(today.getDate() + 7).padStart(2, '0');
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + ' ' + mm + ' ' + dd;
+
+        var nowDateString = today.toString();
+        var nextWeektring = nowDateString.substring(0, nowDateString.length - 2) + nextWeek
+
         if (canFindThisPartner === undefined) {
             productCarBuyData = {
                 prod_id: maxProduct + 1,
                 cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-                prod_order_date: "15/03/2018",
+                prod_order_date: nowDateString,
                 prod_type: 'Buy',
                 type_desc: {
                     price_buy: carbuy[10],
@@ -207,7 +221,7 @@ function insertThisCustomerByCarBuy() {
             productCarBuyData = {
                 prod_id: maxProduct + 1,
                 cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-                prod_order_date: "15/03/2018",
+                prod_order_date: nowDateString,
                 prod_type: 'Buy',
                 type_desc: {
                     partner_id: canFindThisPartner.partner_id,
@@ -246,7 +260,7 @@ function insertThisCustomerByCarBuy() {
             type_desc: {
                 type: canFindThisPartner === undefined ? "None" : (searchPartner(canFindThisPartner.partner_id, partner).partner_type === "Company" ? "Company" : "Agent")
             },
-            issue_date: "01/10/2018"
+            issue_date: nowDateString,
         }
 
         var image = {

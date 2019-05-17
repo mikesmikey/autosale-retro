@@ -80,8 +80,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName) // findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" } }
-                db.collection('Product').findOneAndUpdate({ prod_id: parseInt(prod), cust_id: parseInt(cust) }, { "$set": { "type_desc.status_buy": "ขายแล้ว" } }, (err, result) => {
-                    console.log(result)
+                db.collection('Product').findOneAndUpdate({ prod_id: parseInt(prod), cust_id: parseInt(cust) }, { "$set": { "type_desc.status_sell": "ขายแล้ว" } }, (err, result) => {
                     if (err) { client.close(); throw err }
                     if (result.value) {
                         return resolve(true);
@@ -95,7 +94,7 @@ class WebDAO {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                db.collection('Product').find({ "prod_type": "Buy", "type_desc.status_buy": "ยังไม่ขาย" }).toArray((err, data) => {
+                db.collection('Product').find({ "prod_type": "Buy", "type_desc.status_sell": "ยังไม่ขาย" }).toArray((err, data) => {
                     if (err) { client.close(); throw err }
                     return resolve(data);
                 });

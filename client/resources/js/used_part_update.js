@@ -25,7 +25,7 @@ function whenFormOpenUp() {
     createrowtableUsedParts(data);
   });
 
-  
+
 
 }
 
@@ -81,12 +81,12 @@ function editPartsHub(partsUsingData) {
 
 function getAllInvoice() {
   return new Promise((resolve, reject) => {
-      axios.get('http://localhost:5000/invoices/').then((result) => {
-          resolve(result.data);
-          for (let i = 0; i < result.data.length; i++) {
-              invoice.push(result.data[i])
-          }
-      })
+    axios.get('http://localhost:5000/invoices/').then((result) => {
+      resolve(result.data);
+      for (let i = 0; i < result.data.length; i++) {
+        invoice.push(result.data[i])
+      }
+    })
   })
 }
 
@@ -105,30 +105,30 @@ function getAllUsedPartsByThisLicense(val) {
 
 function addInvoiceBill(invoData) {
   return new Promise((resolve, reject) => {
-      axios.post('http://localhost:5000/invoice/type/Bill/add', { "invoData": invoData }).then((result) => {
-          resolve(result.data);
-      });
+    axios.post('http://localhost:5000/invoice/type/Bill/add', { "invoData": invoData }).then((result) => {
+      resolve(result.data);
+    });
   });
 }
 
 function addInvoiceReceipt(invoData) {
   return new Promise((resolve, reject) => {
-      axios.post('http://localhost:5000/invoice/type/Receipt/add', { "invoData": invoData }).then((result) => {
-          resolve(result.data);
-      });
+    axios.post('http://localhost:5000/invoice/type/Receipt/add', { "invoData": invoData }).then((result) => {
+      resolve(result.data);
+    });
   });
 }
 
 function editRepairCost(cost) {
   return new Promise((resolve, reject) => {
-      axios
-          .post(
-              "http://localhost:5000/product/type/Repair/edit/cost/" +
-              cost + "/" + thisPlateLicense
-          )
-          .then(result => {
-              resolve(result.data);
-          });
+    axios
+      .post(
+        "http://localhost:5000/product/type/Repair/edit/cost/" +
+        cost + "/" + thisPlateLicense
+      )
+      .then(result => {
+        resolve(result.data);
+      });
   });
 }
 
@@ -525,8 +525,8 @@ function selectedStatusRepairing() {
         if (data) {
           alert("อัพเดทสถานะซ่อมแล้ว")
 
-          let items = [], total = 0,numberParts = 0;
-          for(var i in partsRepair) {
+          let items = [], total = 0, numberParts = 0;
+          for (var i in partsRepair) {
             total += partsRepair[i].parts_price * partsRepair[i].parts_num;
             numberParts += partsRepair[i].parts_num;
             items.push({
@@ -535,7 +535,7 @@ function selectedStatusRepairing() {
               num: partsRepair[i].parts_num,
             })
           }
-        
+
           const prodInt = parseInt(thisProduct), custInt = parseInt(thisCustomer)
 
           var invoiceBill = {
@@ -551,7 +551,7 @@ function selectedStatusRepairing() {
             }
           }
 
-          var invoiceReceipt= {
+          var invoiceReceipt = {
             invo_id: invoiceBill.invo_id + 1,
             prod_id: prodInt,
             cust_id: custInt,
@@ -565,17 +565,17 @@ function selectedStatusRepairing() {
           }
 
           addInvoiceBill(invoiceBill).then(data => {
-            if(data) {
+            if (data) {
               alert('เพิ่มใบกำกับภาษีสำเร็จ')
               addInvoiceReceipt(invoiceReceipt).then(data => {
                 alert('เพิ่มใบเสร็จสำเร็จ')
-                
+
                 let discount = (numberParts > 99) ? numberParts * 10 : 0
-                let cost = Math.abs(total + (total * 0.07) - discount)             
+                let cost = Math.abs(total + (total * 0.07) - discount)
                 editRepairCost(cost).then(data => {
-                  if(data) {
-                      alert("อัพเดทราคาซ่อมแล้ว")
-                      window.location.href = "./car_fix.html"
+                  if (data) {
+                    alert("อัพเดทราคาซ่อมแล้ว")
+                    window.location.href = "./car_fix.html"
                   }
                 })
               })
@@ -684,7 +684,7 @@ function acceptChange() {
               }
             }
           }
-        } 
+        }
       });
     }
   }

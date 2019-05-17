@@ -125,8 +125,6 @@ function formatNumber(num) {
 
 function ShowCarDetail(value) {
 
-    console.log(value)
-
     document.getElementById("carBrand").innerHTML = value.trn_car.car_brand
     document.getElementById("carModel").innerHTML = value.trn_car.car_model
     document.getElementById("carLicense").innerHTML = value.trn_car.car_license
@@ -255,7 +253,7 @@ function confirmSold() {
             maxProduct = product[i].prod_id;
         }
     }
-    
+
     if (maxProduct === -1)
         maxProduct = 0
     if (maxCustomer === -1)
@@ -273,26 +271,33 @@ function confirmSold() {
         var canFindThisCust = searchCustomerByName(arraySell[0], customer)
         var canFindThisPartner = searchPartnerByName(arraySell[4], partner)
         var productCarSellData;
-        console.log('find cust => ', canFindThisCust, ' | find partner => ', canFindThisPartner)
+        // console.log('find cust => ', canFindThisCust, ' | find partner => ', canFindThisPartner)
 
 
         var productCarBuy = searchProductByCustomerAndProduct("Buy", thisCustomer, thisProduct, product)
-        var invoiceBillCarBuy = searchInvoiceByCustomerAndProduct("Bill", thisCustomer, thisProduct, invoice)
-        console.log(productCarBuy, invoiceBillCarBuy)
+        
+        var today = new Date();
+        var nextWeek = String(today.getDate() + 7).padStart(2, '0');
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
 
-        console.log(carimage)
+        today = yyyy + ' ' + mm + ' ' + dd;
 
-        // editCarBuyStatusToSold(thisCustomer, thisProduct).then(data => {
-        //     if (data) {
-        //         alert('อัพเดทสถานะขายแล้ว')
-        //     }
-        // })
+        var nowDateString = today.toString();
+        var nextWeektring = nowDateString.substring(0, nowDateString.length - 2) + nextWeek
+
+        editCarBuyStatusToSold(thisCustomer, thisProduct).then(data => {
+            if (data) {
+                alert('อัพเดทสถานะขายแล้ว')
+            }
+        })
 
         if (canFindThisPartner === undefined) {
             productCarSellData = {
                 prod_id: maxProduct + 1,
                 cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-                prod_order_date: "19/05/2018",
+                prod_order_date: nowDateString,
                 prod_type: 'Sell',
                 type_desc: {
                     commission: 0,
@@ -309,7 +314,7 @@ function confirmSold() {
             productCarSellData = {
                 prod_id: maxProduct + 1,
                 cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-                prod_order_date: "19/05/2018",
+                prod_order_date: nowDateString,
                 prod_type: 'Sell',
                 type_desc: {
                     partner_id: canFindThisPartner.partner_id,
@@ -341,7 +346,7 @@ function confirmSold() {
             type_desc: {
                 type: canFindThisPartner === undefined ? "None" : (searchPartner(canFindThisPartner.partner_id, partner).partner_type === "Company" ? "Company" : "Agent")
             },
-            issue_date: "01/10/2018"
+            issue_date: nowDateString
         }
 
         var image = {
@@ -356,7 +361,7 @@ function confirmSold() {
             invo_id: invoiceContract.invo_id + 1,
             prod_id: invoiceContract.prod_id,
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            invo_type: "Sell",
+            invo_type: "Bill",
             type_desc: {
                 total: productCarBuy.type_desc.price_sell,
                 tax: productCarBuy.type_desc.price_sell * 0.07,

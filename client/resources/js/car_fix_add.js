@@ -155,12 +155,12 @@ function insertThisCustomerByCarFix() {
             maxProduct = product[i].prod_id;
         }
     }
-    if(maxProduct === -1) 
+    if (maxProduct === -1)
         maxProduct = 0
-    if(maxCustomer === -1) 
+    if (maxCustomer === -1)
         maxCustomer = 0
-    if(maxInvoice === -1) 
-        maxInvoice = 0 
+    if (maxInvoice === -1)
+        maxInvoice = 0
 
     console.log('cust_id -> ', maxCustomer);
     console.log('invo_id -> ', maxInvoice);
@@ -172,10 +172,25 @@ function insertThisCustomerByCarFix() {
 
         var canFindThisCust = searchCustomerByName(CarFixAdds[0], customer)
 
+        var today = new Date();
+        var nextWeek = String(today.getDate() + 7).padStart(2, '0');
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + ' ' + mm + ' ' + dd;
+
+        var nowDateString = today.toString();
+        var nextWeektring = nowDateString.substring(0, nowDateString.length - 2) + nextWeek
+
+        // console.log(nowDateString)
+        // console.log(nextWeektring)
+
+
         var productCarFixData = {
             prod_id: maxProduct + 1,
             cust_id: (typeof canFindThisCust === 'undefined') ? maxCustomer + 1 : canFindThisCust.cust_id,
-            prod_order_date: "15/03/2018",
+            prod_order_date: nowDateString,
             prod_type: 'Repair',
             type_desc: {
                 repair_detail: CarFixAdds[7].split(/\n/),
@@ -207,9 +222,9 @@ function insertThisCustomerByCarFix() {
             invo_type: "Appointment",
             type_desc: {
                 type: "Repair",
-                appt_date: "15/07/2018"
+                appt_date: nextWeektring
             },
-            issue_date: "25/08/2018"
+            issue_date: nowDateString
         }
 
         var image = {
@@ -220,7 +235,6 @@ function insertThisCustomerByCarFix() {
             base64: convertToBase64
         }
 
-        //if new customer
         if (typeof canFindThisCust === 'undefined') {
             addCustomerByCarFix(customerOfCarFixData).then((data) => {
                 if (data) {

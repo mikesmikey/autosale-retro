@@ -196,7 +196,7 @@ app.post('/customer/edit', (req, res) => {
 })
 
 app.post('/customer/insert', (req, res) => {
-  console.log(req.body.customerData)
+  // console.log(req.body.customerData)
   WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data) => {
     res.send(data);
   })
