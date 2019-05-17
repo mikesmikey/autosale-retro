@@ -66,7 +66,16 @@ function showDetailCars(value) {
             element.innerHTML = " เจ้าของ : " + result.cust_name;
         })
         document.querySelectorAll(".Cprice").forEach((element)=> {
-            element.innerHTML = " ราคา : " + Number.parseInt(resultObject.type_desc.price_sell).toLocaleString('en-US') +" บาท";
+            element.innerHTML = " ราคา : " + Number.parseInt(resultObject.trn_desc.price_sell).toLocaleString('en-US') +" บาท";
+        })
+        document.querySelectorAll(".Cprop1").forEach((element)=> {
+            element.innerHTML = " เครื่องยนต์ : " + result.car_engine;
+        })
+        document.querySelectorAll(".Cprop2").forEach((element)=> {
+            element.innerHTML = " สภาพ : " + result.car_status;
+        })
+        document.querySelectorAll(".Cprop3").forEach((element)=> {
+            element.innerHTML = " ประวัติการใช้งาน : " + result.car_histor;
         })
 
     })
