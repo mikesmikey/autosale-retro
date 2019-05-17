@@ -79,7 +79,7 @@ class WebDAO {
     editProductCarBuyStatusToSold(cust, prod) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-                const db = client.db(dbName) // findOneAndUpdate({ "trn_car.car_license": licenseCarFix }, { "$set": { "type_desc.repair_status": "ดำเนินการเรียบร้อย" } }
+                const db = client.db(dbName)
                 db.collection('Product').findOneAndUpdate({ prod_id: parseInt(prod), cust_id: parseInt(cust) }, { "$set": { "type_desc.status_sell": "ขายแล้ว" } }, (err, result) => {
                     if (err) { client.close(); throw err }
                     if (result.value) {
@@ -515,6 +515,10 @@ class WebDAO {
         })
     }
 
+    getProductsNotSold() {
+
+    }
+
     insertCarImage(source) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -645,6 +649,7 @@ class WebDAO {
                         return resolve(false)
                     }
                 })
+
             });
         });
     }

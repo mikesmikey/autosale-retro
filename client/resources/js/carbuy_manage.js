@@ -5,6 +5,7 @@ let resultObject;
 let customer = [];
 let carimages = [];
 let invoice = [];
+
 function startForm() {
     getAllCarImages("Buy");
     getAllProductByType("Buy").then((data) => {
@@ -14,7 +15,6 @@ function startForm() {
     getAllCustomer();
     getAllInvoice();
 }
-
 
 function getAllInvoice() {
     return new Promise((resolve, reject) => {
@@ -244,7 +244,7 @@ function printDiv(printDivName) {
                 name.innerHTML = rect.type_desc.items[i].name;
                 price.innerHTML = rect.type_desc.items[i].price;
                 num.innerHTML = rect.type_desc.items[i].num;
-            } 
+            }
             console.log()
             document.getElementById("partnerProdId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
             document.getElementById("partnerInvoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;

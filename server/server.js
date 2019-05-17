@@ -46,16 +46,6 @@ app.get("/products", (req, res) => {
   });
 });
 
-app.get("/products/type/Buy/notSold", (req, res) => {
-  WebDAOObj.getAllProductNotsoldTypeBuy().then(data => {
-    if (data != null) {
-      res.json(data);
-    } else {
-      res.sendStatus(404);
-    }
-  });
-});
-
 app.get("/products/type/:type", (req, res) => {
   WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
@@ -200,6 +190,18 @@ app.post('/customer/insert', (req, res) => {
   WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data) => {
     res.send(data);
   })
+})
+
+
+app.post("/products/notSold", (req, res) => {
+  console.log(req.body[0])
+  // WebDAOObj.getProductsNotSold(req.body.carimages).then(data => {
+  //   if (data != null) {
+  //     res.json(data);
+  //   } else {
+  //     res.sendStatus(404);a
+  //   }
+  // })
 })
 
 app.post('/customer/addByCarfix', (req, res) => {
