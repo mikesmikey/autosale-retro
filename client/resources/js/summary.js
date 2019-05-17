@@ -33,7 +33,7 @@ function addRow(tableID, data) {
         td2.innerHTML = data[i].prod_type;
         td3.innerHTML = data[i].prod_order_date;
         if(data[i].prod_type =="Buy"){
-            var priceBuyAll = data[i].type_desc.price_buy + data[i].type_desc.commission
+            var priceBuyAll = data[i].trn_desc.price_buy + data[i].trn_desc.commission
             td4.innerHTML =  Number.parseInt(priceBuyAll).toLocaleString('en-US')
             td5.innerHTML = 0
             td6.innerHTML =  Number.parseInt(0 - priceBuyAll).toLocaleString('en-US')
@@ -46,12 +46,12 @@ function addRow(tableID, data) {
             td4.innerHTML = 0;
 
             //รายรับ
-            var idBuy = data[i].type_desc.trn_buy_id
+            var idBuy = data[i].trn_desc.trn_buy_id
             var arrSell = data
             var priceSell = 0
             for (j = 0; j < 2; j++){
                     if(idBuy == arrSell[j].prod_id){
-                        priceSell = arrSell[j].type_desc.price_sell - data[i].type_desc.commission
+                        priceSell = arrSell[j].trn_desc.price_sell - data[i].trn_desc.commission
                         break 
                     } 
             }
@@ -64,12 +64,14 @@ function addRow(tableID, data) {
             totalIncome = totalIncome + priceSell
             totalProfit = totalProfit + (priceSell - 0)
         }else if(data[i].prod_type =="RegisterLicense"){
+            console.log(data[i])
             //รายจ่าย
-            var priceCost = data[i].type_desc.price_per_book + data[i].type_desc.fare
+            console.log(data[i].trn_desc.car_license +" ****" )
+            var priceCost = data[i].trn_desc.price_per_book + data[i].trn_desc.fare
             td4.innerHTML = Number.parseInt(priceCost).toLocaleString('en-US')
           
             //รายรับ
-            var totalPriceRel = data[i].type_desc.total_price
+            var totalPriceRel = data[i].trn_desc.total_price
             td5.innerHTML = Number.parseInt(totalPriceRel).toLocaleString('en-US')
 
             //สรุป
@@ -80,7 +82,7 @@ function addRow(tableID, data) {
             totalProfit = totalProfit + (totalPriceRel - priceCost)
         }else if(data[i].prod_type =="Repair"){ 
             //รายจ่าย
-            var arrPartsRepair = data[i].type_desc.trn_parts_repair
+            var arrPartsRepair = data[i].trn_desc.trn_parts_repair
             var priceParts = 0
            for (j = 0; j < 2; j++) {
                 priceParts = priceParts + (arrPartsRepair[j].parts_price * arrPartsRepair[j].parts_num) 
@@ -88,7 +90,7 @@ function addRow(tableID, data) {
             td4.innerHTML =  Number.parseInt(priceParts).toLocaleString('en-US')
 
             //รายรับ
-            var costOfRepairs = data[i].type_desc.cost_of_repairs
+            var costOfRepairs = data[i].trn_desc.cost_of_repairs
             td5.innerHTML =  Number.parseInt(costOfRepairs).toLocaleString('en-US')
 
             //สรุป
@@ -110,7 +112,7 @@ function addRow(tableID, data) {
     
 }
    /*document.querySelectorAll(".Cprice").forEach((element)=> {
-        element.innerHTML = " ราคา : " + Number.parseInt(resultObject.type_desc.price_sell).toLocaleString('en-US') +" บาท";
+        element.innerHTML = " ราคา : " + Number.parseInt(resultObject.trn_desc.price_sell).toLocaleString('en-US') +" บาท";
     })*/
 function showTotalPrice(){
    /* Number.parseInt(totalProfit).toLocaleString('en-US')*/
