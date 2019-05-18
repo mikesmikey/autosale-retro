@@ -5,6 +5,7 @@ let resultObject;
 let customer = [];
 let carimages = [];
 let invoice = [];
+
 function startForm() {
     getAllCarImages("Buy");
     getAllProductByType("Buy").then((data) => {
@@ -14,7 +15,6 @@ function startForm() {
     getAllCustomer();
     getAllInvoice();
 }
-
 
 function getAllInvoice() {
     return new Promise((resolve, reject) => {
@@ -155,9 +155,43 @@ function createselect(data) {
         select.add(option);
     }
 }
+
+function SeeAllCars() {
+    if (product.length < 1) {
+        alert('ไม่มีรถเหลือแล้ว')
+    }
+    else {
+        removeAlloption()
+        createselect(product)
+    }
+}
+
+function SeeCarsInStock() {
+    let productNotSold = [];
+    let check = false;
+
+    for (let i = 0; i < carimages.length; i++) {
+        for (let j = 0; j < product.length; j++) {
+            if (carimages[i].cust_id === product[j].cust_id &&
+                carimages[i].prod_id === product[j].prod_id &&
+                product[j].type_desc.status_sell === "ยังไม่ขาย") {
+                check = true;
+                productNotSold.push(product[j])
+            }
+        }
+    }
+    if (check) {
+        removeAlloption()
+        createselect(productNotSold)
+    }
+    else {
+        alert('ไม่มีรถในสต๊อกเหลือแล้ว')
+    }
+}
+
 function runScript(e) {
     if (e.keyCode == 13) {
-        var txt = document.getElementById("input_car_license").value
+        var txt = document.getElementById("search").value
         if (txt === "") {
             removeAlloption();
             createselect(product);
@@ -244,7 +278,7 @@ function printDiv(printDivName) {
                 name.innerHTML = rect.type_desc.items[i].name;
                 price.innerHTML = rect.type_desc.items[i].price;
                 num.innerHTML = rect.type_desc.items[i].num;
-            } 
+            }
             console.log()
             document.getElementById("partnerProdId").innerHTML = "&nbsp;เลขที่ออเดอร์ : " + rect.prod_id;
             document.getElementById("partnerInvoId").innerHTML = "&nbsp;เลขที่บิล : " + rect.invo_id;

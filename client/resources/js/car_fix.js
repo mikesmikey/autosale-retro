@@ -355,16 +355,16 @@ function ShowDetail(value) {
   document.getElementById('carUpload').src = carImage.base64;
 
   document.getElementById("productID").innerHTML =
-    "เลขออเดอร์ : " + resultObject.prod_id;
+    "&nbsp;เลขออเดอร์ : " + resultObject.prod_id;
   document.getElementById("carLicense").innerHTML =
-    "เลขทะเบียน : " + resultObject.trn_car.car_license;
+    "&nbsp;เลขทะเบียน : " + resultObject.trn_car.car_license;
   document.getElementById("carBrand").innerHTML =
-    "ยี่ห้อ : " + resultObject.trn_car.car_brand;
+    "&nbsp;ยี่ห้อ : " + resultObject.trn_car.car_brand;
   document.getElementById("carModel").innerHTML =
-    "รุ่น : " + resultObject.trn_car.car_model;
-  document.getElementById("carOwner").innerHTML = "เจ้าของ : " + carOwner;
-  document.getElementById("ApptDate").innerHTML = "วันที่นัดรับ : " + ApptDate;
-  document.getElementById("repairingStatus").innerHTML = "สถานะซ่อม : " + repairingStatus;
+    "&nbsp;รุ่น : " + resultObject.trn_car.car_model;
+  document.getElementById("carOwner").innerHTML = "&nbsp;เจ้าของ : " + carOwner;
+  document.getElementById("ApptDate").innerHTML = "&nbsp;วันที่นัดรับ : " + ApptDate;
+  document.getElementById("repairingStatus").innerHTML = "&nbsp;สถานะซ่อม : " + repairingStatus;
 
   thisCarFixProduct.push(resultObject.trn_car.car_license);
   thisCarFixProduct.push(resultObject.trn_car.car_brand);

@@ -152,7 +152,7 @@
                             <div>
                                 <div>
 
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input id="search" class="input-icon-search width80" type="text" name="search"
                                         onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
                                     <select id="selectNumber" size="16" class="selectPlate width80 cursor-pointer">
 
@@ -195,7 +195,11 @@
                             onclick="mockCarBuyAdd()">เพิ่ม</button>
                         <button type="button" class="button width10 is-round is-2 is-yentafo"
                             onclick="launchFixDelete()">ลบ</button>
-                        <button style="margin-left: 60%" type="button" class="button width10 is-round is-2  is-oros"
+                        <button style="margin-left: 41%" type="button" class="button width20 is-round is-2  is-orange"
+                            onclick="SeeAllCars()">รถทั้งหมด</button>
+                            <button type="button" class="button width20 is-round is-2  is-orange"
+                            onclick="SeeCarsInStock()">รถในสต๊อก</button>
+                        <button type="button" class="button width10 is-round is-2  is-oros"
                             onclick="launchFixPrintsHubDelete()">พิมพ์</button>
                     </div>
                 </div>
@@ -549,7 +553,7 @@
                 เป็นจำนวนทั้งหมด
                 หรือแต่บางส่วนก็ได้แล้วแต่ผู้ซื้อจะ
                 เห็นสมควรและถ้าผู้จัดซื้อสิ่งของจากบุคคลอื่นเต็มจำนวนหรือเฉพาะจำนวนที่ขาดส่งแล้วแต่กรณีภายใน
-                กำหนด………………….เดือน นับแต่วันที่บอกเลิกสัญญา โดยให้นับวันที่บอกเลิกสัญญาเป็นวันเริ่มต้น ผู้ขาย
+                กำหนด…1..เดือน นับแต่วันที่บอกเลิกสัญญา โดยให้นับวันที่บอกเลิกสัญญาเป็นวันเริ่มต้น ผู้ขาย
                 ยอมรับผิดชดใช้ราคาที่เพิ่มขึ้นจากราคาที่กำหนดไว้ในสัญญานี้ด้วย
                 <br>&emsp;&emsp;&emsp;&emsp; ข้อ 7. ในกรณีที่ผู้ซื้อไม่ใช้สิทธิบอกเลิกสัญญาตามสัญญาข้อ 8.
                 ผู้ขายยอมให้ผู้ซื้อปรับเป็น
@@ -589,7 +593,6 @@
                 (...................................................)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(...................................................)
             </p>
         </div>
-
     </div>
     <div id="delete-fix" class="modal">
         <div class="box partCarFixDelete">

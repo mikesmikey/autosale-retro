@@ -148,7 +148,7 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input id="carsellSearch" class="input-icon-search width80" type="text" name="search"
                                         onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
                                     <select id="selectNumber" size="16" class="selectPlate width80 cursor-pointer">
 
@@ -509,9 +509,9 @@
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;สัญญาฉบับนี้ทำขึ้นที่…บริษัท โชคทวี ออโต้เซล
                 จำกัด…ที่อยู่…มหาวิทยาลัยบูรพา อ.เมือง ต.แสนสุข จ.ชลบุรี 20000……เมื่อวันที่……<span
                     id="contr-date"></span>……ระหว่าง……<span id="contr-cust_name"></span>……ซึ่งต่อไปในสัญญานี้รียกว่า
-                “ผู้ซื้อ” ฝ่ายหนึ่ง กับ……บริษัท โชคทวี ออโต้เซล จำกัด……โดย……<span
+                “ผู้ขาย” ฝ่ายหนึ่ง กับ……บริษัท โชคทวี ออโต้เซล จำกัด……โดย……<span
                     id="contr-cust_name2"></span>……อยู่เลขที่……<span id="contr-cust_addr"></span>
-                ………ซึ่งต่อไปในสัญญา นี้เรียกว่า “ผู้ขาย” อีกฝ่ายหนึ่ง โดยมีข้อตกลงกันดังต่อไปนี้
+                ………ซึ่งต่อไปในสัญญา นี้เรียกว่า “ผู้ซื้อ” อีกฝ่ายหนึ่ง โดยมีข้อตกลงกันดังต่อไปนี้
                 <br>&emsp;&emsp;&emsp;&emsp; ข้อ 1. ผู้ซื้อตกลงซื้อและผู้ขายตกลงขาย……<span
                     id="contr-prod_desc"></span>……
                 จำนวน……1….รายการ เป็นราคารวมทั้งสิ้น……<span id="contr-prod_carbuy_price"></span>…………บาท
@@ -542,7 +542,7 @@
                 เป็นจำนวนทั้งหมด
                 หรือแต่บางส่วนก็ได้แล้วแต่ผู้ซื้อจะ
                 เห็นสมควรและถ้าผู้จัดซื้อสิ่งของจากบุคคลอื่นเต็มจำนวนหรือเฉพาะจำนวนที่ขาดส่งแล้วแต่กรณีภายใน
-                กำหนด………………….เดือน นับแต่วันที่บอกเลิกสัญญา โดยให้นับวันที่บอกเลิกสัญญาเป็นวันเริ่มต้น ผู้ขาย
+                กำหนด….1..เดือน นับแต่วันที่บอกเลิกสัญญา โดยให้นับวันที่บอกเลิกสัญญาเป็นวันเริ่มต้น ผู้ขาย
                 ยอมรับผิดชดใช้ราคาที่เพิ่มขึ้นจากราคาที่กำหนดไว้ในสัญญานี้ด้วย
                 <br>&emsp;&emsp;&emsp;&emsp; ข้อ 7. ในกรณีที่ผู้ซื้อไม่ใช้สิทธิบอกเลิกสัญญาตามสัญญาข้อ 8.
                 ผู้ขายยอมให้ผู้ซื้อปรับเป็น
@@ -611,10 +611,9 @@
     </div>
 
     <!--From print รายละเอียดรถในสต๊อค-->
-    <!-- <div class="select deplay-none " id="print_carStock">
+    <div class="select deplay-none " id="print_carStock">
         <br>
         <div>
-
             <div align='center'>พิมพ์รายละเอียดรถในสต๊อก</div>
             <img src="./resources/imgs/Car01.png" width="250" height="200" class="is-pulled-right">
             <p> เลขทะเบียน : </p>
@@ -633,7 +632,7 @@
             </div>
             <br><br>
         </div>
-    </div> -->
+    </div>
 </body>
 
 <footer>

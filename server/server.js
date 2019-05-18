@@ -44,16 +44,6 @@ app.get("/products", (req, res) => {
   });
 });
 
-app.get("/products/type/Buy/notSold", (req, res) => {
-  WebDAOObj.getAllProductNotsoldTypeBuy().then(data => {
-    if (data != null) {
-      res.json(data);
-    } else {
-      res.sendStatus(404);
-    }
-  });
-});
-
 app.get("/products/type/:type", (req, res) => {
   WebDAOObj.getAllProductByType(req.params.type).then(data => {
     if (data != null) {
@@ -222,14 +212,21 @@ app.post('/customer/edit', (req, res) => {
 })
 
 app.post('/customer/insert', (req, res) => {
-  console.log(req.body.customerData)
+  // console.log(req.body.customerData)
   WebDAOObj.insertCustomer(new Customer(req.body.customerData)).then((data) => {
     res.send(data);
   })
 })
+
 app.post('/invoice/insert/register', (req, res) => {
   WebDAOObj.insertInvoiceRegister(req.body.invoiceObj).then((data)=> {
       res.send(data);
+  })
+})
+
+app.post('/customer/addByCarfix', (req, res) => {
+  WebDAOObj.insertCustomerByCarFix(req.body.custData).then((data)=> {
+      res.json(data);
   })
 })
 
