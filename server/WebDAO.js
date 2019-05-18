@@ -56,8 +56,14 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Customer').find().sort({ cust_id: -1 }).limit(1).toArray((err, data) => {
-                    if (err) { client.close(); throw err }
-                    return resolve(data);
+                    if (err) { throw err }
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.cust_id = 0
+                        return resolve(result)
+                    }
                 });
                 client.close();
             });
@@ -97,12 +103,36 @@ class WebDAO {
                 db.collection('Product').find({ "prod_type": "Buy", "type_desc.status_sell": "ยังไม่ขาย" }).toArray((err, data) => {
                     if (err) { client.close(); throw err }
                     return resolve(data);
+                    if (err) { throw err }
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.prod_id = 0
+                        return resolve(result)
+                    }
+                });
+            });
+        });
+    }
+    getInvoicelastNumber() {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Invoice').find().sort({ invo_id: -1 }).limit(1).toArray((err, data) => {
+                    if (err) { throw err }
+                    if(data){
+                        return resolve(data); 
+                    }else{
+                        var result = {}
+                        result.invo_id = 0
+                        return resolve(result)
+                    }
                 });
                 client.close();
             });
         });
     }
-
     getAllProductByType(type) {
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
@@ -276,18 +306,16 @@ class WebDAO {
             });
         });
     }
-
     insertProdeuctRegister(arrObj) {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
 
-        today = yyyy + ' ' + mm + ' ' + dd;
+        today = dd + '/' + mm + '/' + yyyy;
         return new Promise((resolve, reject) => {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
-                console.log('[insertProdeuctRegister] arrObj = ' + arrObj)
                 var doc = {
                     prod_id: arrObj.prod_id,
                     cust_id: arrObj.cust_id,
@@ -307,7 +335,6 @@ class WebDAO {
                         car_pic: {}
                     }
                 };
-                console.log('[insertProdeuctRegister] doc = ' + doc)
                 db.collection('Product').insertOne(doc, (err, result) => {
                     if (err) { throw err }
                     if (result) {
@@ -317,6 +344,138 @@ class WebDAO {
                     }
                 });
 
+            });
+        });
+    }
+    insertBillsTypeRegister(invoice) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = yyyy + ' ' + mm + ' ' + dd;
+
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                var paraTemp = {}
+                paraTemp.total = invoice.price
+                paraTemp.tax = Number.parseInt(paraTemp.total) * 0.07
+                paraTemp.exc_vat = paraTemp.total + paraTemp.tax
+                var doc = {
+                    invo_id: invoice.InvoId,
+                    prod_id: invoice.prodId,
+                    cust_id: invoice.cusId,
+                    invo_type: "Bill",
+                    type_desc: {
+                        total: paraTemp.total,
+                        tax: paraTemp.tax,
+                        exc_vat: paraTemp.exc_vat,
+                        items: [
+                            {
+                                item_name: invoice.carLicense,
+                                item_price: invoice.price,
+                                item_num: 1
+                            }
+                        ]
+                    },
+                    issue_date_no: 1,
+                    issue_date: today
+                };
+                db.collection('Invoice').insertOne(doc, (err, result) => {
+                    if (err) { throw err }
+                    if (result) {
+                        return resolve(true);
+                    } else {
+                        return resolve(false);
+                    }
+                });
+
+            });
+        });
+    }
+    insertInvoiceRegister(invoice) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + ' ' + mm + ' ' + dd;
+
+        var day7 = ''
+        var int_dd = Number.parseInt(dd)
+        var int_mm = Number.parseInt(mm)
+        var int_yyyy = Number.parseInt(yyyy)
+        if (int_mm !== 2) {
+            var checkday = int_dd + 7
+            var checkmon = int_mm + 1
+            if (checkday <= 31) {
+                day7 = int_yyyy + ' ' + int_mm + ' ' + checkday
+            } else {
+                let tempDay = int_dd + 7 - 31
+                if (checkmon <= 12) {
+                    day7 = int_yyyy + ' ' + (int_checkmon) + ' ' + tempDay
+                } else {
+                    day7 = (int_yyyy + 1) + ' ' + (checkmon - 12) + ' ' + tempDay
+                }
+            }
+        } else {
+            if (int_dd + 7 <= 28) {
+                day7 = int_yyyy + ' ' + int_mm + ' ' + (int_dd + 7)
+            } else {
+                let tempDay = int_dd + 7 - 28
+                day7 = int_yyyy + ' ' + (int_mm + 1) + ' ' + tempDay
+            }
+        }
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                var doc = {
+                    invo_id: invoice.invo_id,
+                    prod_id: invoice.prod_id,
+                    cust_id: invoice.cust_id,
+                    issue_date_no: 1,
+                    invo_type: "Appointment",
+                    type_desc: {
+                        type: "RegisterLicense",
+                        appt_date: day7
+                    },
+                    issue_date: today
+                };
+                db.collection('Invoice').insertOne(doc, (err, result) => {
+                    if (err) { throw err }
+                    if (result) {
+                        return resolve(true);
+                    } else {
+                        return resolve(false);
+                    }
+                });
+
+            });
+        });
+    }
+    changeStatusProductRegister(productData) {
+        //console.log(productData)
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').find({ prod_id: Number.parseInt(productData.prod_id)  }).toArray((err, data) => {
+                    if (err) { throw err }
+                    if(data){
+                        data[0].type_desc.price_per_book = Number.parseInt(productData.price_per_book)
+                        data[0].type_desc.fare = Number.parseInt(productData.fare)
+                        data[0].type_desc.total_price = Number.parseInt(productData.total_price)
+                        data[0].type_desc.licenae_status =  true
+                        console.log(data[0])
+                        db.collection('Product').findOneAndUpdate({ "prod_id": Number.parseInt(productData.prod_id) }, { "$set": data[0] }, (err, result) => {
+                            if (err) { throw err }
+                            if (result.value) {
+                                return resolve(true);
+                            } else { return resolve(false) }
+                        });
+                    }else{
+                        return resolve(false)
+                    }
+                });
             });
         });
     }
@@ -343,7 +502,6 @@ class WebDAO {
             mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
                 const db = client.db(dbName)
                 db.collection('Partner').findOne({ "company_name": partner.company_name }, (err, data) => {
-                    //console.log(partner.company_name)
                     if (err) { throw err }
                     if (!data) {
                         db.collection('Partner').insertOne(partner.getPartnerObjectData(), (err, result) => {
@@ -380,6 +538,22 @@ class WebDAO {
                     if (err) { throw err }
                     if (data) {
                         db.collection('Partner').deleteOne({ "company_name": companyName }, (err, result) => {
+                            if (err) { throw err }
+                            return resolve(true);
+                        });
+                    } else { return resolve(false) }
+                });
+            });
+        });
+    }
+    deleteProduct(productObj) {
+        return new Promise((resolve, reject) => {
+            mongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+                const db = client.db(dbName)
+                db.collection('Product').findOne({ "prod_id": productObj.prod_id }, (err, data) => {
+                    if (err) { throw err }
+                    if (data) {
+                        db.collection('Product').deleteOne({ "prod_id": productObj.prod_id }, (err, result) => {
                             if (err) { throw err }
                             return resolve(true);
                         });

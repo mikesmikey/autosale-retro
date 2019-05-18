@@ -23,8 +23,6 @@ const WebDAO = require("./WebDAO");
 const WebService = require("./WebService");
 const Customer = require('./Customer');
 const Partner = require('./Partner');
-//const ProductRegister = require('./ProductRegister');
-
 
 const WebDAOObj = new WebDAO();
 const WebServiceObj = new WebService();
@@ -65,6 +63,11 @@ app.post("/products/RegisterLicense/insert", (req, res) => {
 app.get("/products/productIdLast", (req, res) => {
   WebDAOObj.getProductlastNumber().then(data => {
     res.json(data);
+  });
+});
+app.get("/invoice/last", (req, res) => {
+  WebDAOObj.getInvoicelastNumber().then(data => {
+      res.json(data);
   });
 });
 
@@ -110,9 +113,32 @@ app.post("/partners/edit", (req, res) => {
   })
 });
 
+app.post("/product/delete", (req, res) => {
+  WebDAOObj.deleteProduct(req.body.productData).then(data => {
+    res.json(data);
+  })
+});
+
+app.post("/invoice/bills/register/add", (req, res) => {
+  WebDAOObj.insertBillsTypeRegister(req.body.invoiceData).then(data => {
+    res.json(data);
+  })
+});
+
 app.post('/partners/remove/:CompanyName', (req, res) => {
   WebDAOObj.deletePartner(req.params.CompanyName).then((pass) => {
     res.send(pass);
+  });
+});
+
+
+app.post("/product/register/changeStatus/", (req, res) => {
+  WebDAOObj.changeStatusProductRegister(req.body.productData).then(data => {
+    if (data != null) {
+      res.json(data);
+    } else {
+      res.sendStatus(404);
+    }
   });
 });
 
@@ -192,16 +218,10 @@ app.post('/customer/insert', (req, res) => {
   })
 })
 
-
-app.post("/products/notSold", (req, res) => {
-  console.log(req.body[0])
-  // WebDAOObj.getProductsNotSold(req.body.carimages).then(data => {
-  //   if (data != null) {
-  //     res.json(data);
-  //   } else {
-  //     res.sendStatus(404);a
-  //   }
-  // })
+app.post('/invoice/insert/register', (req, res) => {
+  WebDAOObj.insertInvoiceRegister(req.body.invoiceObj).then((data)=> {
+      res.send(data);
+  })
 })
 
 app.post('/customer/addByCarfix', (req, res) => {
@@ -263,7 +283,7 @@ app.post("/image/test", (req, res) => {
 //   WebDAOObj.getCarImageById(req.params.imgId).then(data => {
 //     res.json(data);
    
-//   })
+//   })s
 // })
 
 app.get("/images/type/:type", (req, res) => {

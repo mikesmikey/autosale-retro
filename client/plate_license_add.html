@@ -148,7 +148,7 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input class="input-icon-search width80" type="text" name="search"
+                                    <input id="serach-input" onkeyup="serachCustomerName()" class="input-icon-search width80" type="text" name="search"
                                         placeholder="ค้นหาด้วยชื่อลูกค้า">
                                     <select id='listCustomerName' multiple size="12"
                                         class="selectPlate width80 cursor-pointer plateAdd">
@@ -161,21 +161,21 @@
                         <div class="column is-5 border-gray">
                             <div id = 'data_input'>
                                 <div class="boxplate columns" style="padding:10px">
-                                    <div id='group-label'>
+                                    <div id='group-label' class="column is-3">
                                         <label class="label is-2">ชื่อ *</label><br><br>
                                         <label class="label is-2">ที่อยู่ *</label><br><br><br><br><br><br><br><br>
                                         <label class="label is-2">เบอร์โทรศัพท์ *</label><br><br>
-                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี *</label>
+                                        <label class="label is-2">เลขประจำตัวผู้เสียภาษี*</label>
                                     </div>
-                                    <div id='group-input' class="column is-6 ">
+                                    <div id='group-input' class="column is-5">
                                         <center>
                                             <input id='input_name' type="text" class="input-plateAdd  width90 "><br><br>
                                             <textarea id='input_address' class="textarea-plate  width90 address "
                                                 rows="6">
                                         </textarea><br><br>
-                                            <input id='input_phone' type="text"
+                                            <input id='input_phone' type="number" onkeyup="checkPhone()"
                                                 class="input-plateAdd  width90 "><br><br>
-                                            <input id='input_tax' type="text" class="input-plateAdd  width90 ">
+                                            <input id='input_tax'onkeyup="checkTaxNum()" type="number" class="input-plateAdd  width90 ">
                                         </center>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@
                                     <input id='input_car' type="text" class="input-plate" style="width: 95%">
                                     <br>
                                     <br>
-                                    <input id='input_carNum' type="text" class="input-plate" style="width: 95%">
+                                    <input id='input_carNum'  onkeyup='checkCarNum()' type="text" class="input-plate" style="width: 95%">
                                     <br>
 
                                 </div>

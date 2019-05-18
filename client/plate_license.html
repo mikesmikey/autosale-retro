@@ -27,7 +27,7 @@
     <script src="./resources/js/accController.js"></script>
     <script src="./resources/js/index.js"></script>
     <script src="./resources/js/Plate License/plate_manage.js"></script>
-    
+
 </head>
 
 <body>
@@ -150,47 +150,49 @@
                         <div class="column is-3">
                             <div>
                                 <div>
-                                    <input id="input_car_license" class="input-icon-search width80" type="text" name="search" onkeypress="runScript(event)"
-                                        placeholder="ค้นหาด้วยเลขทะเบียน">
-                                    <select id="selectNumber"multiple size="9" class="selectPlate width80 cursor-pointer">
-                                            
+                                    <input id="input_car_license" class="input-icon-search width80" type="text"
+                                        name="search" onkeypress="runScript(event)" placeholder="ค้นหาด้วยเลขทะเบียน">
+                                    <select id="selectNumber" multiple size="9"
+                                        class="selectPlate width80 cursor-pointer">
+
                                     </select>
                                 </div>
                             </div>
 
                         </div>
                         <div class="column is-5">
-                            <div  class="border-gray" style="padding:3%">
+                            <div class="border-gray" style="padding:3%">
                                 <p id="dca_prod_id">กรุณาเลือกหมายเลขทะเบียนทางด้านซ้าย</p>
                                 <p id="dca_car_license">เพือแสดงข้อความรายละเอียด</p>
                                 <p id="dca_car_brand">การต่อทะเบียนซึ่งข้อมูลประกอบไปด้วย</p>
                                 <p id="dca_car_model">1.หมายเลขออเดอร์ 2.เลขทะเบียน 3.ยี่ห้อรถ </p>
                                 <p id="dca_customer_name">4.รุ่นรถ 5.เจ้าของรถ </p>
-                                
+
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="columns">
-                        <div class="column is-3" >
-                            <button style="margin-left:9%" type="button" onclick="plate_recording_cost()"class="button  is-round is-free-size  is-2 is-oros">บันทึกราคา</button>
+                        <div class="column is-3">
+                            <button style="margin-left:9%" type="button" onclick="CheckInsertCost()"
+                                class="button  is-round is-free-size  is-2 is-oros">บันทึกราคา</button>
                             <button type="button" onclick="plate_license_add()"
                                 class="button  is-round is-2 is-oros">เพิ่ม</button>
-                            <button style="margin-left:1%" type="button"
-                                class="button   is-round is-2  is-yentafo" onclick="launchLicenseDelete()">ลบ</button>
+                            <button style="margin-left:1%" type="button" class="button   is-round is-2  is-yentafo"
+                                onclick="launchLicenseDelete()">ลบ</button>
                         </div>
                         <div class="column is-5">
                             <div>
-                                <button style="margin-left:1%" type="button" onclick="printDiv('print_invoice')"
+                                <button style="margin-left:1%" type="button" onclick="checInvioce('print_invoice')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์ใบกำกับภาษี</button>
-                                <button type="button" onclick="printDiv('print_bill')"
+                                <button type="button" onclick="checInvioce('print_bill')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์ใบเสร็จ</button>
-                                <button type="button" onclick="printDiv('print_appiontment')"
+                                <button type="button" onclick="checInvioce('print_appiontment')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์ใบรับเล่มทะเบียน </button>
-                                <button type="button" onclick="printDiv('print_detail')"
+                                <button type="button" onclick="checInvioce('print_detail')"
                                     class="button is-round is-2 is-free-size   is-oros">
                                     พิมพ์รายละเอียดตการต่อทะเบียน</button>
                             </div>
@@ -229,7 +231,7 @@
             </div>
         </div>
     </div>
-    <!--From Alert-->
+    <!--From Alert Delete-->
     <div id="delete-license" class="modal">
         <div class="box partCustomerDelete">
             <center>
@@ -243,12 +245,49 @@
                 </div>
                 <div class="column is-2">
                     <center>
-                        <button type="button" class="button is-width70  is-round is-2 is-oros">ยืนยัน</button>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros"
+                            onclick="deleteProductCustomer()">ยืนยัน</button>
                     </center>
                 </div>
                 <div class="column is-2">
                     <center>
                         <button type="button" onclick="closeLicenseDelete()"
+                            class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--From Alert Cost-->
+    <div id="cost-license" class="modal">
+        <div class="box partCustomerDelete">
+            <h1 class="label is-0">บันทึกราคาการต่อทะเบียน </h1>
+            <h1 id="alert-cost-number" class="label is-1">หมายเลขทะเบียน </h1>
+            <br>
+            <div class="columns">
+                <input id='inputCostPrice' type="number" placeholder="กรุณาใส่ราคาเล่มทะเบียน"
+                    style="width:100%;height: 30px;font-size: 20px;">
+            </div>
+            <br>
+            <div class="columns">
+                <input id='inputCostService' type="number" placeholder="กรุณาใส่ราคาค่าเดินทาง"
+                    style="width:100%;height: 30px;font-size: 20px;">
+            </div>
+            <br>
+            <div class="columns">
+                <div class="column is-2">
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" class="button is-width70  is-round is-2 is-oros"
+                            onclick="InsertCost()">ยืนยัน</button>
+                    </center>
+                </div>
+                <div class="column is-2">
+                    <center>
+                        <button type="button" onclick="closeLicenseCost()"
                             class="button  is-width70 is-round is-2  is-yentafo">ยกเลิก</button>
                     </center>
                 </div>
@@ -263,8 +302,8 @@
             <br>
             <center><label class="label is-4">ใบรับเล่มทะเบียน</label></center>
             <br>
-            <div  style="margin-left:1% ;padding: 5px">
-                <label id="print_appiontment_date"  class="label is-4">วันที่ </label>
+            <div style="margin-left:1% ;padding: 5px">
+                <label id="print_appiontment_date" class="label is-4">วันที่ </label>
                 <br>
                 <label class="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
                 <br>
@@ -281,7 +320,7 @@
         <br>
         <div class="columns" style=" border-style:solid ; border-width: 1px;">
             <br>
-            <div  style="margin-left:1%; padding: 5px">
+            <div style="margin-left:1%; padding: 5px">
                 <label id="print_appiontment_appt_date" class="label is-4">วันนัดรับเล่มทะเบียน : </label>
                 <br>
                 <label id="print_appiontment_customer_name" class="label is-4">ชื่อลูกค้า : </label>
@@ -299,14 +338,15 @@
             </div>
         </div>
         <br>
-        <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
+        <label class="label is-4">**กรณีลูกค้าทำใบรับเล่มทะเบียนหาย ต้องแสดงหลักฐานความเป็นเจ้าของเล่มทะเบียน
+            มิฉะนั้นจะไม่อนุญาติให้นำเล่มทะเบียนออกจากร้าน</label>
         <br>
         <div style=" border-style: solid; border-width: 1px;">
             <br>
             <center>
-            <label class="label is-4">ลงชื่อ  ................................................ ( ลูกค้า )</label>
-            <br>
-            <label class="label is-4">ลงชื่อ  ................................................ ( พนักงาน )</label>
+                <label class="label is-4">ลงชื่อ ................................................ ( ลูกค้า )</label>
+                <br>
+                <label class="label is-4">ลงชื่อ ................................................ ( พนักงาน )</label>
             </center>
             <br>
         </div>
@@ -329,11 +369,11 @@
                     <p>บริษัท : โชคทวีออโต้เซล</p>
                     <p>ที่อยู่ : มหาวิทยาลัยบูรพา 169 ถ.ลงหาดบางแสน ต.แสนสุข อ.เมือง จ.ชลบุรี 20131</p>
                     <p>โทรศัทพ์ : 0-3810-2222</p>
-                    <p>&nbspวันที่ออกใบ : 17/11/2561</p>
-                    <p>&nbspประเภทออเดอร์ : [ประเภท]</p>
-                    <p id = 'printBillCustomerName'>ชื่อลูกค้า :</p>
-                    <p id = 'printBillCustomerAddress'>ที่อยู่ :</p>
-                    <p id = 'printBillCustomerPhone'>เบอร์โทรศัทพ์ :</p>
+                    <p id='bill_date'>&nbspวันที่ออกใบ : </p>
+                    <p>&nbspประเภทออเดอร์ : ต่อเล่มทะเบียน</p>
+                    <p id='printBillCustomerName'>ชื่อลูกค้า :</p>
+                    <p id='printBillCustomerAddress'>ที่อยู่ :</p>
+                    <p id='printBillCustomerPhone'>เบอร์โทรศัทพ์ :</p>
                 </div>
                 <div class='border-print'>
                     <p>&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -346,19 +386,19 @@
                                 <th class="mixTop">&nbspราคา</th>
                             </tr>
                             <tr>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
-                                <td class="mix"><br /></td>
+                                <td id ='printBillProducCar' style='text-align: center' class="mixUnder" ><br /></td>
+                                <td id ='printBillProducNumber' style='text-align: center' class="mixUnder"><br /></td>
+                                <td id ='printBillProductPrice'style='text-align: center' class="mixUnder"><br /></td>
                             </tr>
                         </table>
                     </center> <br>
                 </div>
                 <div>
-                    <div style="margin-left:75%">
+                    <div style="margin-left:65%">
                         <div>
-                            <p id = 'printBillCostAll'>ราคารวม : </p>
-                            <p id = 'printBillVat'>ภาษี VAT 7 % : </p>
-                            <p id = 'printBillPriceAll'>ราคาสุทธิ : </p>
+                            <p id='printBillCostAll'>ราคารวม : </p>
+                            <p id='printBillVat'>ภาษี VAT 7 % : </p>
+                            <p id='printBillPriceAll'>ราคาสุทธิ : </p>
                         </div>
                     </div>
                 </div>
@@ -389,20 +429,15 @@
                 ต.แสนสุข&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspจ.ชลบุรี 20000
             </p>
             <br>
-            <div id="bor04">
-                <p> &nbspผู้ซื้อ : นาย James Goodman&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    รหัสลูกค้า : 134651631</p>
-                <p">&nbspที่อยู่ : New York
-                    USA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-                    เลขที่ผู้เสียภาษี :
-                    12313547641</p>
-
+            <div id="bor04" class='columns' style="padding:2px">
+                <div class='column is-4'>
+                    <p id='invoice_customerName'>ผู้ซื้อ : นาย James Goodman</p>
+                    <p id='invoice_customerId'>รหัสลูกค้า : 13465163</p>
+                </div>
+                <div class='column is-4'>
+                    <p id='invoice_customerAddress'>ที่อยู่ : New York</p>
+                    <p id='invoice_customerTax'> เลขที่ผู้เสียภาษี : 12313547641</p>
+                </div>
             </div>
             <center>
                 <table id="table02">
@@ -414,73 +449,30 @@
                         <th class="mixTop">&nbspรจำนวนเงิน</th>
                     </tr>
                     <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
+                        <td style='text-align: center'class="mixUnder" id= 'invoice_productLineNumber'><br />1</td>
+                        <td style='text-align: center'class="mixUnder" id= 'invoice_productCarLicense'><br /></td>
+                        <td style='text-align: center'class="mixUnder" id= 'invoice_productNumber' ><br />1</td>
+                        <td style='text-align: center'class="mixUnder" id= 'invoice_productCost'><br /></td>
+                        <td style='text-align: center'class="mixUnder" id= 'invoice_productPrice'><br /></td>
                     </tr>
-                    <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                    </tr>
-                    <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                    </tr>
-                    <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                    </tr>
-                    <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                    </tr>
-                    <tr>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                        <td class="mix"><br /></td>
-                    </tr>
-                    <tr>
-                        <td class="mixUnder"><br /></td>
-                        <td class="mixUnder"><br /></td>
-                        <td class="mixUnder"><br /></td>
-                        <td class="mixUnder"><br /></td>
-                        <td class="mixUnder"><br /></td>
-                    </tr>
-
                 </table>
                 <table class=" width52 is-pulled-right">
                     <tbody>
                         <tr>
                             <td class="half-table">รวมทั้งสิ้น</td>
-                            <td>1234</td>
+                            <td id='invoice_total'>1234</td>
                         </tr>
                         <tr>
                             <td>ส่วนลด</td>
-                            <td>124</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td>ภาษีมูลค่าเพิ่ม</td>
-                            <td>54</td>
+                            <td id = 'invoice_tax'>54</td>
                         </tr>
                         <tr>
                             <td>รวมมูลค่าสินค้า</td>
-                            <td>1200</td>
+                            <td id= 'invoice_totalAll'>1200</td>
                         </tr>
                     </tbody>
                 </table>
@@ -510,7 +502,7 @@
             <br>
             <center><label class="label is-4">รายละเอียดการต่อทะเบียน</label></center>
             <br>
-            <div  style="margin-left:1%">
+            <div style="margin-left:1%">
                 <label id="print_detail_date" class="label is-4">วันที่ 22/3/2562</label>
                 <br>
                 <label lass="label is-4">เลขประจำตัวผู้เสียภาษี : 0123456789123</label>
@@ -529,9 +521,9 @@
         <br>
         <br>
         <div class="columns" style=" border-style:solid ; border-width: 1px;">
-            <div  style="margin-left:1%">
+            <div style="margin-left:1%">
                 <br>
-                <label id="print_detail_customer_name"  class="label is-4">ชื่อลูกค้า : </label>
+                <label id="print_detail_customer_name" class="label is-4">ชื่อลูกค้า : </label>
                 <br>
                 <label id="print_detail_phone" class="label is-4">เบอร์โทรศัทพ์ : </label>
                 <br>
