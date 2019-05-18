@@ -157,7 +157,7 @@ function createselect(data) {
 }
 function runScript(e) {
     if (e.keyCode == 13) {
-        var txt = document.getElementById("input_car_license").value
+        var txt = document.getElementById("search").value
         if (txt === "") {
             removeAlloption();
             createselect(product);
