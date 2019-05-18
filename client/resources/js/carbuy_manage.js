@@ -155,6 +155,32 @@ function createselect(data) {
         select.add(option);
     }
 }
+
+function SeeCarsInStock() {
+    console.log(carimages, product)
+
+    let productNotSold = [];
+    let check = false;
+
+    for (let i = 0; i < carimages.length; i++) {
+        for (let j = 0; j < product.length; j++) {
+            if (carimages[i].cust_id === product[j].cust_id &&
+                carimages[i].prod_id === product[j].prod_id &&
+                product[j].type_desc.status_sell === "ยังไม่ขาย") {
+                check = true;
+                productNotSold.push(product[j])
+            }
+        }
+    }
+    if(check) {
+        removeAlloption()
+        createselect(productNotSold)
+    }
+    else {
+        alert('ไม่มีรถในสต๊อกเหลือแล้ว')
+    }
+}
+
 function runScript(e) {
     if (e.keyCode == 13) {
         var txt = document.getElementById("search").value
