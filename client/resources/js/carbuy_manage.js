@@ -156,9 +156,17 @@ function createselect(data) {
     }
 }
 
-function SeeCarsInStock() {
-    console.log(carimages, product)
+function SeeAllCars() {
+    if (product.length < 1) {
+        alert('ไม่มีรถเหลือแล้ว')
+    }
+    else {
+        removeAlloption()
+        createselect(product)
+    }
+}
 
+function SeeCarsInStock() {
     let productNotSold = [];
     let check = false;
 
@@ -172,7 +180,7 @@ function SeeCarsInStock() {
             }
         }
     }
-    if(check) {
+    if (check) {
         removeAlloption()
         createselect(productNotSold)
     }
